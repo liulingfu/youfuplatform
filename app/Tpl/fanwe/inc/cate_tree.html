@@ -1,0 +1,11 @@
+<div class="inc">
+	<div class="inc_top">{$LANG.GOODS_CATE}</div>
+	<div class="inc_main">
+		<ul class="inner_cate_tree">
+		{foreach from=$cate_tree item=cate_item}
+		<li style="text-indent:{$cate_item.level}em;" {if $cate_id eq $cate_item.id}class="act"{/if}><a href="{$cate_item.url}" title="{$cate_item.name}">{$cate_item.name}({$cate_item.count})</a></li>
+		{/foreach}
+		</ul>
+	</div>
+	<div class="inc_foot"></div>
+</div>

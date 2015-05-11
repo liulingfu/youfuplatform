@@ -1,0 +1,49 @@
+.biz_title_logo{ float:left; background:url(../images/biz/biz_title_logo.png) no-repeat; width:265px; height:50px; margin-top:10px;}
+.biz_login_box{ background:url(../images/biz/biz_login_bg.png) no-repeat; height:430px;}
+.biz_login_form{ background:url(../images/biz/biz_login_form.png) no-repeat; width:285px; height:340px; float:right;
+padding-top:60px; padding-left:30px; padding-right:30px;}
+.biz_login_form .form_row{ height:30px; padding:5px 0px; }
+.biz_login_form .form_row span{ display:inline-block; float:left; width:55px; height:30px; line-height:30px; text-align:center; }
+.biz_login_form .form_row input.form-input{ display:inline-block; float:left; width:200px; height:30px; border:#ccc solid 1px; line-height:30px; padding:0px 10px;}
+.account_login_btn{ background:url(../images/biz/biz_login_btn.png) no-repeat; width:83px; height:35px; cursor:pointer; border:0px;}
+.div_line{ width:270px; border-bottom:#f2f2f2 solid 1px; margin:15px auto; height:1px; font-size:0px; line-height:0px;}
+.account_register_btn{ background:url(../images/biz/biz_login_btn.png) no-repeat 0px -35px; width:255px; height:53px; cursor:pointer; border:0px; display:block; margin:0px auto; }
+.biz_footer{ background:#f2f2f2; height:30px; padding:10px;}
+.biz_info{ border:#ffdabf solid 1px; background:#fff7e9; height:55px; line-height:55px; font-size:18px; font-family:"微软雅黑"; padding:0px 10px; font-weight:bolder;}
+.biz_index_box{ border:#e7e7e7 solid 1px; border-top:0px;}
+
+.nav_icon a{ float:left; margin:25px;}
+.biz_icon_profile{ background:url(../images/biz/biz_icon.png) no-repeat; width:200px; height:130px; display:inline-block;}
+.biz_icon_publish{ background:url(../images/biz/biz_icon.png) no-repeat 0px -130px; width:200px; height:130px; display:inline-block;}
+.biz_icon_youhui{ background:url(../images/biz/biz_icon.png) no-repeat 0px -260px; width:200px; height:130px; display:inline-block;}
+.biz_icon_tuan{ background:url(../images/biz/biz_icon.png) no-repeat 0px -390px; width:200px; height:130px; display:inline-block;}
+.biz_icon_verify{ background:url(../images/biz/biz_icon.png) no-repeat 0px -520px; width:200px; height:130px; display:inline-block;}
+.biz_icon_order{ background:url(../images/biz/biz_icon.png) no-repeat 0px -650px; width:200px; height:130px; display:inline-block;}
+.biz_icon_event{ background:url(../images/biz/biz_icon.png) no-repeat 0px -780px; width:200px; height:130px; display:inline-block;}
+.biz_icon_dp{ background:url(../images/biz/biz_icon.png) no-repeat 0px -910px; width:200px; height:130px; display:inline-block;}
+.biz_icon_balance{ background:url(../images/biz/biz_icon.png) no-repeat 0px -1040px; width:200px; height:130px; display:inline-block;}
+
+.biz-list-table{ width:98%;}
+.biz_pub_btn,.biz_pub_btn:hover{ margin-right:10px; background:url(../images/biz/pub_btn.png) no-repeat; width:190px; height:30px; display:inline-block; line-height:30px; text-align:center; color:#fff; font-weight:bolder; text-decoration:none; border:0px;}
+
+.ke-container{ border:#ccc solid 1px;}
+.none_border table.ke-container {
+  background: none repeat scroll 0 0 #FFFFFF;
+  border: 0 solid #CCCCCC;
+  padding: 0;
+}
+.biz_submit_main{ background:url(../images/biz/biz_join_main.png) no-repeat; width:1140px; height:270px;}
+.biz_submit_desc{ background:url(../images/biz/biz_join_desc.png) no-repeat; width:1140px; height:197px;}
+
+.modify-title{ line-height:40px; height:40px; padding:0 16px 0 8px; font-size:18px;}
+.modify-title a{ font-size:12px; font-size:12px; color:#1166BB}
+.data-table{ border-top:1px solid #EDEDED;border-left:1px solid #EDEDED; width:745px }
+.data-table th{padding:12px; text-align:left; background:#F9F9F9; font-size:12px; font-weight:normal; border-bottom:1px solid #EDEDED;border-right:1px solid #EDEDED}
+.data-table td{ padding:11px; border-bottom:1px solid #EDEDED;border-right:1px solid #EDEDED}
+.data-table .dleft{ width:80px}
+.data-table .gray td{ background:#f9f9f9}
+.data-table td h2{ font-size:14px}
+.no-border td{ padding:0!important; border:0!important}
+
+.red{ font-size:12px;}
+.uc-order table th{ text-align:center;}

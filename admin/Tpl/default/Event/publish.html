@@ -1,0 +1,30 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title">商家提交</div>
+<div class="blank5"></div>
+<div class="button_row">
+	<input type="button" class="button" value="{%FOREVERDEL}" onclick="foreverdel();" />
+</div>
+<div class="blank5"></div>
+
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="deal" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|50px
+		,name|msubstr:名称
+		,cate_id|get_event_cate_name:分类
+		,city_id|get_deal_city_name:城市
+		,supplier_id|get_supplier_name:商家
+		,user_id|get_submit_user:发布人" 
+	actionlist="edit:{%EDIT},foreverdel:{%FOREVERDEL}" /> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

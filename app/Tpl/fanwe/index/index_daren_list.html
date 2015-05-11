@@ -1,0 +1,13 @@
+{if $rnd_daren_list}
+<div class="index_right_box">
+	<div class="box_top">推荐达人</div>
+	<div class="box_main daren-list clearfix">
+		{foreach from=$rnd_daren_list key=key item=daren}
+		{if $key < 12}
+		{function name="show_avatar" uid="$daren.id"  type="middle"}
+		{/if}
+		{/foreach}
+	</div>
+</div>
+<div class="blank"></div>
+{/if}

@@ -1,0 +1,12 @@
+<div class="inc">
+	<div class="inc_main cf">
+		<ul class="relate_help">
+			{foreach from=$deal_help item=cate}
+			<li class="inc_top">{$cate.title}</li>
+			{foreach from=$cate.help_list item=item}
+			<li {if $item.id eq $article.id}class="act"{/if}><a href="{$item.url}" {if $item.new eq 1}target="_blank"{/if}>{$item.title}</a></li>
+			{/foreach}
+			{/foreach}
+		</ul>
+	</div>	
+</div>

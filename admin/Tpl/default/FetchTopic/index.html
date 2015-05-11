@@ -1,0 +1,63 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<php>
+	function get_item_effect($effect)
+	{
+		return l("IS_EFFECT_".intval($effect));
+	}
+	function get_item_install($install)
+	{
+		return l("IS_INSTALL_".$install);
+	}
+</php>
+<script type="text/javascript">
+	function uninstall(id)
+	{
+		if(confirm("{%CONFIRM_DELETE}"))
+		{
+			location.href = ROOT + "?m=FetchTopic&a=uninstall&id="+id;
+		}
+	}
+</script>
+<div class="main">
+<div class="main_title">{$main_title}</div>
+<div class="blank5"></div>
+
+<table cellspacing="0" cellpadding="0" class="dataTable" id="dataTable">
+	<tbody>
+		<tr>
+			<td class="topTd" colspan="7">&nbsp; </td>
+			</tr>
+			<tr class="row">
+				<th>{%NAME}</th>
+				<th>前台名称</th>
+				<th>{%IS_EFFECT}</th>
+				<th>{%IS_INSTALL}</th>
+				<th>{%SORT}</th>
+				<th>{%TAG_LANG_OPERATE}</th>
+				</tr>
+				<foreach name="fetch_topic_list" item="fetch_item">
+				<tr class="row">
+					<td>{$fetch_item.name}</td>
+					<td>{$fetch_item.show_name}</td>
+					<td>{$fetch_item.is_effect|get_item_effect}</td>
+					<td>{$fetch_item.installed|get_item_install}</td>
+					<td>{$fetch_item.sort}</td>
+					<td>
+						<if condition="$fetch_item['installed'] eq 0">
+						<a href="{:u("FetchTopic/install",array("class_name"=>$fetch_item['class_name']))}">{%INSTALL}</a>
+						<else />
+						<a href="{:u("FetchTopic/edit",array("id"=>$fetch_item['id']))}">{%EDIT}</a>
+						<a href="javascript:uninstall({$fetch_item.id});" >{%UNINSTALL}</a>
+						</if>
+					</td>
+				</tr>
+				</foreach>
+				<tr><td class="bottomTd" colspan="7"> &nbsp;</td></tr>
+			</tbody>
+		</table>
+
+
+</div>
+<include file="Public:footer" />

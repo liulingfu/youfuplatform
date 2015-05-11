@@ -1,0 +1,33 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<php>
+function getStatusName($status)
+{
+	return L('APNS_LOGS_SEND_STATUS_'.strtoupper($status));
+}
+function get_device_sn($id)
+{
+
+	$data = M("ApnsDevices")->where("pid=".$id)->find();
+	return "应用:".$data['appname']." ".$data['appversion']." 设备名:".$data['devicename']." 设备类型:".$data['devicemodel']." 设备版本:".$data['deviceversion'];
+}
+</php>
+
+<div class="main">
+<div class="main_title">{%APNS_LOGS}</div>
+
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="msg" 
+	checkbox="true" 
+	datasource="list" 
+	show="pid:{%ID}|50px,clientid|get_user_name:{%USER_NAME},fk_device|get_device_sn:{%DEVICE_SN},status|getStatusName:{%SEND_STATUS},created|to_date:{%SEND_TIME}" 
+	/> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

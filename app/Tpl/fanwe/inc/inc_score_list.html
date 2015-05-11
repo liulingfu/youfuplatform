@@ -1,0 +1,23 @@
+{if $list}
+<div class="inc">
+	<div class="inc_top">{$page_title}</div>
+	<div class="inc_main cf">
+		{foreach from=$list item=item}
+		<div class="goods_item">
+			<a href="{$item.url}" title="{$item.name}" class="goods_img_box"><img src="{function name="get_spec_image" v=$item.icon w=160 h=160 g=1}"  class="lazy" width=160 height=160 alt="{$item.name}"/></a>
+			<div class="blank5"></div>
+			<div class="tc">
+				<span class="s_price">{$LANG.SCORE}：<?PHP echo format_score(abs($this->_var['item']['return_score']));?></span>
+			</div>
+			<a href="{$item.url}" class="goods_item_title" title="{$item.name}">{function name="msubstr" v=$item.name b=0 e=15}</a>
+			<div class="blank5"></div>
+			
+		</div>
+		{/foreach}
+		<div class="blank"></div>
+	</div>
+	<div class="inc_foot"></div>
+</div>
+{else}
+{$page_title}{$LANG.NO_GOODS}
+{/if}

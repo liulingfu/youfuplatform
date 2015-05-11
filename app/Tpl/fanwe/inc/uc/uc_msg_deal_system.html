@@ -1,0 +1,18 @@
+<div class="inc">
+	<div class="inc_top">{$page_title}</div>
+	<div class="inc_main">
+		<div class="pm_form">
+			<div class="blank"></div>
+			<div class="pm_title tc pd10">
+				{$LANG.SYSTEM_PM}:{$pm.title} &nbsp;&nbsp;<span class="date" style="color:#999; font-size:12px;">{function name="to_date" v=$pm.create_time}</span>	
+			</div>
+			<div class="blank"></div>
+			<div style="padding:20px 50px; line-height:25px;">			
+				{function name="nl2br" v=$pm.content}
+			</div>			
+		</div>
+		<div class="blank"></div>
+	</div>
+	<div class="inc_foot"></div>
+</div>
+

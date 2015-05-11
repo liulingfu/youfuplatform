@@ -1,0 +1,83 @@
+{// 引入标签库 }
+<div class="main">
+
+<table class="form conf_tab" cellpadding=0 cellspacing=0 rel="3">
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title" style="width:200px;">{%DEAL_NAME}:</td>
+		<td class="item_input">
+		<span title="{$deal_info.name}">{$deal_info.name|msubstr=0,20}</span>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%REAL_BUY_COUNT}:</td>
+		<td class="item_input">
+			{$real_buy_count}
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%REAL_USER_COUNT}:</td>
+		<td class="item_input">
+			{$real_user_count}
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%DEAL_BUY_COUNT_SHOW}:</td>
+		<td class="item_input">
+			{$deal_info.buy_count}
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%VALID_COUPON_COUNT}:</td>
+		<td class="item_input">
+			{$real_coupon_count}
+		</td>
+	</tr>
+	<tr>
+		<th colspan=2>
+		{%DEAL_COUNT_TIP}
+		</th>
+	</tr>
+	<tr>
+		<td class="item_title">{%DEAL_TOTAL_PAY_TOTAL}:</td>
+		<td class="item_input">
+			{$pay_total|format_price}
+		</td>
+	</tr>
+	<foreach name="payment_list" item="payment_item">
+	<if condition="$payment_item['pay_total'] gt 0">
+	<tr>
+		<td class="item_title">{$payment_item.name}:</td>
+		<td class="item_input">
+			{$payment_item.pay_total|format_price}
+		</td>
+	</tr>
+	</if>
+	</foreach>
+	<tr>
+		<td class="item_title">{%ORDER_REAL_PAY}:</td>
+		<td class="item_input">
+			{$order_total|format_price}
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%EXTRA_COUNT}:</td>
+		<td class="item_input">
+			{$extra_count}
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%AFTERSALE_COUNT}:</td>
+		<td class="item_input">
+			{$aftersale_count} {%REFUND_MONEY}：{$refund_money|format_price}
+		</td>
+	</tr>
+
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>
+
+</div>

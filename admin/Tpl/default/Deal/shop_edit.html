@@ -1,0 +1,523 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/conf.js' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<script type="text/javascript">
+	var attr_cfg_json = {$attr_cfg_json};
+	var attr_stock_json = {$attr_stock_json};
+</script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<load href='__TMPL__Common/js/deal.js' />
+<load href='__TMPL__Common/js/deal_brand.js' />
+<script type="text/javascript">
+	
+	window.onload = function()
+	{
+		init_dealform();
+	}
+</script>
+<div class="main">
+<div class="main_title">{$vo.name}{%EDIT}  <a href="{:u("Deal/shop")}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<div class="button_row">
+	<input type="button" class="button conf_btn" rel="1" value="{%SHOP_BASE_INFO}" />&nbsp;
+	<input type="button" class="button conf_btn" rel="2" value="{%PRICE_AND_QTY}" />&nbsp;
+	<input type="button" class="button conf_btn" rel="3" value="{%ATTR_SETTING}" />&nbsp;	
+	<input type="button" class="button conf_btn" rel="4" value="{%SEO_CONFIG}" />&nbsp;	
+</div>
+<div class="blank5"></div>
+<table class="form conf_tab" cellpadding=0 cellspacing=0 rel="1">
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%GOODS_NAME}:</td>
+		<td class="item_input"><input type="text" class="textbox require" name="name" style="width:500px;" value="{$vo.name}" /></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%DEAL_SUB_NAME}:</td>
+		<td class="item_input"><input type="text" class="textbox require" name="sub_name"  value="{$vo.sub_name}"/> <span class='tip_span'>{%GOODS_SUB_NAME_TIP}</span></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%URL_UNAME}:</td>
+		<td class="item_input"><input type="text" class="textbox word-only" name="uname" value="{$vo.uname}" /> </td>
+	</tr>
+	<tr>
+		<td class="item_title">{%GOODS_BRIEF}:</td>
+		<td class="item_input"><textarea class="textarea" name="brief" >{$vo.brief}</textarea></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%DEAL_BUY_TYPE}:</td>
+		<td class="item_input">
+			<select name="buy_type">
+				<option value="0" <if condition="$vo['buy_type'] eq 0">selected="selected"</if>>{%SHOP_BUY_TYPE_0}</option>
+				<option value="1" <if condition="$vo['buy_type'] eq 1">selected="selected"</if>>{%SHOP_BUY_TYPE_1}</option>
+			</select>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">{%SUPPLIER_NAME}:</td>
+		<td class="item_input">
+			<span id="supplier_list">
+			<select name="supplier_id">
+				<option value="0">{%EMPTY_SELECT_SUPPLIER}</option>
+				<if condition="$supplier_info">
+					<option value="{$supplier_info.id}" selected="selected">{$supplier_info.name}</option>
+				</if>
+			</select>
+			</span>
+			<input type="text" class="textbox" name="supplier_key" /> 
+			<input type="button" name="supplier_key_btn" class="button" value="{%SEARCH}" />
+		</td>
+	</tr>
+	<tr id="supplier_location">
+		<td class="item_title">{%SUPPLIER_LOCATION}:</td>
+		<td class="item_input">
+			
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%BRAND_NAME}:</td>
+		<td class="item_input">
+		<select name="brand_id">
+			<option value="0">=={%EMPTY_SELECT}==</option>
+			<foreach name="brand_list" item="brand_item">
+				<option value="{$brand_item.id}" <if condition="$vo['brand_id'] eq $brand_item['id']">selected="selected"</if> >{$brand_item.name}</option>
+			</foreach>
+		</select>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%CATE_TREE}:</td>
+		<td class="item_input">		
+		<select name="shop_cate_id" class="require">
+			<option value="0" <if condition="$vo['shop_cate_id'] eq 0">selected="selected"</if>>=={%NO_SELECT_CATE}==</option>
+			<foreach name="shop_cate_tree" item="cate_item">
+				<option value="{$cate_item.id}" <if condition="$vo['shop_cate_id'] eq $cate_item['id']">selected="selected"</if>>{$cate_item.title_show}</option>
+			</foreach>
+		</select>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">{%SHOP_CITY}:</td>
+		<td class="item_input">
+		<select name="city_id" class="require">
+			<option value="0" <if condition="$vo['city_id'] eq 0">selected="selected"</if>>=={%NO_SELECT_CITY}==</option>
+			<foreach name="city_list" item="city_item">
+				<option value="{$city_item.id}" <if condition="$vo['city_id'] eq $city_item['id']">selected="selected"</if>>{$city_item.title_show}</option>
+			</foreach>
+		</select>
+		</td>
+	</tr>
+		
+	<tr>
+		<td class="item_title">{%GOODS_ICON}:</td>
+		<td class="item_input">
+			<html:imgUpload name = 'icon' id='icon' value='$vo.icon' />
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%GOODS_GALLERY}:</td>
+		<td class="item_input">
+			<html:imgUpload name = 'img[]' id='img0' value='$img_list.0'/>
+			<html:imgUpload name = 'img[]' id='img1' value='$img_list.1'/>
+			<html:imgUpload name = 'img[]' id='img2' value='$img_list.2' />
+			<html:imgUpload name = 'img[]' id='img3' value='$img_list.3' />
+			<div class="blank5"></div>
+			<html:imgUpload name = 'img[]' id='img4' value='$img_list.4' />
+			<html:imgUpload name = 'img[]' id='img5' value='$img_list.5' />
+			<html:imgUpload name = 'img[]' id='img6' value='$img_list.6' />
+			<html:imgUpload name = 'img[]' id='img7' value='$img_list.7' />
+		</td>
+	</tr>
+
+	<tr>
+		<td class="item_title">{%SORT}:</td>
+		<td class="item_input"><input type="text" class="textbox" name="sort" value="{$vo.sort}" /></td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">{%IS_EFFECT}:</td>
+		<td class="item_input">
+			<lable>{%IS_EFFECT_1}<input type="radio" name="is_effect" value="1" <if condition="$vo['is_effect'] eq 1">checked="checked"</if> /></lable>
+			<lable>{%IS_EFFECT_0}<input type="radio" name="is_effect" value="0" <if condition="$vo['is_effect'] eq 0">checked="checked"</if> /></lable>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%GOODS_DESCRIPTION}:</td>
+		<td class="item_input">
+			 <html:editor id="description" name="description" type="KINDEDITOR" content="{$vo.description}" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>
+
+
+<table class="form conf_tab" cellpadding=0 cellspacing=0 rel="2">
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%BRAND_PROMOTE}:</td>
+		<td class="item_input">
+			<select name="brand_promote">
+				<option value="0" <if condition="$vo['brand_promote'] eq 0">selected="selected"</if>>{%NO}</option>
+				<option value="1" <if condition="$vo['brand_promote'] eq 1">selected="selected"</if>>{%YES}</option>
+			</select>
+		</td>
+	</tr>
+	<tr class="brand_promote">
+		<td class="item_title">{%BEGIN_TIME}:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="begin_time" id="begin_time" value="{$vo.begin_time}" onfocus="this.blur(); return showCalendar('begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_begin_time');" />
+			<input type="button" class="button" id="btn_begin_time" value="{%SELECT_TIME}" onclick="return showCalendar('begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_begin_time');" />	
+			<input type="button" class="button" value="{%CLEAR_TIME}" onclick="$('#begin_time').val('');" />	
+
+		</td>
+	</tr>
+	<tr class="brand_promote">
+		<td class="item_title">{%END_TIME}:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="end_time" id="end_time" value="{$vo.end_time}" onfocus="this.blur(); return showCalendar('end_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_end_time');" />
+			<input type="button" class="button" id="btn_end_time" value="{%SELECT_TIME}" onclick="return showCalendar('end_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_end_time');" />	
+			<input type="button" class="button" value="{%CLEAR_TIME}" onclick="$('#end_time').val('');" />
+		</td>
+	</tr>
+	<tr class="max_bought_row">
+		<td class="item_title">{%STOCK_NUM}:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="max_bought" value="{$vo.max_bought}" />
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%DEAL_USER_MIN_BOUGHT}:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="user_min_bought" value="{$vo.user_min_bought}" />			
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%DEAL_USER_MAX_BOUGHT}:</td>
+		<td class="item_input"><input type="text" class="textbox" name="user_max_bought" value="{$vo.user_max_bought}" /></td>
+	</tr>
+	<tr class="buy_type_0">
+		<td class="item_title">{%DEAL_ORIGIN_PRICE}:</td>
+		<td class="item_input"><input type="text" class="textbox" name="origin_price" value="{$vo.origin_price}" /></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%DEAL_BALANCE_PRICE}:</td>
+		<td class="item_input"><input type="text" class="textbox" name="balance_price" value="{$vo.balance_price}" /></td>
+	</tr>
+	<tr class="buy_type_0">
+		<td class="item_title">{%GOODS_CURRENT_PRICE}:</td>
+		<td class="item_input"><input type="text" class="textbox" name="current_price" value="{$vo.current_price}" /></td>
+	</tr>
+	<tr class="buy_type_0">
+		<td class="item_title">{%DEAL_RETURN_MONEY}:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="return_money" value="{$vo.return_money}" />
+			<span class='tip_span'>[{%DEAL_RETURN_MONEY_TIP}]</span>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%DEAL_RETURN_SCORE}:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="return_score" value="{$vo.return_score}" />
+			<span class='tip_span'>[{%DEAL_RETURN_SCORE_TIP}]</span>
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>
+
+<table class="form conf_tab" cellpadding=0 cellspacing=0 rel="3">
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%DEAL_IS_REFUND}:</td>
+		<td class="item_input">
+			<select name="is_refund">
+				<option value="0" <if condition="$vo['is_refund'] eq 0">selected="selected"</if>>{%IS_REFUND_0}</option>
+				<option value="1" <if condition="$vo['is_refund'] eq 1">selected="selected"</if>>{%IS_REFUND_1}</option>
+			</select>
+		</td>
+	</tr>
+	<tr class="buy_type_0">
+		<td class="item_title">{%IS_HOT}:</td>
+		<td class="item_input">
+			<select name="is_hot">
+				<option value="0" <if condition="$vo['is_hot'] eq 0">selected="selected"</if>>{%IS_HOT_0}</option>
+				<option value="1" <if condition="$vo['is_hot'] eq 1">selected="selected"</if>>{%IS_HOT_1}</option>
+			</select>
+		</td>
+	</tr>
+	<tr class="buy_type_0">
+		<td class="item_title">{%IS_BEST}:</td>
+		<td class="item_input">
+			<select name="is_best">
+				<option value="0" <if condition="$vo['is_best'] eq 0">selected="selected"</if>>{%IS_BEST_0}</option>
+				<option value="1" <if condition="$vo['is_best'] eq 1">selected="selected"</if>>{%IS_BEST_1}</option>
+			</select>
+		</td>
+	</tr>
+	<tr class="buy_type_0">
+		<td class="item_title">{%IS_NEW}:</td>
+		<td class="item_input">
+			<select name="is_new">
+				<option value="0" <if condition="$vo['is_new'] eq 0">selected="selected"</if>>{%IS_NEW_0}</option>
+				<option value="1" <if condition="$vo['is_new'] eq 1">selected="selected"</if>>{%IS_NEW_1}</option>
+			</select>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">{%DEAL_IS_COUPON}:</td>
+		<td class="item_input">
+			<select name="is_coupon">
+				<option value="0" <if condition="$vo['is_coupon'] eq 0">selected="selected"</if>>{%IS_COUPON_0}</option>
+				<option value="1" <if condition="$vo['is_coupon'] eq 1">selected="selected"</if>>{%IS_COUPON_1}</option>
+			</select>
+			<span id="coupon_refund">
+			&nbsp;&nbsp;
+			<label>随时退：<input type="checkbox" name="any_refund" value="1"  <if condition="$vo['any_refund'] eq 1">checked="checked"</if> /></label>  &nbsp;&nbsp;<label>过期退：<input type="checkbox" name="expire_refund" value="1" <if condition="$vo['expire_refund'] eq 1">checked="checked"</if> /></label>
+			</span>
+		</td>
+	</tr>
+	
+	<tr class="coupon_time">
+		<td class="item_title">{%DEAL_COUNT_TYPE}:</td>
+		<td class="item_input">
+			<select name="deal_type">
+				<option value="0" <if condition="$vo['deal_type'] eq 0">selected="selected"</if>>{%COUNT_TYPE_0}</option>
+				<option value="1" <if condition="$vo['deal_type'] eq 1">selected="selected"</if>>{%COUNT_TYPE_1}</option>
+			</select>
+		</td>
+	</tr>
+	<tr class="coupon_time">
+		<td class="item_title">{%DEAL_COUPON_BEGIN_TIME}:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="coupon_begin_time" id="coupon_begin_time" value="{$vo.coupon_begin_time}" onfocus="this.blur(); return showCalendar('coupon_begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_coupon_begin_time');" />
+			<input type="button" class="button" id="btn_coupon_begin_time" value="{%SELECT_TIME}" onclick="return showCalendar('coupon_begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_coupon_begin_time');" />	
+			<input type="button" class="button" value="{%CLEAR_TIME}" onclick="$('#coupon_begin_time').val('');" />
+			<span class='tip_span'>[{%DEAL_COUPON_BEGIN_TIME_TIP}]</span>
+		</td>
+	</tr>
+	<tr class="coupon_time">
+		<td class="item_title">{%DEAL_COUPON_END_TIME}:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="coupon_end_time" id="coupon_end_time" value="{$vo.coupon_end_time}" onfocus="this.blur(); return showCalendar('coupon_end_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_coupon_end_time');" />
+			<input type="button" class="button" id="btn_coupon_end_time" value="{%SELECT_TIME}" onclick="return showCalendar('coupon_end_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_coupon_end_time');" />	
+			<input type="button" class="button" value="{%CLEAR_TIME}" onclick="$('#coupon_end_time').val('');" />
+			<span class='tip_span'>[{%DEAL_COUPON_END_TIME_TIP}]</span>
+		</td>
+	</tr>
+	<tr class="coupon_time">
+		<td class="item_title">{%FORBID_SMS}:</td>
+		<td class="item_input">
+			<select name="forbid_sms">
+				<option value="0" <if condition="$vo['forbid_sms'] eq 0">selected="selected"</if>>{%NO}</option>
+				<option value="1" <if condition="$vo['forbid_sms'] eq 1">selected="selected"</if>>{%YES}</option>								
+			</select>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">{%DEAL_IS_DELIVERY}:</td>
+		<td class="item_input">
+			<select name="is_delivery">
+				<option value="0" <if condition="$vo['is_delivery'] eq 0">selected="selected"</if>>{%IS_DELIVERY_0}</option>
+				<option value="1" <if condition="$vo['is_delivery'] eq 1">selected="selected"</if>>{%IS_DELIVERY_1}</option>
+			</select>
+			<span class='tip_span'>[{%DEAL_IS_DELIVERY_TIP}]</span>
+		</td>
+	</tr>
+	<tr class="weight_row">
+		<td class="item_title">{%DEAL_WEIGHT}:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="weight" value="{$vo.weight}" />
+			<select name="weight_id">
+				<foreach name="weight_list" item="weight_item">
+					<option value="{$weight_item.id}" <if condition="$weight_item['id'] eq $vo['weight_id']">selected="selected"</if>>{$weight_item.name}</option>
+				</foreach>				
+			</select>
+		</td>
+	</tr>	
+	
+	<tr class="weight_row">
+		<td class="item_title">{%OPEN_DELIVERY_FREE}:</td>
+		<td class="item_input">
+			<select name="free_delivery">
+				<option value="0" <if condition="$vo['free_delivery'] eq 0">selected="selected"</if>>{%NO}</option>
+				<option value="1" <if condition="$vo['free_delivery'] eq 1">selected="selected"</if>>{%YES}</option>			
+			</select>
+		</td>
+	</tr>	
+	
+	<tr class="free_delivery">
+		<td class="item_title">{%DELIVERY_FREE_CONF}:</td>
+		<td class="item_input">
+			<table class="no_border">
+			<foreach name="delivery_list" item="delivery_item">
+			<tr>
+				<td>{$delivery_item.name}: </td><td>{%ONE_BUY} <input type="text" class="textbox" name="free_count[]" value="{$delivery_item.free_count}" style="width:50px;" /> {%ONE_BUY_2}  <input type="hidden" value="{$delivery_item.id}" name="delivery_id[]" /></td>
+			</tr>
+			</foreach>
+			</table>
+		</td>
+	</tr>
+		<tr class="weight_row">
+		<td class="item_title">{%FORBID_DELIVERY}:</td>
+		<td class="item_input">
+			<foreach name="delivery_list" item="delivery_item">
+				<div>
+				<label><input type="checkbox" name="forbid_delivery_id[]" value="{$delivery_item.id}" <if condition="$delivery_item['checked']">checked="checked"</if> /> {$delivery_item.name}</label>
+				</div>
+			</foreach>			
+		</td>
+	</tr>
+	<tr class="buy_type_0">
+		<td class="item_title">{%DEAL_DEFINE_PAYMENT}:</td>
+		<td class="item_input">
+			<select name="define_payment">
+				<option value="0" <if condition="$vo['define_payment'] eq 0">selected="selected"</if>>{%DEAL_DEFINE_PAYMENT_0}</option>
+				<option value="1" <if condition="$vo['define_payment'] eq 1">selected="selected"</if>>{%DEAL_DEFINE_PAYMENT_1}</option>
+			</select>
+			<span class='tip_span'>[{%DEAL_DEFINE_PAYMENT_TIP}]</span>
+		</td>
+	</tr>
+	
+	<tr class="define_payment buy_type_0">
+		<td class="item_title">{%DEAL_DEFINE_PAYMENT_LIST}:</td>
+		<td class="item_input">
+			<foreach name="payment_list" item="payment_item">
+				<div>
+				<label><input type="checkbox" name="payment_id[]" value="{$payment_item.id}" <if condition="$payment_item['checked']">checked="checked"</if> /> {$payment_item.name}</label>
+				</div>
+			</foreach>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">{%DEAL_ALLOW_PROMOTE}:</td>
+		<td class="item_input">
+			<select name="allow_promote">
+				<option value="0" <if condition="$vo['allow_promote'] eq 0">selected="selected"</if>>{%ALLOW_PROMOTE_0}</option>
+				<option value="1" <if condition="$vo['allow_promote'] eq 1">selected="selected"</if>>{%ALLOW_PROMOTE_1}</option>
+			</select>
+			<span class='tip_span'>[{%DEAL_ALLOW_PROMOTE_TIP}]</span>
+		</td>
+	</tr>
+	<tr class="buy_type_0">
+		<td class="item_title">{%DEAL_ALLOW_REFERRAL}:</td>
+		<td class="item_input">
+			<select name="is_referral">
+				<option value="0" <if condition="$vo['is_referral'] eq 0">selected="selected"</if>>{%ALLOW_REFERRAL_0}</option>
+				<option value="1" <if condition="$vo['is_referral'] eq 1">selected="selected"</if>>{%ALLOW_REFERRAL_1}</option>
+			</select>
+			<span class='tip_span'>[{%DEAL_ALLOW_REFERRAL_TIP}]</span>
+		</td>
+	</tr>
+	
+		<tr>
+		<td class="item_title">{%DEAL_CART_TYPE}:</td>
+		<td class="item_input">
+			<select name="cart_type">
+				<option value="0" <if condition="$vo['cart_type'] eq 0">selected="selected"</if>>{%DEAL_CART_TYPE_0}</option>
+				<option value="1" <if condition="$vo['cart_type'] eq 1">selected="selected"</if>>{%DEAL_CART_TYPE_1}</option>
+				<option value="2" <if condition="$vo['cart_type'] eq 2">selected="selected"</if>>{%DEAL_CART_TYPE_2}</option>
+				<option value="3" <if condition="$vo['cart_type'] eq 3">selected="selected"</if>>{%DEAL_CART_TYPE_3}</option>
+			</select>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">{%DEAL_ALLOW_LOTTERY}:</td>
+		<td class="item_input">
+			<select name="is_lottery">
+				<option value="0" <if condition="$vo['is_lottery'] eq 0">selected="selected"</if>>{%LOTTERY_0}</option>
+				<option value="1" <if condition="$vo['is_lottery'] eq 1">selected="selected"</if>>{%LOTTERY_1}</option>
+			</select>
+		</td>
+	</tr>
+	<tr id="filter_row"  class="buy_type_0">
+		<td class="item_title">{%FILTER_GROUP}:</td>
+		<td class="item_input">
+			<div id="filter"></div>
+		</td>
+	</tr>
+	<tr class="buy_type_0">
+		<td class="item_title">{%GOODS_TYPE}:</td>
+		<td class="item_input">
+			<select name="deal_goods_type">
+			<option value="0" <if condition="$vo['deal_goods_type'] eq 0">selected="selected"</if>>=={%NO_SELECT_GOODS_TYPE}==</option>
+			<foreach name="goods_type_list" item="goods_type_item">
+				<option value="{$goods_type_item.id}" <if condition="$vo['deal_goods_type'] eq $goods_type_item['id']">selected="selected"</if>>{$goods_type_item.name}</option>
+			</foreach>
+			</select>
+		</td>
+	</tr>
+	<tr id="deal_attr_row">
+		<td class="item_title">{%GOODS_ATTR}:</td>
+		<td class="item_input">
+			<div id="deal_attr"></div>
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>
+
+
+<table class="form conf_tab" cellpadding=0 cellspacing=0 rel="4">
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%GOODS_SEO_TITLE}:</td>
+		<td class="item_input"><textarea class="textarea" name="seo_title" >{$vo.seo_title}</textarea></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%GOODS_SEO_KEYWORD}:</td>
+		<td class="item_input"><textarea class="textarea" name="seo_keyword" >{$vo.seo_keyword}</textarea></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%GOODS_SEO_DESCRIPTION}:</td>
+		<td class="item_input"><textarea class="textarea" name="seo_description" >{$vo.seo_description}</textarea></td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>
+
+<div class="blank5"></div>
+	<table class="form" cellpadding=0 cellspacing=0>
+		<tr>
+			<td colspan=2 class="topTd"></td>
+		</tr>
+		<tr>
+			<td class="item_title"></td>
+			<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="id" value="{$vo.id}" />
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="Deal" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="shop_update" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%EDIT}" />
+			<input type="reset" class="button" value="{%RESET}" />
+			</td>
+		</tr>
+		<tr>
+			<td colspan=2 class="bottomTd"></td>
+		</tr>
+	</table> 	 
+</form>
+</div>
+<include file="Public:footer" />

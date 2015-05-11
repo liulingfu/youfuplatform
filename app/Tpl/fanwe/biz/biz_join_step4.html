@@ -1,0 +1,27 @@
+{include file="biz/biz_header.html"} 
+<link rel="stylesheet" type="text/css" href="{$TMPL}/css/biz_join.css" />
+<div class="blank"></div>
+<div class="wrap">
+{include file="biz/biz_step_nav.html"}
+<div class="blank"></div>
+
+<div class="tc pd10" style="line-height:35px; font-size:14px;">
+		{if count($error_messages) gt 0}
+		 错误：<br />
+		{foreach from=$error_messages item=msg}
+		{$msg}<br />
+		{/foreach}
+		<input class="biz_pub_btn" type="button" value="上一步" onclick="history.go(-1);" />
+		{else}
+		提交成功，请等待管理员审核
+		<br />
+		<input class="biz_pub_btn" type="button" value="确定" onclick="location.href='{$APP_ROOT}/'" />
+		{/if}
+
+							
+</div>
+									
+
+</div>
+<div class="blank"></div>
+{include file="biz/biz_footer.html"} 

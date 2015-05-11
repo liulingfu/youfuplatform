@@ -1,0 +1,236 @@
+{if $rel_table neq 'seller'}
+<div class="cf" id="content" style="margin-left:0px;">				
+				<div class="box cf">
+					<div class="box-top"></div>
+					<div class="box-content"  id="uc">
+						<div class="head">
+							<h2>{$post_title}</h2>	
+							
+							{if $deal}
+							<ul class="filter">
+								<li {if $is_buy neq 1}class="current"{/if}><a href="{url x="tuan" r="message#deal" p="id=$rel_id&is_buy=0"}">{$LANG.BEFORE_BUY}</a></li>
+								<li {if $is_buy eq 1}class="current"{/if}><a href="{url x="tuan" r="message#deal" p="id=$rel_id&is_buy=1"}">{$LANG.AFTER_BUY}</a></li>
+							</ul>	
+							{/if}				
+						</div>
+						<div class="sect consult-list">
+							{function name="load_message_list"}
+						</div>
+					</div>
+					<div class="box-bottom"></div>
+				</div>
+</div>
+<div class="blank"></div>
+{/if}
+<div class="box cf">
+						<div class="box-top"></div>
+						<div class="box-content">
+							<form method="post" id="consult-add-form" action="{url x="tuan" r="message#add"}" name="message">
+								<input type="hidden" value="1" name="ajax" />
+							<div name="consult-form-head" id="consult-form-head" class="head" {if $rel_table eq 'seller'}style="border:0"{/if}>
+								{if $rel_table eq 'seller'}
+								<div><img src="{$TMPL}/images/tuan/tgHD.jpg" /></div>
+								{else}<h2>{$post_title}</h2>{/if}
+								{if $message_group}
+								<span>
+									{foreach from=$message_group item=type key=key}
+										<label>{$type}:<input type="radio" name="message_group" value="{$type}" {if $key eq 0}checked="checked"{/if} /></label>
+									{/foreach}
+								</span>
+								{/if}
+								
+								{if $deal}
+								{if $is_buy eq 1}
+									<input type="hidden" name="is_buy" value="1" />
+									<label><input type="radio" name="point" value="5" checked="checked" /><span class="comment_5">{$LANG.COMMENT5}</span></label>
+									<label><input type="radio" name="point" value="3" /><span class="comment_3">{$LANG.COMMENT3}</span></label>
+									<label><input type="radio" name="point" value="1" /><span class="comment_1">{$LANG.COMMENT1}</span></label>
+									<br />
+									<span>{$LANG.BUY_COMMENT_TIP}</span>
+								{/if}
+								{/if}
+							</div>
+							<div class="sect consult-form">
+								{if $rel_table eq 'seller'}
+									{if $user_info}
+									<script type="text/javascript">
+										$(document).ready(function(){
+											$("#consult-add-form").find(".formbutton").bind("click",function(){
+												var msg = $.trim(($("#consult-add-form").find("textarea[name='content']").val()));
+												if(msg == '')
+												{
+													$.showErr("{$LANG.MESSAGE_CONTENT_EMPTY}");
+													return false;
+												}
+												var title = $.trim(($("#consult-add-form").find("input[name='title']").val()));
+												if(title == '')
+												{
+													$.showErr("{$LANG.SUPPLIER_NAME_EMPTY}");
+													$("#consult-add-form").find("input[name='title']").focus();
+													return false;
+												}
+												var contact_name = $.trim(($("#consult-add-form").find("input[name='contact_name']").val()));
+												if(contact_name == '')
+												{
+													$.showErr("{$LANG.CONTACT_NAME_EMPTY}");
+													$("#consult-add-form").find("input[name='contact_name']").focus();
+													return false;
+												}
+												var contact = $.trim(($("#consult-add-form").find("input[name='contact']").val()));
+												if(contact == '')
+												{
+													$.showErr("{$LANG.CONTACT_EMPTY}");
+													$("#consult-add-form").find("input[name='contact']").focus();
+													return false;
+												}
+																								
+											});
+										});
+									</script>
+									{/if}
+									<div style="font-size:12px">如果您不是商家，那您点错了哦，请 <a href="{url x="tuan"}">返回首页</a> 以继续查看您需要的信息</div>
+									<div style="font-size:12px">如果您是商家，还拥有优秀的产品，并希望为{function name="app_conf" val="SHOP_TITLE"}提供产品支持，请您查看一下信息：</div>
+									<div class="blank"></div>
+									<div class="art_msg_1">
+										<h3>供货合作流程</h3>
+										<p>
+										电邮我们->确定合作意向->提供样品->质量审核->签订合作协议
+										</p>
+									</div>
+									<div  class="art_msg_2">
+										<h3>
+										合作资质要求
+										</h3>
+										<p>
+										1.对{function name="app_conf" val="SHOP_TITLE"}经验模式的深入了解<br>
+										2.具有较强的市场运营能力，可以和我们一起共同针对市场需求开发新产品。<br>
+										3.保证所提供商品品质优良，有独立完成商品售后服务能力。<br>
+										</p>
+									</div>
+									<div class="art_msg_3">
+										<h3>我们的优势与支持</h3>
+										<p>
+										1.您将拥有一个零成本零风险的高速营销平台。
+										2.您将拥有一个准确面向针对人群的网上消费市场渠道。
+										3.您将收获强大的广告宣传效果及优质的产品推广服务。
+										</p>
+									</div>
+									<div class="art_msg_4">
+									<h3>提供商家信息</h3>
+									</div>
+									<div class="blank"></div>
+									{if $user_info}
+									<div class="field">
+									<label>{$LANG.SUPPLIER_NAME}</label>
+									<input type="text" tabindex="1" size="30" name="title" class="f-input" value="">
+									</div>
+									<div class="blank1"></div>
+									<div class="field">
+									<label>{$LANG.CONTACT_NAME}</label>
+									<input type="text" tabindex="1" size="30" name="contact_name" class="f-input" value="">
+									</div>
+									<div class="blank1"></div>
+									<div class="field">
+									<label>{$LANG.CONTACT}</label>
+									<input type="text" tabindex="1" size="30" name="contact" id="login-email-address" class="f-input" value="">
+									<span class="hint">{$LANG.CONTACT_TIP}</span>
+									</div>
+									<div class="blank1"></div>
+									<div class="field">
+									<label>{$LANG.DEAL_CITY}</label>
+									<select name="city_id">
+										{foreach from=$deal_city_list item=deal_city_item}
+										<option value="{$deal_city_item.id}">{$deal_city_item.name}</option>
+										{/foreach}
+									</select>
+									</div>
+									<div class="blank1"></div>
+									<div class="field">
+									<label>{$LANG.DEAL_INFO}</label>
+									<textarea name="content" rows="5" cols="60" class="f-textarea"></textarea>
+									</div>									
+									<div class="blank1"></div>
+									<div class="field">
+										<label></label>
+										<input type="hidden" value="{$rel_table}" name="rel_table">
+										<input type="hidden" value="{$rel_id}" name="rel_id">
+										<input type="submit" class="formbutton" name="commit" value="{$LANG.OK_POST}">
+									</div>
+									{/if}
+								{else}
+									{if $user_info}
+									<script type="text/javascript">
+											$(document).ready(function(){
+												$("#consult-add-form").find(".formbutton").bind("click",function(){
+													{if $is_buy eq 1}
+													if(KE.isEmpty("content"))
+													{
+														$.showErr("{$LANG.MESSAGE_CONTENT_EMPTY}");
+														return false;
+													}
+													{else}
+													var msg = $.trim(($("#consult-add-form").find("textarea[name='content']").val()));
+													if(msg == '')
+													{
+														$.showErr("{$LANG.MESSAGE_CONTENT_EMPTY}");
+														return false;
+													}
+													{/if}
+													
+													if($("input[name='is_buy']:checked").val()==1)
+													{
+														var rel_id = $("input[name='rel_id']").val();
+														var ajaxurl = APP_ROOT+"/tuan.php?ctl=ajax&act=check_buy&id="+rel_id;
+														$.ajax({ 
+															url: ajaxurl,
+															success: function(rs){
+																if(rs==0)
+																{
+																	$.showErr("{$LANG.AFTER_BUY_MESSAGE_TIP}");
+																	return false;
+																}
+																else
+																{
+																	$("#consult-add-form").submit();
+																}
+															},
+															error:function(ajaxobj)
+															{
+//																if(ajaxobj.responseText!='')
+//																alert(ajaxobj.responseText);
+//																return false;
+															}
+														});
+													}
+													else
+													{
+														$("#consult-add-form").submit();
+													}
+													return false;
+												});
+											});
+										</script>
+																
+									
+									<div class="topic_pub_form">
+									<textarea style="width:645px;height:80px;" name="content" class="f-textarea"></textarea>
+									</div>
+									
+									<div class="blank"></div>
+									<p class="commit">
+										<input type="hidden" value="{$rel_table}" name="rel_table">
+										<input type="hidden" value="{$rel_id}" name="rel_id">
+										<input type="submit" class="formbutton" name="commit" value="{$LANG.OK_POST}">
+									</p>
+									{/if}
+									<div class="blank"></div>
+								{/if}
+								{if !$user_info}
+								{$message_login_tip}
+								{/if}
+							</div>
+						</div>
+						</form>
+						<div class="box-bottom"></div>
+</div>
+

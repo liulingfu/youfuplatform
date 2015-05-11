@@ -1,0 +1,217 @@
+{include file="biz/biz_header.html"} 
+<style type="text/css">
+    td span label{float:left; padding:3px; margin:2px; background:#E6E6E6; cursor:pointer; display:inline-block; }
+    td span label.active{background:#F60; color:#fff;}
+    #container{height:200px; width: 200px; float:left;}  
+    #container_front{width: 600px; height:500px; border: 1px solid #000; position: absolute; top: 10px; background-color: #fff; overflow: hidden;}
+    #container_m{ width: 550px; height: 450px; margin: 0 auto;}
+    #cancel_btn{display: block; width: 600px; height: 18px; line-height: 18px; text-align: right;}
+</style>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.2"></script> 
+<script type="text/javascript" src="{$TMPL}/js/biz.location.map.js"></script> 
+<script type='text/javascript'  src='{$APP_ROOT}/admin/public/kindeditor/kindeditor.js'></script>
+<script type="text/javascript">
+	var VAR_MODULE = "m";
+	var VAR_ACTION = "a";
+	var ROOT = '{$APP_ROOT}/biz.php';
+	var ROOT_PATH = '{$APP_ROOT}';
+
+	var blue_point = "{$APP_ROOT}/system/blue_point.png";
+	var red_point = "{$APP_ROOT}/system/red_point.png";
+	$(document).ready(function(){
+		 $("input[name='search_api']").bind("click",function(){  
+		 	var api_address = $("input[name='api_address']").val();
+			var city="{$info.city_name}";
+			if ($.trim(api_address) == '') {
+				alert("{$LANG.INPUT_KW_PLEASE}");
+			}
+			else 
+			{
+				search_api(api_address, city);
+			}
+        });
+		draw_map('{$event_info.xpoint}','{$event_info.ypoint}');
+		$("#container_front").hide();
+        $("#cancel_btn").bind("click",function(){
+			$("#container_front").hide();
+		});
+        $("input[name='chang_api']").bind("click",function(){ 
+            editMap($("input[name='xpoint']").attr('value'),$("input[name='ypoint']").attr('value'));
+        });
+		
+		
+	});
+</script>
+
+<?php
+$this->_var['youhuicss'][] = $this->_var['TMPL_REAL']."/css/datepicker.css";
+$this->_var['youhuijs'][] = $this->_var['TMPL_REAL']."/js/jquery.ui.core.js";
+$this->_var['youhuijs'][] = $this->_var['TMPL_REAL']."/js/jquery.ui.widget.js";
+$this->_var['youhuijs'][] = $this->_var['TMPL_REAL']."/js/jquery.ui.datepicker.js";
+
+?>
+<link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$youhuicss"}" />
+<script type="text/javascript" src="{function name="parse_script" v="$youhuijs"}"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("input[name='event_begin_time']").datepicker({showAnim:'fadeIn'});
+		$("input[name='event_end_time']").datepicker({showAnim:'fadeIn'});
+		$("input[name='submit_begin_time']").datepicker({showAnim:'fadeIn'});
+		$("input[name='submit_end_time']").datepicker({showAnim:'fadeIn'});
+	});
+</script>
+
+{include file="biz/biz_nav.html"}
+<div class="blank"></div>
+<div class="wrap">
+{include file="biz/biz_info_header.html"}
+<div class="biz_index_box clearfix">
+	<div class="short f_l">
+		{include file="biz/biz_left.html"}
+	</div>
+	<div class="long f_r">
+			<script type="text/javascript">
+				$(document).ready(function(){
+
+					$("form").bind("submit",function(){
+						if($.trim($(this).find("input[name='name']").val())=='')
+						{
+							$.showErr("请填写名称");
+							return false;
+						}
+
+					});
+					
+					
+				});
+
+			</script>
+			<div class="blank10"></div>
+			<h3 class="modify-title">
+				编辑商家活动
+				<a href="{url x="biz" r="event"}">返回上一页</a>
+			</h3>
+			<form method="post" action="{url x="biz" r="event#submit_modify"}" name="biz_publish" >
+				<table cellspacing="0" cellpadding="0" border="0" class="data-table">
+					<tr>
+						<td class="dleft">名称：</td>
+						<td>
+							<input type="text" value="{$event_info.name}" class="f-input" id="name" name="name" size="30" tabindex="1">
+						</td>
+					</tr>
+				
+					<tr>
+						<td>图片：</td>
+						<td class="no-border">{function name="show_ke_image" v="icon" cnt="$event_info.icon"}</td>
+					</tr>			
+				<tr>
+					<td>活动时间：</td>
+					<td>
+						<input type="text" value="{$event_info.event_begin_time}" class="f-input" id="event_begin_time" name="event_begin_time" size="20" style="width:100px;" tabindex="1">
+						<span>&nbsp;&nbsp;至 &nbsp;&nbsp; </span> 
+						<input type="text" value="{$event_info.event_end_time}" class="f-input" id="event_end_time" name="event_end_time" size="20" style="width:100px;" tabindex="1">
+						<span class="red">&nbsp;&nbsp;请填写有效的时间格式,如：2012-01-01 </span> 
+					</td>
+				</tr>				
+				<tr>
+					<td>报名时间：</td>
+					<td>
+						<input type="text" value="{$event_info.submit_begin_time}" class="f-input" id="submit_begin_time" name="submit_begin_time" size="20" style="width:100px;" tabindex="1">
+						<span>&nbsp;&nbsp;至 &nbsp;&nbsp; </span> 
+						<input type="text" value="{$event_info.submit_end_time}" class="f-input" id="submit_end_time" name="submit_end_time" size="20" style="width:100px;" tabindex="1">
+						<span class="red">&nbsp;&nbsp;请填写有效的时间格式,如：2012-01-01 </span> 
+					</td>
+				</tr>
+				
+				<tr>
+					<td>城市：</td>
+					<td>
+						<select name="city_id" id="city_id">
+						{foreach from=$deal_city_list item=city}
+						<option value="{$city.id}" {if $event_info.city_id eq $city.id}selected="selected"{/if}>{$city.name}</option>
+						{/foreach}
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>分类：</td>
+					<td>
+						<select name="cate_id" id="cate_id">
+						{foreach from=$cate_list item=cate}
+						<option value="{$cate.id}" {if $event_info.cate_id eq $cate.id}selected="selected"{/if}>{$cate.name}</option>
+						{/foreach}
+						</select>
+					</td>
+				</tr>
+
+			
+				<tr>
+					<td>活动地点：</td>
+					<td>
+						<textarea class="f-textarea" rows=5 cols=60 name="address">{$event_info.address}</textarea>
+					</td>
+				</tr>
+				<tr>
+	            <td>地图定位：</td>
+	            <td>            	
+	            	关键词：<input type="text" class="textbox" name="api_address" value=""> 
+					<input type="button" value="查找" class="button" name="search_api" id="search_api">
+					<div style="height:10px; clear:both;"></div>
+	                <div id="container" style="overflow-x: hidden; overflow-y: hidden; position: relative; z-index: 0; background-color: rgb(243, 241, 236); color: rgb(0, 0, 0); text-align: left; "><div style="overflow-x: visible; overflow-y: visible; position: absolute; z-index: 0; left: 0px; top: 0px; cursor: url(http://api.map.baidu.com/images/openhand.cur), default; "><div class="BMap_mask" style="position: absolute; left: 0px; top: 0px; z-index: 9; overflow-x: hidden; overflow-y: hidden; -webkit-user-select: none; width: 200px; height: 200px; "></div><div style="position: absolute; height: 0px; width: 0px; left: 0px; top: 0px; z-index: 200; "><div style="position: absolute; height: 0px; width: 0px; left: 0px; top: 0px; z-index: 800; "></div><div style="position: absolute; height: 0px; width: 0px; left: 0px; top: 0px; z-index: 700; "><span class="BMap_Marker BMap_noprint" unselectable="on" "="" style="position: absolute; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px; border-style: initial; border-color: initial; border-image: initial; cursor: pointer; background-image: url(http://api.map.baidu.com/images/blank.gif); background-attachment: initial; background-origin: initial; background-clip: initial; background-color: initial; width: 19px; height: 25px; left: 90px; top: 75px; z-index: -5215540; background-position: initial initial; background-repeat: initial initial; " title=""></span></div><div style="position: absolute; height: 0px; width: 0px; left: 0px; top: 0px; z-index: 600; "></div><div style="position: absolute; height: 0px; width: 0px; left: 0px; top: 0px; z-index: 500; "></div><div style="position: absolute; height: 0px; width: 0px; left: 0px; top: 0px; z-index: 400; "><span class="BMap_Marker" unselectable="on" style="position: absolute; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px; border-style: initial; border-color: initial; border-image: initial; width: 0px; height: 0px; left: 90px; top: 75px; z-index: -5215540; "><div style="position: absolute; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; width: 19px; height: 25px; overflow-x: hidden; overflow-y: hidden; "><img src="http://api.map.baidu.com/images/marker_red_sprite.png" style="border:none;left:0px; top:0px; position:absolute;"></div></span></div><div style="position: absolute; height: 0px; width: 0px; left: 0px; top: 0px; z-index: 300; "><span unselectable="on" style="position: absolute; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px; border-style: initial; border-color: initial; border-image: initial; width: 20px; height: 11px; left: 94px; top: 89px; "><div style="position: absolute; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; width: 20px; height: 11px; overflow-x: hidden; overflow-y: hidden; "><img src="http://api.map.baidu.com/images/marker_red_sprite.png" style="border:none;left:-19px; top:-13px; position:absolute;"></div></span></div><div style="position: absolute; height: 0px; width: 0px; left: 0px; top: 0px; z-index: 200; "></div></div><div style="position: absolute; top: 0px; left: 0px; z-index: 1; "><div style="position: absolute; z-index: -100; left: 100px; top: 100px; "><img style="position: absolute; border-top-style: none; border-right-style: none; border-bottom-style: none; border-left-style: none; border-width: initial; border-color: initial; border-image: initial; width: 256px; height: 256px; left: -142px; top: -337px; opacity: 1; " src="http://q8.baidu.com/it/u=x=12975;y=2920;z=16;v=010;type=web&amp;fm=44"><img style="position: absolute; border-top-style: none; border-right-style: none; border-bottom-style: none; border-left-style: none; border-width: initial; border-color: initial; border-image: initial; width: 256px; height: 256px; left: -142px; top: -81px; opacity: 1; " src="http://q7.baidu.com/it/u=x=12975;y=2919;z=16;v=010;type=web&amp;fm=44"></div></div><div style="position: absolute; top: 0px; left: 0px; z-index: 2; "></div></div><div style="height: 32px; position: absolute; z-index: 10; -webkit-text-size-adjust: none; right: auto; top: auto; bottom: 0px; left: 1px; display: none; " class=" anchorBL"><a title="到百度地图查看此区域" target="_blank" href="http://map.baidu.com/?sr=1" style="outline-style: none; outline-width: initial; outline-color: initial; "><img style="border:none;width:77px;height:32px" src="http://api.map.baidu.com/images/copyright_logo.png"></a></div><div id="zoomer" style="position:absolute;z-index:0;top:0px;left:0px;overflow:hidden;visibility:hidden;cursor:url(http://api.map.baidu.com/images/openhand.cur) 8 8,default"><div class="BMap_zoomer" style="top:0;left:0;"></div><div class="BMap_zoomer" style="top:0;right:0;"></div><div class="BMap_zoomer" style="bottom:0;left:0;"></div><div class="BMap_zoomer" style="bottom:0;right:0;"></div></div><div unselectable="on" class=" BMap_stdMpCtrl BMap_stdMpType0 BMap_noprint anchorTL" style="width: 52px; height: 233px; position: absolute; z-index: 1100; -webkit-text-size-adjust: none; bottom: auto; right: auto; top: 10px; left: 10px; "><div class="BMap_stdMpPan"><div class="BMap_button BMap_panN" title="向上平移"></div><div class="BMap_button BMap_panW" title="向左平移"></div><div class="BMap_button BMap_panE" title="向右平移"></div><div class="BMap_button BMap_panS" title="向下平移"></div><div class="BMap_stdMpPanBg BMap_smcbg"></div></div><div class="BMap_stdMpZoom" style="height: 174px; width: 52px; "><div style="height: 174px; width: 37px; "><div class="BMap_button BMap_stdMpZoomIn" title="放大一级"><div class="BMap_smcbg"></div></div><div class="BMap_button BMap_stdMpZoomOut" title="缩小一级"><div class="BMap_smcbg"></div></div></div><div class="BMap_stdMpSlider" style="height: 140px; "><div class="BMap_stdMpSliderBgTop" style="height: 131px; "><div class="BMap_smcbg"></div></div><div class="BMap_stdMpSliderBgBot" style="top: 131px; "><div class="BMap_smcbg"></div></div><div class="BMap_stdMpSliderMask" title="放置到此级别"></div><div class="BMap_stdMpSliderBar" title="拖动缩放" style="cursor: url(http://api.map.baidu.com/images/openhand.cur), default; top: 22px; "><div class="BMap_smcbg"></div></div></div><div class="BMap_zlHolder"><div class="BMap_zlSt"><div class="BMap_smcbg"></div></div><div class="BMap_zlCity"><div class="BMap_smcbg"></div></div><div class="BMap_zlProv"><div class="BMap_smcbg"></div></div><div class="BMap_zlCountry"><div class="BMap_smcbg"></div></div></div></div></div><div unselectable="on" class=" BMap_cpyCtrl anchorBL" style="cursor: default; white-space: nowrap; color: black; background-image: none; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: initial; font: normal normal normal 11px/15px arial, sans-serif; position: absolute; z-index: 10; -webkit-text-size-adjust: none; right: auto; top: auto; bottom: 2px; left: 4px; background-position: initial initial; background-repeat: initial initial; "><span _cid="1"><span style="font-size:11px">© 2012 Baidu</span></span></div></div>
+					<div class="blank1"></div>
+	                <input type="button" value="手动修改" name="chang_api" id="chang_api">
+	                <div style="position:relative; top:-400px;">
+	                    <div id="container_front" style="display: none; ">
+	                        <a href="#" id="cancel_btn">取消</a>
+	                        <div id="container_m"></div>
+	                    </div>
+	                </div>
+					<input type="hidden" name="xpoint" value="{$event_info.xpoint}">
+					<input type="hidden" name="ypoint" value="{$event_info.ypoint}">
+	            </td>
+		    </tr>
+				<tr>
+					<td>活动简介：</td>
+					<td><textarea class="f-textarea" rows=5 cols=60 name="brief">{$event_info.brief}</textarea></td>
+				</tr>
+				
+				<tr>
+					<td>详情：</td>
+					<td style="height:375px; vertical-align:top;">
+						{function name="show_ke_textarea" v="content" w="620" h="300" cnt="$event_info.content"}
+					</td>
+				</tr>
+				<tr>
+					<td>报名项 [<a href='javascript:void(0);' onclick="add_submit_row(0);">追加</a>]</td>
+					<td>
+						<span id="submit_row">
+		
+							{foreach from=$field_list item=field_item}	
+							<div class="submit_item">
+						 	<input type="hidden" name="field_id[]" value="{$field_item.id}"/>			 	
+							字段显示:<input type="text" class="textbox" name="field_show_name[]" value="{$field_item.field_show_name}" />
+							类型:<select name="field_type[]" onchange="change_type(this);">
+								<option value="0" {if $field_item.field_type eq 0}selected="selected"{/if}>用户填写</option>
+								<option value="1" {if $field_item.field_type eq 1}selected="selected"{/if}>预选下拉</option>
+								</select>
+							<span {if $field_item.field_type eq 0}style="display:none;"{/if}>预选内容:<input type="text" class="textbox" name="value_scope[]" value="{$field_item.value_scope}" /> 用空格分隔</span> 
+							[<a href='javascript:void(0);' onclick='remove_row(this);'>-</a>]
+							<div style="height:5px;"></div>
+							</div>
+							{/foreach}
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<td>&nbsp;<input type="hidden" value="{$event_info.id}" name="id" id="event_id" /></td>
+					<td><input type="submit" value="提交" class="biz_pub_btn" /></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<div class="blank"></div>
+</div><!--end biz_index_box-->
+
+</div>
+<div class="blank"></div>
+{include file="biz/biz_footer.html"} 

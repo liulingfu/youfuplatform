@@ -1,0 +1,34 @@
+{if $hide_filter}
+{else}
+{*商品筛选*}
+<div class="inc filter_box">
+	<div class="inc_top">{$LANG.GOODS_FILTER}</div>
+	<div class="inc_main cf">
+		{if $brand_list}
+		<div class="filter_title f_l">{$LANG.BRAND}：</div>
+		<div class="filter_content  f_l">
+		{foreach from=$brand_list item=brand}
+		<a href="{$brand.url}" title="{$brand.name}" {if $brand.act eq 1}class="act"{/if}>{$brand.name}</a>
+		{/foreach}	
+		</div>	
+		<div class="blank"></div>
+		{/if}
+		
+		{foreach from=$filter_group item=group}
+		<div class="filter_title f_l">{$group.name}：</div>
+		<div class="filter_content  f_l">
+		{foreach from=$group.filter_list item=filter}
+		<a href="{$filter.url}" title="{$filter.name}" {if $filter.act eq 1}class="act"{/if}>{$filter.name}</a>
+		{/foreach}	
+		</div>
+		<div class="blank"></div>
+		{/foreach}
+	</div>
+	<div class="inc_foot"></div>
+</div>
+{*end 商品筛选*}
+<div class="blank"></div>
+{/if}
+{include file="inc/inc_goods_list.html"}
+<div class="blank"></div>
+<div class="pages">{$pages}</div>	

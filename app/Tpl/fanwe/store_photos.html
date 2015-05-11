@@ -1,0 +1,64 @@
+{include file="inc/header.html"} 
+<?php
+$this->_var['storejs'][] = $this->_var['TMPL_REAL']."/js/store_photos.js";
+$this->_var['cpstorejs'][] = $this->_var['TMPL_REAL']."/js/store_photos.js";
+$this->_var['reviewcss'][] = $this->_var['TMPL_REAL']."/css/store_photos.css";
+?>
+<script type="text/javascript" src="{function name="parse_script" v="$storejs" c="$cpstorejs"}"></script>
+<link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$reviewcss"}" />
+<div class="blank"></div>
+<div class="long f_l">
+	{insert name="load_store_photo_list" store_info="$store_info"}
+</div>
+<div class="short f_r">
+	<div class="store_info">
+		<div class="infos">
+			<div class="img"><a href="{url x="youhui" r="store#view" p="id=$store_info.id"}"><img src="{$store_info.preview}" alt="{$store_info.name}" /></a></div>
+			<div class="detail">
+					{if $store_info.address}
+					地　址：<span>{$store_info.address}</span><br>
+					{/if}
+					{if $store_info.tel}
+					电　话：<span>{$store_info.tel}</span><br>
+					{/if}
+					{if $store_info.open_time}
+					营业时间：<span>{$store_info.open_time}</span><br>
+					{/if}
+				</div>
+				<div class="dp">
+					<a href="{url x="youhui" r="store#view" p="id=$store_info.id"}#review_form"><img src="{$TMPL}/images/store/dp.jpg" /></a>
+					<div class="blank"></div>
+					<div class="dp_count">共有<span>{$store_info.dp_count}</span>条点评</div>
+				</div>
+				<div class="blank"></div>
+		</div>
+	</div>
+	<div class="blank"></div>
+	<style type="text/css">
+		#container{height:193px; width: 193px; border:#ccc solid 1px; }  
+	</style>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.2"></script> 
+	<script type="text/javascript">
+		function draw_map(xpoint,ypoint)
+		{
+			var map = new BMap.Map("container"); 
+	        var opts = {type: BMAP_NAVIGATION_CONTROL_ZOOM }  
+	        map.addControl(new BMap.NavigationControl());  
+	        // map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  
+	        // 创建地理编码服务实例  
+	        var point = new BMap.Point(xpoint,ypoint);
+	        
+	        // 将结果显示在地图上，并调整地图视野  
+	        map.centerAndZoom(point, 16);  
+	        map.addOverlay(new BMap.Marker(point));
+		}
+		
+		$(document).ready(function(){
+			draw_map('{$store_info.xpoint}','{$store_info.ypoint}');
+		});
+	</script>
+	<div id="container"></div>
+</div>
+<div class="blank"></div>
+
+{include file="inc/footer.html"}

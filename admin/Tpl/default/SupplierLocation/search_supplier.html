@@ -1,0 +1,6 @@
+<select name="supplier_id">
+<option value="0">{%EMPTY_SELECT_SUPPLIER}</option>
+<foreach name="supplier_list" item="supplier">
+<option value="{$supplier.id}">{$supplier.name}</option>	
+</foreach>
+</select>

@@ -1,0 +1,102 @@
+<div class="pic-main clearfix" id="pic-bd" name="pic-bd">
+				<div class="clearfix" id="pic-hd">
+				<ul>
+				  <li {if !$images_group_id}class="current"{/if}>
+				  <a href="{url x="youhui" r="store#photos" p="id=$store_info.id"}">全部图片<span>({$total_image})</span></a>
+				 </li>
+				  {foreach from=$images_group_list item="ig_item"}
+				 	<li {if $images_group_id eq $ig_item.id }class="current"{/if}>
+					  <a href="{url x="youhui" r="store#photos" p="id=$store_info.id&images_group_id=$ig_item.id"}">{$ig_item.name}<span>({$ig_item.count})</span></a>
+					</li>
+				  {/foreach}
+				</ul>
+	          </div>
+				<div class="pic-bd clearfix">
+					<div id="pic-bar" class="clearfix"> 
+		              <div class="title">{$pic_info.brief}</div>
+		              <p class="fun-btn">
+		              	<a id="next-btn" href="{if $next_pic}{url x="youhui" r="store#photos" p="id=$store_info.id&images_group_id=$images_group_id&pid=$next_pic"}{/if}#pic-bd">下一张</a>
+					 </p>
+		              <div id="pic-num"><span>{$pic_idx}</span>/{function name="count" val=$pic_list}</div>
+		              <p class="fun-btn"><a id="pre-btn" href="{if $prev_pic}{url x="youhui" r="store#photos" p="id=$store_info.id&images_group_id=$images_group_id&pid=$prev_pic"}{/if}#pic-bd">上一张</a>	</p>
+		              <div class="fun-bar">
+			                <input id="auto-play-five" type="radio" name="auto-time" value="5" {if $smarty.request.auto_play_time eq "5"}checked="checked"{/if}>
+			                <label for="auto-play-five">5秒</label>
+			                <input id="auto-play-three" type="radio" name="auto-time"  {if $smarty.request.auto_play_time neq "5"}checked="checked"{/if} value="3">
+			                <label for="auto-play-three">3秒</label>
+			                <a id="auto-btn" href="#"  {if $smarty.request.auto_play neq 1}class="stop"{else}class="current"{/if}>自动播放</a>
+		              </div>
+		            </div>
+					
+					<div id="pic-info" class="clearfix">
+						
+						<a id="origin-user" href="{url x="biz" r="publish#add" p="id=$store_info.id"}" target="_blank">商家上传</a>
+					
+						<span id="scan-num">有<b>{$pic_info.click_count}</b>人浏览</span>
+						<a id="origin-pic" href="{$pic_info.image}" target="_blank">查看原图</a>
+					</div>
+					<div id="pic-frame">
+					  <div class="pic-inline-block">
+					  	{if $pic_info}
+		                <img src="{function name="get_spec_image" v=$pic_info.image w=695 h=0 g=0}">
+						{/if}
+					  </div>
+					  {if $prev_pic}
+					  <a id="pre-link" href="{url x="youhui" r="store#photos" p="id=$store_info.id&images_group_id=$images_group_id&pid=$prev_pic"}#pic-bd" title="上一张">&nbsp;</a>
+					  {/if}
+					  {if $next_pic}
+					  <a id="next-link" href="{url x="youhui" r="store#photos" p="id=$store_info.id&images_group_id=$images_group_id&pid=$next_pic"}#pic-bd" title="下一张">&nbsp;</a>
+					  {/if}
+					</div>
+					
+				</div>
+				
+				<div id="pic-ft" class="clearfix">
+				{if $pic_idx eq 1 }
+				<a id="album-pre" title="左滚动" class="none" ><span></span></a>
+				{else}
+				<a id="album-pre" title="左滚动"><span></span></a>
+				{/if}
+				<!--不能有空格-->
+		        <div id="album-main">
+			        <ul id="pic-album">
+			         {foreach from=$pic_list item=pic_item name="pic_item"}
+					 {if $pic_item.id <= $pic_info.id && $smarty.foreach.pic_item.iteration <= 6 }
+					 <li class="{if $pic_item.id eq $pic_info.id}current{/if}{if $smarty.foreach.pic_item.iteration mod 6 eq 0} last{/if}"><div><a href="{url x="youhui" r="store#photos" p="id=$store_info.id&image_type=$images_group_id&pid=$pic_item.id"}#pic-bd"><img src="{function name="get_spec_image" v=$pic_item.image w=90 h=70 g=1}" alt="{$pic_item.brief}"></a></div></li>
+					 {/if}
+					{/foreach}
+					</ul>
+		        </div>
+				<?php if (count($this->_var['pic_list']) - intval($this->_var['pic_idx']) <= 6){ ?>
+				<a id="album-next" title="右滚动" class="none"><span></span></a>
+				<?php }else{ ?>
+				<a id="album-next" title="右滚动"><span></span></a>
+				<?php }?>
+				</div>
+				<div style="display:none;">
+					<form name="auto_play_form" id="auto_play_form" action="" method="post">
+						<input name="auto_play" id="auto_play" value="{if $smarty.request.auto_play}{$smarty.request.auto_play}{else}0{/if}">
+						<input name="auto_play_time" id="auto_play_time" value="{if $smarty.request.auto_play_time}{$smarty.request.auto_play_time}{else}3{/if}">
+						{if $images_group_id}
+						<input name="images_group_id" id="images_group_id" value="{$images_group_id}">
+						{/if}
+					</form>
+				</div>
+			</div>
+<script>
+	var normal_url = $("#pic-album li.current a").attr("href");
+	var piclist = [
+	{foreach from=$pic_list item=pic_item name="pic_item"}
+		{
+			"idx" : {$smarty.foreach.pic_item.index},
+			"id" : {$pic_item.id},
+			"url" : "{url x="youhui" r="store#photos" p="id=$store_info.id&images_group_id=$images_group_id&pid=$pic_item.id"}#pic-bd",
+			"img" : "{function name="get_spec_image" v=$pic_item.image w=90 h=70 g=1}",
+			"brief":"{function name="htmlspecialchars" val=$pic_item.brief}"
+		}
+		{if !$smarty.foreach.pic_item.last}
+		,
+		{/if}
+	{/foreach}
+	];
+</script>

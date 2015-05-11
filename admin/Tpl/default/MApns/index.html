@@ -1,0 +1,43 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<php>
+function get_mapns_send_status($status)
+{
+	return l("MAPNS_SEND_STATUS_".$status);
+}
+function get_mapns_user_names($user_names,$vo)
+{
+	if($user_names=='')
+	return l("DEFINE_USERS")."<a href='".u("MApns/logs",array("message_id"=>$vo['id']))."'>".l("VIEW_MAPNS_LOGS")."</a>";
+	else
+	return l("SEND_ALL")."<a href='".u("MApns/logs",array("message_id"=>$vo['id']))."'>".l("VIEW_MAPNS_LOGS")."</a>";
+}
+function filter_content($c)
+{
+	return htmlspecialchars(msubstr($c));
+}
+</php>
+<div class="main">
+<div class="main_title">{$main_title}</div>
+<div class="blank5"></div>
+<div class="button_row">
+	<input type="button" class="button" value="{%ADD}" onclick="add();" />
+	<input type="button" class="button" value="{%DEL}" onclick="foreverdel();" />
+	<input type="button" id="reset_sending" class="button" value="{%CANCEL_SENDING}" onclick="reset_sending('APNS_MSG_LOCK');" />
+</div>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="msg" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|50px,content|filter_content:{%CONTENT},send_time|to_date:{%SEND_TIME},status|get_mapns_send_status:{%SEND_STATUS},user_names|get_mapns_user_names=$msg:{%SEND_USERS}" 
+	actionlist="edit:{%EDIT}, foreverdel:{%DEL}" /> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

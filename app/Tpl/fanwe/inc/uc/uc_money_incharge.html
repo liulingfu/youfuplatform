@@ -1,0 +1,99 @@
+<div class="inc">
+	<div class="inc_top">{$page_title}</div>
+	<div class="inc_main">
+		<div class="sub_nav">
+			<span {if $ACTION_NAME eq 'index'}class="act"{/if}><a href="{url x="shop" r="uc_money#index"}">{$LANG.UC_LOGS}</a></span>
+			<span {if $ACTION_NAME eq 'carry'}class="act"{/if}><a href="{url x="shop" r="uc_money#carry"}">{$LANG.UC_CARRY}</a></span>
+		</div>
+		<div class="blank1"></div>
+		{include file="inc/uc/money_box.html"}
+		<div class="blank1"></div>
+		<div  class="uc-table">
+			
+			<form name="incharge_form" id="incharge_form" action="{url x="shop" r="uc_money#incharge_done"}" method="post" />			
+						<div class="sect cf">
+							
+							<table cellspacing="0" cellpadding="0" border="0" class="coupons-table" >
+									<tr>
+										<th width=200>{$LANG.INCHARGE_SN}</th>
+										<th>{$LANG.INCHARGE_MONEY}</th>
+										<th>{$LANG.PAYMENT_FEE}</th>
+										<th>{$LANG.PAYMENT_INFO}</th>
+										<th>{$LANG.PAYMENT_STATUS}</th>
+										<th>{$LANG.PAYMENT_GEN_TIME}</th>
+										<th>{$LANG.PAYMENT_PAID_TIME}</th>
+										<th>{$LANG.OPERATION}</th>
+									</tr>
+									{foreach from=$list item=order key=key}
+									<tr {if $key mod 2 eq  0}class="alt"{/if}>
+										<td style="text-align:left;">
+											{$LANG.INCHARGE_SN}：{$order.order_sn}<br />
+											{$LANG.PAYMENT_SN}：{$order.payment_notice.notice_sn}
+										</td>
+										<td>
+										<?PHP echo format_price($this->_var['order']['total_price']-$this->_var['order']['payment_fee']);?>
+										</td>
+										<td>
+											{function name="format_price" value=$order.payment_fee}
+										</td>
+										<td>
+											{$order.payment.name}
+										</td>
+										<td>
+											<?PHP echo $GLOBALS['lang']['ORDER_PAY_STATUS_'.intval($this->_var['order']['pay_status'])];?>
+										</td>
+										<td>
+											{function name="to_date" value=$order.create_time}&nbsp;
+										</td>
+										<td>
+											{function name="to_date" value=$order.payment_notice.pay_time}
+										</td>
+										<td>
+											{if $order.pay_status eq 2}
+											{$LANG.PAID_INCHARGE_DONE}
+											{else}
+											<a href="<?PHP echo url("shop","payment#pay",array("id"=>$this->_var['order']['payment_notice']['id']));?>">{$LANG.PAID}</a>
+											{/if}
+										</td>
+									</tr>
+									{/foreach}
+							</table>
+							
+							<div class="blank"></div>
+							<div class="pages">{$pages}</div>
+							
+							<div class="blank"></div>						
+																								
+							{foreach from=$payment_list item=payment_item}									
+								{$payment_item.display_code}	
+								<div class="blank"></div>										
+							{/foreach}											
+							<div style="text-align: right; padding: 0px 10px;">				        	        	
+				        	{$LANG.PRICE_AMOUNT}：
+							<input type="text" class="f-input" id="money" name="money"> 
+							<input type="submit" id="incharge_done" value="{$LANG.DO_INCHARGE}" class="formbutton">
+							</div>
+						</div><!--end sect-->
+			</form>
+			
+		</div>				
+		
+	</div>
+	<div class="inc_foot"></div>
+</div>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#incharge_done").click(function(){
+			if(!($("input[name='money']").val()!=''&&!isNaN($("input[name='money']").val())&&$("input[name='money']").val()>0))			
+			{
+				$.showErr("{$LANG.PLEASE_INPUT_CORRECT_INCHARGE}");
+				return false;
+			}
+			else if(!$("input[name='payment']:checked").val())
+			{
+				$.showErr("{$LANG.PLEASE_SELECT_PAYMENT}");
+				return false;
+			}
+		});
+	});
+</script>

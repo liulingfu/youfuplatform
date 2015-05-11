@@ -1,0 +1,58 @@
+<script type="text/javascript" src="{$TMPL}/js/ss.js"></script>
+<form name="search_box" action="{$APP_ROOT}/shop.php" method="post">
+<div class="inc goods_search_box">
+	<div class="inc_top">产品搜索</div>
+	<div class="inc_main cf">
+		<div class="search_filter_title f_l">{$LANG.GOODS_CATE}：</div>
+		<div class="search_filter_content  f_l">
+		<select name="id">
+			<option value="0">=={$LANG.ALL_SHOP_CATE}==</option>
+			{foreach from=$all_cate_tree item=cate_item}
+			<option value="{$cate_item.id}" {if $cate_id eq $cate_item.id}selected="selected"{/if}>{$cate_item.title_show}</option>
+			{/foreach}
+		</select>
+		</div>	
+		<div class="blank"></div>
+		<div class="search_filter_title f_l">{$LANG.BRAND}：</div>
+		<div class="search_filter_content  f_l">
+		<select name="b">
+			<option value="0">=={$LANG.ALL_BRAND}==</option>
+			{foreach from=$brand_list item=brand}
+			<option value="{$brand.id}" {if $brand_id eq $brand.id}selected="selected"{/if}>{$brand.name}</option>
+			{/foreach}
+		</select>
+		</div>	
+		<div class="blank"></div>
+		<div id="filter_row">
+		{if $filter_group}
+			{foreach from=$filter_group item=group}
+			<div class="search_filter_title f_l">{$group.name}：</div>
+			<div class="search_filter_content  f_l">
+			<input type="text" name="f[{$group.id}]" class="search_txt" value="{$group.value}" />	
+			</div>
+			<div class="blank"></div>
+			{/foreach}
+		{/if}
+		</div>
+		<div class="search_filter_title f_l">{$LANG.KEYWORD}：</div>
+		<div class="search_filter_content  f_l">
+			<input type="text" name="keyword" class="search_txt" value="{$keyword}" /> 
+			&nbsp;&nbsp;<span class="kw_tip">{$LANG.KW_TIP}</span>
+		</div>	
+		<div class="blank"></div>
+		<div id="filter_row"></div>
+		<div class="search_filter_title f_l">{$LANG.PRICE}：</div>
+		<div class="search_filter_content  f_l">
+		<input type="text" class="filter_txt" name="min_price" value="{if $min_price gt 0}{$min_price}{/if}" /> 
+		{$LANG.TO} 
+		<input type="text" class="filter_txt" name="max_price" value="{if $max_price gt 0}{$max_price}{/if}" />	
+		<input type="hidden" name="act" value="pick" />
+		<input type="hidden" name="ctl" value="ss" />
+		<input type="hidden" name="is_redirect" value="1" />
+		<input type="submit" name="search_price" class="filter_price" value="搜索" />
+		</div>	
+		<div class="blank"></div>
+	</div>
+	<div class="inc_foot"></div>
+</div>
+</form>

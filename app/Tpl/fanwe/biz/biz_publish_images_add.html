@@ -1,0 +1,171 @@
+{include file="biz/biz_header.html"} 
+<script type='text/javascript'  src='{$APP_ROOT}/admin/public/kindeditor/kindeditor.js'></script>
+<script type="text/javascript">
+	var VAR_MODULE = "m";
+	var VAR_ACTION = "a";
+	var ROOT = '{$APP_ROOT}/biz.php';
+	var ROOT_PATH = '{$APP_ROOT}';
+</script>
+<style>
+	.no-border td{ padding:0!important; border:0!important}
+</style>
+{include file="biz/biz_nav.html"}
+<div class="blank"></div>
+<div class="wrap">
+{include file="biz/biz_info_header.html"}
+<div class="biz_index_box clearfix">
+	<div class="short f_l">
+		{include file="biz/biz_left.html"}
+	</div>
+	<div class="long f_r">
+		<div class="uc-location">
+		<div class="blank10"></div>
+		<h3 class="modify-title">
+			添加店铺图片—{$info.name}
+			<a href="{$history_back}">返回上一页</a>
+			<a href="{url x="youhui" r="store#view" p="id=$info.id"}" target="_blank">查看店铺</a>
+		</h3>
+		<form method="post" action="{url x="biz" r="publish#insert"}">
+		<table cellspacing="0" cellpadding="0" border="0" class="data-table">
+			<tr>
+				<td class="dleft">简介：</td>
+				<td>
+					图1：<input type="text" class="f-input" name="brief[]" id="brief_1">
+					图2：<input type="text" class="f-input" name="brief[]" id="brief_2">
+					
+					<div class="blank1"></div>	
+					图3：<input type="text" class="f-input" name="brief[]" id="brief_3">
+					图4：<input type="text" class="f-input" name="brief[]" id="brief_4">
+					<div class="blank1"></div>					
+					图5：<input type="text" class="f-input" name="brief[]" id="brief_5">
+					图6：<input type="text" class="f-input" name="brief[]" id="brief_6">
+					<div class="blank1"></div>	
+					图7：<input type="text" class="f-input" name="brief[]" id="brief_7">
+					图8：<input type="text" class="f-input" name="brief[]" id="brief_8">
+
+				</td>
+			</tr>
+			<tr>
+				<td>图片</td>
+				<td style="padding-left:0;vertical-align:top;" class="no-border">
+					<table style="float:left;">
+						<tr>
+							<td style="border:none; padding:0; padding-left:5px">
+								图1:
+							</td>
+							<td style="border:none;padding:0">
+								{function name="show_ke_image" v="image_0"}
+							</td>
+						</tr>
+					</table>
+					<table style="float:left;">
+						<tr>
+							<td style="border:none; padding:0; padding-left:5px">
+								图2:
+							</td>
+							<td style="border:none;padding:0">
+								{function name="show_ke_image" v="image_1"}
+							</td>
+						</tr>
+					</table>
+					<div class="blank"></div>
+					<table style="float:left;">
+						<tr>
+							<td style="border:none; padding:0; padding-left:5px">
+								图3:
+							</td>
+							<td style="border:none;padding:0">
+								{function name="show_ke_image" v="image_2"}
+							</td>
+						</tr>
+					</table>
+					<table style="float:left;">
+						<tr>
+							<td style="border:none; padding:0; padding-left:5px">
+								图4:
+							</td>
+							<td style="border:none;padding:0">
+								{function name="show_ke_image" v="image_3"}
+							</td>
+						</tr>
+					</table>
+					<div class="blank"></div>
+					<table style="float:left;">
+						<tr>
+							<td style="border:none; padding:0; padding-left:5px">
+								图5:
+							</td>
+							<td style="border:none;padding:0">
+								{function name="show_ke_image" v="image_4"}
+							</td>
+						</tr>
+					</table>
+					<table style="float:left;">
+						<tr>
+							<td style="border:none; padding:0; padding-left:5px">
+								图6:
+							</td>
+							<td style="border:none;padding:0;">
+								{function name="show_ke_image" v="image_5"}
+							</td>
+						</tr>
+					</table>
+					<div class="blank"></div>
+					<table style="float:left;">
+						<tr>
+							<td style="border:none; padding:0; padding-left:5px">
+								图7:
+							</td>
+							<td style="border:none;padding:0">
+								{function name="show_ke_image" v="image_6"}
+							</td>
+						</tr>
+					</table>
+					<table style="float:left;">
+						<tr>
+							<td style="border:none; padding:0; padding-left:5px">
+								图8:
+							</td>
+							<td style="border:none;padding:0">
+								{function name="show_ke_image" v="image_7"}
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			
+			<tr id="images_group_id_area" {if !$images_group}style="display:none;"{/if}>
+				<td>类型：</td>
+				<td>
+					<select name="images_group_id">
+						{foreach from="$images_group" item="group"}
+							<option value="{$group.id}" >{$group.name}</option>
+						{/foreach}
+					</select>
+				</td>
+			</tr>
+			
+			<tr>
+				<td>排序：</td>
+				<td>
+					<input type="text" class="f-input" name="sort" id="sort" value="0">
+				</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>
+					<input type="submit" class="formbutton" id="do-modify" name="commit" value="{$LANG.DOMODIFY}">
+					<input type="reset" class="formbutton2" id="do-reset" name="commit" value="{$LANG.RESET}">
+					<input type="hidden" name="id" value="{$info.id}">
+				</td>
+			</tr>
+		</table>
+		</form>
+		</div>
+	</div>
+	<div class="blank"></div>
+</div><!--end biz_index_box-->
+
+</div>
+<div class="blank"></div>
+{include file="biz/biz_footer.html"} 

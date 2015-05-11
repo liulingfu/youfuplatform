@@ -1,0 +1,12 @@
+{if $user_info}
+	{$LANG.WELCOME_BACK_HD}，{$user_info.user_name}！
+	{if $msg_count>0}
+	<span class="new_pm"></span>&nbsp;<a href="{url x="shop" r="uc_msg"}" class="msg_count">{$LANG.MSG_COUNT}({$msg_count})</a>&nbsp;
+	{/if}
+	<a href="{url x="shop" r="uc_center"}">{$LANG.MY_ACCOUNT}</a>&nbsp;&nbsp;|&nbsp;&nbsp; 
+	<a href="{url x="shop" r="user#loginout" }">{$LANG.LOGINOUT}</a>&nbsp;&nbsp;|&nbsp;&nbsp; 
+	{else}
+	{$LANG.PLEASE_FIRST}
+	[ <a href="javascript:void(0);" onclick="ajax_login();">{$LANG.LOGIN}</a> ] {$LANG.OR}
+	[ <a href="{url x="shop" u="user#register" }">{$LANG.REGISTER}</a> ]&nbsp;&nbsp;
+{/if}

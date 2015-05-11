@@ -1,0 +1,37 @@
+{include file="biz/biz_header.html"} 
+
+{include file="biz/biz_nav.html"}
+<div class="blank"></div>
+<div class="wrap">
+{include file="biz/biz_info_header.html"}
+<div class="biz_index_box clearfix">
+	<div class="short f_l">
+		{include file="biz/biz_left.html"}
+	</div>
+	<div class="long f_r">
+
+		<div class="uc-location">
+			<div class="blank10"></div>
+			<table cellspacing="0" cellpadding="0" border="0" class="data-table">
+				<tr>
+					<th style="width:45%">店铺名称</th>
+					<th style="width:45%">店铺地址</th>
+					<th>&nbsp;</th>
+				</tr>
+				{foreach from="$list" item=item}
+				<tr>
+					<td><a href="{url x="youhui" r="store#view" p="id=$item.id"}" target="_blank" style="color:#16B">{$item.name}</a></td>
+					<td>{$item.address}</td>
+					<td style="text-align:center"><a href="{url x="biz" r="profile#modify" p="id=$item.id"}" style="color:#16B">编辑</a></td>
+				</tr>
+				{/foreach}
+			</table>
+			<div class="blank10"></div>
+		</div>
+	</div>
+	<div class="blank"></div>
+</div><!--end biz_index_box-->
+
+</div>
+<div class="blank"></div>
+{include file="biz/biz_footer.html"} 

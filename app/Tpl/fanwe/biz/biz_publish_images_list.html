@@ -1,0 +1,53 @@
+{include file="biz/biz_header.html"} 
+<script type='text/javascript'  src='{$APP_ROOT}/admin/public/kindeditor/kindeditor.js'></script>
+<script type="text/javascript">
+	var VAR_MODULE = "m";
+	var VAR_ACTION = "a";
+	var ROOT = '{$APP_ROOT}/biz.php';
+	var ROOT_PATH = '{$APP_ROOT}';
+</script>
+{include file="biz/biz_nav.html"}
+<div class="blank"></div>
+<div class="wrap">
+{include file="biz/biz_info_header.html"}
+<div class="biz_index_box clearfix">
+	<div class="short f_l">
+		{include file="biz/biz_left.html"}
+	</div>
+	<div class="long f_r">
+		<div class="uc-location">
+		<div class="blank10"></div>
+		<h3 class="modify-title">
+			店铺图片—{$info.name}
+			<a href="{$history_back}">返回上一页</a>
+			<a href="{url x="youhui" r="store#view" p="id=$info.id"}" target="_blank" style="margin-left:10px">查看店铺</a>
+			<a href="{url x="biz" r="publish#add" p="id=$info.id"}">上传图片</a>
+		</h3>
+		<table cellspacing="0" cellpadding="0" border="0" class="data-table">
+			<tr>
+				<th style="width:43%">图片简介</th>
+				<th style="width:17%">更新时间</th>
+				<th style="width:10%;text-align:center">排序</th>
+				<th style="width:10%;text-align:center">浏览数</th>
+				<th>&nbsp;</th>
+			</tr>
+			{foreach from="$list" item=item}
+			<tr>
+				<td>{$item.brief}</td>
+				<td>{$item.create_time_format}</td>
+				<td style="text-align:center">{$item.sort}</td>
+				<td style="text-align:center">{$item.click_count}</td>
+				<td style="text-align:center"><a href="{url x="youhui" r="store#photos" p="id=$item.supplier_location_id&pid=$item.id"}" target="_blank">查看</a>&nbsp;&nbsp;<a href="{url x="biz" r="publish#modify" p="id=$item.supplier_location_id&pid=$item.id"}">编辑</a>&nbsp;&nbsp;<a href="{url x="biz" r="publish#delete" p="id=$item.supplier_location_id&pid=$item.id"}" onclick="return confirm('{$LANG.CONFIRM_DELETE_PIC}');">删除</a></td>
+			</tr>
+			{/foreach}
+		</table>
+		<div class="blank"></div>
+		<div class="pages">{$pages}</div>
+		</div>
+	</div>
+	<div class="blank"></div>
+</div><!--end biz_index_box-->
+
+</div>
+<div class="blank"></div>
+{include file="biz/biz_footer.html"} 

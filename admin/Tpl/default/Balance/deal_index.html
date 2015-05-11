@@ -1,0 +1,44 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<div class="main">
+<div class="main_title">{$main_title}</div>
+<div class="blank5"></div>
+
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">	
+		{%DEAL_ITEM_ID}：<input type="text" class="textbox" name="deal_id" value="{$deal_info.id}" />
+		{%BALANCE_STATUS}：
+		<select name="is_balance">
+			<option value="0" <if condition="$is_balance eq 0">selected="selected"</if>>{%BALANCE_0}</option>	
+			<option value="1" <if condition="$is_balance eq 1">selected="selected"</if>>{%BALANCE_1}</option>	
+			<option value="2" <if condition="$is_balance eq 2">selected="selected"</if>>{%BALANCE_2}</option>	
+		</select>		
+		<input type="hidden" value="Balance" name="m" />
+		<input type="hidden" value="index" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+		<input type="button" class="button" value="结算" onclick="load_balance();" />
+	</form>
+</div>
+<div class="blank5"></div>
+<input type="hidden"  name="hd_deal_id" value="{$deal_info.id}" />
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="row" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|50px,name|show_table_substr:名称,number:购买件数,delivery_status|get_dstatus=$row['id']:发货状态,is_balance|get_balance_status:结算状态,balance_unit_price|format_price:结算单价,balance_total_price|format_price:结算总价,balance_time|to_date:结算时间,balance_memo|show_table_substr:结算备注" 
+	actionlist="load_balance:结算" /> 
+
+<div class="blank5"></div>
+<div class="page">未结算{$totalBalance0|format_price}，其中{$totalBalance1|format_price}待结算。 已结算{$totalBalance2|format_price}，本页总计{$totalBalance3|format_price}。</div>
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+
+</div>
+<include file="Public:footer" />

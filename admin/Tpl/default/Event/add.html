@@ -1,0 +1,238 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<style type="text/css">
+    td span label{float:left; padding:3px; margin:2px; background:#E6E6E6; cursor:pointer; display:inline-block; }
+    td span label.active{background:#F60; color:#fff;}
+    #container{height:200px; width: 200px; float:left;}  
+    #container_front{width: 600px; height:500px; border: 1px solid #000; position: absolute; top: 10px; background-color: #fff; overflow: hidden;}
+    #container_m{ width: 550px; height: 450px; margin: 0 auto;}
+    #cancel_btn{display: block; width: 600px; height: 18px; line-height: 18px; text-align: right;}
+</style>
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.2"></script> 
+<load href='__TMPL__Common/js/map.js' />
+<load href='__TMPL__Common/js/event.js' />
+<script type="text/javascript">
+	var blue_point = "__ROOT__/system/blue_point.png";
+	var red_point = "__ROOT__/system/red_point.png";
+	$(document).ready(function(){
+	
+		 $("input[name='search_api']").bind("click",function(){  
+		 	var api_address = $("input[name='search_api_address']").val();
+			var city=$("select[name='city_id']").find("option:selected").attr("rel");
+			if ($.trim(api_address) == '') {
+				alert("{%INPUT_KEY_PLEASE}");
+			}
+			else 
+			{
+				search_api(api_address, city);
+			}
+        });
+		draw_map('0','0');
+		$("#container_front").hide();
+        $("#cancel_btn").bind("click",function(){ $("#container_front").hide(); });
+        $("input[name='chang_api']").bind("click",function(){ 
+            editMap($("input[name='xpoint']").attr('value'),$("input[name='ypoint']").attr('value'));
+        });
+	});
+</script>
+<div class="main">
+<div class="main_title">{%ADD} <a href="{:u("Event/index")}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%EVENT_NAME}:</td>
+		<td class="item_input"><input type="text" class="textbox require" name="name" /></td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">{%EVENT_ICON}:</td>
+		<td class="item_input">
+			<html:imgUpload name = 'icon' id='icon' />
+		</td>
+	</tr>
+		
+	<tr>
+		<td class="item_title">{%EVENT_BEGIN_TIME}:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="event_begin_time" id="event_begin_time" value="" onfocus="this.blur(); return showCalendar('event_begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_event_begin_time');" />
+			<input type="button" class="button" id="btn_event_begin_time" value="{%SELECT_TIME}" onclick="return showCalendar('event_begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_event_begin_time');" />	
+			<input type="button" class="button" value="{%CLEAR_TIME}" onclick="$('#event_begin_time').val('');" />	
+			<span class='tip_span'>[{%NO_TIME_SET_TIP}]</span>
+
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">{%EVENT_END_TIME}:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="event_end_time" id="event_end_time" value="" onfocus="this.blur(); return showCalendar('event_end_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_event_end_time');" />
+			<input type="button" class="button" id="btn_event_end_time" value="{%SELECT_TIME}" onclick="return showCalendar('event_end_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_event_end_time');" />	
+			<input type="button" class="button" value="{%CLEAR_TIME}" onclick="$('#event_end_time').val('');" />
+			<span class='tip_span'>[{%NO_TIME_SET_TIP}]</span>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">{%SUBMIT_BEGIN_TIME}:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="submit_begin_time" id="submit_begin_time" value="" onfocus="this.blur(); return showCalendar('submit_begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_submit_begin_time');" />
+			<input type="button" class="button" id="btn_submit_begin_time" value="{%SELECT_TIME}" onclick="return showCalendar('submit_begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_submit_begin_time');" />	
+			<input type="button" class="button" value="{%CLEAR_TIME}" onclick="$('#submit_begin_time').val('');" />	
+			<span class='tip_span'>[{%NO_TIME_SET_TIP}]</span>
+
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">{%SUBMIT_END_TIME}:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="submit_end_time" id="submit_end_time" value="" onfocus="this.blur(); return showCalendar('submit_end_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_submit_end_time');" />
+			<input type="button" class="button" id="btn_submit_end_time" value="{%SELECT_TIME}" onclick="return showCalendar('submit_end_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_submit_end_time');" />	
+			<input type="button" class="button" value="{%CLEAR_TIME}" onclick="$('#submit_end_time').val('');" />
+			<span class='tip_span'>[{%NO_TIME_SET_TIP}]</span>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">{%PARENT_CITY}:</td>
+		<td class="item_input">
+		<select name="city_id">
+			<foreach name="city_list" item="city_item">
+				<option value="{$city_item.id}" rel="{$city_item.name}">{$city_item.title_show}</option>
+			</foreach>
+		</select>
+		</td>
+	</tr>
+	
+	<tr id="sub_area_box">
+		<td class="item_title">{%AREA_LIST}:</td>
+		<td class="item_input" id="area_list">
+			
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">{%CATE_TREE}:</td>
+		<td class="item_input">
+		<select name="cate_id" class="require">
+			<option value="0">=={%NO_SELECT_CATE}==</option>
+			<foreach name="cate_tree" item="cate_item">
+				<option value="{$cate_item.id}">{$cate_item.name}</option>
+			</foreach>
+		</select>		
+		</td>
+	</tr>
+
+	<tr>
+		<td class="item_title">{%SUPPLIER_NAME}:</td>
+		<td class="item_input">
+			<span id="supplier_list">
+			<select name="supplier_id">
+				<option value="0">{%EMPTY_SELECT_SUPPLIER}</option>
+				<if condition="$supplier_info">
+					<option value="{$supplier_info.id}" selected="selected">{$supplier_info.name}</option>
+				</if>
+			</select>
+			</span>
+			<input type="text" class="textbox" name="supplier_key" /> 
+			<input type="button" name="supplier_key_btn" class="button" value="{%SEARCH}" />
+			<input type="hidden" name="address" />
+		</td>
+	</tr>
+	
+	<tr id="supplier_location">
+		<td class="item_title">{%SUPPLIER_LOCATION}:</td>
+		<td class="item_input">
+			
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">{%EVENT_ADDRESS}:</td>
+		<td class="item_input"><input type="text" class="textbox" name="address" /></td>
+	</tr>
+	<tr>
+            <td class="item_title">地图定位</td>
+            <td class="item_input">            	
+            	关键词：<input type="text" class="textbox" name="search_api_address" value="" /> 
+				<input type="button" value="查找" class="button" name="search_api" id="search_api" >
+				<div style="height:10px; clear:both;"></div>
+                <div id="container"></div>
+				<div style="height:10px; clear:both;"></div>
+                <script type="text/javascript"></script> 
+                <input type="button" value="手动修改" name="chang_api" id="chang_api">
+                <div style="position:relative; top:-400px;">
+                    <div  id="container_front">
+                        <a href="#" id="cancel_btn">取消</a>
+                        <div id="container_m"></div>
+                    </div>
+                </div>
+				<input type="hidden" name="xpoint" />
+				<input type="hidden" name="ypoint" />
+            </td>
+    </tr>
+	
+	<tr>
+		<td class="item_title">{%IS_EFFECT}:</td>
+		<td class="item_input">
+			<lable>{%IS_EFFECT_1}<input type="radio" name="is_effect" value="1" checked="checked" /></lable>
+			<lable>{%IS_EFFECT_0}<input type="radio" name="is_effect" value="0" /></lable>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%SORT}:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="sort" value="{$new_sort}" />
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td class="item_title">简介:</td>
+		<td class="item_input">
+			<textarea class="textarea" name="brief" ></textarea>
+		</td>
+	</tr>
+	
+
+	<tr>
+		<td class="item_title">内容:</td>
+		<td class="item_input">
+			 <html:editor id="content" name="content" type="KINDEDITOR" content="{$vo.content}" />
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">报名项配置: [<a href='javascript:void(0);' onclick="add_submit_row(0);">+</a>]</td>
+		<td class="item_input" id="submit_row">
+			 
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title"></td>
+		<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="Event" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="insert" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%ADD}" />
+			<input type="reset" class="button" value="{%RESET}" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>	 
+</form>
+</div>
+<include file="Public:footer" />

@@ -1,0 +1,260 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<style type="text/css">
+    td span label{float:left; padding:3px; margin:2px; background:#E6E6E6; cursor:pointer; display:inline-block; }
+    td span label.active{background:#F60; color:#fff;}
+    #container{height:200px; width: 200px; float:left;}  
+    #container_front{width: 600px; height:500px; border: 1px solid #000; position: absolute; top: 10px; background-color: #fff; overflow: hidden;}
+    #container_m{ width: 550px; height: 450px; margin: 0 auto;}
+    #cancel_btn{display: block; width: 600px; height: 18px; line-height: 18px; text-align: right;}
+</style>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.2"></script> 
+<load href='__TMPL__Common/js/map.js' />
+<load href='__TMPL__Common/js/location.js' />
+<script type="text/javascript">
+var blue_point = "__ROOT__/system/blue_point.png";
+var red_point = "__ROOT__/system/red_point.png";
+	$(document).ready(function(){
+		 $("input[name='search_api']").bind("click",function(){  
+		 	var api_address = $("input[name='api_address']").val();
+			var city=$("select[name='city_id']").find("option:selected").attr("rel");
+			if ($.trim(api_address) == '') {
+				alert("{%INPUT_KEY_PLEASE}");
+			}
+			else 
+			{
+				search_api(api_address, city);
+			}
+        });
+		draw_map('0','0');
+		$("#container_front").hide();
+        $("#cancel_btn").bind("click",function(){ $("#container_front").hide(); });
+        $("input[name='chang_api']").bind("click",function(){ 
+            editMap($("input[name='xpoint']").attr('value'),$("input[name='ypoint']").attr('value'));
+        });
+		
+		
+	});
+
+</script>
+<load href='__TMPL__Common/js/supplier.js' />
+<div class="main">
+<div class="main_title">{%ADD_LOCATION} <a href="{:u("SupplierLocation/index")}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%NAME}:</td>
+		<td class="item_input"><input type="text" class="textbox require" name="name" /></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%TAGS}:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="tags"  style="width:50%"  />
+			<span class="tip_span">[{%ADV_TAGS_TIPS}]</span>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">首页图片:</td>
+		<td class="item_input">
+			<html:imgUpload name = 'index_img' id='index_img'/>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%SUPPLIER_PREVIEW}:</td>
+		<td class="item_input"><html:imgUpload name = 'preview' id='preview' /></td>
+	</tr>	
+	<tr>
+		<td class="item_title">{%SUPPLIER_NAME}:</td>
+		<td class="item_input">
+			<span id="supplier_list">
+			<select name="supplier_id">
+				<option value="0">{%EMPTY_SELECT_SUPPLIER}</option>
+				<if condition="$supplier_info">
+					<option value="{$supplier_info.id}" selected="selected">{$supplier_info.name}</option>
+				</if>
+			</select>
+			</span>
+			<input type="text" class="textbox" name="supplier_key" /> 
+			<input type="button" name="supplier_key_btn" class="button" value="{%SEARCH}" />
+			<span class="tip_span">{%AUTO_CREATE}</span>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%LOCATION_BRAND}:</td>
+		<td class="item_input">
+			<foreach name="brand_list" item="brand">
+				<label>
+					<input type="checkbox" name="brand_id[]" value="{$brand.id}" />
+					{$brand.name}
+				</label>
+			</foreach>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%DEAL_CITY}:</td>
+		<td class="item_input">
+		<select name="city_id">
+			<foreach name="city_list" item="city_item">
+				<option value="{$city_item.id}" rel="{$city_item.name}">{$city_item.title_show}</option>
+			</foreach>
+		</select>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%AREA_LIST}:</td>
+		<td class="item_input" id="area_list">
+			
+		</td>
+	</tr>
+		<tr>
+		<td class="item_title">{%DEAL_CATE_TREE}:</td>
+		<td class="item_input">
+		<select name="deal_cate_id">
+			<option value="0">=={%NO_SELECT_CATE}==</option>
+			<foreach name="deal_cate_tree" item="cate_item">
+				<option value="{$cate_item.id}">{$cate_item.title_show}</option>
+			</foreach>
+		</select>
+		</td>
+	</tr>
+	<tr id="sub_cate_box">
+		<td class="item_title">{%DEALCATETYPE_INDEX}:</td>
+		<td class="item_input">
+			
+		</td>
+	</tr>
+	<tr id="tag_group_preset">
+		<td class="item_title">商户标签设置</td>
+		<td class="item_input">
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%IS_MAIN}:</td>
+		<td class="item_input">
+			<select name="is_main">
+				<option value="1">{%YES}</option>
+				<option value="0">{%NO}</option>				
+			</select>
+			<span class="tip_span">[{%IS_MAIN_TIP}]</span>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%LOCATION_ADDRESS}:</td>
+		<td class="item_input"><input class="textbox" name="address" style="width:50%" /></td>
+	</tr>	
+	<tr>
+		<td class="item_title">{%LOCATION_ROUTE}:</td>
+		<td class="item_input"><textarea class="textarea" name="route" ></textarea></td>
+	</tr>	
+	<tr>
+		<td class="item_title">{%LOCATION_TEL}:</td>
+		<td class="item_input"><input type="text" class="textbox" name="tel" /></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%LOCATION_CONTACT}:</td>
+		<td class="item_input"><input type="text" class="textbox" name="contact" /></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%LOCATION_OPENTIME}:</td>
+		<td class="item_input"><input type="text" class="textbox" name="open_time" /></td>
+	</tr>
+	
+	<tr>
+            <td class="item_title">地图定位</td>
+            <td class="item_input">            	
+            	关键词：<input type="text" class="textbox" name="api_address" value="" /> 
+				<input type="button" value="查找" class="button" name="search_api" id="search_api" >
+				<div style="height:10px; clear:both;"></div>
+                <div id="container"></div>
+				<div style="height:10px; clear:both;"></div>
+                <script type="text/javascript"></script> 
+                <input type="button" value="手动修改" name="chang_api" id="chang_api">
+                <div style="position:relative; top:-400px;">
+                    <div  id="container_front">
+                        <a href="#" id="cancel_btn">取消</a>
+                        <div id="container_m"></div>
+                    </div>
+                </div>
+				<input type="hidden" name="xpoint" />
+				<input type="hidden" name="ypoint" />
+            </td>
+    </tr>
+
+	<tr>
+		<td class="item_title">{%LOCATION_BRIEF}:</td>
+		<td class="item_input">
+		 <html:editor id="brief" name="brief" type="KINDEDITOR"  />
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">手机端列表简介:</td>
+		<td class="item_input"><textarea class="textarea" name="mobile_brief"></textarea></td>
+	</tr>
+	<tr>
+		<td class="item_title">短信内容:</td>
+		<td class="item_input">
+		 <html:editor id="sms_content" name="sms_content" type="textarea" style="width:300px;height:80px" /><br>
+		 <span class="tip_span">[若不填发送的短信内容为：名称+电话+地址]</span>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">总评分预设值[0-5]:</td>
+		<td class="item_input">
+		 <input type="text" id="avg_point" name="avg_point" class="textbox" value="0" />
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">好评预设值[0-1]:</td>
+		<td class="item_input">
+		 <input type="text" class="textbox" id="good_rate" name="good_rate" value="0" />
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">SEO标题:</td>
+		<td class="item_input"><textarea class="textarea" name="seo_title" ></textarea></td>
+	</tr>
+	<tr>
+		<td class="item_title">SEO关键词:</td>
+		<td class="item_input"><textarea class="textarea" name="seo_keyword" ></textarea></td>
+	</tr>
+	<tr>
+		<td class="item_title">SEO描述:</td>
+		<td class="item_input"><textarea class="textarea" name="seo_description" ></textarea></td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">营业执照:</td>
+		<td class="item_input">
+			<html:imgUpload name = 'biz_license' id='biz_license' value='$vo.biz_license' />
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">其他资质:</td>
+		<td class="item_input">
+			<html:imgUpload name = 'biz_other_license' id='biz_other_license' value='$vo.biz_other_license' />
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title"></td>
+		<td class="item_input">
+			<!--隐藏元素-->			
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="SupplierLocation" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="insert" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%ADD}" />
+			<input type="reset" class="button" value="{%RESET}" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>	 
+</form>
+</div>
+<include file="Public:footer" />

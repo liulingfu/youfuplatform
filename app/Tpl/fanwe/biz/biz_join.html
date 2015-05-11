@@ -1,0 +1,26 @@
+{include file="biz/biz_header.html"} 
+<?php
+$this->_var['darencss'][] = $this->_var['TMPL_REAL']."/css/daren.css";
+?>
+<link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$darencss"}" />
+<div class="wrap">
+<div class="biz_submit_main"></div>
+<div class="blank"></div>
+<div class="biz_submit_desc"></div>
+<div class="blank"></div>
+	<div class="blank"></div>
+	<div class="blank"></div>
+<div class="daren_submit_how">
+
+		<ul>
+			<li><span style="color:#b40000;">1、提供材料：</span>提交您的商家名称，地址，电话，联系人等有效信息，以及相关的证明材料发邮件至 <a href="mailto:{function name="app_conf" v="REPLY_ADDRESS"}" style="color:#b40000;">{function name="app_conf" v="REPLY_ADDRESS"}</a>进行申请。</li>
+			<li><span style="color:#b40000;">2、邮件标题：</span>邮件标题统一为 <span style="color:#b40000;">{function name="app_conf" v="SHOP_TITLE"}商户申请</span> </li>
+			<li><span style="color:#b40000;">3、点亮会员：</span>如果已经注册为 {function name="app_conf" v="SHOP_TITLE"} 会员，需要点亮“商”标识，请在邮件中提供会员的帐号。 </li>
+			<li><span style="color:#b40000;">4、申请成功：</span>我们将在3个工作日内有相关工作人员与您联系，审核并开通你的商家帐号。 </li>
+		
+		</ul>	
+
+</div>
+<div class="blank"></div>
+</div>
+{include file="biz/biz_footer.html"} 

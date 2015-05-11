@@ -1,0 +1,20 @@
+{if $supplier_address_info.xpoint && $supplier_address_info.ypoint}																	
+<li>
+	<span class="saler_map">
+		<img src="http://api.map.baidu.com/staticimage?center={$supplier_address_info.xpoint},{$supplier_address_info.ypoint}&width=194&height=194&zoom=16&markers={$supplier_address_info.xpoint},{$supplier_address_info.ypoint}" />
+		<a href='http://ditu.google.cn/maps?f=q&source=s_q&hl=zh-CN&geocode=&q={$supplier_address_info.api_address}' target="_blank">{$LANG.VIEW_MAP}</a>										
+	</span>
+</li>	
+{/if}					
+{if $supplier_address_info.address}				
+<li>{$supplier_address_info.address}</li>		
+{/if}		
+{if $supplier_address_info.tel}						
+<li>{$supplier_address_info.tel}‎</li>	
+{/if}	
+{if $supplier_address_info.open_time}									
+<li>{$LANG.OPEN_TIME}：{$supplier_address_info.open_time}‎</li>	
+{/if}	
+{if $supplier_address_info.route}										
+<li>{$LANG.BUS_ROUTE}：{$supplier_address_info.route}‎</li>											
+{/if}				

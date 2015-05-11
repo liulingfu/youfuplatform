@@ -1,0 +1,28 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+
+<div class="main">
+<div class="main_title">{$main_title}</div>
+<div class="blank5"></div>
+
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">	
+		{%DEAL_ITEM_ID}：<input type="text" class="textbox" name="deal_id" value="{$deal_info.id}" />
+		{%BALANCE_STATUS}：
+		<select name="is_balance">
+			<option value="0" <if condition="$is_balance eq 0">selected="selected"</if>>{%BALANCE_0}</option>	
+			<option value="1" <if condition="$is_balance eq 1">selected="selected"</if>>{%BALANCE_1}</option>	
+			<option value="2" <if condition="$is_balance eq 2">selected="selected"</if>>{%BALANCE_2}</option>	
+		</select>		
+		<input type="hidden" value="Balance" name="m" />
+		<input type="hidden" value="index" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+	</form>
+</div>
+<div class="blank5"></div>
+</div>
+<include file="Public:footer" />

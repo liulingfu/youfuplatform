@@ -1,0 +1,386 @@
+{include file="inc/header.html"} 
+<div id="bdw" class="bdw">
+	<div id="bd" class="cf">
+		{if $coupon_data}
+		{include file="inc/new_coupon_tip.html"} 
+		{/if}
+		<div id="deal-default">
+        <div id="deal-intro" class="cf">
+					<h1>
+						<span class='sub_title'>
+							{if count($deal_city_list) gt 1}
+							{$deal_city.name}
+							{/if}
+							{if $deal.buy_type eq 0}
+								{$LANG.DEAL_CURRENT}
+							{/if}
+							{if $deal.buy_type eq 2}
+								{$LANG.DEAL_ORDER}
+							{/if}
+							{if $deal.buy_type eq 3}
+								{$LANG.DEAL_SECOND}
+							{/if}						
+						</span> {$deal.name}				
+					</h1>
+                    <div class=side>
+						<div id="goods_imgs" class="deal-buy-cover-img">
+							<div class="mid">
+								<ul>
+								{foreach from=$deal.image_list key=key item=image}
+								<li {if $key eq 0}class="first"{/if}>
+								<img src="{function name="get_spec_image" v=$image.img w=490 h=327 g=0}">
+								</li>
+								{/foreach}								
+								</ul>
+								<div id="img_list">
+									{if count($deal.image_list) gt 1}
+									{foreach from=$deal.image_list key=key item=image}
+									<a {if $key eq 0}class="active"{/if} ref="<?php echo $this->_var['key']+1;?>"><?php echo $this->_var['key']+1;?></a>
+									{/foreach}	
+									{/if}							
+								</div>
+							</div>
+						</div>					
+	
+					</div>
+					<div class="main">
+						<div class="deal-buy">
+							<div class="deal-price-tag"></div>
+							<p class="deal-price" id="deal-price">
+								<strong>{$deal.current_price_format}</strong>
+                                <i class="discount">{$deal.discount}{$LANG.DISCOUNT_OFF}</i>
+								<!--begin button status-->
+								{if $deal.time_status eq 0} {*/未开始/*}
+								<span>		
+									<a href="javascript:void(0);">					
+										<img src="{$TMPL}/images/tuan/bg-deal-wait-text.gif">	
+									</a>								
+								</span>
+								{/if}
+								{if $deal.time_status eq 1}{*/已开始/*}
+									{if $deal.buy_status eq 2} {*/卖光/*}
+									<span>
+										<a href="javascript:void(0);">
+											<img src="{$TMPL}/images/tuan/bg-deal-soldout-text.gif">
+										</a>
+									</span>
+									{else}
+									<span>
+										<a href="javascript:void(0);" onclick="add_cart({$deal.id})">
+											{if $deal.is_lottery eq 1 and $deal.current_price eq 0}
+												<img src="{$TMPL}/images/tuan/button-deal-lottery.gif">
+											{else}	
+												{if $deal.buy_type eq 0}
+													<img src="{$TMPL}/images/tuan/button-deal-buy.gif">
+												{/if}
+												{if $deal.buy_type eq 2}
+													<img src="{$TMPL}/images/tuan/button-deal-order.gif">
+												{/if}
+												{if $deal.buy_type eq 3}
+													<img src="{$TMPL}/images/tuan/button-deal-second.gif">
+												{/if}
+											{/if}
+										</a>
+									</span>
+									{/if}
+								{/if}
+								{if $deal.time_status eq 2} {*/已过期/*}
+									{if $deal.buy_status eq 2} {*/卖光/*}
+									<span>
+											<a href="javascript:void(0);">
+												<img src="{$TMPL}/images/tuan/bg-deal-soldout-text.gif">
+											</a>
+										</span>
+									{else}
+									<span>		
+										<a href="javascript:void(0);">					
+											<img src="{$TMPL}/images/tuan/bg-deal-expired-text.gif">	
+										</a>								
+									</span>
+									{/if}
+								{/if}
+								<!--end button status-->		
+							</p>
+						</div>
+						<div class="item_prices">
+							<table class="deal-discount">				
+								<tr>
+									<th>{$LANG.ORIGIN_PRICE}</th>
+									<th>{$LANG.DISCOUNT}</th>
+									<th>{$LANG.SAVE_PRICE}</th>
+								</tr>
+								<tr>
+									<td>{$deal.origin_price_format}</td>
+									<td>{$deal.discount}{$LANG.DISCOUNT_OFF}</td>
+									<td>{$deal.save_price_format}</td>
+								</tr>
+							</table>	
+							</div>
+						<div class="deal_info_box" style="margin-top:20px;">
+		
+							{if ($deal.begin_time ne 0 and $deal.time_status eq 0) or ($deal.end_time ne 0 and $deal.time_status eq 1)} {* 时间 *}
+							<div id="deal-timeleft-box" style="padding:5px;">
+								<div id="deal-timeleft" class="deal-timeleft deal-on">
+									<h3 class="remain_clock">{$LANG.TIME_LEFT}</h3>
+									<div class="limitdate">
+										<ul id="counter"></ul>
+									</div>
+								</div>						
+							</div>
+							<div class="dotted_line"></div>	
+							{elseif $deal.time_status eq 2}
+							<div class="tuan_end_tip">
+									<?php echo sprintf($GLOBALS['lang']['TUAN_END_DATETIME'], to_date($this->_var['deal']['end_time']));?>			
+							</div>
+							<div class="dotted_line"></div>	
+							{/if}
+							<!--status-->
+							<div id=deal-status class="deal-status deal-status-open">
+							
+							{if $deal.time_status eq 0}{*/未开始/*}
+								<div style="font-size:12px;">{$LANG.DEAL_NOT_BEGIN}</div>								
+								<div class="not-begin"></div>
+							{/if}
+							{if $deal.time_status eq 1} {*/进行中/*}
+								{if $deal.buy_status eq 0} {*/未成功/*}
+									<p class="deal-buy-tip-notice">{$deal.deal_success_num}{$deal.success_less}</p>
+									<div class="progress-pointer" style="padding-left:<?php echo $this->_var['deal']['current_bought'] / $this->_var['deal']['min_bought'] * 194 -5; ?>px;"><span></span></div>
+									<div class="progress-bar">
+								
+										<div class="progress-left" style="width:<?php echo $this->_var['deal']['current_bought'] / $this->_var['deal']['min_bought'] * 194; ?>px;"></div>
+										<div class="progress-right "></div>
+									</div>
+									<div class="cf">
+										<div class="min">0</div>
+										<div class="max">{$deal.min_bought}</div>
+									</div>
+									
+								{/if}
+								{if $deal.buy_status eq 1} {*/成功/*}
+									<p class=deal-buy-tip-top>{$deal.deal_success_num}</p>
+									<p class="deal-buy-tip-notice">
+										{if $deal.is_lottery eq 0}
+										<?PHP
+										$c_deal = $this->_var['deal'];
+										if($c_deal['max_bought'] != 0 && $c_deal['max_bought'] - $c_deal['buy_count'] <= 20)
+										{
+											echo sprintf($GLOBALS['lang']['REMAIN_TIP'],$c_deal['max_bought'] - $c_deal['buy_count']);
+										}
+										?>
+										{$LANG.DEAL_LIMIT_TIP}
+										{else}
+										{function name="sprintf" f=$LANG.TOTAL_LOTTERY_COUNT p=$deal.lottery_count}
+										<br /> <a href="{url x="shop" r="uc_order#lottery"}" style="color:#f30;">{$LANG.INVITE_LOTTERY_DEAL_TIP}</a>
+										{/if}
+									</p>
+									{if $deal.is_lottery eq 0}
+									<p class=deal-buy-on>{$LANG.DEAL_SUCCESS_CONTINUE_BUY}</p>		
+									{/if}							
+								{/if}
+								{if $deal.buy_status eq 2} {*/卖光/*}
+								<p class=deal-buy-tip-top>{$deal.deal_success_num}</p>
+								<img src="{$TMPL}/images/tuan/bg-sold-out.gif">
+								{/if}							
+							{/if}
+							{if $deal.time_status eq 2} {*/过期/*}
+								{if $deal.buy_status eq 0} {*/失败/*}
+								<p class=deal-buy-tip-top>{$deal.deal_success_num}</p>
+								<img src="{$TMPL}/images/tuan/bg-deal-expired-fail.gif">
+								{/if}
+								{if $deal.buy_status eq 1} {*/成功/*}
+								<p class=deal-buy-tip-top>{$deal.deal_success_num}</p>
+								<img src="{$TMPL}/images/tuan/bg-deal-expired-success.gif">
+								{/if}
+								{if $deal.buy_status eq 2} {*/卖光/*}
+								<p class=deal-buy-tip-top>{$deal.deal_success_num}</p>
+								<img src="{$TMPL}/images/tuan/bg-sold-out.gif">
+								{/if}
+							{/if}
+							
+							</div>
+							<!--status-->
+												
+						</div>
+						
+						
+						
+
+						
+					</div>
+					
+					<div class="clear"></div>
+					{if $deal.brief}
+					<div id="goods-breif" class="cf">
+						<h3>商品简介</h3>
+						<div class="detail">{$deal.brief}</div>
+					</div>
+					{else}
+					<div class="blank1"></div>
+					<div class="blank1"></div>
+					<div class="blank8"></div>
+					{/if}
+				</div>
+			<div id="content">
+				
+				
+				<div id=deal-stuff class=cf>
+					
+					{include file="inc/share.html"}
+					<div class="blank1"></div>					
+					<div class="box box-split cf">		
+						<div class="box-content cf">
+							<ul class="detail_nav">
+								<li rel="1" class="current_nav" style="border-left:#ccc solid 1px;">本单详情</li>
+								<li rel="2">售前咨询</li>
+								<li rel="3">买家点评</li>
+							</ul>
+							<div class=" lazy box_main" rel="1">
+								{$deal.description}
+							</div>	
+							<div class=" box_main consult-list" rel="2" style="display:none;">{$before_message_html}
+							<div class="blank1"></div>
+							<div style="text-align:right;">
+							<input type="button" value="查看更多" name="commit" class="formbutton" onclick="location.href='{url x="tuan" r="message#deal" p="id=$deal.id&is_buy=0"}';" />
+							
+							<input type="button" value="我也去咨询" name="commit" class="formbutton" onclick="location.href='{url x="tuan" r="message#deal" p="id=$deal.id&is_buy=0"}#consult-form-head';" />
+							</div>
+							</div>
+							<div class=" box_main consult-list" rel="3" style="display:none;">{$after_message_html}
+							<div class="blank1"></div>
+							<div style="text-align:right;">
+							<input type="button" value="查看更多" name="commit" class="formbutton" onclick="location.href='{url x="tuan" r="message#deal" p="id=$deal.id&is_buy=1"}';" />
+							
+							<input type="button" value="我也去点评" name="commit" class="formbutton" onclick="location.href='{url x="tuan" r="message#deal" p="id=$deal.id&is_buy=1"}#consult-form-head';" />
+							</div>
+							</div>						
+							<div class=blank></div>
+
+						</div>
+						<div class=box-bottom></div>
+					</div>
+				</div>
+			</div>
+			{include file="inc/side.html"} 
+	</div>
+	<!-- bd end -->
+</div></div>
+{if ($deal.begin_time ne 0 and $deal.time_status eq 0) or ($deal.end_time ne 0 and $deal.time_status eq 1)} {* 时间 *}
+<script type="text/javascript">
+{if $deal.time_status eq 1} {*/结束倒计时/*}
+var endTime = {$deal.end_time}000;
+var nowTime = {function name=get_gmtime}000;
+var sysSecond = (endTime - nowTime) / 1000;
+{/if}
+{if $deal.time_status eq 0} {*/开始倒计时/*}
+var beginTime = {$deal.begin_time}000;
+var nowTime = {function name=get_gmtime}000;
+var sysSecond = (beginTime - nowTime) / 1000;
+{/if}
+var interValObj;
+setRemainTime();
+function setRemainTime()
+{	
+	if (sysSecond > 0)
+	{
+		var second = Math.floor(sysSecond % 60);              // 计算秒     
+		var minite = Math.floor((sysSecond / 60) % 60);       //计算分
+		var hour = Math.floor((sysSecond / 3600) % 24);       //计算小时
+		var day = Math.floor((sysSecond / 3600) / 24);        //计算天
+		var timeHtml = "<span>"+hour+"</span>"+LANG['HOUR']+"<span>"+minite+"</span>"+LANG['MIN']+"";
+		if(day > 0)
+			timeHtml ="<span>"+day+"</span>"+LANG['DAY']+"" + timeHtml;
+		
+		timeHtml+="<span>"+second+"</span>"+LANG['SEC']+"";
+		
+		try
+		{
+			$("#counter").html(timeHtml);
+			sysSecond--;
+		}
+		catch(e){}}
+	else
+	{window.clearTimeout(interValObj);}
+	interValObj = window.setTimeout("setRemainTime()", 1000); 	
+}
+</script>
+{/if}
+<!--图片轮播-->
+<script type="text/javascript">
+
+var errHideTimeOut;
+var userMenuTimeOut;
+var ecvTimeOut;
+var imgListCurr=0;
+var imgListNext=0;
+var imgListCount=0;
+var imgListInterval;
+
+function imagesInit()
+{
+	imgListCount = $('#img_list a').size();
+	
+	if(imgListCount < 2)
+		return;
+	
+	imgListInterval = setInterval('imagesRun()',3000);
+	 
+	$('#goods_imgs li,#img_list a').hover(function(){
+		clearInterval(imgListInterval);
+	},function(){
+		imgListInterval = setInterval('imagesRun()',3000);
+	});
+	 
+	$('#img_list a').click(function(){
+		var index = $('#img_list a').index(this);
+		if (imgListCurr != index){
+			imagesPlay(index);
+            imgListCurr = index;
+        };
+		return false;
+    });
+}
+
+function imagesRun()
+{
+	imgListNext = imgListCurr + 1;
+    if (imgListCurr == imgListCount - 1)
+		imgListNext = 0;
+		
+	imagesPlay(imgListNext);
+	
+	imgListCurr++;
+	
+    if (imgListCurr > imgListCount - 1)
+	{
+		imgListCurr = 0;
+		imgListNext = imgListCurr + 1;
+	}
+}
+
+function imagesPlay(next)
+{
+	$('#goods_imgs li').eq(imgListCurr).css({'opacity':'0.5'}).animate({'left':'-440px','opacity':'1'},'slow',function(){
+		$(this).css({'left':'440px' });
+	}).end().eq(next).animate({'left':'0px','opacity':'1'},'slow',function(){
+		$('#img_list a').siblings('a').removeClass('active').end().eq(next).addClass('active');
+	});
+}
+function switch_location()
+{
+	var location_id = $("#locations_select").val();
+	$.ajax({
+		url: APP_ROOT+"/tuan.php?ctl=ajax&act=get_supplier_location&id="+location_id,
+		success:function(html)
+		{
+			$("#sp_location").html(html);
+		}
+	});
+}
+$(document).ready(function(){
+	imagesInit();
+	$("#locations_select").bind("change",function(){
+		switch_location();
+	});
+});
+</script>
+{include file="inc/footer.html"}

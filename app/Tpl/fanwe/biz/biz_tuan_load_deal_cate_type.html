@@ -1,0 +1,3 @@
+{foreach from=$list item=t}
+{$t.name}<input type="checkbox" name="deal_cate_type_id[]" value="{$t.id}" {if $t.checked}checked="checked"{/if} />
+{/foreach}

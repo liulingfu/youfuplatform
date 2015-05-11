@@ -1,0 +1,40 @@
+<div class="inc">
+	<div class="inc_top">{$page_title}</div>
+	<div class="inc_main">
+		<div class="sub_nav">
+			<span {if $ACTION_NAME eq 'index'}class="act"{/if}><a href="{url x="shop" r="uc_voucher#index"}">{$LANG.UC_VOUCHER}</a></span>
+			<span {if $ACTION_NAME eq 'exchange'}class="act"{/if}><a href="{url x="shop" r="uc_voucher#exchange"}">{$LANG.UC_VOUCHER_EXCHARGE}</a></span>
+		</div>
+		<div class="blank"></div>
+		<div class="uc-table">
+			<table cellspacing="0" cellpadding="0" border="0" class="coupons-table" >
+								<tr>
+									<th>{$LANG.VOUCHER_INFO}</th>
+									<th>{$LANG.VOUCHER_TIME}</th>
+									<th>{$LANG.VOUCHER_USE_LIMIT}</th>
+									<th>{$LANG.VOUCHER_USE_COUNT}</th>
+								</tr>
+								{foreach from=$list item=voucher key=key}
+								<tr {if $key mod 2 eq  0}class="alt"{/if}>
+									<td style="text-align:left;">
+										{$LANG.VOUCHER_NAME}：{$voucher.name}<br />
+										{$LANG.VOUCHER_MONEY}：{function name="format_price" value=$voucher.money}<br />
+										{$LANG.VOUCHER_SN}：{$voucher.sn}
+										{if $voucher.password}
+										<br />{$LANG.VOUCHER_PASSWORD}：{$voucher.password}
+										{/if}
+									</td>
+									<td>{if $voucher.begin_time eq 0}无限{else}{function name="to_date" value=$voucher.begin_time}{/if} {if $voucher.end_time eq 0}{else}{$LANG.TO} {function name="to_date" value=$voucher.end_time}{/if} </td>
+									<td>{$voucher.use_limit}</td>
+									<td>{$voucher.use_count}</td>
+									
+								</tr>
+								{/foreach}
+						</table>
+						
+						<div class="blank"></div>
+						<div class="pages">{$pages}</div>
+		</div><!--end uc-table-->
+	</div>
+	<div class="inc_foot"></div>
+</div>

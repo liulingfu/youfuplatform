@@ -1,0 +1,58 @@
+<div class="inc">
+	<div class="inc_top">{$page_title}</div>
+	<div class="inc_main">
+		<div class="money_box">
+								{$LANG.TOTAL_REFERRALS}：
+								<strong class="red">{function name="format_price" value=$total_referral_money}</strong>
+								<strong class="red">{function name="format_score" value=$total_referral_score}</strong>
+		</div>	
+		<div class="blank"></div>
+		<div class="uc-table">
+			<div id="referrals" style="padding-left:20px;">
+									<div class="blk im refers">
+										
+											<h4>{$LANG.SHARE_LINK}：</h4>
+											<input type="text" onfocus="this.select()" class="f-input" id="share-copy-text" size="30" value="{$share_url}">
+											<input type="button" class="formbutton" id="share-copy-button" value="{$LANG.COPY}">
+									
+									</div>
+							</div>
+						<div class="blank"></div>
+						<table cellspacing="0" cellpadding="0" border="0" class="coupons-table" >
+								<tr>
+									<th>{$LANG.USER_TITLE_USER_NAME}</th>
+									<th>{$LANG.REGISTER_TIME}</th>
+									<th>{$LANG.REFERRALS_GEN}</th>
+									<th>{$LANG.REFERRALS_PAID}</th>
+									<th>{$LANG.REFERRALS_ORDER}</th>
+									<th>{$LANG.REFERRALS_GEN_TIME}</th>
+									<th>{$LANG.REFERRALS_PAID_TIME}</th>
+									<th>{$LANG.REFERRALS_STATUS}</th>
+								</tr>
+								{foreach from=$list item=invite key=key}
+								<tr {if $key mod 2 eq  0}class="alt"{/if}>
+									<td>{$invite.i_user_name}</td>
+									<td>{function name="to_date" value=$invite.i_reg_time}</td>
+									<td>{if $invite.i_referral_count gt 0}{$LANG.YES}{else}{$LANG.NO}{/if}</td>
+									<td>{if $invite.i_pay_time gt 0}{$LANG.YES}{else}{$LANG.NO}{/if}</td>
+									<td>{$invite.i_order_sn}</td>
+									<td>{function name="to_date" value=$invite.i_referral_time}</td>
+									<td>{function name="to_date" value=$invite.i_pay_time}</td>
+									<td>
+										{if $invite.i_money gt 0}
+											{function name="format_price" value=$invite.i_money}
+										{/if}
+										{if $invite.i_score gt 0}
+											{function name="format_score" value=$invite.i_score}
+										{/if}
+									</td>
+								</tr>
+								{/foreach}
+						</table>
+						
+						<div class="blank"></div>
+						<div class="pages">{$pages}</div>
+		</div><!--end uc-table-->
+	</div>
+	<div class="inc_foot"></div>
+</div>

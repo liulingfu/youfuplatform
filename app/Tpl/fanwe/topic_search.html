@@ -1,0 +1,67 @@
+{include file="inc/header.html"} 
+
+<div class="blank"></div>
+<div class="topic_search_box">
+			<form name="topic_search" action="{url x="shop" r="topic#search"}" method="post" >
+			<span>分享搜索:</span>
+			<input type="text" class="search_txt" name="keyword" value="{$keyword}"  />	
+			<input type="submit" class="search_btn" value="" />
+			<input type="hidden" name="type" value="{$type}" />
+			<input type="hidden" name="is_redirect" value="1" />
+			</form>
+			</div>
+<div class="blank"></div>
+<div class="short_uc f_l">
+
+	<ul class="search_type_nav">
+	{foreach from=$type_navs item=nav}
+	<li {if $nav.act eq 1}class="act"{/if}><a href="{$nav.url}" title="{$nav.name}">{$nav.name}</a></li>
+	{/foreach}
+	</ul>
+
+</div>
+<div class="middle_uc f_l">		
+{if $user_list}
+			<div class="rand_user_box">
+			{foreach from=$user_list item=user_item}		
+			<div class="f_l pd10">
+				<div class="f_l">
+				{function name="show_avatar" uid=$user_item.id  type="small"}
+				</div>
+				<div class="f_l" style="padding-left:10px;">
+				{function name="get_user_name" value=$user_item.id} 
+				<br />
+				{if $user_item.focused eq 1}
+				<a href="javascript:;" onclick="focus_user({$user_item.id},this);" class="remove_focus">{$LANG.CANCEL_FOCUS}</a>
+				{else}
+				<a href="javascript:;" onclick="focus_user({$user_item.id},this);" class="add_focus">{$LANG.FOCUS_THEY}</a>
+				{/if}
+				</div>
+			</div>												
+			{/foreach}
+			<div class="blank1"></div>
+			<div class="tr"><a title="{$LANG.MORE}" href="{url x="shop" r="uc_center#mayfocus"}">{$LANG.MORE}</a></div>
+			</div>
+			<div class="blank"></div>
+{/if}
+			<div class="search_filter_box">
+				<ul>
+					{foreach from=$filter_navs item=nav}
+					<li {if $nav.act eq 1}class="current"{/if}><a href="{$nav.url}" title="{$nav.name}">{$nav.name}</a></li>
+					{/foreach}		
+				</ul>
+			</div>
+			<div class="blank"></div>
+			{if $topic_list}
+			{$list_html}
+			{else}
+			<div class="no_result">{$LANG.NO_TOPIC_RESULT} </div>
+			{/if}	
+</div>
+<div class="right_uc f_r">
+	<div class="uc_right">
+{include file="inc/topic_right.html"}
+</div>
+</div>
+<div class="blank"></div>
+{include file="inc/footer.html"}

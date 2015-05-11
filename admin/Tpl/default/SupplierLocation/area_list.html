@@ -1,0 +1,35 @@
+<if condition="$area_list">
+<foreach name="area_list" item="area">
+	<if condition="$area['pid'] eq 0">
+	<div class="area_big_box" style="float:left">
+	<label><input type="checkbox" name="area_id[]" value="{$area.id}" <if condition="$area['checked']">checked="checked"</if> />{$area.name}：</label>
+	</div>
+	<div class="area_small_box_{$area.id}" style="float:left">
+		<foreach name="area_list" item="areas">
+			<if condition="$areas['pid'] eq $area['id']">
+			<label><input type="checkbox" name="area_id[]" value="{$areas.id}" <php> if($areas['checked'] > 0){echo 'checked="checked"';}</php> />{$areas.name}</label>
+			</if>
+		</foreach>
+	</div>
+	<div class="blank5"></div>
+	<div style="border-bottom:solid 1px #ccc;"></div>
+	</if>
+</foreach>
+<script language="JavaScript">
+	$(".area_big_box input").click(function(){
+		if($(this).attr("checked")==true){
+			$(".area_small_box_"+$(this).val()+" input").each(function(){
+				$(this).attr("checked",true);
+			});
+		}
+		else
+		{
+			$(".area_small_box_"+$(this).val()+" input").each(function(){
+				$(this).attr("checked",false);
+			});
+		}
+	});
+</script>
+<else />
+{%NO_AREALIST}
+</if>

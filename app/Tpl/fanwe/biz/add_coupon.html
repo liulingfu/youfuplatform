@@ -1,0 +1,16 @@
+<tr>
+	<td>
+		{$deal_coupon.id}
+	</td>
+	<td>
+		<a href="javascript:void(0);" onclick="del(this);">删除</a>
+	</td>
+	<td>
+		{$deal_coupon.sub_name}
+	</td>
+	<td>
+		&nbsp;
+	</td>
+	<input type="hidden" name="password" value="{$deal_coupon.password}" />
+	<input type="hidden" name="code[{$deal_coupon.id}]" rel="code" value="{$deal_coupon.id}-{$deal_coupon.sn}-{$deal_coupon.password}" />
+</tr>

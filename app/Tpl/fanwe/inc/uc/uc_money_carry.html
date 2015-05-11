@@ -1,0 +1,64 @@
+<div class="inc">
+	<div class="inc_top">{$post_title}</div>
+	<div class="inc_main">		
+		<div class="sub_nav">
+			<span {if $ACTION_NAME eq 'index'}class="act"{/if}><a href="{url x="shop" r="uc_money#index"}">{$LANG.UC_LOGS}</a></span>
+			<span {if $ACTION_NAME eq 'carry'}class="act"{/if}><a href="{url x="shop" value="uc_money#carry"}">{$LANG.UC_CARRY}</a></span>
+			{if $allow_exchange}
+			<span {if $ACTION_NAME eq 'exchange'}class="act"{/if}><a href="{url x="shop" value="uc_money#exchange"}">{$LANG.UC_EXCHANGE}</a></span>
+			{/if}
+		</div>
+		<div  class="message-list">
+		{function name='load_message_list'}
+		</div><!--end message-list-->		
+	</div>
+	<div class="inc_foot"></div>
+</div>
+<div class="blank"></div>	
+
+
+<div class="inc">
+	<div class="inc_top">{$post_title}</div>
+	<div class="inc_main">		
+	<form method="post" id="consult-add-form" action="{url x="shop" r="msg#add"}"  onsubmit="return check_content(this);" name="message"  style="padding:20px;">
+							<div name="consult-form-head" id="consult-form-head" class="head">
+								{if $message_group}
+								<span>
+									{foreach from=$message_group item=type key=key}
+										<label>{$type}:<input type="radio" name="message_group" value="{$type}" {if $key eq 0}checked="checked"{/if} /></label>
+									{/foreach}
+								</span>
+								{/if}
+							</div>
+							<div>
+								{if $user_info}									
+																
+									<textarea name="content" rows="5" cols="60" class="f-textarea"></textarea>
+									<div class="blank"></div>
+									{if app_conf("VERIFY_IMAGE") eq 1}
+									<p class="commit">
+									<div class="verify_row">								
+									<input type="text" value="" class="f-input" name="verify" />	
+									<img src="{$APP_ROOT}/verify.php?rand={function name="rand"}" onclick="this.src='{$APP_ROOT}/verify.php?rand='+ Math.random();" title="看不清楚？换一张" />			
+									</div>	
+									</p>
+									<div class="blank"></div>
+									{/if}
+									<p class="commit">
+										<input type="hidden" value="1" name="ajax" />
+										<input type="hidden" value="{$rel_table}" name="rel_table">
+										<input type="hidden" value="{$rel_id}" name="rel_id">
+										<input type="submit" class="formbutton" name="commit" value="{$LANG.OK_POST}">
+									</p>
+									
+									<div class="blank"></div>
+								
+								{else}
+								{$message_login_tip}
+								{/if}
+							</div>
+						
+	</form>
+	</div>
+	<div class="inc_foot"></div>
+</div>

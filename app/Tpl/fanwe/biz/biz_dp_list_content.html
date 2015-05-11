@@ -1,0 +1,18 @@
+{if $dp_list}
+<table cellspacing="0" cellpadding="0" border="0" class="data-table">
+				{foreach from=$dp_list item=dp_item key=key}
+				<tr {if $key mod 2 eq 0}class="gray"{/if}>
+					<td>
+						<h2>						
+							{function name="get_user_name" v=$dp_item.user_id} 说：<a href="{url x="youhui" r="review#detail" p="id=$dp_item.id"}" target="_blank">{$dp_item.title}</a> <span style="font-size:12px; font-weight:normal;">{function name="to_date" v=$dp_item.create_time}</span>
+						</h2>		
+						{function name="nl2br" v=$dp_item.content}	
+						<div class="blank"></div>	
+						<a href="{url x="youhui" r="review#detail" p="id=$dp_item.id"}#reply" target="_blank">去回复</div>
+					</td>			
+				</tr>
+				{/foreach}
+</table>
+{else}
+没有相关的点评数据
+{/if}

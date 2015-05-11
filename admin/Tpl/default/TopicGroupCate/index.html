@@ -1,0 +1,25 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title">{$main_title}</div>
+<div class="blank5"></div>
+<div class="button_row">
+	<input type="button" class="button" value="{%ADD}" onclick="add();" />
+	<input type="button" class="button" value="{%FOREVERDEL}" onclick="foreverdel();" />
+</div>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="cate" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|50px,name:{%NAME},group_count:小组数量,is_effect|get_is_effect=$cate['id']:{%IS_EFFECT},sort|get_sort=$cate['id']:{%SORT}" 
+	actionlist="edit:{%EDIT}, del:{%DEL}" /> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

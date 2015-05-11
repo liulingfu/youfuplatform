@@ -1,0 +1,39 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<php>
+function get_is_open($status)
+{
+	return l("IS_OPEN_".$status);
+}
+function get_is_default($status,$id)
+{
+	if($status == 1)
+	$str = l("IS_DEFAULT_".$status);
+	else
+	$str = l("IS_DEFAULT_".$status)."&nbsp;<a href='".u("DealCity/set_default",array("id"=>$id))."' style='color:red;'>".l("SET_DEFAULT")."</a>";
+	return $str;
+}
+</php>
+<div class="main">
+<div class="main_title">{$main_title}</div>
+<div class="blank5"></div>
+<div class="button_row">
+	<input type="button" class="button" value="{%ADD}" onclick="add();" />
+	<input type="button" class="button" value="{%DEL}" onclick="del();" />
+</div>
+<div class="blank5"></div>
+<html:tree_list 
+	id="dataTable" 
+	style="dataTable" 
+	name="dealcity" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|50px,name:{%DEAL_CITY},is_default|get_is_default=$dealcity['id']:{%IS_DEFAULT},sort|get_sort=$dealcity['id']:{%SORT},is_effect|get_is_effect=$dealcity['id']:{%IS_EFFECT}" 
+	actionlist="edit:{%EDIT}, del:{%DEL}" /> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

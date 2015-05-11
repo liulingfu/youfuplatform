@@ -1,0 +1,79 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title">[{$supplier_info.name}] {%ADD_ACCOUNT} <a href="{:u("SupplierAccount/index",array("supplier_id"=>$supplier_info['id']))}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%ACCOUNT_NAME}:</td>
+		<td class="item_input"><input type="text" class="textbox require" name="account_name" /></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%ACCOUNT_PASSWORD}:</td>
+		<td class="item_input"><input type="password" class="textbox require" name="account_password" /></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%ACCOUNT_CONFIRM_PASSWORD}:</td>
+		<td class="item_input"><input type="password" class="textbox require" name="account_confirm_password" /></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%SUPPORT_LOCATION}:</td>
+		<td class="item_input">
+			<foreach name="location_list" item="location">
+				<label>{$location.name}<input type="checkbox" name="location_id[]" value="{$location.id}" /></label>
+			</foreach>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%IS_EFFECT}:</td>
+		<td class="item_input">
+			<lable>{%IS_EFFECT_1}<input type="radio" name="is_effect" value="1" checked="checked" /></lable>
+			<lable>{%IS_EFFECT_0}<input type="radio" name="is_effect" value="0" /></lable>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%ALLOW_DELIVERY}:</td>
+		<td class="item_input">
+			<lable>{%ALLOW_DELIVERY_1}<input type="radio" name="allow_delivery" value="1" checked="checked" /></lable>
+			<lable>{%ALLOW_DELIVERY_0}<input type="radio" name="allow_delivery" value="0" /></lable>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">允许提现:</td>
+		<td class="item_input">
+			<lable>是<input type="radio" name="allow_charge" value="1"  /></lable>
+			<lable>否<input type="radio" name="allow_charge" value="0" checked="checked" /></lable>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">{%ACCOUNT_DESCRIPTION}:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="description" />
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title"></td>
+		<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="supplier_id" value="{$supplier_info.id}" />
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="SupplierAccount" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="insert" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%ADD}" />
+			<input type="reset" class="button" value="{%RESET}" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>	 
+</form>
+</div>
+<include file="Public:footer" />

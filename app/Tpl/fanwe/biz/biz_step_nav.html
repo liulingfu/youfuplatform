@@ -1,0 +1,20 @@
+<?php
+$this->_var['darencss'][] = $this->_var['TMPL_REAL']."/css/daren.css";
+?>
+<link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$darencss"}" />
+<div class="biz_submit_main"></div>
+<div class="blank"></div>
+
+<div class="stepnav">
+		<ul>
+							<li class="stepnav_f {if $step eq 1}f_r{else}f_p{/if}">&nbsp;</li>
+								<li class="stepnav_n {if $step eq 1}n_r{else}n_p{/if}">1.创建店铺</li>
+							<li class="stepnav_t {if $step eq 1}t_r-p{elseif $step eq 2}t_p-r{else}t_p-p{/if}">&nbsp;</li>
+								<li class="stepnav_n {if $step eq 2}n_r{else}n_p{/if}">2.签协议</li>
+							<li class="stepnav_t {if $step eq 2}t_r-p{elseif $step eq 3}t_p-r{else}t_p-p{/if}">&nbsp;</li>
+								<li class="stepnav_n {if $step eq 3}n_r{else}n_p{/if}">3.填信息</li>
+							<li class="stepnav_t {if $step eq 3}t_r-p{elseif $step eq 4}t_p-r{else}t_p-p{/if}">&nbsp;</li>
+								<li class="stepnav_n {if $step eq 4}n_r{else}n_p{/if}">4.完成</li>
+							<li class="stepnav_b {if $step eq 4}b_r{else}b_p{/if}">&nbsp;</li>
+		</ul>
+</div>	

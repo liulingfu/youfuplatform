@@ -1,0 +1,20 @@
+<div class="sbox side-inner side-invite">
+	<div class=sbox-top><H2>{$LANG.INVITE_REFERRALS}</H2></div>
+	<div class=sbox-content>
+		<div class="tip ctip">
+
+			
+			<div class="text">
+				{$invite_referrals_tip}		
+			</div>
+			<div class="link">
+				{if $deal.buy_type eq 1}
+				<a href="{url x="tuan" r="referral"}" >&raquo; {$LANG.CLICK_GET_REFERRALS}</a>
+				{else}
+				<a href="{url x="tuan" r="referral" p="id=$deal.id"}">&raquo; {$LANG.CLICK_GET_REFERRALS}</a>
+				{/if}
+			</div>
+		</div>
+	</div>
+	<div class=sbox-bottom></div>
+</div>

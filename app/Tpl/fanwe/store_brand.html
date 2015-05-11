@@ -1,0 +1,66 @@
+{include file="inc/header.html"} 
+<?php
+$this->_var['darencss'][] = $this->_var['TMPL_REAL']."/css/storebrand.css";
+$this->_var['darenjs'][] = $this->_var['TMPL_REAL']."/js/darenshow.js";
+$this->_var['cpdarenjs'][] = $this->_var['TMPL_REAL']."/js/darenshow.js";
+?>
+<link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$darencss"}" />
+<script type="text/javascript" src="{function name="parse_script" v="$darenjs" c="$cpdarenjs"}"></script>
+<div class="blank"></div>
+<adv adv_id="品牌商户页广告" />
+<div class="blank"></div>
+
+					<div class="show-nav" id="rel_nav">
+					<!--{start: 达人导航 -->
+						<ul>				
+							{foreach from=$cate_list item=cate_item name=cateloop}							
+							<li data-category="{$cate_item.id}" {if $smarty.foreach.cateloop.first}class="first on"{/if} {if $smarty.foreach.cateloop.last}class="last"{/if}><a href="javascript:;">{$cate_item.name}</a></li>
+							{/foreach}
+						</ul>
+					<!--}end: 达人导航 -->
+					</div>
+<div class="blank"></div>
+<div class="blank"></div>
+					
+<!--list-->
+{foreach from=$cate_list item=cate_item name=cateloop}							
+<div data-category="{$cate_item.id}" class="cate_topic">
+	<div class="cate_title">{$cate_item.name}</div>
+	<div class="blank"></div>
+	<div class="store_box clearfix">
+	<?php for($i=0;$i<15;$i++){
+		$this->_var['key'] = $i;
+		$this->_var['store_item'] = $this->_var['cate_item']['store_list'][$i];
+	?>
+	<div class="store_item_box" {if $key mod 6 eq 5}style="border-right:none;"{/if}>
+		{if $store_item}
+			<div class="store_img_row"><a href="{url x="youhui" r="store#view" p="id=$store_item.id"}"  title="{$store_item.name}"><img src="{function name="get_spec_image" v=$store_item.preview w=188 h=150 g=1}" width=188 height=150 /></a></div>
+			<div class="store_name_row"><a href="{url x="youhui" r="store#view" p="id=$store_item.id"}"  title="{$store_item.name}">{function name="msubstr" v=$store_item.name b=0 e=10}</a></div>
+		{else}
+		<div class="welcome_store">
+			{function name="app_conf" v="SHOP_TEL"}
+		</div>
+		{/if}
+	</div>
+	<?php }?>
+	<div class="blank1"></div>
+	</div>
+</div>
+{/foreach}
+<!--end list-->
+
+<div style="display:none;" class="fix-nav">
+	<!--{start: 浮动导航 -->
+		<div class="show-nav">
+					<!--{start: 达人导航 -->
+						<ul>
+							{foreach from=$cate_list item=cate_item name=cateloop}							
+							<li data-category="{$cate_item.id}" {if $smarty.foreach.cateloop.first}class="first on"{/if} {if $smarty.foreach.cateloop.last}class="last"{/if}><a href="javascript:;">{$cate_item.name}</a></li>
+							{/foreach}
+						</ul>
+					<!--}end: 达人导航 -->
+	</div>
+	<!--}end: 达人导航 -->
+</div>
+<div class="blank"></div>
+{include file="inc/footer.html"}

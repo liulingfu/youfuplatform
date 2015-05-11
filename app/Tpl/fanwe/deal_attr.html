@@ -1,0 +1,26 @@
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#attr_select").bind("click",function(){
+			deal_id = $("#attr_select_form").find("input[name='deal_id']").val();
+			attrs = $("#attr_select_form").find("select[name='attr[]']");
+			var attr = '';
+			for(var i=0;i<attrs.length;i++)
+			{
+				attr += "&attr[]="+$(attrs[i]).val();
+			} 
+			add_cart(deal_id,attr);
+		});
+	});
+</script>
+<form id="attr_select_form" action="{url x="shop" r="cart#addcart"}" method="post" >	
+{foreach from=$deal_info.deal_attr_list item=deal_attr}
+{$deal_attr.name}：
+<select name='attr[]'>
+{foreach from=$deal_attr.attrs item=attr}
+<option value="{$attr.id}">{$attr.name} {if $attr.price gt 0}+ {function name="format_price" value=$attr.price}{/if}</option>
+{/foreach}
+</select>
+{/foreach}
+<input type="hidden" name="deal_id" value="{$deal_info.id}" />
+<input type="button" value="{$LANG.SELECT_AND_ADDCART}" class="formbutton" id="attr_select">
+</form>

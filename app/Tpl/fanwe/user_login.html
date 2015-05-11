@@ -1,0 +1,20 @@
+{include file="inc/header.html"} 
+<div class="blank"></div>
+	<div class="inc">
+		<div class="user_inc_top">{$page_title} <span>&nbsp;{$LANG.OR} {if $api_callback}<a href="{url x="shop" r="user#api_create"}">{else}<a href="{url x="shop" r="user#register"}">{/if}{$CREATE_TIP}</a></span>	</div>
+		<div class="inc_main clearfix">
+			<div class="user-lr-box-left f_l">
+				{insert name="load_login_form"}
+			</div>
+			<div class="user-lr-box-right f_r">
+				<div class="app_login_box">
+				<div class="blank10"></div>
+				{insert name="get_app_login"}
+				</div>
+			</div>
+		</div>
+		<div class="inc_foot"></div>
+	</div>
+
+
+{include file="inc/footer.html"}

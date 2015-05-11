@@ -1,0 +1,99 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<php>
+	function get_youhui_cate_name($cate_id)
+	{
+		return M("DealCate")->where("id=".$cate_id)->getField("name");
+		
+	}
+	function a_get_deal_type($type,$id)
+	{
+		$deal = M("Deal")->getById($id);
+		if($deal['is_coupon'])
+		return l("COUNT_TYPE_".$deal['deal_type']);
+		else
+		return l("NO_DEAL_COUPON_GEN");
+		
+	}
+	function a_get_time_status($time_status,$deal_id)
+	{
+		$str = l("TIME_STATUS_".$time_status);
+		if($time_status == 2)
+		{
+			$str .= "<br />&nbsp;".M("Deal")->where("id=".$deal_id)->getField("reopen").l("REOPEN_SUBMIT");
+		}
+		return $str;
+	}
+	function a_get_buy_status($buy_status,$deal_id)
+	{
+		
+			$link = "&nbsp;&nbsp;[ <a href='".__APP__."?m=DealCoupon&a=index&deal_id=".$deal_id."' style='color:red;'>".l("DEAL_CASH_YOUHUI_VIEW")."</a> ]";
+			return $link;
+	}
+</php>
+<script type="text/javascript">
+	function preview(id)
+	{
+		window.open("__ROOT__/youhui.php?ctl=ydetail&id="+id+"&preview=1");
+	}
+</script>
+<div class="main">
+<div class="main_title">{%DEAL_CASH_YOUHUI}</div>
+<div class="blank5"></div>
+<div class="button_row">
+	<input type="button" class="button" value="{%ADD}" onclick="add_deal_youhui();" />
+	<input type="button" class="button" value="{%DEL}" onclick="del();" />
+</div>
+<div class="blank5"></div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">	
+		{%DEAL_CASH_YOUHUI_NAME}：<input type="text" class="textbox" name="name" value="{:trim($_REQUEST['name'])}" />
+		{%DEAL_CITY}：
+		<select name="city_id">
+			<option value="0" <if condition="intval($_REQUEST['city_id']) eq 0">selected="selected"</if>>{%NO_SELECT_CITY}</option>
+			<foreach name="city_list" item="city_item">
+				<option value="{$city_item.id}" <if condition="intval($_REQUEST['city_id']) eq $city_item['id']">selected="selected"</if>>{$city_item.title_show}</option>
+			</foreach>
+		</select>
+		{%CATE_TREE}：
+		<select name="cate_id">
+			<option value="0" <if condition="intval($_REQUEST['cate_id']) eq 0">selected="selected"</if>>{%NO_SELECT_CATE}</option>
+			<foreach name="cate_tree" item="cate_item">
+				<option value="{$cate_item.id}" <if condition="intval($_REQUEST['cate_id']) eq $cate_item['id']">selected="selected"</if>>{$cate_item.title_show}</option>
+			</foreach>
+		</select>
+		
+		<input type="hidden" value="Deal" name="m" />
+		<input type="hidden" value="youhui" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+	</form>
+</div>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="deal" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|50px
+		,name|msubstr:{%DEAL_CASH_YOUHUI_NAME}:edit_deal_youhui
+		,cate_id|get_youhui_cate_name:{%DEAL_CASH_YOUHUI_CATE_TITLE}
+		,city_id|get_deal_city_name:{%SHOP_CITY}
+		,buy_count:{%DEAL_BUY_COUNT}
+		,deal_type|a_get_deal_type=$deal['id']:{%DEAL_COUNT_TYPE}
+		,time_status|a_get_time_status=$deal['id']:{%DEAL_TIME_STATUS}
+		,buy_status|a_get_buy_status=$deal['id']:{%DEAL_CASH_YOUHUI_VIEW}
+		,is_effect|get_is_effect=$deal['id']:{%IS_EFFECT}
+		,is_recommend|get_toogle_status=$deal['id']#is_recommend:{%IS_RECOMMEND}
+		,sort|get_sort=$deal['id']:{%SORT}" 
+	actionlist="edit_deal_youhui:{%EDIT}, del:{%DEL},preview:预览" /> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

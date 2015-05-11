@@ -1,0 +1,23 @@
+{include file="biz/biz_header.html"} 
+
+{include file="biz/biz_nav.html"}
+<div class="blank"></div>
+<div class="wrap">
+{include file="biz/biz_info_header.html"}
+<div class="biz_index_box clearfix">
+	<div class="short f_l">
+		{include file="biz/biz_left.html"}
+	</div>
+	<div class="long f_r nav_icon">
+		{foreach from=$biz_nav item=nav}
+		{if $nav.ctl neq 'index'}
+		<a href="{$nav.url}" title="{$nav.name}" class="biz_icon_{$nav.ctl}"></a>
+		{/if}
+		{/foreach}
+	</div>
+	<div class="blank"></div>
+</div><!--end biz_index_box-->
+
+</div>
+<div class="blank"></div>
+{include file="biz/biz_footer.html"} 

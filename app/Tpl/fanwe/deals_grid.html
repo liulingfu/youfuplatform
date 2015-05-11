@@ -1,0 +1,97 @@
+{include file="inc/header.html"} 
+<div id="bdw" class="bdw">
+	<div id="bd" class="cf">
+		<div id="deal-default">
+			{if $deal_cate_list}
+			<div id="dashboard" class="dashboard cf">
+					<ul>
+						{foreach from=$deal_cate_list item=cate key=key}
+						{if $key < 8}
+						<li {if $cate.current eq 1}class="current"{/if}><a href="{$cate.url}">{$cate.name}</a>
+						<span></span>
+						</li>
+						{/if}
+						{/foreach}													
+					</ul>
+			</div>
+			{/if}
+			<div id="content" class="cf">		
+	
+			<div id="recent-deals">
+				
+				<div class="box">
+					<div class="box-top"></div>
+					<div class="box-content">
+						<div class="head">					
+							<h2>{$page_title}</h2>
+						</div>
+						<div class="sect">
+							{include file="inc/list_style.html"}
+							<ul class="deals-list" style="padding:0 10px">
+								{if $deals}								
+								{foreach from=$deals item=deal key=key}
+								<li class="{if $key lt 2}first{/if} {if $key mod 2 eq 1}alt{/if}">	
+									<p class="time">
+									{if $deal.time_status eq 0}
+										{function name="to_date" value=$deal.begin_time}
+									{else}
+											{if $deal.end_time gt 0}
+											{function name="to_date" value=$deal.end_time}
+											{else}
+											{$LANG.NO_END_TIME}
+											{/if}
+									{/if}	
+									</p>					
+									<h4>
+									<span title="{$deal.name}">
+									<a href="{$deal.url}"  title="{$deal.name}">{function name="msubstr" value=$deal.name start=0 length=40}</a>
+									</span>
+									</h4>
+									<div class="pic">
+										{if $deal.buy_status eq 2}
+											<div class="soldout"></div>										
+										{elseif $deal.time_status eq 1}
+											<div class="insale"></div>
+										{/if}
+									<a href="{$deal.url}" title="{$deal.name}"><img height="120" width="200" src="{function name="get_spec_image" v=$deal.icon w=200 h=120 g=1}" class="lazy" alt="{$deal.name}"></a>
+									</div>
+									<div class="info">
+										<p class="total">{$deal.deal_success_num}</p>
+										<p class="price">
+											{$LANG.ORIGIN_PRICE}：<span class="bod" style="text-decoration:line-through;">{$deal.origin_price_format}</span>
+											<br />
+											{if $deal.buy_type eq 0}{$LANG.CURRENT_PRICE}{/if}{if $deal.buy_type eq 2}{$LANG.ORDER_PRICE}{/if}{if $deal.buy_type eq 3}{$LANG.SECOND_PRICE}{/if}：<span class="red" style="font-size:14px;">{$deal.current_price_format}</span>
+											<br />
+											{$LANG.DISCOUNT}：<span class="bod">{$deal.discount}{$LANG.DISCOUNT_OFF}</span>
+											<br />
+											{$LANG.SAVE_PRICE_TOTAL}<br /><span class="red"><?php echo format_price($this->_var['deal']['save_price']*$this->_var['deal']['buy_count']);?></span>
+										</p>
+										<div class="blank"></div>
+									
+									</div>
+									<div class="blank1"></div>
+									{if $deal.time_status eq 2}
+										<div class="reopen_row"> {function name="sprintf" f=$LANG.REOPEN_NUMBER v=$deal.reopen} <a href="javascript:void(0);" onclick="reopen({$deal.id},this);" class="reopen">{$LANG.REOPEN_SUBMIT}</a></div>
+									{/if}
+								</li>	
+							{/foreach}
+							{else}
+							{$LANG.NO_DEALS}
+							{/if}
+							<?php unset($this->_var['deal']);?>
+							</ul>
+							<div class="clear"></div>
+							
+							<div class="pages">{$pages}</div>
+							
+						</div>
+					</div>
+					<div class="box-bottom"></div>
+				</div>
+			</div></div>
+			{include file="inc/side.html"} 
+	</div>
+	<!-- bd end -->
+</div></div>
+
+{include file="inc/footer.html"}

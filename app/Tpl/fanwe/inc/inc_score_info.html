@@ -1,0 +1,102 @@
+{if $goods}
+<script type="text/javascript" src="{$TMPL}/js/jquery.jqzoom.js"></script>
+<link rel="stylesheet" type="text/css" href="{$TMPL}/css/jqzoom.css" />
+<script type="text/javascript">
+	var price_unit = "{function name="app_conf" value="CURRENCY_UNIT"}";
+	{insert name="get_goods_attr_stock_json" id=$goods.id}
+	var comment_url = '{url x="shop" r="comment" p="id=$goods.id"}';
+	$(document).ready(function(){		
+		$(".goods_main_pic").find("a").jqzoom();			
+	});	
+</script>
+<script type="text/javascript" src="{$TMPL}/js/jquery.scroll.js"></script>
+<script type="text/javascript" src="{$TMPL}/js/goods_info.js"></script>
+<div class="inc">
+	<div class="inc_top">{$page_title}</div>
+	<div class="inc_main cf">
+		<div class="goods_pic_box f_l">
+					<div  class="goods_main_pic">
+					<ul>
+								{foreach from=$goods.image_list key=key item=image}
+								<li class="{if $key eq 0}act {/if}pic_{$key}" rel="{$key}">
+								<a href="{$image.origin_img}" target="_blank" title="{$goods.name}"><img src="{$image.img}"></a>
+								</li>
+								{/foreach}								
+					</ul>
+					</div>
+					<div class="blank"></div>
+					<div class="goods_icon_pic">
+					<a href="#" class="prev" onfocus="this.blur();">&nbsp;</a>					
+					<div class="roll_pic">					
+					<ul>
+								{foreach from=$goods.image_list key=key item=image}
+								<li {if $key eq 0}class="act"{/if} rel="{$key}">
+								<img src="{$image.img}">
+								</li>
+								{/foreach}								
+					</ul>					
+					</div>
+					<a href="#" class="next" onfocus="this.blur();">&nbsp;</a>
+					</div>
+		</div><!--end goods_pic_box-->
+		<div class="goods_info_box f_r">
+			<div class="goods_info_list">
+			<ul>
+			<li class="goods_name">{$goods.name} {if $goods.is_lottery eq 1}<span class="is_lottery"></span>{/if}</li>			
+			<li>
+				<span class="s_price">{$LANG.SCORE}：<?PHP echo format_score(abs($this->_var['goods']['return_score']));?><span id="attr_price"></span></span>
+				<input type="hidden" name="current_price" value="{$goods.current_price}" />
+			</li>
+			
+			<li {if $goods.deal_attr_list or $goods.max_bought eq 0}style="display:none;"{/if} id="stock">库存：<span>{insert name="get_goods_stock" id=$goods.id}</span> <input type="hidden" name="origin_stock" value="{$goods.max_bought}" /></li>
+			</ul>
+			
+			<div class="goods_pick_box">
+			<dl>
+			{if $goods.deal_attr_list}
+			{foreach from=$goods.deal_attr_list item=attr key=key}
+			<dd>
+			<span>{$attr.name}</span>： 
+			<select name="attr[]">
+				<option value="0">{$LANG.PLEASE_SELECT}{$attr.name}</option>
+				{foreach from=$attr.attrs item=attr_item}
+					<option value="{$attr_item.id}" rel="{$attr_item.name}" price="{$attr_item.price}">{$attr_item.name}{if $attr_item.price neq 0}+{function name="format_price" value=$attr_item.price}{/if}</option>
+				{/foreach}
+			</select>
+			</dd>
+			{/foreach}
+			<dd>
+				<span id="select_attr">{$LANG.PLEASE_SELECT} {foreach from=$goods.deal_attr_list item=attr key=key} [ {$attr.name} ] {/foreach}</span>
+			</dd>
+			{/if}
+			<dd>
+				{$LANG.BUY_NUMBER}：<input type="text" name="number" id="buy_number" />
+			</dd>
+			<dd>
+				<input type="hidden" value="{$goods.id}" name="goods_id" />
+				<div style="display:inline-block; line-height:39px; float:left;" class="input_shopcart" onclick="add_score({$goods.id});" >{$LANG.EXCHANGE_NOW}</div>
+				<div class="blank1"></div>	
+			</dd>
+			</dl>
+			</div>
+			</div>
+		</div>
+		<div class="blank"></div>
+		<div class="goods_detail_box">
+			<ul class="detail_nav">
+				<li rel="1" class="act">{$LANG.GOODS_DETAIL}</li>
+				
+			</ul>
+			<div class="blank"></div>
+			<ul class="detail_cnt">
+				<li id="detail_cnt_1" class="act"><span class="lazy">{$goods.description}</span></li>
+
+			</ul>
+			
+		</div><!--end goods_detail_box-->
+	</div>
+	<div class="inc_foot"></div>
+</div>
+{else}
+{$LANG.NO_GOODS}
+{/if}

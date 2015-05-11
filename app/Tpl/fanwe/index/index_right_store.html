@@ -1,0 +1,27 @@
+{if $store_list}
+<div class="index_right_box">
+	<div class="box_top">
+			<div class="f_l">好评商家排行</div>
+			<div class="f_r top_more"><a href="{url x="youhui" r="store"}">更多</a></div>
+	</div>
+	<div class="box_main clearfix">
+		{foreach from=$store_list item=right_store_item key=key}
+		<div class="right_store_item">
+			<span class="right_store_num num_<?php echo intval($this->_var['key'])+1;?>"></span>
+			<div class="right_store_info">
+				<a href="{url x="youhui" r="store#view" p="id=$right_store_item.id"}" title="{$right_store_item.name}" target="_blank" class="title_link">{function name="msubstr" v=$right_store_item.name b=0 e=8}</a>
+				<div class="blank5"></div>				
+				<span class="index_start_bar f_l" title="<?php echo $this->_var['LANG']['dp_point_'.ceil($this->_var['right_store_item']['avg_point'])];?>">
+					<i style="width:<?php echo intval($this->_var['right_store_item']['avg_point']/5*100);?>%;"></i>
+				</span>
+				<span class="f_l index_dp_count">
+				{$right_store_item.dp_count}封点评
+				</span>			
+			</div><!--end store_info-->
+		</div>
+		{/foreach}
+	</div>
+</div>
+<div class="blank"></div>
+{/if}
+<adv adv_id="首页右侧商家模块广告" />

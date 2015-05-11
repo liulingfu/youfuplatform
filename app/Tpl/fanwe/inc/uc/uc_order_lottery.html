@@ -1,0 +1,50 @@
+<div class="inc">
+	<div class="inc_top">{$page_title}</div>
+	<div class="inc_main">
+		<div class="sub_nav">
+			<span {if $ACTION_NAME eq 'index'}class="act"{/if}><a href="{url x="shop" r="uc_order#index"}">{$LANG.UC_ORDER}</a></span>
+			<span {if $ACTION_NAME eq 'lottery'}class="act"{/if}><a href="{url x="shop" r="uc_order#lottery"}">{$LANG.UC_LOTTERY}</a></span>
+
+		</div>
+		<div class="blank1"></div>
+		<div id="referrals" style="padding-left:20px;">
+									<div class="blk im refers">
+										
+										<div class="info">
+											<h4>{$LANG.LOTTERY_SHARE_LINK}：</h4>
+											<input type="text" onfocus="this.select()" class="f-input" id="share-copy-text" size="30" value="{$share_url}">
+											<input type="button" class="formbutton" id="share-copy-button" value="{$LANG.COPY}">
+										</div>
+									</div>
+		</div>
+		<div class="blank1"></div>
+		<div  class="uc-table">
+			<table cellspacing="0" cellpadding="0" border="0" >
+								<tr>
+									<th>{$LANG.LOTTERY_SN}</th>
+									<th>{$LANG.LOTTERY_DEAL_NAME}</th>
+									<th>{$LANG.LOTTERY_BUYER}</th>
+									<th>{$LANG.LOTTERY_CREATE_TIME}</th>						
+								</tr>
+								{foreach from=$list item=lottery key=key}
+								<tr {if $key mod 2 eq  0}class="alt"{/if}>
+									<td style="text-align:left;">
+										{$lottery.lottery_sn}
+									</td>
+									<td><span title="{$lottery.deal_name}">{$lottery.deal_sub_name}</span></td>
+									<td>{$lottery.buyer}</td>
+									<td>
+										{function name="to_date" value=$lottery.create_time}
+									</td>
+					
+								</tr>
+								{/foreach}
+						</table>
+						
+						<div class="blank"></div>
+						<div class="pages">{$pages}</div>
+		</div>				
+		
+	</div>
+	<div class="inc_foot"></div>
+</div>

@@ -1,0 +1,62 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<php>
+	function get_is_shop_type($type)
+	{
+		if($type==0) return "团购";
+		if($type==2) return "代金券";
+		if($type==1) return "商城";
+	}
+	function get_deal_edit($id,$deal)
+	{
+		if($deal['is_shop']==0)
+		return "<a href='".u("Deal/edit",array("id"=>$id))."'>发布</a>";
+		if($deal['is_shop']==1)
+		return "<a href='".u("Deal/shop_edit",array("id"=>$id))."'>发布</a>";
+		if($deal['is_shop']==2)
+		return "<a href='".u("Deal/youhui_edit",array("id"=>$id))."'>发布</a>";
+	}
+	function get_p_deal_cate_name($cid)
+	{
+		$name = M("DealCate")->where("id=".$cid)->getField("name");
+		return $name?$name:"无";
+	}
+	function get_p_shop_cate_name($cid)
+	{
+		$name = M("ShopCate")->where("id=".$cid)->getField("name");
+		return $name?$name:"无";
+	}
+	
+</php>
+<div class="main">
+<div class="main_title">商家提交</div>
+<div class="blank5"></div>
+<div class="button_row">
+	<input type="button" class="button" value="{%FOREVERDEL}" onclick="foreverdel();" />
+</div>
+<div class="blank5"></div>
+
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="deal" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|50px
+		,name|msubstr:名称
+		,cate_id|get_p_deal_cate_name:生活服务分类
+		,shop_cate_id|get_p_shop_cate_name:商城分类
+		,city_id|get_deal_city_name:{%DEAL_CITY}
+		,create_time|to_date:发布时间
+		,supplier_id|get_supplier_name:商家
+		,is_shop|get_is_shop_type:类型
+		,account_id|get_submit_user:发布人
+		,id|get_deal_edit=$deal:发布" 
+	actionlist="foreverdel:{%FOREVERDEL}" /> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

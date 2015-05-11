@@ -1,0 +1,67 @@
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".pages").find("a").bind("click",function(){
+			var ajaxurl = $(this).attr("href");
+			load_topic_replys(ajaxurl);
+			return false;
+		});
+	});
+</script>
+<?php
+$page = intval($_REQUEST['p']);
+if($page==0)$page = 1;
+$page_size = app_conf("PAGE_SIZE");
+$base_size = ($page-1)*$page_size;
+?>
+							<ul>
+								{foreach from=$reply_list item=reply_item key=key}
+									<li class="reply-row" id="reply_item_{$reply_item.id}">
+										<table class="msg_row">
+											<tr>
+												<td style="width:60px; text-align:left;">
+													<div class="avatar_small">
+													{function name="show_avatar" uid=$reply_item.user_id  type="small" }
+													</div>													
+												</td>
+												<td>
+													<div class="item">
+																							
+													<p class="f_l">		
+																						
+														<strong>
+														{function name="get_user_name" value=$reply_item.user_id} 
+														</strong>
+														<span style="font-size:12px; color:#999;">
+														<?php echo sprintf($GLOBALS['lang']['SUPPLIER_COMMENT_SAY'],pass_date($this->_var['reply_item']['create_time']));?>
+														</span>
+														
+													</p>
+													{if $user_info}
+													<p class="f_r">	
+													{if $reply_item.user_id eq $user_info.id}										
+													<a href="javascript:void(0);" onclick="delete_topic_reply({$reply_item.id},$('#reply_item_{$reply_item.id}'));">{$LANG.DELETE}</a>
+													{elseif $user_auth['topic']['replydel']}
+													<a href="javascript:void(0);" onclick="op_topic_replydel({$reply_item.id});">{$LANG.DELETE}</a>
+													{/if}
+													<?php echo intval($this->_var['key'])+1+intval($base_size);?>{$LANG.FLOOR}																			
+													<a href="#reply" onclick="set_reply({$reply_item.id},'{$reply_item.user_name}');">{$LANG.REPLY}</a>												
+													</p>
+													{/if}				
+													<div class="blank"></div>	
+												
+													<p class="text">							
+														{function name="nl2br" v=$reply_item.content}
+													</p>
+																	
+												</div>
+												</td>
+												</tr>
+												</table>
+										<div class="blank"></div>
+									</li>
+									
+								{/foreach}							
+							</ul>
+
+							<div class="blank"></div>
+							<div class="pages">{$pages}</div>

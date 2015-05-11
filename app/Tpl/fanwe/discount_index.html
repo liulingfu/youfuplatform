@@ -1,0 +1,93 @@
+{include file="inc/header.html"} 
+<div class="blank"></div>
+<div class="f_l idx_left">
+	<div class="qianggou_title"></div>
+	{foreach from=$brand_list item=brand}
+	<div class="inc">
+		{if $brand.time_status eq 0}
+		<a href="{$brand.url}" title="{$brand.name}"><img src="{$brand.brand_promote_logo}" alt="{$brand.name}"/></a>
+		{else}{* 未上线 *}	
+		<img src="{$brand.brand_promote_logo}" alt="{$brand.name}"/>
+		{/if}
+		<div class="mp_info">
+			<div class="mp_name f_l">
+				{if $brand.time_status eq 0}
+				<a href="{$brand.url}" title="{$brand.name}">{$brand.name}</a>
+				{else}
+				{$brand.name}
+				{/if}
+			</div>
+			<div class="mp_time f_l">{if $brand.time_status eq 0}剩余时间{else}即将上线{/if}
+			<span  class="counter" endTime="{if $brand.time_status eq 1}<?PHP echo to_date($this->_var['brand']['begin_time'],'r');?>{else}<?PHP echo to_date($this->_var['brand']['end_time'],'r');?>{/if}"></span>
+			</div>
+		</div>				
+	</div>
+	
+	<div class="blank"></div>
+	{/foreach}
+	<div class="blank"></div>
+	<div class="pages">{$pages}</div>
+</div>
+<div class="f_r idx_right">
+	<adv adv_id="首页手机右侧广告位" />
+	{if $rec_list}
+	<div class="blank"></div>
+	<div class="inc">
+		<div class="inc_top">单品推荐</div>
+		<!--end rec_list-->
+		<div class="inc_main sale_list_main">
+		{foreach from=$rec_list item=item}
+			<div class="sale_goods_item">
+			<div class="sale_goods_img f_l">
+			<a href="{$item.url}" title="{$item.name}"><img src="{function name="get_spec_image" v=$item.icon w="75" h="75"}"  alt="{$item.name}"/></a>
+			</div>
+			<div class="sale_goods_info f_l" style="width:140px;">
+			<a href="{$item.url}" class="goods_item_title" title="{$item.name}">{function name="msubstr" v=$item.name b=0 e=20}</a>
+			<div class="m_price">{$LANG.ORIGIN_PRICE}{function name="format_price" v=$item.origin_price}</div>
+			<div class="s_price">{$LANG.CURRENT_PRICE}{function name="format_price" v=$item.current_price}</div>
+			</div>
+			</div>			
+			<div class="split_dash"></div>		
+		{/foreach}
+		</div>
+		<!--end -->
+	</div>
+	{/if}
+</div>
+
+<script type="text/javascript">
+var updEndNowTime = <?PHP echo (get_gmtime()+ (intval(app_conf("TIME_ZONE"))*3600))."000";?>;
+function updateEndTime()
+{
+
+	var time = updEndNowTime;
+	$(".counter").each(function(i){
+		var endDate =new Date(this.getAttribute("endTime"));
+		var endTime = endDate.getTime();
+		var lag = endTime - time;
+		if(lag > 0)
+		{
+			lag = lag / 100;
+			var m_second = Math.floor(lag%10);   			
+			
+			var second = Math.floor((lag/10) % 60);     
+			var minite = Math.floor(((lag/10) / 60) % 60);
+			var hour = Math.floor(((lag/10) / 3600) % 24);
+			var day = Math.floor(((lag/10) / 3600) / 24);
+			var timeHtml = "<span>"+hour+"</span>"+LANG['HOUR']+"<span>"+minite+"</span>"+LANG['MIN']+"";
+			if(day > 0)
+				timeHtml ="<span>"+day+"</span>"+LANG['DAY']+"" + timeHtml;
+			timeHtml+="<span>"+second+"."+m_second+"</span>"+LANG['SEC']+"";
+			$(this).html(timeHtml);
+		}
+		else
+			$(this).html("");
+	});
+	updEndNowTime+=100;
+	setTimeout("updateEndTime()",100);
+}
+updateEndTime();
+</script>
+
+<div class="blank"></div>
+{include file="inc/footer.html"}

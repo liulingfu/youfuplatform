@@ -1,0 +1,95 @@
+{include file="inc/header.html"} 
+<?php
+$this->_var['indexjs'][] = $this->_var['TMPL_REAL']."/js/index.js";
+$this->_var['indexjs'][] = $this->_var['TMPL_REAL']."/js/indexCate.js";
+$this->_var['cpindexjs'][] = $this->_var['TMPL_REAL']."/js/index.js";
+$this->_var['indexcss'][] = $this->_var['TMPL_REAL']."/css/index.css";
+?>
+<script type="text/javascript" src="{$APP_ROOT}/public/runtime/app/deal_cate_conf.js"></script>
+<script type="text/javascript" src="{$APP_ROOT}/public/runtime/app/deal_region_conf/{$deal_city.id}.js"></script>
+<script type="text/javascript" src="{function name="parse_script" v="$indexjs" c="$cpindexjs"}"></script>
+
+<link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$indexcss"}" />
+
+
+
+<div class="w960">
+    <div class="index_left f_l">
+     
+          <div class="blank"></div>
+      <div class="index_left_ad"><adv adv_id="首页推荐商家右侧广告" /></div>  
+    </div>
+    <div class="index_right f_r">
+    <div class="blank"></div>
+       
+    <div class="index_right_ad"><adv adv_id="首页推荐商家左侧广告" /></div>
+    <div class="blank"></div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+
+<div class="index_left f_l">
+	{$left_html}
+	<div class="blank"></div>
+	<div class="index_active_group_box">
+		<div class="box_top"></div>
+		<div class="box_main">
+			{foreach from=$hot_group item=group}
+			<div class="sector_2 index_group_item">
+				<div class="group_icon f_l">
+				<a href="{url x="shop" r="group#forum" p="id=$group.id"}" title="{$group.name}">
+				<img src="{function name="get_spec_image" v=$group.icon w=80 h=80 g=1  }" alt="{$group.name}" width="80" height="80" />
+				</a>
+				</div>
+				<div class="group_info f_l">
+					<a href="{url x="shop" r="group#forum" p="id=$group.id"}" title="{$group.name}" class="title_link">{$group.name}</a>
+					<div class="group_count">
+						<span>{$group.user_count}</span> 成员&nbsp;&nbsp;
+						<span>{$group.topic_count}</span> 分享 				
+					</div>
+					<div class="group_memo">
+						{function name="msubstr" v=$group.memo b=0 e=25}
+					</div>
+				</div>
+			</div>
+			{/foreach}
+		</div>
+	</div>
+</div><!--end index_left-->
+<div class="index_right f_r">
+	 <a href="{url x="shop" r="mobile"}" target="_blank" title="手机客户端下载" class="index_mobile_download"></a>
+	<div class="blank"></div>
+	{if $notice_list}
+	<div class="index_right_box">
+		<div class="box_top">
+			<div class="f_l">最新动态</div>
+			<div class="f_r top_more"><a href="{url x="shop" r="notice#list"}">更多</a></div>
+		</div>
+		<div class="box_main">
+			<ul class="notice_list">
+				{foreach from=$notice_list item=notice}
+				<li><a href="{$notice.url}" title="{$notice.title}">{function name="msubstr" v=$notice.title b=0 e=17}</a></li>
+				{/foreach}
+			</ul>
+			<div class="blank5"></div>
+		</div>
+	</div><!--end right_box-->
+	 <div class="blank"></div>
+	{/if}
+   
+	{insert name="load_index_daren_list" }
+	{$right_html}
+	{$right_dp_html}
+	
+</div>
+<div class="blank"></div>
+
+<!--hidden-->
+<div id="bcate_box_drop_down" class="select_drop"></div>
+<div id="scate_box_drop_down" class="select_drop"></div>
+<div id="area_box_drop_down" class="select_drop"></div>
+<div id="quan_box_drop_down" class="select_drop"></div>
+<!--hidden-->
+
+{include file="inc/footer.html"}

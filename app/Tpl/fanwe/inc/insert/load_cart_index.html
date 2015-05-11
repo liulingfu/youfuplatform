@@ -1,0 +1,40 @@
+{if $cart_list}
+{include file="inc/inc_cart_list.html"}			
+<div style="text-align: right;" class="form-submit">
+								{if $is_lottery}	
+										<strong>{$LANG.LOTTERY_MOBILE}</strong>
+										{if $lottery_mobile neq '' and $is_verify}
+											<span id="lottery_mobile_word">
+												{$lottery_mobile}
+											</span>
+											<span id="lottery_mobile_input" style="display:none;">
+												<input type="text" class="f-input" name="lottery_mobile" value="{$lottery_mobile}">	
+												{if app_conf("SMS_ON") and app_conf("LOTTERY_SMS_VERIFY")}
+												<input type="button" class="formbutton" name="buy" value="{$LANG.GET_VERIFY_CODE}" onclick="get_verify_code(this);" >		
+												<input type="text" class="f-input" style="width:50px;" name="verify_code">			
+												{/if}
+											</span>
+											<a href="javascript:void(0);" id="modify_bind">{$LANG.MODIFY_BIND}</a>
+										{else}
+											<input type="text" class="f-input" name="lottery_mobile" value="{$lottery_mobile}">	
+											{if app_conf("SMS_ON") and app_conf("LOTTERY_SMS_VERIFY")}
+											<input type="button" class="formbutton" name="buy" value="{$LANG.GET_VERIFY_CODE}" onclick="get_verify_code(this);" >		
+											<input type="text" class="f-input" style="width:50px;" name="verify_code">			
+											{/if}
+										{/if}
+										
+								{/if}
+								&nbsp;&nbsp;
+								<input type="button" onclick="location.href='{$APP_ROOT}/';" value="{$LANG.KEEP_BUYING}" class="formbutton2">
+								<input type="button" onclick="submit_cart();" value="{$LANG.CONFIRM_BUY}" name="buy" class="formbutton">
+</div>		
+{else}
+					<div class="blank"></div>
+					<div class="nogoodsbg">
+						<div class="nogoodsimg"><img src="{$TMPL}/images/nogoods.jpg"></div>
+						<div class="nogoodstxt"><p class="empty">{$LANG.CART_EMPTY_TIP}</p>
+						<p class="color_blue">{$LANG.GO_TO_PICK}[ <a href="{$APP_ROOT}/">{$LANG.PICK_GOODS_TO_CART}</a> ]，{$LANG.OR_GO_TO} [ <a href="{url x="shop" r="uc_collect"}">{$LANG.MY_COLLECT}</a> ] {$LANG.FOR_CHECK}。
+							<br></p><br><br><br><br></div> 
+						<div class="blank"></div>
+					</div>
+{/if}

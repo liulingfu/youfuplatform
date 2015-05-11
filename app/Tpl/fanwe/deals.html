@@ -1,0 +1,119 @@
+{include file="inc/header.html"} 
+<div id="bdw" class="bdw">
+	<div id="bd" class="cf">
+		<div id="deal-default">
+			{if $deal_cate_list}
+			<div id="dashboard" class="dashboard cf">
+					<ul>
+						{foreach from=$deal_cate_list item=cate key=key}
+						{if $key < 8}
+						<li {if $cate.current eq 1}class="current"{/if}><a href="{$cate.url}">{$cate.name}</a>
+						<span></span>
+						</li>
+						{/if}
+						{/foreach}													
+					</ul>
+			</div>
+			{/if}
+			<div id="content" class="cf">
+					
+			
+	
+			<div id="g_recent">
+				
+				<div class="box">
+					<div class="box-top"></div>
+					<div class="box-content">
+						<div class="head">						
+							<h2>{$page_title}</h2>						
+						</div>
+						<div class="sect">
+							{include file="inc/list_style.html"}
+							<ul>
+								{if $deals}
+								{foreach from=$deals item=deal}
+								<li>
+									
+									<div class="date">
+										{if $deal.time_status eq 0}
+											<div class="d_y">{function name="to_date" value=$deal.begin_time format="Y-m-d"}</div>
+											<div class="d_d">{function name="to_date" value=$deal.begin_time format="d"}</div>
+											<div class="d_r"><?php echo $this->_var['LANG']['WEEK_'.to_date($this->_var['deal']['begin_time'],'w')];?></div>
+										{else}
+											{if $deal.end_time gt 0}
+											<div class="d_y">{function name="to_date" value=$deal.end_time format="Y-m-d"}</div>
+											<div class="d_d">{function name="to_date" value=$deal.end_time format="d"}</div>
+											<div class="d_r"><?php echo $this->_var['LANG']['WEEK_'.to_date($this->_var['deal']['end_time'],'w')];?></div>
+											{else}
+											<div class="d_y">&nbsp;</div>
+											<div class="d_d"></div>
+											<div class="d_r">{$LANG.NO_END_TIME}</div>
+											{/if}
+										{/if}
+									</div>
+									
+									<div class="picture">
+										<div class="p-box">
+										{if $deal.buy_status eq 2}
+											<div class="soldout"></div>										
+										{elseif $deal.time_status eq 1}
+											<div class="insale"></div>
+										{/if}
+										
+										<a target="_blank" title="{$deal.name}" href="{$deal.url}" class="soldoutlink">{$deal.name}</a>
+										<a target="_blank" title="{$deal.name}" href="{$deal.url}">
+											<img  src="{function name="get_spec_image" v=$deal.icon w=220 h=135 g=1}" class="lazy" alt="{$deal.name}">
+										</a>
+										</div>
+										<div class="p-button">
+											<a href="{$deal.url}"><img src="{$TMPL}/images/tuan/show.gif"></a>
+										</div>
+										<div class="p-comment">
+											<a href="{url x="tuan" r="message#deal" p="id=$deal.id"}">{$LANG.ADD_FIRST_MESSAGE}</a>
+										</div>
+									</div>
+									<div class="info">
+										<div class="tit">{if $deal.buy_type eq 2}[{$LANG.DEAL_ORDER_TITLE}]{/if}{if $deal.buy_type eq 3}[{$LANG.DEAL_SECOND_TITLE}]{/if} <a href="{$deal.url}">{$deal.name}</a></div>
+										<div class="gmsll">
+											<p>{$deal.deal_success_num}</p>
+											<div class="blank1"></div>
+											<p>
+												
+												{$LANG.ORIGIN_PRICE}：<span class="bod">{$deal.origin_price_format}</span>&nbsp;&nbsp;&nbsp;
+												{if $deal.buy_type eq 0}{$LANG.CURRENT_PRICE}{/if}{if $deal.buy_type eq 2}{$LANG.ORDER_PRICE}{/if}{if $deal.buy_type eq 3}{$LANG.SECOND_PRICE}{/if}：<span class="bod">{$deal.current_price_format}</span>
+												<span class="red">&nbsp;</span>{$LANG.DISCOUNT}：<span class="bod">{$deal.discount}{$LANG.DISCOUNT_OFF}</span>
+											</p>
+											<div class="clear"></div>
+										</div>
+										<div class="blank"></div>
+										{if $deal.time_status eq 2}
+										<div class="reopen_row"> {function name="sprintf" f=$LANG.REOPEN_NUMBER v=$deal.reopen} <a href="javascript:void(0);" onclick="reopen({$deal.id},this);" class="reopen">{$LANG.REOPEN_SUBMIT}</a></div>
+										{/if}
+										<div class="jiesheng">{$LANG.SAVE_PRICE_TOTAL}<span class="red"><?php echo format_price($this->_var['deal']['save_price']*$this->_var['deal']['buy_count']);?></span></div>
+										<div class="miaoshu"><p>
+										{$deal.brief}
+										</p></div>
+									</div>
+									<div class="blank"></div>
+								</li>	
+							{/foreach}
+							{else}
+							{$LANG.NO_DEALS}
+							{/if}
+							<?php unset($this->_var['deal']);?>
+							</ul>
+							<div class="clear"></div>
+							
+							<div class="pages">{$pages}</div>
+							
+						</div>
+					</div>
+					<div class="box-bottom"></div>
+				</div>
+			</div></div>
+			{include file="inc/side.html"} 
+	</div>
+	<!-- bd end -->
+</div></div>
+
+{include file="inc/footer.html"}

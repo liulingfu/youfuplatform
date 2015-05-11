@@ -1,0 +1,79 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+<div class="main_title">[{$deal_info.name}] {%ADD_COUPON} <a href="{:u("DealCoupon/index",array("deal_id"=>$deal_info['id']))}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%COUPON_SN}:</td>
+		<td class="item_input"><input type="text" class="textbox" name="sn" />
+		<span style="color:red">[{%DEAL_COUPON_SN_TIP}]</span>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%COUPON_PASSWORD}:</td>
+		<td class="item_input"><input type="text" class="textbox" name="password" />
+		<span style="color:red">[{%DEAL_COUPON_PASSWORD_TIP}]</span>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%COUPON_BEGIN_TIME}:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="begin_time" id="begin_time" value="" onfocus="this.blur(); return showCalendar('begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_begin_time');" />
+			<input type="button" class="button" id="btn_begin_time" value="{%SELECT_TIME}" onclick="return showCalendar('begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_begin_time');" />	
+			<input type="button" class="button" value="{%CLEAR_TIME}" onclick="$('#begin_time').val('');" />	
+			<span style="color:red">[{%DEAL_COUPON_BEGIN_TIME_TIP}]</span>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%COUPON_END_TIME}:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="end_time" id="end_time" value="" onfocus="this.blur(); return showCalendar('end_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_end_time');" />
+			<input type="button" class="button" id="btn_end_time" value="{%SELECT_TIME}" onclick="return showCalendar('end_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_end_time');" />	
+			<input type="button" class="button" value="{%CLEAR_TIME}" onclick="$('#end_time').val('');" />
+			<span style="color:red">[{%DEAL_COUPON_END_TIME_TIP}]</span>
+		</td>
+	</tr>	
+	<tr>
+		<td class="item_title">{%COUPON_USER_ID}:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="user_id" />
+			<span style="color:red">[{%COUPON_USER_ID_TIP}]</span>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%COUPON_IS_VALID}:</td>
+		<td class="item_input">
+			<select name="is_valid">
+				<option value="0">{%IS_VALID_0}</option>
+				<option value="1">{%IS_VALID_1}</option>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title"></td>
+		<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="deal_id" value="{$deal_info.id}" />
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="DealCoupon" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="insert" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%ADD}" />
+			<input type="reset" class="button" value="{%RESET}" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>	 
+</form>
+</div>
+<include file="Public:footer" />

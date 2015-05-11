@@ -1,0 +1,50 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<PHP>
+function get_pay_incharge_link($id)
+{
+	if(M("DealOrder")->where("id=".$id)->getField("pay_status")!=2)
+	{
+		return "<a href='javascript:void(0);' onclick='pay_incharge(".$id.");'>".l("ORDER_PAID_INCHARGE")."</a>";
+	}
+}	
+</PHP>
+<script type="text/javascript">
+	function pay_incharge(id)
+	{
+		if(confirm("{%CONFIRM_PAY_INCHARGE}"))
+		location.href = ROOT+"?"+VAR_MODULE+"=DealOrder&"+VAR_ACTION+"=pay_incharge&id="+id;
+	}
+</script>
+<div class="main">
+<div class="main_title">{%INCHARGE_ORDER}</div>
+<div class="blank5"></div>
+<div class="button_row">
+	<input type="button" class="button" value="{%DEL}" onclick="del();" />
+</div>
+<div class="blank5"></div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">	
+		{%ORDER_SN}：<input type="text" class="textbox" name="order_sn" value="{:trim($_REQUEST['order_sn'])}" />
+		{%USER_NAME}：<input type="text" class="textbox" name="user_name" value="{:trim($_REQUEST['user_name'])}" />
+		<input type="hidden" value="DealOrder" name="m" />
+		<input type="hidden" value="incharge_index" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+	</form>
+</div>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="incharge" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|50px,order_sn:{%ORDER_SN},user_id|get_user_name:{%USER_NAME},deal_total_price|format_price:{%INCHARGE_AMOUNT},total_price|format_price:{%PAY_AMOUNT},payment_id|get_payment_name:{%PAYMENT_TYPE},pay_status|get_pay_status:{%PAYMENT_STATUS}" 
+	actionlist="id|get_pay_incharge_link, del:{%DEL}" /> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

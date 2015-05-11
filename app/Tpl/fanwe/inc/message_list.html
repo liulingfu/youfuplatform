@@ -1,0 +1,49 @@
+{* 留言列表 *}
+							<ul>
+								{foreach from=$message_list item=message_item key=key}
+									<li class="message-row {if $key mod 2 eq 0}alt{/if}"  style="position:relative;">
+									<table class="msg_row">
+											<tr>
+												<td style="width:60px; text-align:left;">
+													<div class="avatar_small">
+													{function name="show_avatar" uid=$message_item.user_id  type="small" }
+													</div>													
+												</td>
+												<td>
+													<div class="item">
+													
+													<div class="f_l">												
+														<strong><?php if($_REQUEST['act']=='seller'){?>[{function name="get_deal_city_name" value=$message_item.city_id}]<?php }?>{function name="get_user_name" value=$message_item.user_id} </strong>
+														<span style="font-size:12px; color:#999;">
+														<?php echo sprintf($GLOBALS['lang']['SUPPLIER_COMMENT_SAY'],pass_date($this->_var['message_item']['create_time']));?>
+														</span>
+														{if $message_item.point gt 0}<a href="{url x="shop" r="goods" p="id=$message_item.rel_id"}" title="{$message_item.rel_name}" target="_blank">{function name="msubstr" v=$message_item.rel_name b=0 e=10}</a>
+														
+														<span class="comment_word comment_{$message_item.point}"><?php echo $GLOBALS['lang']['COMMENT'.$this->_var['message_item']['point']];?></span> {/if}
+														
+													</div>
+													{if $user_auth['msg']['del']}
+													<div class="f_r">
+													<a href="javascript:void(0);" onclick="op_msg_del({$message_item.id});">删除</a>
+													</div>
+													{/if}
+													<div class="blank1"></div>
+													<p class="text">
+														{function name="nl2br" value=$message_item.content}
+													</p>
+													{if $message_item.admin_reply neq ''}
+													<p class="reply">
+													<strong>{$LANG.REPLY}：</strong>{function name="nl2br" value=$message_item.admin_reply}<br>
+													</p>	
+													{/if}									
+												</div>
+												</td>
+											</tr>
+										</table>
+									</li>
+								{/foreach}							
+							</ul>
+							{* 留言列表 *}
+							
+							<div class="blank"></div>							
+							<div class="pages">{$pages}</div>	

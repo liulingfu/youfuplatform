@@ -1,0 +1,83 @@
+@CHARSET "UTF-8";
+.store_info{ border:#F3E5D1 solid 1px; width:auto}
+.store_info .title{ font-weight:bolder; font-size:14px; color:#FF5501; margin:0 5px; padding:8px 3px 5px 3px ; border-bottom:1px solid #FFE2CE}
+.store_info .img{ padding-top:13px}
+.store_info .img img{ border:1px solid #DCDCDC; padding:5px; background:#fff; width:150px; display:block; margin:0 auto;}
+.store_info .detail{ line-height:180%;width:160px; margin:0 auto; color:#595959; padding-top:8px}
+.store_info .detail span{ color:#806F66}
+.store_info .dp{ text-align:center; padding-top:15px}
+.store_info .dp_count{ color:#595959;}
+.store_info .dp_count span{color:#FE4848}
+
+
+.pic-main{ background:#313740;font: 12px/1.231 "simSun","arial"; padding: 0 0 20px;}
+
+#pic-hd {background: transparent url("../images/store/gallery_detail.png") repeat-x scroll 0 -300px;height: 35px;}
+
+#pic-hd .upload-pic { background: url("../images/store/gallery_detail.png") no-repeat scroll 0 -238px transparent;color: #FFFFFF;display: inline;float: right;margin: 12px 15px 0 0;padding: 0 0 0 12px;}
+#pic-hd ul li {border-right: 1px solid #373839;float: left;height: 33px;padding: 0 15px;}
+#pic-hd ul li a span { font-size: 12px; font-weight: normal;color:#fff}
+#pic-hd ul li.current {background: #313740;border: 2px solid black;border-bottom: none;}
+#pic-hd ul li a {color: white;display: block;font-size: 14px;padding: 10px 0 0;}
+#pic-hd ul li.current a {font-size: 14px;font-weight: bold;padding: 8px 0 0;}
+
+.pic-bd{border-bottom: 1px solid #666;color: #CDCCCA;margin: 15px 15px 0;padding-bottom: 15px;}
+#pic-bar {color: #999;}
+#pic-bar a{color:#999}
+#pic-bar a:hover{color:#F90}
+#pic-bar .title {color: #F90;float: left;font-size: 14px;font-weight: bold;margin: 10px 0 0;overflow: hidden;width: 300px;}
+#pic-bar{color: #999;}
+
+#pic-bar .fun-btn {background: transparent url("../images/store/gallery_detail.png") no-repeat scroll 0 -30px;float: right;height: 19px;padding: 6px 0 0 8px;width: 52px;}
+#pre-btn{background:transparent url("../images/store/gallery_detail.png") no-repeat scroll 0 -119px;padding:0 0 0 9px}
+#pre-btn:hover{background:transparent url("../images/store/gallery_detail.png") no-repeat scroll -60px -119px;text-decoration:none}#next-btn{background:transparent url("http://k.kbcdn.com/product/huangye/gallery/img/gallery_detail_1_0_1.png") no-repeat scroll 100% -149px;padding:0 9px 0 0}
+#next-btn:hover{background:transparent url("../images/store/gallery_detail.png") no-repeat scroll -60px -149px;text-decoration:none}#pic-num{font-family:verdana;font-size:14px;float:right;margin:4px 6px 0 5px}
+#pic-num {font-family: verdana;font-size: 14px;float: right;margin: 4px 6px 0 5px; color:#999}
+#pic-num span{color:#F90}
+
+#pic-bar .fun-bar{background:transparent url("../images/store/gallery_detail.png") no-repeat scroll 0 -55px;float:right;height:19px;margin:0 14px 0 0;padding:6px 0 0 6px;width:158px}
+#pic-bar .fun-bar label{cursor:pointer;float:left;margin:0 0 0 4px;color: #999;}
+#pic-bar .fun-bar input{height:13px;width:13px;float:left; margin:0; padding:0; border:0}
+#auto-three{margin:0 0 0 5px}
+
+#auto-btn{background:transparent url("../images/store/gallery_detail.png") no-repeat scroll 0 -179px;float:left;margin:0 0 0 16px;padding:0 0 0 10px}
+#auto-btn.stop{background:transparent url("../images/store/gallery_detail.png") no-repeat scroll 0 -179px}
+#auto-btn.current{background:transparent url("../images/store/gallery_detail.png") no-repeat scroll 0 -209px}
+#pic-bar .stop:hover{background:transparent url("../images/store/gallery_detail.png") no-repeat scroll -60px -179px;text-decoration:none}
+#pic-bar .current:hover{background:transparent url("../images/store/gallery_detail.png") no-repeat scroll -60px -209px;text-decoration:none}
+#pic-bar .fun-btn{background:transparent url("../images/store/gallery_detail.png") no-repeat scroll 0 -30px;float:right;height:19px;padding:6px 0 0 8px;width:52px}
+
+#pic-info {border-top: 1px solid #666;margin: 10px 0 0;padding: 5px 0 0;color:#CDCCCA;}
+#pic-info span,#pic-info a{color:#CDCCCA;float: left;}
+#pic-info a:hover{color:#f90;}
+#pic-info #origin-user{background: transparent url("../images/store/gallery_detail.png") no-repeat scroll 0 -270px;padding: 2px 0 0 17px;}
+#pic-info #origin-pic {background: transparent url("../images/store/gallery_detail.png") no-repeat scroll 0 -150px;font-family: verdana;float: right;padding: 0 0 0 16px;margin: 0 10px 0 0;}
+
+#pic-info #scan-num {font-family: verdana;float: right;margin-right: 6px;display: inline;}
+#scan-num b {color: #F90;}
+
+#pic-frame {margin: 20px auto 0;overflow: hidden;width: 620px;position: relative;vertical-align: middle;text-align: center;z-index: 1;}
+
+#pic-frame div.pic-inline-block {display: inline-block;position: relative;}
+
+#pic-frame a {outline: medium none;position: absolute;text-decoration: none;width: 310px;height: 100%;z-index: 2;top: 0;}
+
+#pre-link {cursor: url("../images/store/mouse_left.cur"),pointer;left: 0;}
+#next-link {cursor: url("../images/store/mouse_right.cur"),pointer;right: 0;}
+
+#pic-ft {margin: 20px 0px 0 40px;font: 12px/1.231 "simSun","arial";}
+
+#album-pre, #album-next {border: 1px solid #252525;background: #515862;cursor: pointer;float: left;height: 71px;width: 16px;}
+#album-pre.none, #album-next.none {background: #3E434C;cursor: default;}
+#album-pre span {background: transparent url("../images/store/gallery_detail.png") no-repeat scroll -75px -85px;display: block;height: 10px;overflow: hidden;width: 5px;margin: 30px auto 0;}
+#album-next span {background: transparent url("../images/store/gallery_detail.png") no-repeat scroll -120px -85px;display: block;height: 10px;overflow: hidden;width: 5px;margin: 30px auto 0;}
+#pic-ft #album-pre.none span {background: transparent url("../images/store/gallery_detail.png") no-repeat scroll -105px -85px;}
+#pic-ft #album-next.none span {background: transparent url("../images/store/gallery_detail.png") no-repeat scroll -150px -85px;}
+
+#album-main {float: left;overflow: hidden;margin: 0 8px; width:621px}
+#pic-album {float: left;white-space: nowrap;}
+#pic-album li {border: 1px solid black;width: 90px;height: 67px;margin: 2px 13px 0 0;float: left;overflow: hidden;}
+#pic-album li.current {border: 3px solid #F60;margin: 0 11px 0 0;}
+#pic-album li.last{margin-right:0}
+#pic-album li div {width: 90px;height: 67px;overflow: hidden;text-align: center;display: table-cell;vertical-align: middle;}
+#pic-album li div img {vertical-align: middle;}

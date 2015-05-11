@@ -1,0 +1,73 @@
+{include file="biz/biz_header.html"} 
+
+{include file="biz/biz_nav.html"}
+<div class="blank"></div>
+<div class="wrap">
+{include file="biz/biz_info_header.html"}
+<div class="biz_index_box clearfix">
+	<div class="short f_l">
+		{include file="biz/biz_left.html"}
+	</div>
+	<div class="long f_r">
+			<style type="text/css">
+				ul.commit_list{ padding:0px 10px; font-size:12px; }
+				ul.commit_list h2{ font-size:12px; color:#999;}
+				ul.commit_list li{ padding:10px; display:block; }
+				ul.commit_list li.gray{ background:#f2f2f2;}
+			</style>			
+			<div class="blank"></div>
+			<a class="biz_pub_btn f_r" href="{url x="biz" r="tuan#publish"}">发布产品</a>
+			<div class="blank"></div>
+			<table cellspacing="0" cellpadding="0" border="0" class="data-table">
+				{foreach from=$deal_list item=deal_item key=key}
+				<tr {if $key mod 2 eq 0}class="gray"{/if}>
+					<td>
+					<h2>{if $deal_item.time_status neq 0 and $deal_item.is_effect eq 1 and $deal_item.publish_wait eq 0}<a href='{if $deal_item.uname}{url x="shop" r="goods" p="id=$deal_item.uname"}{else}{url x="shop" r="goods" p="id=$deal_item.id"}{/if}' target="_blank">{/if}
+					<span style="font-size:12px; color:#b40001;">[{if $deal_item.is_shop eq 0}团购{elseif $deal_item.is_shop eq 1}商城 {else}代金券{/if}]</span> {$deal_item.name}
+					[{if $deal_item.time_status eq 0 or $deal_item.is_effect eq 0 or $deal_item.publish_wait eq 1}未上架{else}已上架{/if}]{if $deal_item.time_status neq 0 and $deal_item.is_effect eq 1 and $deal_item.publish_wait eq 0}</a>{/if} 
+					&nbsp;编号：{$deal_item.id}
+					</h2>
+					
+					{if $deal_item.time_status eq 0 or $deal_item.is_effect eq 0 or $deal_item.publish_wait eq 1}
+						{if $deal_item.is_shop eq 0}
+						<a href="{url x="tuan" r="deal" p="id=$deal_item.id&preview=1"}" target="_blank">预览</a>
+						{/if}
+						{if $deal_item.is_shop eq 1}
+						<a href="{url x="shop" r="goods" p="id=$deal_item.id&preview=1"}" target="_blank">预览</a>
+						{/if}
+						{if $deal_item.is_shop eq 2}
+						<a href="{url x="youhui" r="ydetail" p="id=$deal_item.id&preview=1"}" target="_blank">预览</a>
+						{/if}
+					{/if}
+					{if $deal_item.publish_wait eq 1}
+						<a href="{url x="biz" r="tuan#modify" p="id=$deal_item.id"}">编辑</a>
+					{/if}
+					
+					{if $deal_item.time_status neq 0 and $deal_item.publish_wait eq 0}
+					<div class="blank"></div>
+					{$LANG.SALE_TOTAL}：{$deal_item.sale_count}   
+					{if $deal_item.is_coupon gt 0}
+					消费券：{$deal_item.coupon_count}  
+					{$LANG.COUPON_CONFIRM_COUNT}：{$deal_item.confirm_count}	 										
+					[<a href="{url x="biz" r="tuan#deal_coupon" p="id=$deal_item.id"}">消费券列表</a>]
+					{/if}
+					[<a href="{url x="biz" r="order" p="id=$deal_item.id"}">{$LANG.VIEW_DETAIL}</a>]
+					[<a href="{url x="biz" r="order#export_order" p="id=$deal_item.id"}" target="_blank">{$LANG.DOWNLOAD_ORDER}</a>]
+					{/if}
+					</td>						
+				</tr>
+				{/foreach}
+			</table>
+			<div class="blank"></div>
+			<div class="pages">
+				{$pages}
+			</div>
+		
+		
+	</div>
+	<div class="blank"></div>
+</div><!--end biz_index_box-->
+
+</div>
+<div class="blank"></div>
+{include file="biz/biz_footer.html"} 

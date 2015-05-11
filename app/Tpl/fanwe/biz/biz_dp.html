@@ -1,0 +1,36 @@
+{include file="biz/biz_header.html"} 
+
+{include file="biz/biz_nav.html"}
+<div class="blank"></div>
+<div class="wrap">
+{include file="biz/biz_info_header.html"}
+<div class="biz_index_box clearfix">
+	<div class="short f_l">
+		{include file="biz/biz_left.html"}
+	</div>
+	<div class="long f_r">
+			<div class="blank"></div>
+			<div class="tr pd10">
+			<a href="{url x="biz" r="dp"}" {if $f eq ''}style="font-weight:bolder;"{/if}>全部</a>
+			<a href="{url x="biz" r="dp" p="f=is_buy"}"  {if $f eq 'is_buy'}style="font-weight:bolder;"{/if}>消费点评</a>
+			<a href="{url x="biz" r="dp" p="f=tuan"}"  {if $f eq 'tuan'}style="font-weight:bolder;"{/if}>团购点评</a>
+			<a href="{url x="biz" r="dp" p="f=youhui"}"  {if $f eq 'youhui'}style="font-weight:bolder;"{/if}>优惠券点评</a>
+			<a href="{url x="biz" r="dp" p="f=daijin"}"  {if $f eq 'daijin'}style="font-weight:bolder;"{/if}>代金券点评</a>
+			<a href="{url x="biz" r="dp" p="f=event"}"  {if $f eq 'event'}style="font-weight:bolder;"{/if}>活动点评</a>
+			<a href="{url x="biz" r="dp" p="f=shop"}"  {if $f eq 'shop'}style="font-weight:bolder;"{/if}>商城购物点评</a>
+			</div>
+			<div class="blank"></div>
+			{$html}
+			<div class="blank"></div>
+			<div class="pages">
+				{$pages}
+			</div>
+		
+		
+	</div>
+	<div class="blank"></div>
+</div><!--end biz_index_box-->
+
+</div>
+<div class="blank"></div>
+{include file="biz/biz_footer.html"} 

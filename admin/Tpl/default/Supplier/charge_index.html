@@ -1,0 +1,33 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title">提现申请</div>
+<div class="blank5"></div>
+<PHP>
+function get_charge_status($status,$id)
+{
+	if($status==0)return "待审核   <a href='".u("Supplier/docharge",array("id"=>$id))."'>已打款给商户，确认提现</a>";
+	else return "已审核";
+}
+function get_supplier_show_name($id)
+{
+	$supplier = M("Supplier")->getById($id);
+	return   "<a href='".u("Supplier/index",array("name"=>$supplier['name']))."'>".$supplier['name']."</a>";
+}
+</PHP>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="charge" 
+	checkbox="true" 
+
+	datasource="list" 
+	show="id:{%ID}|50px,money|format_price:提现金额,create_time|to_date:日期,supplier_id|get_supplier_show_name:商户,status|get_charge_status=$charge['id']:状态" 
+	/> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

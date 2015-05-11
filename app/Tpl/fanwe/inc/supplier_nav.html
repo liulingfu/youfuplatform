@@ -1,0 +1,19 @@
+<style type="text/css">
+	.supplier_nav{font-size:12px; padding:0px 10px;}
+	.supplier_nav a { }
+</style>
+<div class="supplier_nav">
+	{if $account_data}
+	{$LANG.SUPPLIER}：{$account_data.name} 
+	<br />
+	{$LANG.HELLO}：{$account_data.account_name}		
+	[ <a <?php if($_REQUEST['act']=='deal'){ echo 'style="color:#b40000;"'; }?> href="{url x="tuan" r="coupon#deal"}">{$LANG.SUPPLIER_DEAL_LIST}</a> ]
+	[ <a <?php if($_REQUEST['act']=='order'){ echo 'style="color:#b40000;"'; }?> href="{url x="tuan" r="coupon#order"}">{$LANG.SUPPLIER_ORDER_LIST}</a> ]
+	[ <a <?php if($_REQUEST['act']=='verify'){ echo 'style="color:#b40000;"'; }?> href="{url x="tuan" r="coupon#verify"}">{$LANG.VERIFY_COUPON}</a> ]	
+	[ <a <?php if($_REQUEST['act']=='youhui_verify'){ echo 'style="color:#b40000;"'; }?> href="{url x="tuan" r="coupon#youhui_verify"}">{$LANG.YOUHUI_VERIFY}</a> ]					
+	[ <a <?php if($_REQUEST['act']=='modify_pwd'){ echo 'style="color:#b40000;"'; }?> href="{url x="tuan" r="coupon#modify_pwd"}">{$LANG.MODIFY_PASSWORD}</a> ]
+	[ <a href="{url x="tuan" r="coupon#loginout"}">{$LANG.LOGINOUT}</a> ]
+	{else}
+	[ <a href="{url x="tuan" r="coupon#supplier_login"}">{$LANG.SUPPLIER_LOGIN}</a> ]
+	{/if}
+</div>		

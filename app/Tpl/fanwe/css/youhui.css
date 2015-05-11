@@ -1,0 +1,18 @@
+.fdetail_box{ border:#ccc solid 1px;}
+.fdetail_box_top{ background:url(../images/fdetail_box_top.gif) repeat-x; height:31px; line-height:31px; font-size:14px; text-indent:10px; font-weight:bolder;}
+
+.cut_line{ background:url(../images/fdetail_cut_line.gif) no-repeat; width:730px; height:11px; font-size:0px; line-height:0px; margin:10px auto;}
+.youhui_count{ background:url(../images/youhui_count_bg.jpg) no-repeat; width:201px; height:77px; margin:0px auto;}
+.count_box{ width:100px; height:77px; text-align:center;}
+.count_box b{ color:#b40001; line-height:50px; font-size:20px; display:block;}
+.count_box span{ color:#ccc;}
+.youhui_num_over{
+background: url(../images/btn_youhui_disabled.gif) no-repeat scroll 0 0 transparent;
+border: 0 none;
+color: #FFFFFF;
+font-family: "微软雅黑";
+font-size: 20px;
+height: 39px;
+width: 168px;
+cursor: no-drop;
+}

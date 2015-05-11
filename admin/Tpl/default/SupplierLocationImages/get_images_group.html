@@ -1,0 +1,5 @@
+<select name="images_group_id">
+	<foreach name="images_group" item="group">
+		<option value="{$group.id}" <if condition="$images_group_id eq $group['id']">selected="selected"</if> >{$group.name}</option>
+	</foreach>
+</select>

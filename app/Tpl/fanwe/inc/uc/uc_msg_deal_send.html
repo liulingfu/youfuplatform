@@ -1,0 +1,43 @@
+<?php
+$this->_var['pmjs'][] = $this->_var['TMPL_REAL']."/js/writepm.js";
+$this->_var['cpmjs'][] = $this->_var['TMPL_REAL']."/js/writepm.js";
+?>
+<script type="text/javascript" src="{function name="parse_script" v="$pmjs" c="$cpmjs"}"></script>
+<div class="inc">
+	<div class="inc_top">{$page_title}</div>
+	<div class="inc_main">
+		<div class="blank"></div>
+		<div class="pm_form">
+			<div class="field">
+				<label for="settings-username">{$LANG.TO_USER}</label>
+				<input type="text" size="30" class="f-input" name="user_name" />
+				<span class="f-input-tip"></span>
+			</div>
+			<div class="field" style="width:700px;">
+				<label>{$LANG.CONTENT}</label>
+				<textarea style="width:450px; height:100px; border:#ccc solid 1px;" cols="10" name="content"></textarea>
+			</div>
+			<div class="field">		
+				<label for="act"></label>		
+				<input type="button" value="{$LANG.DO_SEND}" name="commit" id="settings-submit" class="formbutton" onclick="do_send_pm();" />
+			</div>
+		</div>
+		
+		<div class="blank"></div>
+		{foreach from=$fans_list item=user_item}
+		
+				<div class="rand_user" style="cursor:pointer;" onclick="set_to_user('{$user_item.user_name}');">					
+					<img src="{function name="get_user_avatar" uid=$user_item.id t="small"}" /> 		
+					<br />	
+					{$user_item.user_name}					
+				</div>				
+		
+		
+		{/foreach}
+		<div class="blank"></div>
+		<div class="pages">{$pages}</div>
+		<div class="blank"></div>
+	</div>
+	<div class="inc_foot"></div>
+</div>
+

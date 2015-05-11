@@ -1,0 +1,36 @@
+{include file="biz/biz_header.html"} 
+
+{include file="biz/biz_nav.html"}
+<div class="blank"></div>
+<div class="wrap">
+{include file="biz/biz_info_header.html"}
+<div class="biz_index_box clearfix">
+	<div class="short f_l">
+		{include file="biz/biz_left.html"}
+	</div>
+	<div class="long f_r">
+			<div class="blank"></div>
+			<div  style="padding:0 10px;">
+			<form name="searchform" action="{url x="biz" r="balance"}" method="post">
+			项目编号：<input type="text" class="f-input" name="deal_id" value="{$deal_info.id}" style="width:50px;" />
+			&nbsp;&nbsp;&nbsp;&nbsp;结算状态：
+			<select name="is_balance">
+				<option value="0" {if $is_balance eq 0}selected="selected"{/if}>未结算</option>	
+				<option value="1" {if $is_balance eq 1}selected="selected"{/if}>待结算</option>	
+				<option value="2" {if $is_balance eq 2}selected="selected"{/if}>已结算</option>	
+			</select>
+			<input type="hidden" value="1" name="is_redirect" />
+			&nbsp;&nbsp;<input type="submit" value="{$LANG.SEARCH}" class="formbutton" />
+			</form>
+			</div>		
+			<div class="blank"></div>
+			{$html}
+			<div class="blank"></div>
+			
+	</div>
+	<div class="blank"></div>
+</div><!--end biz_index_box-->
+
+</div>
+<div class="blank"></div>
+{include file="biz/biz_footer.html"} 

@@ -1,0 +1,65 @@
+.goods_item{ float:left; display:inline-block; width:233px; overflow:hidden; text-align:center; overflow:hidden; margin:10px 0px; }
+.goods_item .goods_img_box{ width:210px; height:210px; overflow:hidden; display:block; margin:0px auto;}
+.goods_item img{ width:210px; height:210px; }
+.goods_item .starico img{ width:auto; height:auto; border:none;}
+.goods_item .goods_item_title{ text-align:center; line-height:25px;}
+.text{ word-break:break-all; width:840px; overflow:hidden;}
+.alt{ background-color:#f2f2f2;}
+
+.sort_desc{
+  background: url("../images/arrow.gif") no-repeat scroll right 10px transparent;
+  padding-right: 15px;
+}
+
+.sort_asc {
+  background: url("../images/arrow.gif") no-repeat scroll right -10px transparent;
+  padding-right: 15px;
+}
+
+.sort_gray{
+  background: url("../images/arrow.gif") no-repeat scroll right -30px transparent;
+  padding-right: 15px;
+}
+.sort_icon {
+  display: inline-block;
+  font-size: 12px;
+  height: 28px;
+  line-height: 28px;
+  margin: 0px;
+}
+
+span.list_type{display:inline-block; width:18px; height:15px; margin:0px 3px; cursor:pointer;}
+span.grid_enable{ background:url("../images/list_type.gif") no-repeat 0px 0px;}
+span.grid_disable{ background:url("../images/list_type.gif") no-repeat -18px 0px;}
+span.line_enable{ background:url("../images/list_type.gif") no-repeat 0px -15px;}
+span.line_disable{ background:url("../images/list_type.gif") no-repeat -18px -15px;}
+
+
+.cate_tree_inc { border: #ffde90 solid 0px; background: #c84938; }
+.cate_tree_inc .inc_top, .cate_tree_inc .inc_top:hover { }
+.cate_tree_inc .inc_main { background: #c84938; }
+.cate_tree li { padding-left: 5px; height: 25px; line-height: 25px; border-bottom: #fff dotted 1px; }
+.cate_tree li a { color: #fff; text-decoration: none; }
+.cate_tree li a:hover{ text-decoration:underline;}
+.cate_tree li.first { border-bottom: #fff dotted 1px; font-size: 14px; padding-left: 10px; height: auto; line-height: 35px; position:relative; height:63px; }
+.cate_tree li.first p{ font-size:12px; height:20px; line-height:20px; overflow:hidden; margin-bottom:8px;}
+.cate_tree li.subcate { display: none; }
+.cate_tree li.act { background-color:#f5f4f3;}
+.cate_tree li.act a, .cate_tree li.first a:hover { color: #876e69; }
+
+.cate_tree li.act ul.toggle { position: absolute; z-index: 999999; display: block; left: 190px; top: 0px; background: #f5f4f3; width:350px; padding: 10px; border: 1px solid #beb6b1; border-left:none;}
+.cate_tree li.act ul.toggle li{ float:left; border-bottom:none;}
+.cate_tree li.act ul.toggle li a{color: #876e69;padding: 2px 0;
+height:15px; line-height:15px; overflow:hidden;
+margin-right: 3px;
+min-width: 97px;
+_width: 97px; display:block;}
+.cate_tree li.act ul.toggle li a:hover{background: #876e69;color: #fff; text-decoration: none;}
+.cate_tree li.act ul.toggle  li a b{ font-weight:normal; font-size:12px;}
+.cate_tree li.act ul.toggle .hide_white { background: #f5f4f3; width: 10px; height: 35px; position: absolute; left: -10px; top: 0px; }
+
+/*****内页的分类*****/
+.inner_cate_tree { padding: 10px; }
+.inner_cate_tree li { padding-left: 5px; height: 25px; line-height: 25px; border-bottom: #dfca9f dotted 1px; }
+.inner_cate_tree li a { color: #333333; text-decoration: none; }
+.inner_cate_tree li.act { background: #f2f2f2; }

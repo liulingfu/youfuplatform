@@ -1,0 +1,155 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+
+<php>
+	function getRefundStatus($status,$id)
+	{
+		if($status==0)return "无";
+		if($status==1)return "<span style='color:red; '>申请退款<br /> <a href='".u("DealCoupon/refund",array("id"=>$id))."'>确认退款</a></span>";
+		if($status==2)return "已退款";
+	}
+	function getCouponUserName($user_id)
+	{
+		$user_info = M("User")->getById($user_id);
+		if($user_info)
+		return $user_info['user_name'];
+		else
+		return L("NOT_USER_COUPON");
+	}
+	function getCouponOrderSn($order_id)
+	{
+		$order_info = M("DealOrder")->getById($order_id);
+		if($order_info)
+		return $order_info['order_sn'];
+		else
+		return L("NOT_ORDER_COUPON");
+	}
+	function getCouponIsNew($is_new)
+	{
+		return l("COUPON_IS_NEW_".$is_new);
+	}
+	function getCouponIsValid($is_valid)
+	{
+		if($is_valid == 2){
+			return "<span style='color:red;'>".l("COUPON_IS_VALID_".$is_valid)."</span>";
+		}else{
+			return l("COUPON_IS_VALID_".$is_valid);
+		}
+		
+	}
+	function getCouponConfirmAccount($account_id)
+	{
+		return M("SupplierAccount")->where("id=".$account_id)->getField("account_name");
+	}
+</php>
+<script type="text/javascript">
+	function sms(id)
+	{
+		location.href = ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=sms&id="+id;
+	}
+	function mail(id)
+	{
+		location.href = ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=mail&id="+id;
+	}
+
+
+function batch_refund(id)
+{
+	if(!id)
+	{
+		idBox = $(".key:checked");
+		if(idBox.length == 0)
+		{
+			alert("请选择需要退款的团购券");
+			return;
+		}
+		idArray = new Array();
+		$.each( idBox, function(i, n){
+			idArray.push($(n).val());
+		});
+		id = idArray.join(",");
+	}
+	if(confirm("全部退款吗？"))
+	$.ajax({ 
+			url: ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=batch_refund&id="+id, 
+			data: "ajax=1",
+			dataType: "json",
+			success: function(obj){
+				$("#info").html(obj.info);
+				if(obj.status==1)
+				location.href=location.href;
+			}
+	});
+}
+</script>
+<div class="main">
+<div class="main_title">[{$deal_info.name|msubstr}] {$main_title}</div>
+<div class="blank5"></div>
+<div class="button_row">
+	<input type="button" class="button" value="{%ADD}" onclick="location.href='__APP__?m=DealCoupon&a=add&deal_id={$deal_info.id}';" />
+	<input type="button" class="button" value="{%FOREVERDEL}" onclick="foreverdel();" />
+	<input type="button" class="button" value="{%IMPORT_CSV}" onclick="location.href='__APP__?m=DealCoupon&a=import&deal_id={$deal_info.id}';" />
+	<if condition="$_REQUEST['refund_status']==1">
+	<input type="button" class="button" value="批量退款" onclick="batch_refund();" />
+	</if>
+</div>
+<div class="blank5"></div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">	
+		{%SN}：<input type="text" class="textbox" name="sn" value="{:trim($_REQUEST['sn'])}" style="width:100px;" />
+		{%USER_ID}：<input type="text" class="textbox" name="user_id" value="{:trim($_REQUEST['user_id'])}" style="width:30px;" />
+		退款申请: 
+		<select name="refund_status">
+				<option value="-1" <if condition="intval($_REQUEST['refund_status']) eq -1">selected="selected"</if>>{%ALL}</option>
+				<option value="0" <if condition="intval($_REQUEST['refund_status']) eq 0">selected="selected"</if>>无</option>
+				<option value="1" <if condition="intval($_REQUEST['refund_status']) eq 1">selected="selected"</if>>退款申请</option>
+				<option value="2" <if condition="intval($_REQUEST['refund_status']) eq 2">selected="selected"</if>>已退款</option>
+		</select>
+		{%COUPON_IS_VALID}: 
+		<select name="is_valid">
+				<option value="-1" <if condition="intval($_REQUEST['is_valid']) eq -1">selected="selected"</if>>{%ALL}</option>
+				<option value="0" <if condition="intval($_REQUEST['is_valid']) eq 0">selected="selected"</if>>{%IS_VALID_0}</option>
+				<option value="1" <if condition="intval($_REQUEST['is_valid']) eq 1">selected="selected"</if>>{%IS_VALID_1}</option>
+				<option value="2" <if condition="intval($_REQUEST['is_valid']) eq 2">selected="selected"</if>>已禁用</option>
+		</select>
+		{%COUPON_CONFIRM}: 
+		<select name="is_confirm">
+				<option value="-1" <if condition="intval($_REQUEST['is_confirm']) eq -1">selected="selected"</if>>{%ALL}</option>
+				<option value="0" <if condition="intval($_REQUEST['is_confirm']) eq 0">selected="selected"</if>>{%NO}</option>
+				<option value="1" <if condition="intval($_REQUEST['is_confirm']) eq 1">selected="selected"</if>>{%YES}</option>
+		</select>
+
+		<input type="hidden" value="DealCoupon" name="m" />
+		<input type="hidden" value="index" name="a" />
+		<input type="hidden" value="{:intval($_REQUEST['deal_id'])}" name="deal_id" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+		<input type="button" class="button" value="{%EXPORT}" onclick="export_csv();" />
+	</form>
+</div>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="coupon" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|50px
+		,sn:{%COUPON_SN}:edit
+		,password:{%COUPON_PASSWORD}
+		,begin_time|to_date:{%COUPON_BEGIN_TIME}
+		,end_time|to_date:{%COUPON_END_TIME}
+		,user_id|getCouponUserName:{%COUPON_USER}
+		,order_id|getCouponOrderSn:{%COUPON_ORDER}
+		,is_new|getCouponIsNew:{%COUPON_IS_NEW}
+		,is_valid|getCouponIsValid:{%COUPON_IS_VALID}
+		,refund_status|getRefundStatus=$coupon['id']:退款
+		,confirm_account|getCouponConfirmAccount:{%COUPON_CONFIRM_ACCOUNT}
+		,confirm_time|to_date:{%COUPON_CONFIRM_TIME}" 
+	actionlist="edit:{%EDIT}, foreverdel:{%FOREVERDEL},sms:{%SMS_COUPON},mail:{%MAIL_COUPON}" /> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

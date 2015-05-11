@@ -1,0 +1,44 @@
+<div class="store_sms_form">
+	<h3>{$store_info.name}</h3>
+	<div class="store_tip">
+		{$LANG.STORE_SMS_TIP}
+	</div>
+	<form>
+	<div class="sms_content">
+		{if $store_info.sms_content}
+			{$store_info.sms_content}
+		{else}
+			{$store_info.name}{$store_info.tel} {$store_info.address}
+		{/if}
+		<input type="hidden" value="{$store_info.id}" name="store_id" />
+	</div>
+	<div class="blank"></div>
+	<div class="tel">
+		<dl class="clearfix">
+			<dt class="f_l">{$LANG.USER_TITLE_MOBILE}</dt>
+			<dd class="f_l">
+				<input type="text" name="mobile" value="" class="f-input mobile-input">
+			</dd>
+		</dl>
+		{if app_conf("VERIFY_IMAGE") eq 1}
+		<div class="blank"></div>
+		<dl class="clearfix">
+			<dt class="f_l">验证码</dt>
+			<dd class="f_l">
+			<input type="text" value="" class="f-input f_l" name="verify" size="5" />	
+			<img src="{$APP_ROOT}/verify.php?rand={function name="rand"}" onclick="this.src='{$APP_ROOT}/verify.php?rand='+ Math.random();" title="看不清楚？换一张" class="f_l" style="margin-left:5px;" />			
+			</dd>
+		</dl>	
+		{/if}
+		<div class="blank"></div>
+	</div>
+	</form>
+	<div class="mobile-btn">
+	<a onclick="StoreSmsSend()" class="btn" title="发送" href="javascript:void(0);">
+		<img src="{$TMPL}/images/send_sms.jpg">
+	</a>
+	<a onclick="closeCouponSms();" class="btn" title="取消" href="javascript:void(0);">
+		<img src="{$TMPL}/images/no_send.jpg">
+	</a>
+	</div>
+</div>

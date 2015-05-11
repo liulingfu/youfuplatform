@@ -1,0 +1,72 @@
+{include file="inc/header.html"} 
+<script type="text/javascript">
+	var order_id = {function name="intval" value=$order_info.id};
+</script>
+<div class="blank"></div>
+
+	<div class="inc cart">
+		<div class="inc_top">{$page_title}</div>
+		<div class="inc_main pd10" id="cart_check">
+				<form name="cart_form" id="cart_form" action="{if $order_info}{url x="shop" r="cart#order_done"}{else}{url x="shop" r="cart#done"}{/if}" method="post" />			
+				
+							<div id="cart_list">
+							{include file="inc/inc_cart_check_list.html"} 	
+							</div>
+							{if $is_delivery}
+							{* 配送 *}		
+							<script type="text/javascript" src="{$APP_ROOT}/public/runtime/app/region.js"></script>					
+							<script type="text/javascript">
+								load_consignee({$consignee_id});
+							</script>
+							<div class="blank"></div>
+							<div id="cart_consignee"></div>
+							{* 配送 *}
+							<div class="blank"></div>
+							<div id="cart_delivery"></div>
+							{else}							
+							<script type="text/javascript">
+								$(document).ready(function(){count_buy_total();});
+							</script>
+							{/if}
+							<div class="blank"></div>
+							<div id="cart_message">
+							{include file="inc/inc_cart_message.html"}
+							</div>
+							<div class="blank"></div>
+							<div id="cart_payment">
+							{if $show_payment}
+							{include file="inc/inc_cart_payment.html"}
+							{/if}
+							</div>
+							<div id="cart_total">
+
+							</div>
+							
+							<div id="cart_submit">
+								<div class="order-check-form">
+									<p class="check-act">
+										<input type="hidden" value="{function name="intval" value=$order_info.id}" name="id" />
+										{if $is_coupon}
+										{$LANG.COUPON_MOBILE}：<input type="text" name="coupon_mobile" value="{$user_info.mobile}" class="f-input" />
+										{/if}
+										<input type="button" class="formbutton" value="{$LANG.CONFIRM_ORDER_AND_PAY}" id="order_done">
+										{if !$order_info}
+										<a style="margin-left: 1em;" href="{url x="shop" r="cart"}">{$LANG.BACK_MODIFY_CART}</a>
+										{/if}
+										{if $is_coupon}
+										<br />
+										<span style="font-size:12px; color:#666;">{function name="sprintf" value=$LANG.COUPON_MOBILE_TIP p=$coupon_name}</span>										
+										{/if}
+									</p>
+									
+								</div>
+							</div><!--cart_submit-->							
+						
+				</form>
+
+		</div><!--end inc_main-->		
+		<div class="inc_foot"></div>
+	</div>
+
+
+{include file="inc/footer.html"}

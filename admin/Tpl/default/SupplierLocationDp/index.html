@@ -1,0 +1,28 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<PHP>
+	function getReply($id)
+	{		
+		return "<a href='".u("SupplierLocationDpReply/index",array("supplier_location_id"=>$_REQUEST['supplier_location_id'],"dp_id"=>$id))."'>".查看回复."(".M("SupplierLocationDp")->where("id=".$id)->getField("reply_count").")</a>";
+	}
+</PHP>
+<div class="main">
+<div class="main_title">{$main_title}<a href="{:u("SupplierLocation/index")}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<div class="button_row">
+	<input type="button" class="button" value="{%FOREVERDEL}" onclick="foreverdel();" />
+</div>
+<html:list 
+	id="checkList" 
+	style="dataTable" 
+	name="dp" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|80,title|msubstr:标题,user_id|getUNAME:会员,supplier_location_id|getMerchantName:商户,is_img|getIsImg:有图,create_time|to_date:发表时间,status|get_toogle_status=$dp['id']#status:{%STATUS},is_best|get_toogle_status=$dp['id']#is_best:精华,is_top|get_toogle_status=$dp['id']#is_index:置顶" 
+	actionlist="id|getReply,edit:{%EDIT}:id,foreverdel:{%DEL}:id" action_width="150" />
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

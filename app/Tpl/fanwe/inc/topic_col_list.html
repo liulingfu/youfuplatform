@@ -1,0 +1,120 @@
+<div>
+	{foreach from=$topic_list item=col_list key=key}
+	<div class="feed_col_{$key} feed_col">
+		
+		{foreach from=$col_list item=message_item}
+		<div>
+		<div class="col_msg_item">
+		{if $message_item.title}
+			{if $message_item.rel_url neq ""}
+			<a href="{$message_item.rel_url}" class="topic_title_link">{$message_item.title}</a>
+			{else}
+			<span class="topic_title_row">{$message_item.title}</span>
+			{/if}
+			<div class="blank"></div>
+		{/if}
+		{foreach from=$message_item.images item=img key=key}
+		{if $key lt 3}
+		{if $key eq 0}
+		<a href="{url x="shop" r="topic" p="id=$message_item.id"}"><img src="{function name="get_spec_image" v=$img.o_path w="204"}" width="204" class="lazy" /></a>
+		<div class="blank5"></div>
+		{else}			
+			{if $message_item.images_count eq 2}			
+			<a href="{url x="shop" r="topic" p="id=$message_item.id"}"><img src="{function name="get_spec_image" v=$img.o_path w="204"}" width="204" class="lazy" /></a>
+			{else}			
+			<a href="{url x="shop" r="topic" p="id=$message_item.id"}"><img src="{function name="get_spec_image" v=$img.o_path w="100" h="100" g=1}" width="100" {if $key eq 1}class="f_l"{else}class="f_r"{/if} class="lazy" /></a>
+			{/if}
+		{/if}
+		{/if}
+		{/foreach}	
+		<div class="blank5"></div>
+		{$message_item.short_content}
+		<div class="blank5"></div>
+		{if $message_item.id neq $message_item.origin_id}
+			{if $message_item.origin}
+				<a href="{url x="shop" r="topic" p="id=$message_item.origin.id"}"  class="origin_topic_title">{$LANG.ORIGIN_TOPIC}</a>
+				<div class="blank5"></div>
+				{foreach from=$message_item.origin.images item=origin_img key=key}
+				{if $key lt 3}
+				{if $key eq 0}
+				<a href="{url x="shop" r="topic" p="id=$message_item.origin.id"}"><img src="{function name="get_spec_image" v=$origin_img.o_path w="204"}" width="204" class="lazy" /></a>
+				<div class="blank5"></div>	
+				{else}							
+					{if $message_item.origin.images_count eq 2}
+					<a href="{url x="shop" r="topic" p="id=$message_item.origin.id"}"><img src="{function name="get_spec_image" v=$origin_img.o_path w="204"}" width="204" class="lazy" /></a>
+					{else}
+					<a href="{url x="shop" r="topic" p="id=$message_item.origin.id"}"><img src="{function name="get_spec_image" v=$origin_img.o_path w="100" h="100" g=1}" width="100" {if $key eq 1}class="f_l"{else}class="f_r"{/if} class="lazy" /></a>
+					{/if}
+				{/if}
+				{/if}
+				{/foreach}
+				<div class="blank5"></div>
+				{$message_item.origin.short_content}
+				{else}
+				<div class="origin_delete">{$LANG.ORIGIN_DELETE}</div>
+			{/if}
+		{/if}
+		<div class="blank"></div>	
+		{if $message_item.user_id eq $user_info.id}
+		<div class="f_l">
+			<a href="javascript:void(0);" onclick="delete_topic({$message_item.id},$(this).parent().parent().parent());">{$LANG.DELETE}</a>
+		</div>		
+		{elseif $user_auth['topic']['del']}
+		<div class="f_l">
+			<a href="javascript:void(0);" onclick="op_topic_del({$message_item.id})">{$LANG.DELETE}</a>
+		</div>	
+		{elseif $user_auth['group']['del'][$message_item['group_id']]}
+			<a href="javascript:void(0);" onclick="op_group_del({$message_item.id})">{$LANG.DELETE}</a>
+		{/if}
+		<div class="f_r">			
+			<a href="javascript:void(0);" onclick="reply_topic({$message_item.id},this);">{$LANG.TOPIC_ITEM_REPLY} (<span id="topic_reply_{$message_item.id}">{$message_item.reply_count}</span>) </a>
+			<a href="javascript:void(0);" onclick="fav_topic({$message_item.id});">{$LANG.FAV_TOPIC} (<span id="topic_fav_{$message_item.id}">{$message_item.fav_count}</span>) </a>
+			<a href="javascript:void(0);" onclick="relay_topic({$message_item.id});">{$LANG.RELAY_TOPIC} (<span id="topic_relay_{$message_item.id}">{$message_item.relay_count}</span>)</a>
+			<a href="{url x="shop" r="topic" p="id=$message_item.id"}">{$LANG.VIEW_DETAIL}</a>
+		</div>
+		<div class="blank1"></div>	
+		<div class="col_item_reply_box"></div>
+		<div class="blank5"></div>	
+		</div>
+		<div class="topic_user_info" style="background:#f0efef; border-top:#e3e3e3 solid 1px; padding:5px;">
+			<div class="blank5"></div>	
+			<div class="avatar_small_30 f_l">
+				{function name="show_avatar" uid=$message_item.user_id  type="small" }			
+			</div>		
+			<div class="topic_date_time f_l">		
+				{if $message_item.fav_id gt 0}
+				<strong>
+					{function name="get_user_name" value=$message_item.user_id show_tag="0"} 
+				</strong>
+				<span style="font-size:12px; color:#999;">
+				<?php echo sprintf($GLOBALS['lang']['USER_FAV_THIS'],pass_date($this->_var['message_item']['create_time']));?>
+				</span>
+				{elseif $message_item.relay_id gt 0}	
+				<strong>
+					{function name="get_user_name" value=$message_item.user_id show_tag="0"} 
+				</strong>
+				<span style="font-size:12px; color:#999;">
+				<?php echo sprintf($GLOBALS['lang']['USER_RELAY_THIS'],pass_date($this->_var['message_item']['create_time']));?>
+				</span>
+				{else}							
+				<strong>
+					{function name="get_user_name" value=$message_item.user_id show_tag="0"} 
+				</strong>
+				<span style="font-size:12px; color:#999;">
+				<?php echo sprintf($GLOBALS['lang']['SUPPLIER_COMMENT_SAY'],pass_date($this->_var['message_item']['create_time']));?>
+				</span>
+				{/if}
+			</div>
+			<div class="blank1"></div>
+		</div><!--end topic_user_info-->
+		<div class="blank"></div>
+		</div>		
+		{/foreach}
+		
+	</div>
+	{/foreach}
+</div>
+
+<div class="blank"></div>							
+<div class="pages">{$pages}</div>	
+

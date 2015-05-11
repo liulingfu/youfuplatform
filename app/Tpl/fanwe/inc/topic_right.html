@@ -1,0 +1,38 @@
+{if $hot_tag_list}
+<div class="inc">
+	<div class="inc_top">{$LANG.HOT_TAG}</div>
+	<div class="inc_main">
+		<ul class="tag_list">
+		{foreach from=$hot_tag_list key=key item=hot_tag}
+		<li><span class="tiny_count_box" {if $key eq 0}style="color:#fff; background:#f27900;"{elseif $key eq 1}style="color:#fff; background:#f2a200;"{elseif $key eq 2}style="color:#fff; background:#f2ca00;"{/if} ><?php echo intval($this->_var['key'])+1;?></span> <a href="{url x="shop" r="topic#search" p="keyword=$hot_tag.name"}" title="{$hot_tag.name}"><span {if $hot_tag.color neq ''}style="color:{$hot_tag.color};"{/if}>{$hot_tag.name}</span></a></li>
+		{/foreach}
+		</ul>
+	</div>
+</div>
+<div class="blank"></div>
+{/if}
+{if $hot_title_list}
+<div class="inc">
+	<div class="inc_top">{$LANG.HOT_TITLE}</div>
+	<div class="inc_main">
+		<ul class="tag_list">
+		{foreach from=$hot_title_list item=hot_title}
+		<li><a href="{url x="shop" r="topic#search" p="keyword=$hot_title.name&type=3"}" title="{$hot_title.name}"><span {if $hot_title.color neq ''}style="color:{$hot_title.color};"{/if}>{$hot_title.name}</span></a></li>
+		{/foreach}
+		</ul>
+	</div>
+</div>
+<div class="blank"></div>
+{/if}
+{if $recommend_topic}
+<div class="tc">
+{foreach from=$recommend_topic item=rtopic}
+{if $rtopic.has_image}
+<a href="{url x="shop" r="topic" p="id=$rtopic.id"}" title="{$rtopic.title}"><img src="{function name="get_spec_image" v=$rtopic.images.0.o_path w="204" h="204"}" width="160" /></a>
+<div class="blank"></div>
+{/if}
+<a href="{url x="shop" r="topic" p="id=$rtopic.id"}" title="{$rtopic.title}">{$rtopic.title}</a>	
+<div class="blank"></div>
+{/foreach}
+</div>
+{/if}

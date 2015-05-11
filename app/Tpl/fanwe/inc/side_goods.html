@@ -1,0 +1,17 @@
+{if $inc_var.list}
+<div class="inc">
+	<div class="inc_top">{$inc_var.title}<span class="f_r more"><a href="{$inc_var.url}" title="{$LANG.MORE}">{$LANG.MORE}</a></span></div>
+	<div class="inc_main cf">
+		{foreach from=$inc_var.list item=item}
+		<div class="side_goods_item">
+			<a href="{$item.url}" title="{$item.name}"><img src="{$item.icon}"  alt="{$item.name}"/></a>
+			<a href="{$item.url}" class="goods_item_title" title="{$item.name}">{function name="msubstr" v=$item.name b=0 e=15}</a>
+			<span class="m_price f_l">{$LANG.ORIGIN_PRICE}{function name="format_price" v=$item.origin_price}</span>
+			<span class="s_price f_r">{$LANG.CURRENT_PRICE}{function name="format_price" v=$item.current_price}</span>
+		</div>
+		{/foreach}
+		<div class="blank"></div>
+	</div>
+	<div class="inc_foot"></div>
+</div>
+{/if}

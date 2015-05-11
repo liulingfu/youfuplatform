@@ -1,0 +1,291 @@
+{include file="inc/header.html"} 
+<div id="bdw" class="bdw">
+	<div id="bd" class="cf">
+		<div id="deal-default">
+		{if app_conf("LIST_TYPE") eq 0}
+		{*/单行/*}
+			<div style="float:left; width:722px;">
+			{foreach from=$deal_list item=deal key=key}
+			{include file="inc/multi_share.html"} 
+			<div id="content"  style="position:relative;">				
+				<div class="deal-intro-top"></div>
+				<div class="no"><?php echo $this->_var['key']+1;?></div>
+				<div id="deal-intro" class="cf">				
+					<h1>
+						<span class='sub_title'>
+							{if count($deal_city_list) gt 1}
+							{$deal_city.name}
+							{/if}
+							{if $deal.buy_type eq 0}
+								{$LANG.DEAL_CURRENT}
+							{/if}
+							{if $deal.buy_type eq 2}
+								{$LANG.DEAL_ORDER}
+							{/if}
+							{if $deal.buy_type eq 3}
+								{$LANG.DEAL_SECOND}
+							{/if}				
+							
+						</span> <a href="{if $deal.uname}{url x="tuan" r="deal#index" p="id=$deal.uname"}{else}{url x="tuan" r="deal#index" p="id=$deal.id"}{/if}" title="{$deal.name}" style="color:#000;">{$deal.name}</a>		
+					</h1>
+					<div class="main">
+						<div class="deal-buy">
+							<div class="deal-price-tag"></div>
+							<p class="deal-price" id="deal-price">
+								<strong>{$deal.current_price_format}</strong>
+								<!--begin button status-->
+								{if $deal.time_status eq 0} {*/未开始/*}
+								<span>		
+									<a href="javascript:void(0);">					
+										<img src="{$TMPL}/images/tuan/bg-deal-wait-text.gif">	
+									</a>								
+								</span>
+								{/if}
+								{if $deal.time_status eq 1}{*/已开始/*}
+									{if $deal.buy_status eq 2} {*/卖光/*}
+									<span>
+										<a href="javascript:void(0);">
+											<img src="{$TMPL}/images/tuan/bg-deal-soldout-text.gif">
+										</a>
+									</span>
+									{else}
+									<span>
+										<a href="javascript:void(0);" onclick="add_cart({$deal.id})">
+											{if $deal.is_lottery eq 1 and $deal.current_price eq 0}
+												<img src="{$TMPL}/images/tuan/button-deal-lottery.gif">
+											{else}	
+												{if $deal.buy_type eq 0}
+													<img src="{$TMPL}/images/tuan/button-deal-buy.gif">
+												{/if}
+												{if $deal.buy_type eq 2}
+													<img src="{$TMPL}/images/tuan/button-deal-order.gif">
+												{/if}
+												{if $deal.buy_type eq 3}
+													<img src="{$TMPL}/images/tuan/button-deal-second.gif">
+												{/if}
+											{/if}
+										</a>
+									</span>
+									{/if}
+								{/if}
+								{if $deal.time_status eq 2} {*/已过期/*}
+									{if $deal.buy_status eq 2} {*/卖光/*}
+									<span>
+											<a href="javascript:void(0);">
+												<img src="{$TMPL}/images/tuan/bg-deal-soldout-text.gif">
+											</a>
+										</span>
+									{else}
+									<span>		
+										<a href="javascript:void(0);">					
+											<img src="{$TMPL}/images/tuan/bg-deal-expired-text.gif">	
+										</a>								
+									</span>
+									{/if}
+								{/if}
+								<!--end button status-->		
+							</p>
+						</div>
+						<table class="deal-discount">
+							<tbody>
+								<tr>
+									<th>{$LANG.ORIGIN_PRICE}</th>
+									<th>{$LANG.DISCOUNT}</th>
+									<th>{$LANG.SAVE_PRICE}</th>
+								</tr>
+								<tr>
+									<td>{$deal.origin_price_format}</td>
+									<td>{$deal.discount}{$LANG.DISCOUNT_OFF}</td>
+									<td>{$deal.save_price_format}</td>
+								</tr>
+
+							</tbody>
+						</table>
+						{if ($deal.begin_time ne 0 and $deal.time_status eq 0) or ($deal.end_time ne 0 and $deal.time_status eq 1)} {* 时间 *}
+						<div id="deal-timeleft-box">
+							<div id="deal-timeleft" class="deal-box deal-timeleft deal-on">
+								<h3>{$LANG.TIME_LEFT}</h3>
+								<div class="limitdate">
+									<ul class="counter" endTime="{if $deal.time_status eq 0}<?PHP echo to_date($this->_var['deal']['begin_time'],'r');?>{else}<?PHP echo to_date($this->_var['deal']['end_time'],'r');?>{/if}"></ul>
+								</div>
+							</div>						
+						</div>
+						{/if}
+
+						<div id=deal-status class="deal-box deal-status deal-status-open">
+							
+						{if $deal.time_status eq 0}{*/未开始/*}
+							{$LANG.DEAL_NOT_BEGIN}
+							<br />
+							{function name='sprintf' format=$LANG.DEAL_BEGIN_FORMAT value=$deal.begin_time_format}
+						{/if}
+						{if $deal.time_status eq 1} {*/进行中/*}
+							{if $deal.buy_status eq 0} {*/未成功/*}
+								<p class=deal-buy-tip-top>{$deal.deal_success_num}</p>
+								<p class="deal-buy-tip-notice">{$LANG.DEAL_LIMIT_TIP}</p>
+								<div class="progress-pointer" style="padding-left:<?php echo $this->_var['deal']['current_bought'] / $this->_var['deal']['min_bought'] * 194 -5; ?>px;"><span></span></div>
+								<div class="progress-bar">
+							
+									<div class="progress-left" style="width:<?php echo $this->_var['deal']['current_bought'] / $this->_var['deal']['min_bought'] * 194; ?>px;"></div>
+									<div class="progress-right "></div>
+								</div>
+								<div class="cf">
+									<div class="min">0</div>
+									<div class="max">{$deal.min_bought}</div>
+								</div>
+								<p class="deal-buy-tip-btm">{$deal.success_less}</p>
+							{/if}
+							{if $deal.buy_status eq 1} {*/成功/*}
+								<p class=deal-buy-tip-top>{$deal.deal_success_num}</p>
+								<p class="deal-buy-tip-notice">
+									{if $deal.is_lottery eq 0}
+									<?PHP
+									$c_deal = $this->_var['deal'];
+									if($c_deal['max_bought'] != 0 && $c_deal['max_bought'] - $c_deal['buy_count'] <= 10)
+									{
+										echo sprintf($GLOBALS['lang']['REMAIN_TIP'],$c_deal['max_bought'] - $c_deal['buy_count']);
+									}
+									?>
+									{$LANG.DEAL_LIMIT_TIP}
+									{else}
+									{function name="sprintf" f=$LANG.TOTAL_LOTTERY_COUNT p=$deal.lottery_count}
+									<br /> <a href="{url x="shop" r="uc_order#lottery"}" style="color:#f30;">{$LANG.INVITE_LOTTERY_DEAL_TIP}</a>
+									{/if}
+								</p>
+								<p class=deal-buy-on>{$LANG.DEAL_SUCCESS_CONTINUE_BUY}</p>
+								<p class=deal-buy-tip-btm>{$deal.success_time_tip}</p>
+							{/if}
+							{if $deal.buy_status eq 2} {*/卖光/*}
+							<img src="{$TMPL}/images/tuan/bg-sold-out.gif">
+							{/if}							
+						{/if}
+						{if $deal.time_status eq 2} {*/过期/*}
+							{if $deal.buy_status eq 0} {*/失败/*}
+							<img src="{$TMPL}/images/tuan/bg-deal-expired-fail.gif">
+							{/if}
+							{if $deal.buy_status eq 1} {*/成功/*}
+							<img src="{$TMPL}/images/tuan/bg-deal-expired-success.gif">
+							{/if}
+							{if $deal.buy_status eq 2} {*/卖光/*}
+							<img src="{$TMPL}/images/tuan/bg-sold-out.gif">
+							{/if}
+						{/if}
+						
+						</div>
+					</div>
+					<div class=side>
+						<div id="goods_imgs" class="deal-buy-cover-img">
+							<div class="mid">
+								<ul>
+								{foreach from=$deal.image_list key=key item=image}
+								<li {if $key eq 0}class="first"{/if}>
+								<a href="{if $deal.uname}{url x="tuan" r="deal#index" p="id=$deal.uname"}{else}{url x="tuan" r="deal#index" p="id=$deal.id"}{/if}" title="{$deal.name}"><img src="{function name="get_spec_image" v=$image.img w=450 h=0 g=0}" width=450  class="lazy" alt="{$deal.name}" /></a>
+								</li>
+								{/foreach}								
+								</ul>
+
+							</div>
+						</div>					
+						<div class=digest>
+							{$deal.brief}
+						</div>
+					</div>
+					
+				</div>
+				<div class="deal-intro-bottom"></div>
+				</div>
+				<div class="blank"></div>
+			{/foreach}	
+			<?php unset($this->_var['deal']);?>
+			<div class="clear"></div>
+			<div class="pages idx-pages">{$pages}</div>
+			</div>
+			<div style="float:right; padding-top:30px;">
+			{include file="inc/side.html"} 
+			</div>
+		{else}
+			{*/网格/*}
+			{foreach from=$deal_list item=deal name="deal_item"}
+			<div class="goods_item {if $smarty.foreach.deal_item.iteration mod 3 eq 0}gr_no{/if}">
+            <a href="{if $deal.uname}{url x="tuan" r="deal#index" p="id=$deal.uname"}{else}{url x="tuan" r="deal#index" p="id=$deal.id"}{/if}" title="{$deal.name}" class="link-box" target="_blank">
+				
+					<img src="{function name="get_spec_image" v=$deal.image_list.0.img w="347" h="216" g=1}" width=347 height=216 class="lazy img" alt="{$deal.name}"/>
+				
+				<h1>{function name="msubstr" a=$deal.name b=0 c=38}</h1>
+                
+                <div class="item_price">
+                  <div class="price fl">
+					<strong>{$deal.current_price_format}</strong>
+				  </div>
+                  <div class="dock">
+                     <span class="discount">{$deal.discount}{$LANG.DISCOUNT_OFF}</span>
+                     <del class="orig-price">{$deal.origin_price_format}</del>
+                  </div>
+                  <span class="buy fr">
+					{if $deal.buy_status eq 2} {*/卖光/*}
+					卖光了
+					{else}
+					{$deal.deal_success_num}
+					{/if}
+				  </span>
+                            
+                </div>
+                
+				
+                </a>
+			</div>
+			{/foreach}
+			<?php unset($this->_var['deal']);?>
+			<div class="blank"></div>
+			<div class="pages idx-pages">{$pages}</div>
+			<div class="blank"></div>
+		{/if}
+	</div>
+	<!-- bd end -->
+</div></div>
+<script type="text/javascript">
+	
+	function share_url(id)
+	{
+		if ($("#deal-share-im-c-"+id).css("display") == "none") {			
+			$("#share-copy-text-"+id).val($("#share_url_"+id).val());
+			$("#deal-share-im-c-"+id).show();
+		}
+		else 
+			$("#deal-share-im-c-"+id).hide();
+	}
+	function copy_text(id)
+	{
+		$.copyText('#share-copy-text-'+id);
+	}
+	
+var updEndNowTime = <?PHP echo (get_gmtime()+ (intval(app_conf("TIME_ZONE"))*3600))."000";?>;
+function updateEndTime()
+{
+
+	var time = updEndNowTime;
+	$(".counter").each(function(i){
+		var endDate =new Date(this.getAttribute("endTime"));
+		var endTime = endDate.getTime();
+		var lag = (endTime - time) / 1000;
+		if(lag > 0)
+		{
+			var second = Math.floor(lag % 60);     
+			var minite = Math.floor((lag / 60) % 60);
+			var hour = Math.floor((lag / 3600) % 24);
+			var day = Math.floor((lag / 3600) / 24);
+			var timeHtml = "<span>"+hour+"</span>"+LANG['HOUR']+"<span>"+minite+"</span>"+LANG['MIN']+"";
+			if(day > 0)
+				timeHtml ="<span>"+day+"</span>"+LANG['DAY']+"" + timeHtml;
+			timeHtml+="<span>"+second+"</span>"+LANG['SEC']+"";
+			$(this).html(timeHtml);
+		}
+		else
+			$(this).html("");
+	});
+	updEndNowTime+=1000;
+	setTimeout("updateEndTime()",1000);
+}
+updateEndTime();
+</script>
+{include file="inc/footer.html"}

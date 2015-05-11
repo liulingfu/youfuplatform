@@ -1,0 +1,37 @@
+{include file="inc/header.html"} 
+<?php
+$this->_var['groupcss'][] = $this->_var['TMPL_REAL']."/css/group.css";
+$this->_var['groupjs'][] = $this->_var['TMPL_REAL']."/js/group.js";
+$this->_var['cpgroupjs'][] = $this->_var['TMPL_REAL']."/js/group.js";
+?>
+<script type="text/javascript" src="{function name="parse_script" v="$groupjs" c="$cpgroupjs"}"></script>
+<link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$groupcss"}" />
+<div class="blank"></div>
+<div class="pm_form">
+	<form name="create_group">
+			<div class="field">
+				<label for="settings-username">小组名称</label>
+				<input type="text" name="name" class="f-input" size="30">
+	
+			</div>
+			<div class="field">
+				<label for="settings-username">小组分类</label>
+				<select name="cate_id">
+					{foreach from=$cate_list item=cate_item}
+					<option value="{$cate_item.id}">{$cate_item.name}</option>
+					{/foreach}
+				</select>
+	
+			</div>
+			<div style="width:700px;" class="field">
+				<label>小组说明</label>
+				<textarea name="memo" cols="10" style="width:450px; height:100px; border:#ccc solid 1px;"></textarea>
+			</div>
+			<div class="field">		
+				<label for="act"></label>		
+				<input type="button" class="formbutton" onclick="do_create_group();" id="settings-submit" name="commit" value="立即申请">
+			</div>
+		</div>
+	</form>
+<div class="blank"></div>
+{include file="inc/footer.html"}

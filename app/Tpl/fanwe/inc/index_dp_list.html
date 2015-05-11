@@ -1,0 +1,14 @@
+	<div class="index_right_box">
+	<div class="box_top">
+			<div class="f_l">用户最新点评</div>
+	</div>
+	<div class="box_main right_dp_box" id="right_dp_box">
+		
+		{foreach from=$dp_list item=dp_item key=key}
+			<div class="index_dp_item">
+				{function name="get_user_name" v=$dp_item.user_id} 点评 <a href="{url x="youhui" r="store#view" p="id=$dp_item.supplier_location_id"}"  class="title_link" title="{$dp_item.sp_name}">[ {function name="msubstr" v=$dp_item.sp_name b=0 e=10} ]</a>：<a href="{url x="youhui" r="review#detail" p="id=$dp_item.id"}" title="{$dp_item.title}" class="title_link">{function name="msubstr" v=$dp_item.title b=0 e=8} - {function name="msubstr" v=$dp_item.content b=0 e=30}</a>
+			</div>
+		{/foreach}
+		
+	</div>
+	</div>

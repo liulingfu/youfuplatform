@@ -1,0 +1,157 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#typeSelect").bind("change",function(){
+	
+			$(".type").hide();
+			$(".type_" + $(this).val()).show();
+
+		});
+	});
+
+</script>
+<div class="main">
+<div class="main_title">{%EDIT} <a href="{:u("MAdv/index")}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%NAME}:</td>
+		<td class="item_input">
+			<input type="text" class="textbox require" name="name" value="{$vo.name}"  />
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">所属城市:</td>
+		<td class="item_input">
+		<select name="city_id">
+			<foreach name="city_list" item="city_item">
+				<option value="{$city_item.id}" <if condition="$vo['city_id'] eq $city_item['id']">selected="selected"</if>>{$city_item.title_show}</option>
+			</foreach>
+		</select>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%ADV_PAGE}:</td>
+		<td class="item_input">
+			<select name="page">
+				<option value="index" <if condition="$vo['page'] eq 'index'">selected="selected"</if>>{%MPAGE_INDEX}</option>
+				<option value="sharelist" <if condition="$vo['page'] eq 'sharelist'">selected="selected"</if>>{%MPAGE_SHARELIST}</option>
+			</select>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">{%ADV_IMAGE}:</td>
+		<td class="item_input">
+			<html:imgUpload name = 'img' id='img' value='$vo.img' />
+			<span class='tip_span'>[{%ADV_PAGE_TIPS}]</span>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">{%ADV_TYPE}:</td>
+		<td class="item_input">
+			<select name="type" id='typeSelect'>
+				<option value="1" <if condition="$vo['type'] eq 1">selected="selected"</if>>{%MTYPE_1}</option>
+				<option value="2" <if condition="$vo['type'] eq 2">selected="selected"</if>>{%MTYPE_2}</option>
+				<option value="3" <if condition="$vo['type'] eq 3">selected="selected"</if>>{%MTYPE_3}</option>
+				<option value="4" <if condition="$vo['type'] eq 4">selected="selected"</if>>{%MTYPE_4}</option>
+				<option value="5" <if condition="$vo['type'] eq 5">selected="selected"</if>>{%MTYPE_5}</option>
+				<option value="6" <if condition="$vo['type'] eq 6">selected="selected"</if>>{%MTYPE_6}</option>
+				<option value="7" <if condition="$vo['type'] eq 7">selected="selected"</if>>{%MTYPE_7}</option>
+				<option value="8" <if condition="$vo['type'] eq 8">selected="selected"</if>>{%MTYPE_8}</option>
+				<option value="9" <if condition="$vo['type'] eq 9">selected="selected"</if>>{%MTYPE_9}</option>
+				<option value="10" <if condition="$vo['type'] eq 10">selected="selected"</if>>{%MTYPE_10}</option>
+				<option value="11" <if condition="$vo['type'] eq 11">selected="selected"</if>>{%MTYPE_11}</option>
+				<option value="12" <if condition="$vo['type'] eq 12">selected="selected"</if>>{%MTYPE_12}</option>
+				<option value="13" <if condition="$vo['type'] eq 13">selected="selected"</if>>{%MTYPE_13}</option>
+				<option value="14" <if condition="$vo['type'] eq 14">selected="selected"</if>>{%MTYPE_14}</option>
+				<option value="15" <if condition="$vo['type'] eq 15">selected="selected"</if>>{%MTYPE_15}</option>
+				<option value="16" <if condition="$vo['type'] eq 16">selected="selected"</if>>{%MTYPE_16}</option>
+				<option value="17" <if condition="$vo['type'] eq 17">selected="selected"</if>>{%MTYPE_17}</option>
+				<option value="18" <if condition="$vo['type'] eq 18">selected="selected"</if>>{%MTYPE_18}</option>
+				<option value="19" <if condition="$vo['type'] eq 19">selected="selected"</if>>{%MTYPE_19}</option>
+				<option value="20" <if condition="$vo['type'] eq 20">selected="selected"</if>>{%MTYPE_20}</option>
+				<option value="21" <if condition="$vo['type'] eq 21">selected="selected"</if>>{%MTYPE_21}</option>
+			</select>
+		</td>
+	</tr>
+	
+	<tr class="type_1 type" <if condition="$vo['type'] neq 1">style="display:none;"</if>>
+		<td class="item_title">{%CATE_NAME}:</td>
+		<td class="item_input">
+			<select name="cid">
+				<option value="0" <if condition="$vo['data']['cid'] eq 0">selected="selected"</if>>{%NO_SELECT_CATE}</option>
+				<foreach name="cate_list" item="cate_item">
+					<option value="{$cate_item.id}" <if condition="$vo['data']['cid'] eq $cate_item['id']">selected="selected"</if>>{$cate_item.name}</option>
+				</foreach>
+			</select>
+		</td>
+	</tr>
+	
+	<tr class="type_1 type" <if condition="$vo['type'] neq 1">style="display:none;"</if>>
+		<td class="item_title">{%TAGS}:</td>
+		<td class="item_input">
+			<textarea class="textarea" name="tags" >{$vo.data.tags}</textarea>
+			<span class='tip_span'>[{%ADV_TAGS_TIPS}]</span>
+		</td>
+	</tr>
+	
+	<tr class="type_2 type" <if condition="$vo['type'] neq 2">style="display:none;"</if>>
+		<td class="item_title">{%URL}:</td>
+		<td class="item_input">
+			<input type="text" class="textbox " name="url" value="{$vo.data.url}" />
+		</td>
+	</tr>
+	<tr class="type_8 type"  <if condition="$vo['type'] neq 8">style="display:none;"</if>>
+		<td class="item_title">{%SHARE_ID}:</td>
+		<td class="item_input">
+			<input type="text" class="textbox " name="share_id" value="{$vo.data.share_id}" />
+		</td>
+	</tr>
+	
+	<tr class="type_9 type_10 type_11 type_12 type_13 type" <if condition="$vo['type'] lt 9 or $vo['type'] gt 13">style="display:none;"</if>>
+		<td class="item_title">分类ID:</td>
+		<td class="item_input">
+			<input type="text" class="textbox " name="cate_id" value="{$vo.data.cate_id}" />
+		</td>
+	</tr>
+	
+	<tr class="type_14 type_15 type_16 type_17 type_18 type" <if condition="$vo['type'] lt 14 or $vo['type'] gt 18">style="display:none;"</if>>
+		<td class="item_title">数据ID:</td>
+		<td class="item_input">
+			<input type="text" class="textbox " name="data_id" value="{$vo.data.data_id}" />
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">{%SORT}:</td>
+		<td class="item_input">
+			<input type="text" class="textbox " name="sort" value="{$vo.sort}"  />
+		</td>
+	</tr>	
+	<tr>
+		<td class="item_title"></td>
+		<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" value="{$vo.id}" name="id" />
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="MAdv" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="update" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%EDIT}" />
+			<input type="reset" class="button" value="{%RESET}" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>	 
+</form>
+</div>
+<include file="Public:footer" />

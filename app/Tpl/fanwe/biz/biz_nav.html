@@ -1,0 +1,22 @@
+<div class="main_bar">
+			<div class="wrap">				
+				<ul class="main_nav f_l">
+					{foreach from=$biz_nav item=nav_item}
+						<li {if $nav_item.current eq 1}class="current"{/if}>
+							<span class="nav_left" ></span>
+								<a href="{$nav_item.url}">{$nav_item.name}</a>
+							<span class="nav_right" ></span>
+						</li>
+					{/foreach}
+				</ul>
+				<div class="f_r" style="line-height:37px; color:#fff;">
+					{if $account_data}
+					{$LANG.HELLO}：{$account_data.account_name}
+					&nbsp;&nbsp;
+					<a href="{url x="biz" r="profile#password"}" style="color:#fff;">修改密码</a>
+					&nbsp;&nbsp;
+					<a href="{url x="biz" r="login#loginout"}" style="color:#fff;">登出</a>
+					{/if}
+				</div>			
+			</div>
+</div><!--end main_nav-->

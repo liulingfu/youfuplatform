@@ -1,0 +1,70 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<PHP>
+	function get_group_user_type($type)
+	{
+		return l("GROUP_USER_TYPE_".$type);
+	}
+</PHP>
+<script type="text/javascript">
+	function user_add()
+	{
+		location.href = ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=user_add&group_id={$group_info.id}";
+	}
+	//编辑跳转
+	function user_edit(id)
+	{
+		location.href = ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=user_edit&id="+id;
+	}
+	function user_del(id)
+	{
+		if(!id)
+		{
+			idBox = $(".key:checked");
+			if(idBox.length == 0)
+			{
+				alert(LANG['DELETE_EMPTY_WARNING']);
+				return;
+			}
+			idArray = new Array();
+			$.each( idBox, function(i, n){
+				idArray.push($(n).val());
+			});
+			id = idArray.join(",");
+		}
+		if(confirm(LANG['CONFIRM_DELETE']))
+		$.ajax({ 
+				url: ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=user_del&id="+id, 
+				data: "ajax=1",
+				dataType: "json",
+				success: function(obj){
+					$("#info").html(obj.info);
+					if(obj.status==1)
+					location.href=location.href;
+				}
+		});
+	}
+</script>
+<div class="main">
+<div class="main_title">{$group_info.name}组员列表</div>
+<div class="blank5"></div>
+<div class="button_row">
+	<input type="button" class="button" value="{%ADD}" onclick="user_add();" />
+	<input type="button" class="button" value="{%FOREVERDEL}" onclick="user_del();" />
+</div>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="group" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|50px,user_id|get_user_name:会员,type|get_group_user_type:类型,create_time|to_date:加入时间" 
+	actionlist="user_edit:{%EDIT}, user_del:{%DEL}" /> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

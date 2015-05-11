@@ -1,0 +1,48 @@
+{include file="biz/biz_header.html"} 
+
+{include file="biz/biz_nav.html"}
+<div class="blank"></div>
+<div class="wrap">
+{include file="biz/biz_info_header.html"}
+<div class="biz_index_box clearfix">
+	<div class="short f_l">
+		{include file="biz/biz_left.html"}
+	</div>
+	<div class="long f_r">
+		<div class="sub_nav">
+			<span class="act"><a href="{url x="biz" r="verify"}">验证消费券</a></span>
+			<span><a href="{url x="biz" r="verify#youhui"}">验证优惠券</a></span>
+		</div>
+		
+		<div class="blank"></div>
+		<table cellspacing="0" cellpadding="0" border="0" class="data-table" style="width:500px; margin:0 auto">
+			<tr>
+				<th colspan="2">
+					<strong>请您输入消费券编号和密码 进行操作</strong>
+				</th>
+			</tr>
+			<tr>
+				<td class="dleft">编号：</td>
+				<td>
+					<input type="text" value="" class="f-input" id="coupon_sn" name="coupon_sn" size="30" tabindex="1">
+				</td>
+			</tr>
+			<tr>
+				<td>密码：</td>
+				<td>
+					<input type="password" value="" class="f-input" id="coupon_pwd" name="coupon_pwd" size="30" tabindex="1">
+				</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td><input type="button" value="验证使用消费券" class="biz_pub_btn" onclick="use_coupon();"></td>
+			</tr>
+		</table>	
+		
+	</div>
+	<div class="blank"></div>
+</div><!--end biz_index_box-->
+
+</div>
+<div class="blank"></div>
+{include file="biz/biz_footer.html"} 

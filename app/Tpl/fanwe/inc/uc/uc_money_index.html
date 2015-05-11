@@ -1,0 +1,48 @@
+<div class="inc">
+	<div class="inc_top">{$page_title}</div>
+	<div class="inc_main">
+		<div class="sub_nav">
+			<span {if $ACTION_NAME eq 'index'}class="act"{/if}><a href="{url x="shop" r="uc_money#index"}">{$LANG.UC_LOGS}</a></span>
+			<span {if $ACTION_NAME eq 'carry'}class="act"{/if}><a href="{url x="shop" value="uc_money#carry"}">{$LANG.UC_CARRY}</a></span>
+			{if $allow_exchange}
+			<span {if $ACTION_NAME eq 'exchange'}class="act"{/if}><a href="{url x="shop" value="uc_money#exchange"}">{$LANG.UC_EXCHANGE}</a></span>
+			{/if}
+		</div>
+		<div class="blank1"></div>
+		{include file="inc/uc/money_box.html"}
+		<div class="blank1"></div>
+		<div class="sub_nav">
+			<span {if $t eq ''}class="act"{/if}><a href="{url x="shop" r="uc_money#index"}">全部</a></span>
+			<span {if $t eq 'money'}class="act"{/if}><a href="{url x="shop" r="uc_money#index" p="t=money"}">资金</a></span>
+			<span {if $t eq 'score'}class="act"{/if}><a href="{url x="shop" r="uc_money#index" p="t=score"}">积分</a></span>
+			<span {if $t eq 'point'}class="act"{/if}><a href="{url x="shop" r="uc_money#index" p="t=point"}">经验</a></span>
+			
+		</div>
+		<div class="blank1"></div>
+		<div  class="uc-table">
+		<table cellspacing="0" cellpadding="0" border="0">
+								<tr>
+									<th width="300">{$LANG.EVENT}</th>
+									
+									{if $t eq '' or $t eq 'money'}<th width="80">{$LANG.PRICE_AMOUNT}</th>{/if}
+									{if $t eq '' or $t eq 'score'}<th width="80">{$LANG.SCORE}</th>{/if}
+									{if $t eq '' or $t eq 'point'}<th width="80">经验</th>{/if}
+									<th width="140">{$LANG.CREATE_TIME}</th>
+								</tr>
+								{foreach from=$list item=log key=key}
+								<tr {if $key mod 2 eq  0}class="alt"{/if}>
+									<td style="text-align:left;">{$log.log_info}</td>
+									{if $t eq '' or $t eq 'money'}<td>{function name="format_price" value=$log.money}</td>{/if}
+									{if $t eq '' or $t eq 'score'}<td>{function name="format_score" value=$log.score}</td>{/if}
+									{if $t eq '' or $t eq 'point'}<td>{$log.point}</td>{/if}
+									<td>{function name="to_date" value=$log.log_time}</td>
+								</tr>
+								{/foreach}
+		</table>
+		<div class="blank"></div>
+		<div class="pages">{$pages}</div>
+		</div>				
+		
+	</div>
+	<div class="inc_foot"></div>
+</div>

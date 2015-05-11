@@ -1,0 +1,22 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title">{$main_title}<a href="{:u("SupplierLocationDp/index",array("supplier_location_id"=>$_REQUEST['supplier_location_id']))}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<div class="button_row">
+	<input type="button" class="button" value="{%FOREVERDEL}" onclick="foreverdel();" />
+</div>
+<html:list 
+	id="checkList" 
+	style="dataTable" 
+	name="dp" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|80,content|msubstr:标题,user_id|getUNAME:会员,create_time|to_date:发表时间" 
+	actionlist="foreverdel:{%FOREVERDEL}" action_width="150" />
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

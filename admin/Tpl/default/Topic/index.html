@@ -1,0 +1,99 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<php>
+	function get_message($id)
+	{
+		if($id)
+		return "<a href='".u("Message/index",array("id"=>$id))."'>".l("VIEW")."</a>";
+		else
+		return l("NO_REL_DATA");
+		
+	}
+	
+	function get_list_content($content)
+	{
+		return  msubstr(empty_tag($content),0,10);
+	}
+	
+	function get_topic_type($type)
+	{
+		return l("TOPIC_TYPE_".$type);
+	}
+	function get_group_name($id)
+	{
+		return M("TopicGroup")->where("id=".$id)->getField("name");
+	}
+</php>
+<script type="text/javascript">
+
+function view_reply(id)
+{
+	location.href = ROOT+"?"+VAR_MODULE+"=TopicReply&"+VAR_ACTION+"=index&topic_id="+id;
+}
+</script>
+<div class="main">
+<div class="main_title">{$main_title}</div>
+<div class="blank5"></div>
+<div class="button_row">
+	<input type="button" class="button" value="{%DELETE}" onclick="del();" />
+</div>
+<div class="blank5"></div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">	
+		用户名：<input type="text" class="textbox" name="user_name" value="{:trim($_REQUEST['user_name'])}" />		
+		关键词：<input type="text" class="textbox" name="keyword" value="{:trim($_REQUEST['keyword'])}" />	
+		小组ID：<input type="text" class="textbox" name="group_id" size=4 value="{:trim($_REQUEST['group_id'])}" />	
+		类型：<select name="type">
+			<option value="all" <if condition="$_REQUEST['type'] eq 'all'">selected="selected"</if>>全部</option>
+			<option value="share" <if condition="$_REQUEST['type'] eq 'share'">selected="selected"</if>>普通分享</option>
+			<option value="tuancomment" <if condition="$_REQUEST['type'] eq 'tuancomment'">selected="selected"</if>>团购点评</option>
+			<option value="shopcomment" <if condition="$_REQUEST['type'] eq 'shopcomment'">selected="selected"</if>>商城购物点评</option>
+			<option value="youhuicomment" <if condition="$_REQUEST['type'] eq 'youhuicomment'">selected="selected"</if>>代金券点评</option>
+			<option value="fyouhuicomment" <if condition="$_REQUEST['type'] eq 'fyouhuicomment'">selected="selected"</if>>优惠券点评</option>
+			<option value="eventcomment" <if condition="$_REQUEST['type'] eq 'eventcomment'">selected="selected"</if>>活动点评</option>
+			<option value="slocationcomment" <if condition="$_REQUEST['type'] eq 'slocationcomment'">selected="selected"</if>>门店点评</option>
+			<option value="eventsubmit" <if condition="$_REQUEST['type'] eq 'eventsubmit'">selected="selected"</if>>活动报名</option>
+			<option value="sharetuan" <if condition="$_REQUEST['type'] eq 'sharetuan'">selected="selected"</if>>分享团购</option>
+			<option value="sharegoods" <if condition="$_REQUEST['type'] eq 'sharegoods'">selected="selected"</if>>分享商品</option>
+			<option value="sharefyouhui" <if condition="$_REQUEST['type'] eq 'sharefyouhui'">selected="selected"</if>>分享优惠券</option>
+			<option value="sharebyouhui" <if condition="$_REQUEST['type'] eq 'sharebyouhui'">selected="selected"</if>>分享代金券</option>
+			<option value="shareevent" <if condition="$_REQUEST['type'] eq 'shareevent'">selected="selected"</if>>分享活动</option>
+			<option value="fav" <if condition="$_REQUEST['type'] eq 'fav'">selected="selected"</if>>喜欢</option>
+			<option value="relay" <if condition="$_REQUEST['type'] eq 'relay'">selected="selected"</if>>转发</option>		
+
+		</select>
+	
+		<input type="hidden" value="Topic" name="m" />
+		<input type="hidden" value="index" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+	</form>
+</div>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="topic" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|50px	
+	,user_id|get_user_name:{%USER_NAME}
+	,title|msubstr:{%TITLE}
+	,forum_title|msubstr:主题
+	,group_id|get_group_name:小组
+	,content|get_list_content:{%CONTENT}	
+	,reply_count:{%REPLY_COUNT}
+	,is_best|get_toogle_status=$topic['id']#is_best:精华
+	,is_top|get_toogle_status=$topic['id']#is_top:置顶
+	,is_recommend|get_toogle_status=$topic['id']#is_recommend:{%IS_RECOMMEND}
+	,type|get_topic_type:主题类型
+	,has_image|get_status:{%HAS_IMAGE}
+	,create_time|to_date:{%CREATE_TIME}	
+	" 
+	actionlist="edit:{%EDIT},view_reply:{%VIEW_REPLY},del:{%DELETE}" /> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

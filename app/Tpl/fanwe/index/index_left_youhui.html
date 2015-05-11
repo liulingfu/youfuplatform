@@ -1,0 +1,29 @@
+{if $youhui_list}
+<div class="blank"></div>
+<div class="index_left_box">
+		<div class="box_top">
+			<div class="index_title_tag_box">
+				<div class="index_title_tag tag_index_left_youhui"></div>				
+			</div>
+			<div class="f_r top_right_nav">
+			{foreach from=$bcate_list item=youhui_cate_item}
+			<a href="{url x="youhui" r="fcate" p="cid=$youhui_cate_item.id"}" title="{$youhui_cate_item.name}">{$youhui_cate_item.name}</a>&nbsp;&nbsp;
+			{/foreach}
+			<a href="{url x="youhui" r="fcate"}" title="更多">更多</a>&nbsp;&nbsp;
+			</div>
+		</div>
+		<div class="box_main clearfix">
+			{foreach from=$youhui_list item=youhui_item key=key}
+			<div class="sector_4 index_youhui_item"  style="{if $key mod 5 eq 4}border-right:none; width:176px;{/if} {if $key gt (count($youhui_list) - 1 - (count($youhui_list) mod 5))}border-bottom:none;{/if}">
+				<div class="youhui_tag_{$youhui_item.youhui_type}"></div>
+				<a href="{url x="youhui" r="fdetail" p="id=$youhui_item.id"}" title="{$youhui_item.name}" target="_blank"><img src="{function name="get_spec_image" v=$youhui_item.icon w=150 h=110 g=1}" width="150" height="110" alt="{$youhui_item.name}" class="lazy" /></a>
+				<div class="blank"></div>
+				<a href="{url x="youhui" r="fdetail" p="id=$youhui_item.id"}" title="{$youhui_item.name}" target="_blank" class="title_link">{function name="msubstr" v=$youhui_item.name b=0 e=8}</a>
+				<div class="blank"></div>
+				<div class="youhui_downcount">本券累计下载 <?php echo intval($this->_var['youhui_item']['sms_count'])+intval($this->_var['youhui_item']['print_count']);?></div>
+			</div>
+			{/foreach}
+		</div><!--end box_main-->
+	</div>
+	{/if}
+<adv adv_id="首页左侧优惠券模块广告" />

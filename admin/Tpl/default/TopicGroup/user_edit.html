@@ -1,0 +1,47 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title">{$group_info.name}编辑组员 <a href="{:u("TopicGroup/user_index",array("group_id"=>$group_info['id']))}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%USER_NAME}:</td>
+		<td class="item_input"><input type="text" class="textbox require" name="user_name" value="{$vo.user_name}" /></td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">类型:</td>
+		<td class="item_input">
+			<select name="type">
+				<option value="0" <if condition="$vo['type'] eq 0">selected="selected"</if>>{%GROUP_USER_TYPE_0}</option>
+				<option value="1" <if condition="$vo['type'] eq 1">selected="selected"</if>>{%GROUP_USER_TYPE_1}</option>
+			</select>
+		</td>
+	</tr>
+	
+
+	<tr>
+		<td class="item_title"></td>
+		<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="group_id" value="{$group_info.id}" />
+			<input type="hidden" name="id" value="{$vo.id}" />
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="TopicGroup" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="user_update" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%EDIT}" />
+			<input type="reset" class="button" value="{%RESET}" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>	 
+</form>
+</div>
+<include file="Public:footer" />

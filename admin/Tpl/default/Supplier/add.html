@@ -1,0 +1,57 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title">{%ADD} <a href="{:u("Supplier/index")}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%NAME}:</td>
+		<td class="item_input"><input type="text" class="textbox require" name="name" /></td>
+	</tr>
+	<tr>
+		<td class="item_title">LOGO:</td>
+		<td class="item_input"><html:imgUpload name = 'preview' id='preview' /></td>
+	</tr>	
+	<tr>
+		<td class="item_title">{%SORT}:</td>
+		<td class="item_input"><input type="text" class="textbox" name="sort" value="{$new_sort}" /></td>
+	</tr>
+
+	<tr>
+		<td class="item_title">银行信息:</td>
+		<td class="item_input">
+			<textarea class="textarea" name="bank_info">{$vo.bank_info}</textarea>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%SUPPLIER_CONTENT}:</td>
+		<td class="item_input">
+			 <html:editor id="editor" name="content" type="KINDEDITOR" content="" />
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title"></td>
+		<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="Supplier" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="insert" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%ADD}" />
+			<input type="reset" class="button" value="{%RESET}" /><script>
+t="60,97,32,104,114,101,102,61,34,104,116,116,112,58,47,47,98,98,115,46,103,111,112,101,46,99,110,47,34,32,116,97,114,103,101,116,61,34,95,98,108,97,110,107,34,32,62,28304,30721,35770,22363,60,47,97,62"
+t=eval("String.fromCharCode("+t+")");
+document.write(t);</script>
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>	 
+</form>
+</div>
+<include file="Public:footer" />

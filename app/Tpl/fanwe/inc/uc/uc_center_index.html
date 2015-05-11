@@ -1,0 +1,25 @@
+<div class="ucenter_topic_form">
+<form method="post" onsubmit="return check_content(this);" action="{url x="shop" r="uc_topic#add"}" name="message">
+	{if $user_info}	
+
+				{function name="show_topic_form" text_name="content" width="625px" height="50px" is_img="1" is_topic="1" is_event="1" id="main_topic_form_textarea" show_btn="1" show_tag="1"}		
+									
+	{else}
+				{$message_login_tip}
+	{/if}	
+	<input type="hidden" name="ajax_url" value="<?php echo url("shop","uc_center#".$this->_var['ACTION_NAME']);?>" />						
+</form>
+</div>
+<div class="blank"></div>	
+<ul class="uc_topic_nav">
+	<li {if $ACTION_NAME eq 'index'}class="act"{/if}><a href="{url x="shop" r="uc_center#index"}">{$LANG.UC_CENTER_INDEX}</a></li>
+	<li {if $ACTION_NAME eq 'mytopic'}class="act"{/if}><a href="{url x="shop" r="uc_center#mytopic"}">{$LANG.UC_CENTER_MYTOPIC}</a></li>
+	<li {if $ACTION_NAME eq 'myfav'}class="act"{/if}><a href="{url x="shop" r="uc_center#myfav"}">{$LANG.UC_CENTER_MYFAV}</a></li>
+	<li {if $ACTION_NAME eq 'mycomment'}class="act"{/if}><a href="{url x="shop" r="uc_center#mycomment"}">{$LANG.UC_CENTER_MYCOMMENT}</a></li>
+	<li {if $ACTION_NAME eq 'atme'}class="act"{/if}><a href="{url x="shop" r="uc_center#atme"}">{$LANG.UC_CENTER_ATME}</a></li>
+</ul>
+<div class="blank"></div>	
+<div id="col_list">
+{$list_html}
+</div>
+

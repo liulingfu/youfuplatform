@@ -1,0 +1,108 @@
+{include file="inc/header.html"} 
+<div class="blank"></div>
+<div class="long f_l">
+	<div class="youhui_info_box clearfix">
+		<div class="youhui_image f_l">
+			<img src="{function name="get_spec_image" v=$event.icon w="330" h="230" g=1}" />
+		</div>
+		<div class="f_r" style="width:390px;">
+			<div class="event_title">{$event.name}</div>
+			<div class="blank"></div>
+			时间：
+			{if $event.submit_begin_time eq 0}
+				{else}
+				<b class="color_blue">{function name="to_date" v=$event.submit_begin_time f="Y-m-d"} {function name="to_date" v=$event.submit_begin_time f="H:i"}</b>
+			{/if}						
+			{if $event.submit_end_time eq 0}
+				<span class="color_blue">{$LANG.NO_END_TIME}</span>
+				{else}
+				<span class="color_blue">{$LANG.TO} </span><b class="color_blue">{function name="to_date" v=$event.submit_end_time f="Y-m-d"} {function name="to_date" v=$event.submit_end_time f="H:i"}</b>
+			{/if}
+			<div class="blank"></div>
+			地址：<span class="color_blue">{$event.address}</span>
+			<div class="blank"></div>
+			{if $event.brief}
+			<div class="brief">{function name="nl2br" v=$event.brief}</div>
+			<div class="blank"></div>
+			{/if}
+			报名：<b class="color_blue">{$event.submit_count}</b><span class="color_blue">人</span>
+			<div class="blank"></div>
+			
+			{if $event.submit_begin_time gt get_gmtime()}
+			<input type="button" value="" name="submit_btn" class="input_baomin_nostart" />
+			{elseif $event.submit_end_time lt get_gmtime() and $event.submit_end_time neq 0}
+			<input type="button" value="" name="submit_btn" class="input_baomin_end" />
+			{else}
+			<input type="button" value="" name="submit_btn" class="input_baomin" onclick="event_submit({$event.id});" />
+			{/if}
+			<div class="blank"></div>
+			<div class="f_l"><b class="color_blue">{$event.reply_count}</b>&nbsp;评论&nbsp;&nbsp;|&nbsp;&nbsp;</div>
+			<!-- JiaThis Button BEGIN -->
+			<div id="ckepop" class="f_l">
+				<span class="jiathis_txt">分享到：</span>
+				<a class="jiathis_button_qzone"></a>
+				<a class="jiathis_button_tsina"></a>
+				<a class="jiathis_button_tqq"></a>
+				<a class="jiathis_button_renren"></a>
+				<a class="jiathis_button_kaixin001"></a>
+			</div>
+			<script type="text/javascript" src="http://v2.jiathis.com/code/jia.js" charset="utf-8"></script>
+			<!-- JiaThis Button END -->
+		</div>
+		<div class="blank"></div>		
+	<div class="youhui_detail_row_title">活动详情</div>
+	<div class="blank"></div>
+	<div class="lazy">{$event.content}</div>
+	<div class="blank"></div>
+	<div class="youhui_detail_row_title" id="detail_box">参加者（{$event.submit_count}人）</div>
+	<div class="blank"></div>
+	{foreach from=$submit_result item=submit_item}
+	<div class="f_l tc" style="width:80px; overflow:hidden;">
+	{function name="show_avatar" uid=$submit_item.user_id  type="small"}
+	<div class="blank5"></div>
+	{function name="get_user_name" value=$submit_item.user_id} 
+	</div>
+	
+	
+	{/foreach}
+	
+	<div class="blank"></div>
+	{if $event.is_effect eq 1}
+	<div class="youhui_detail_row_title" id="detail_box">评论</div>
+	<div class="blank"></div>
+	{insert name='load_comment' rel_table="event" is_effect = "1" is_image = "1" width="700px" height="80px"} {* 动态点评 *}
+	{/if}
+	</div><!--end youhui_info_box-->
+	
+</div>
+<div class="short f_r">
+	
+	<style type="text/css">
+		#container{height:193px; width: 193px; border:#ccc solid 1px; }  
+	</style>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.2"></script> 
+	<script type="text/javascript">
+		function draw_map(xpoint,ypoint)
+		{
+			var map = new BMap.Map("container"); 
+	        var opts = {type: BMAP_NAVIGATION_CONTROL_ZOOM }  
+	        map.addControl(new BMap.NavigationControl());  
+	        // map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  
+	        // 创建地理编码服务实例  
+	        var point = new BMap.Point(xpoint,ypoint);
+	        
+	        // 将结果显示在地图上，并调整地图视野  
+	        map.centerAndZoom(point, 16);  
+	        map.addOverlay(new BMap.Marker(point));
+		}
+		
+		$(document).ready(function(){
+			draw_map('{$event.xpoint}','{$event.ypoint}');
+		});
+	</script>
+	<div id="container"></div>
+	
+	
+</div>
+<div class="blank"></div>
+{include file="inc/footer.html"}

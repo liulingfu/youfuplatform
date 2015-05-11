@@ -1,0 +1,24 @@
+<style type="text/css">
+	table.noborder td{ border:0px;}
+</style>
+<table class="noborder">
+<foreach name="group_list" item="group">
+	<tr>
+	<td>{$group.name} </td>
+	<td>
+		标签显示：<input type="text"  class="textbox" name="show_group_id[{$group.id}]" value="{$group.show_value}" size="30" /> 		
+	</td>
+	<td>
+		<if condition="$group['allow_dp'] eq 1">
+		预设点评：<input type="text"  class="textbox" name="group_id[{$group.id}]" value="{$group.value}" size="30" /> 		
+		</if>		
+	</td>
+	
+	</tr>	
+	</foreach>
+	<tr>
+		<td colspan=3>
+			<span class="tip_span">[以空格分隔标签，标签显示中以|分隔显示数量(该数量默认为点评数据统计，不填为0)]</span>
+		</td>
+	</tr>
+</table>

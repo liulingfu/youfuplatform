@@ -1,0 +1,110 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href="__TMPL__Common/Js/dp.js" />
+<div class="main">
+<div class="main_title">{%EDIT} <a href="{:u("SupplierLocationDp/index",array("supplier_location_id"=>$vo['supplier_location_id']))}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form method='post' id="form" name="form" action="{:U(MODULE_NAME.'/update')}">
+<table cellpadding="4" cellspacing="0" border="0" class="form">
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">标题</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="title" value="{$vo.title}"  size="30" />
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">内容</td>
+		<td class="item_input">
+		 <html:editor id="editor" name="content" type="TEXTAREA" content="{$vo.content}" style="width:750px;height:100px;" />
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">商户</td>
+		<td class="item_input">
+			<PHP>echo M("SupplierLocation")->where("id=".$vo['supplier_location_id'])->getField("name");</PHP>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">评分</td>
+		<td class="item_input">
+				<span class="point_title">总评：</span> 			
+			
+				<select name="point">
+					<option value="1" <if condition="$vo['point'] eq 1">selected="selected"</if>>差</option>
+					<option value="2" <if condition="$vo['point'] eq 2">selected="selected"</if>>一般</option>
+					<option value="3" <if condition="$vo['point'] eq 3">selected="selected"</if>>好</option>
+					<option value="4" <if condition="$vo['point'] eq 4">selected="selected"</if>>很好</option>
+					<option value="5" <if condition="$vo['point'] eq 5">selected="selected"</if>>非常好</option>
+				</select>
+				
+				
+			
+				<foreach name="vo.group_point" item="group">
+				<span class="point_title">{$group.name}：</span> 
+				<span class="point_result">
+				
+				<select name="group_point[{$group.id}]">
+					<option value="1" <if condition="$group['point'] eq 1">selected="selected"</if>>差</option>
+					<option value="2" <if condition="$group['point'] eq 2">selected="selected"</if>>一般</option>
+					<option value="3" <if condition="$group['point'] eq 3">selected="selected"</if>>好</option>
+					<option value="4" <if condition="$group['point'] eq 4">selected="selected"</if>>很好</option>
+					<option value="5" <if condition="$group['point'] eq 5">selected="selected"</if>>非常好</option>
+				</select>
+				
+				</span>
+				</foreach>
+		
+				<span class="point_title">人均：</span> <span class="point_result"><input type="text" name="avg_price" value="{$vo.avg_price}" /></span>
+				
+		</td>
+	</tr>
+	
+	<foreach name="vo.group_tag" item="group">
+		<tr>
+			<td class="item_title">{$group.name}</td>
+			<td class="item_input">
+				<input type="text" name="group_tag[{$group.id}]" value="{$group.tags}" size="30" />
+				<span class="tip_span">[{%ADV_TAGS_TIPS}]</span>
+			</td>
+		</tr>
+	</foreach>
+	
+	<if condition="$vo['imgs']">
+	<tr>
+		<td class="item_title">图片</td>
+		<td class="item_input">
+			<foreach name="vo.imgs" item="photo">		
+				<div class="img_list">		
+				<img src="__ROOT__/{$photo.image|getImgName=100,100}" />
+				
+				<div class="blank9"></div>
+				<if condition="$vo['status'] eq 0">
+				<a href="javascript:void(0);" onclick="del_photo({$photo.id},this);">删除</a>
+				</if>
+				</div>
+				
+			</foreach>
+		</td>
+	</tr>	
+	</if>
+	
+	<tr class="act">
+		<td class="item_title">&nbsp;</td>
+		<td class="item_input">
+			<input type="hidden" name="id" value="{$vo.id}" />
+			<input type="submit" class="button" value="{%EDIT}" />
+			<input type="reset" class="button" value="{%RESET}" />
+		</td>
+	</tr>
+	
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>
+</form>
+</div>
+<include file="Public:footer" />

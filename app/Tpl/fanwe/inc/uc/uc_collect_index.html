@@ -1,0 +1,33 @@
+<div class="inc">
+	<div class="inc_top">{$page_title}</div>
+	<div class="inc_main">
+		
+		<div class="uc-table">
+			
+						<table cellspacing="0" cellpadding="0" border="0" class="coupons-table" >
+								<tr>
+									<th>{$LANG.COLLECT_GOODS_NAME}</th>
+									<th>{$LANG.COLLECT_TIME}</th>
+									<th>{$LANG.OPERATION}</th>
+								</tr>
+								{foreach from=$list item=deal key=key}
+								<tr {if $key mod 2 eq  0}class="alt"{/if}>
+									<td style="text-align:left;"><a href="{if $deal.uname}{url x="shop" r="goods" p="id=$deal.uname"}{else}{url x="shop" r="goods" p="id=$deal.id"}{/if}" title="{$deal.name}" target="_blank">{function name="msubstr" v=$deal.name b=0 e=40}</a></td>
+									<td>{function name="to_date" v=$deal.add_time}</td>
+									<td>
+										<a href="{if $deal.uname}{url x="shop" r="goods" p="id=$deal.uname"}{else}{url x="shop" r="goods" p="id=$deal.id"}{/if}">{$LANG.VIEW}</a>
+										<a href="javascript:void(0);" onclick="add_cart({$deal.id});">{$LANG.BUY_NOW}</a>
+										<a href="{url x="shop" r="uc_collect#del" p="id=$deal.cid"}">{$LANG.DELETE}</a>
+									</td>
+									
+								</tr>
+								{/foreach}
+						</table>
+						
+						<div class="blank"></div>
+						<div class="pages">{$pages}</div>
+		</div><!--end uc-table-->
+	</div>
+	<div class="inc_foot"></div>
+</div>
+

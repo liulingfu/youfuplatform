@@ -1,0 +1,36 @@
+<div class="paytype">
+
+		<div class="order-pay-credit">
+			<h3>{$LANG.PAYMENT_INFO}</h3>																
+		</div>
+		<div style="padding:10px;">																				
+			{foreach from=$payment_list item=payment_item}	
+				<div class="blank"></div>
+				{$payment_item.display_code}											
+			{/foreach}											
+		</div>
+	
+	<div class="blank"></div>
+</div>
+{*开始绑定提交页的js事件*}
+<script type="text/javascript">
+$(document).ready(function(){
+	$("input[name='account_money'],input[name='ecvsn'],input[name='ecvpassword']").bind("blur",function(){
+		count_buy_total();
+	});
+	$("input[name='payment']").bind("click",function(){
+		count_buy_total();
+	});
+	$("#check-all-money").bind("click",function(){
+		if($(this).attr("checked"))
+		{
+			count_buy_total();
+		}
+		else
+		{
+			$("#account_money").val("0");
+			count_buy_total();
+		}
+	});
+});	
+</script>

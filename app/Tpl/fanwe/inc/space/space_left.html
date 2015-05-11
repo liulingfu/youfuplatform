@@ -1,0 +1,64 @@
+	<div>
+		<div class="f_l" style="width:50px;">
+		{function name="show_avatar" uid=$space_user.id type="small"}
+		</div>
+		<div class="f_r" style="width:65px;">
+				{$space_user.user_name}	
+				<div class="blank5"></div>		
+				
+				{if $space_user.focused eq 1}
+					<a href="javascript:;" onclick="focus_user({$space_user.id},this);" class="remove_focus">{$LANG.CANCEL_FOCUS}</a>
+				{else}	
+						<a href="javascript:;" onclick="focus_user({$space_user.id},this);" class="add_focus">{$LANG.FOCUS_THEY}</a>
+				{/if}		
+		</div>
+		<div class="blank5"></div>
+		<div class="tc my_counter">
+			<span class="count_big">{$space_user.focused_count}</span><br />
+			{$LANG.FANS}
+		</div>
+		<div class="tc my_counter">
+			<span class="count_big">{$space_user.focus_count}</span><br />
+			{$LANG.FOCUS}
+		</div>
+		<div class="tc my_counter">
+			<span class="count_big">{$space_user.fav_count}</span><br />
+			{$LANG.FAV}
+		</div>
+							
+	</div>
+	
+	<div class="blank"></div>
+	
+	<div id="uc_cate">
+		<ul>
+
+			<li class="{if $ACTION_NAME eq 'index'}act{/if}" ><a class="uc_cate" style="background-position:0px -270px;" href="{url x="shop" r="space" p="id=$space_user.id"}"}" title="{$LANG.SPACE_HOME}">{$LANG.SPACE_HOME}</a></li>
+			<li class="{if $ACTION_NAME eq 'fans'}act{/if}" ><a class="uc_cate" style="background-position:0px -297px;" href="{url x="shop" r="space#fans" p="id=$space_user.id"}"}" title="{$LANG.SPACE_FANS}">{$LANG.SPACE_FANS}</a></li>
+			<li class="{if $ACTION_NAME eq 'focus'}act{/if}" > <a class="uc_cate" style="background-position:0px -324px;" href="{url x="shop" r="space#focus" p="id=$space_user.id"}"}" title="{$LANG.SPACE_FOCUS}">{$LANG.SPACE_FOCUS}</a></li>
+			<li class="{if $ACTION_NAME eq 'fav'}act{/if}" > <a class="uc_cate"  style="background-position:0px -351px;" href="{url x="shop" r="space#fav" p="id=$space_user.id"}"}" title="{$LANG.SPACE_FAV}">{$LANG.SPACE_FAV}</a></li>
+			
+			
+		</ul>
+	</div>
+	<div class="blank"></div>
+	<div class="inc">
+	
+	<div class="inc_main pd10">
+			
+				{$LANG.USER_SEX}：
+				{if $space_user.sex eq 0}{$LANG.USER_SEX_0}{/if}
+				{if $space_user.sex eq 1}{$LANG.USER_SEX_1}{/if}
+				{if $space_user.sex eq -1}{$LANG.USER_SEX_NULL}{/if}
+				<div class="blank"></div>
+				{$LANG.USER_CITY}：{$space_user.user_location}
+				<div class="blank"></div>
+				{$LANG.USER_MY_INTRO}
+				<div class="blank"></div>
+				{function name="nl2br" v=$space_user.my_intro}
+				
+			
+		</div>
+		<div class="inc_foot"></div>
+	</div>
+	<div class="blank"></div>

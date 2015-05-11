@@ -1,0 +1,65 @@
+{include file="inc/header.html"} 
+<div class="blank"></div>
+<div class="short_uc f_l">
+	<div>
+		<div class="f_l" style="width:50px;">
+		{function name="show_avatar" uid=$user_info.id type="small"}
+		</div>
+		<div class="f_r" style="width:65px;">
+				{$user_info.user_name}	
+				<div class="blank5"></div>		
+				{if $user_info.is_merchant}			
+				<span class="is_merchant"  title="认证商家"></span>
+				{/if}
+				{if $user_info.is_daren}			
+				<span class="is_daren"  title="{$user_info.daren_title}"></span>			
+				{/if}			
+		</div>
+		<div class="blank5"></div>
+		<div class="tc my_counter">
+			<a href="{url x="shop" r="uc_center#fans"}" class="count_big">{$user_info.focused_count}</a><br />
+			{$LANG.FANS}
+		</div>
+		<div class="tc my_counter">
+			<a href="{url x="shop" r="uc_center#focus"}" class="count_big">{$user_info.focus_count}</a><br />
+			{$LANG.FOCUS}
+		</div>
+		<div class="tc my_counter">
+			<a href="{url x="shop" r="uc_center#myfav"}" class="count_big">{$user_info.fav_count}</a><br />
+			{$LANG.FAV}
+		</div>
+							
+	</div>
+	<div class="blank"></div>
+	{if app_conf("USER_LOGIN_MONEY") gt 0 or app_conf("USER_LOGIN_SCORE") gt 0 or app_conf("USER_LOGIN_POINT") gt 0}
+	<div class="user_sign tc">
+		{if $t_sign_data}
+			您在今天{function name="to_date" v=$t_sign_data.sign_date f="H:i:s"}已经签到过了
+		{else}
+			{if $y_sign_data}
+				您已经连续签到{$sign_day}天<br />继续努力
+				<div class="blank"></div>
+				<a href="javascript:void(0);" onclick="user_sign();" title="{$sign_tip}" class="sign_in_button" style="display:inline-block; line-height:28px; text-decoration:none; color:#fff;"></a>
+			{else}
+				您昨天忘记签到了<br />重头来吧。
+				<div class="blank"></div>
+				<a href="javascript:void(0);" onclick="user_sign();"  title="{$sign_tip}" class="sign_in_button" style="display:inline-block; line-height:28px; text-decoration:none; color:#fff;"></a>
+			{/if}
+		{/if}
+		<div class="blank"></div>
+	</div>
+	{/if}
+	{include file="inc/uc/uc_cate.html"}
+</div>
+<div class="{if $has_right eq 1}middle_uc{else}long_uc{/if} f_l">
+	{include file=$inc_file}
+</div>
+
+{if $has_right eq 1}
+<div class="right_uc f_r">
+	{include file="inc/uc/uc_right.html"}
+</div>
+{/if}
+<div class="blank"></div>
+
+{include file="inc/footer.html"}

@@ -1,0 +1,36 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<php>
+	function get_submit_content($id,$item)
+	{
+		$field_result  = $GLOBALS['db']->getAll("select f.field_show_name,r.result from ".DB_PREFIX."event_submit_field as r left join ".DB_PREFIX."event_field as f on f.id = r.field_id where r.submit_id = ".$id);
+		$result = "";
+		foreach($field_result as $k=>$v)
+		{
+			$result.=$v['field_show_name'].":".$v['result']." ";
+		}
+		return $result;
+	}
+</php>
+<div class="main">
+<div class="main_title">{$main_title}</div>
+<div class="blank5"></div>
+<div class="button_row">
+	<input type="button" class="button" value="{%FOREVERDEL}" onclick="foreverdel();" />
+</div>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="item" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|50px,user_id|get_user_name:报名会员,create_time|to_date:报名时间,id|get_submit_content=$item:报名内容" 
+	actionlist="foreverdel:{%FOREVERDEL}" /> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

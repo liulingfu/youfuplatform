@@ -1,0 +1,27 @@
+	<div class="sbox side-goods-tip">
+	<div class="sbox-top"><h2>{$LANG.SIDE_DEAL_LIST}</h2></div>
+	<div class="sbox-content">
+		<ul class="clearfix">
+			{foreach from=$side_deal_list item=deal_item name="deal_item"}
+			<li {if $smarty.foreach.deal_item.last}style="margin-bottom:0;border:0"{/if}>
+				<a href="{$deal_item.url}" class="img" title="{$deal_item.name}">
+				<img alt="{$deal_item.name}" src="{function name="get_spec_image" v=$deal_item.icon w="220" h="0" g="0"}" class="lazy" width=220 />
+				</a>
+				<a href="{$deal_item.url}" class="title" title="{$deal_item.name}" style="font-size:12px; font-weight:normal;">
+				{function name="msubstr" value=$deal_item.name b="0" l="33"}			
+				</a>
+				<br />
+				<div class="fl" style="font-size:12px; color:#b40000; font-weight:bolder;">
+				{if $deal.buy_type eq 0}{$LANG.CURRENT_PRICE}{/if}{if $deal.buy_type eq 2}{$LANG.ORDER_PRICE}{/if}{if $deal.buy_type eq 3}{$LANG.SECOND_PRICE}{/if}:{function name="format_price" value=$deal_item.current_price}
+				</div>
+				<div class="fr" style="font-size:12px;">
+				{function name="sprintf" value=$LANG.SUCCESS_BUY_COUNT p=$deal_item.buy_count}
+				</div>
+				
+				<div class="blank1"></div>
+			</li>	
+			{/foreach}	
+		</ul>
+	</div>
+	<div class="sbox-bottom"></div>
+</div>

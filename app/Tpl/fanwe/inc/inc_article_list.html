@@ -1,0 +1,22 @@
+{if $list}
+<div class="inc">
+	<div class="inc_top">{$page_title} {$LANG.ARTICLE_LIST}</div>
+	<div class="inc_main cf">
+		<ul class="article_list">
+		{foreach from=$list item=item}
+		<li>
+			<span class="f_l">
+				<a href="{$item.url}" title="{$item.title}">{$item.title}</a>
+			</span>
+			<span class="f_r">
+				{function name="to_date" v=$item.update_time}
+			</span>
+		</li>
+		{/foreach}
+		</ul>
+	</div>
+	<div class="inc_foot"></div>
+</div>
+{else}
+{$page_title}{$LANG.NO_ARTICLE}
+{/if}

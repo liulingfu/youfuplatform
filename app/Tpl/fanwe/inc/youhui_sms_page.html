@@ -1,0 +1,88 @@
+{if $youhui_info.is_sms eq 0}
+{$LANG.YOUHUI_NO_SUPPORT_SMS}
+{else}
+<div class="coupon_form">
+<h1>{$LANG.YOU_WILL_GET_SMS}：</h1>
+<div class="sms_content">{$youhui_info.sms_content}</div>
+ <div class="fl_box f_l">	
+{if $youhui_info.send_type eq 2}
+<?php
+$this->_var['pagecss'] = array();
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/datepicker.css";
+$this->_var['pagejs'] = array();
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/jquery.ui.core.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/jquery.ui.widget.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/jquery.ui.datepicker.js";
+?>
+<link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$pagecss"}" />
+<script type="text/javascript" src="{function name="parse_script" v="$pagejs"}"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("input[name='date_time']").datepicker({showAnim:'fadeIn'});
+	});
+</script>
+
+<div class="sms_form_select">
+<b>消费时间：</b>
+								<input type="text" readonly="readonly" size="10" name="date_time" >
+                        		
+								<select style="width: 75px;" name="date_time_h">                                	
+                                <option value="09">早上9点</option>
+                                <option value="10">早上10点</option>
+                                <option value="11">早上11点</option>
+                                <option value="12">中午12点</option>
+                                <option value="13">下午13点</option>
+                                <option value="14">下午14点</option>
+                                <option value="15">下午15点</option>
+                                <option value="16">下午16点</option>
+                                <option value="17">下午17点</option>
+                                <option value="18">下午18点</option>
+                                <option value="19">晚上19点</option>
+                                <option value="20">晚上20点</option>
+                                <option value="21">晚上21点</option>
+                                <option value="22">晚上22点</option>
+                                <option value="23">晚上23点</option>
+                                </select>
+                        		
+								<select name="date_time_m">                                	
+                                <option value="05">5分</option>
+                                <option value="10">10分</option>
+                                <option value="15">15分</option>
+                                <option value="20">20分</option>
+                                <option value="25">25分</option>
+                                <option value="30">30分</option>
+                                <option value="35">35分</option>
+                                <option value="40">40分</option>
+                                <option value="45">45分</option>
+                                <option value="50">50分</option>
+                                <option value="55">55分</option>
+                                </select>                                
+<br>
+<div class="blank"></div>
+<b>人　　数：</b>
+<input type="text" name="order_count" size="5" class="txt"> <b>人</b> &nbsp; &nbsp;
+<label> <b>是否包间</b>
+<input type="checkbox" name="is_private_room" value="1" class="charac">
+</label>
+</div>		
+{/if}
+
+<div class="mobile_submit"><b>请输入手机号：</b>
+<div class="clear"></div>
+<input type="text" value="" name="mobile" class="txt">
+</div>
+</div>
+<div class="sms_tip f_r">今天您已经下载了{$send_count}条短信优惠券(每天可免费下载{$send_limit}条)</div>
+<div class="blank"></div>
+
+<div class="mobile-btn">
+<a onclick="send_sms({$youhui_info.id});" class="btn" title="发送" href="javascript:void(0);">
+	<img src="{$TMPL}/images/send_sms.jpg" />
+</a>
+<a onclick="closeCouponSms();" class="btn" title="取消" href="javascript:void(0);">
+	<img src="{$TMPL}/images/no_send.jpg" />
+</a>
+</div>
+
+</div>
+{/if}

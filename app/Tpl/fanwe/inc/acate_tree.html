@@ -1,0 +1,11 @@
+<div class="inc">
+	<div class="inc_top">{$LANG.ARTICLE_CATE}</div>
+	<div class="inc_main">
+		<ul class="cate_tree">
+		{foreach from=$acate_tree item=cate_item}
+		<li style="text-indent:{$cate_item.level}em;"><a href="{$cate_item.url}" title="{$cate_item.title}">{$cate_item.title}</a></li>
+		{/foreach}
+		</ul>
+	</div>
+	<div class="inc_foot"></div>
+</div>

@@ -1,0 +1,49 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+
+<div class="main">
+<div class="main_title">{$main_title}</div>
+<div class="blank5"></div>
+
+<div class="blank5"></div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">	
+		<input type="button" class="button" value="{%FOREVERDEL}" onclick="foreverdel();" />
+		类型：<select name="rel_table">
+			<option value="all" <if condition="$_REQUEST['rel_table'] eq 'all'">selected="selected"</if>>全部</option>
+			<option value="deal_order" <if condition="$_REQUEST['rel_table'] eq 'deal_order'">selected="selected"</if>>订单留言</option>
+			<option value="deal" <if condition="$_REQUEST['rel_table'] eq 'deal'">selected="selected"</if>>商品团购代金券留言</option>
+			<option value="youhui" <if condition="$_REQUEST['rel_table'] eq 'youhui'">selected="selected"</if>>优惠券留言</option>
+			<option value="event" <if condition="$_REQUEST['rel_table'] eq 'event'">selected="selected"</if>>活动留言</option>
+			<option value="tx" <if condition="$_REQUEST['rel_table'] eq 'tx'">selected="selected"</if>>提现申请</option>
+		</select>
+	
+		<input type="hidden" value="Message" name="m" />
+		<input type="hidden" value="index" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+	</form>
+</div>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="message" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|50px
+	,rel_table|get_message_type=$message['rel_id']:{%MESSAGE_TYPE}
+	,create_time|to_date:{%MESSAGE_CREATE_TIME}
+	,update_time|to_date:{%MESSAGE_REPLY_TIME}
+	,user_id|get_user_name:{%USER_NAME}
+	,is_buy|get_is_buy:{%MESSAGE_IS_BUY}
+	,point|get_point:{%MESSAGE_POINT}
+	,is_effect|get_message_is_effect:{%MESSAGE_IS_EFFECT}
+	" 
+	actionlist="edit:{%VIEW},foreverdel:{%FOREVERDEL}" /> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

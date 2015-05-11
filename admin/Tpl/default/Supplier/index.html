@@ -1,0 +1,58 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<php>
+	function get_money_log($money,$id)
+	{
+		return format_price($money)."&nbsp;&nbsp;<a href='".u("Supplier/money_log",array("id"=>$id))."'>财务明细</a>";
+	}
+	function get_supplier_cate($cate_id)
+	{
+		return M("DealCate")->where("id=".$cate_id)->getField("name");
+	}
+	function getSupplierLocationLink($id)
+	{
+		return "<a href='javascript:supplier_location(\"".$id."\")'>".l("SUPPLIER_LOCATION_INDEX")."</a>";
+	}
+</php>
+<script type="text/javascript">
+	function supplier_location(id)
+	{
+		location.href = ROOT+"?"+VAR_MODULE+"=SupplierLocation&"+VAR_ACTION+"=index&supplier_id="+id;
+	}
+	function supplier_account(id)
+	{
+		location.href = ROOT+"?"+VAR_MODULE+"=SupplierAccount&"+VAR_ACTION+"=index&supplier_id="+id;
+	}
+</script>
+<div class="main">
+<div class="main_title">{$main_title}</div>
+<div class="blank5"></div>
+<div class="button_row">
+	<input type="button" class="button" value="{%ADD}" onclick="add();" />
+	<input type="button" class="button" value="{%FOREVERDEL}" onclick="foreverdel();" />
+</div>
+<div class="blank5"></div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">	
+		名称：<input type="text" class="textbox" name="name" value="{:trim($_REQUEST['name'])}" />		
+		<input type="hidden" value="Supplier" name="m" />
+		<input type="hidden" value="index" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+	</form>
+</div>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="supplier" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|50px,name:{%NAME}:edit,money|get_money_log=$supplier['id']:可提现金额,sort|get_sort=$supplier['id']:{%SORT}" 
+	actionlist="edit:{%EDIT}, foreverdel:{%FOREVERDEL},supplier_account:{%SUPPLIER_ACCOUNT_INDEX},id|getSupplierLocationLink" /> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

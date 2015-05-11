@@ -1,0 +1,32 @@
+<div>
+							<div class="delivery order-pay-credit">
+								<h3>{$LANG.DELIVERY_INFO}：</h3>
+								<div>
+									{if $delivery_list}
+									<table class="table-list">
+										{foreach from=$delivery_list item=delivery_item}
+										<tr>
+											<td class="t1"><input type="radio" value="{$delivery_item.id}" name="delivery"  ></td>
+											<td class="t2">{$delivery_item.name}</td>
+											<td class="t3">												
+												{function name="nl2br" value=$delivery_item.description}
+											</td>
+										</tr>
+										{/foreach}
+									</table>
+									{else}
+									<div style="padding:10px;">{$LANG.NO_SUPPORT_DELIVERY}</div>
+									{/if}
+									
+								</div>
+							</div>
+</div>
+
+{* 开始绑定提交页的js事件*}
+<script type="text/javascript">
+$(document).ready(function(){
+	$("input[name='delivery']").bind("click",function(){
+		count_buy_total();
+	});
+});	
+</script>

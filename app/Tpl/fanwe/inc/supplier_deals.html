@@ -1,0 +1,19 @@
+{foreach from=$deals item=deal}	
+<div class="p-box" style="float:left; margin:10px; width:200px;">	
+					
+	<a href="{$deal.url}" title="{$deal.name}"><img height="121" width="200" alt="{$deal.name}" src="{$deal.icon}"></a>
+	<div class="blank"></div>
+	<a href="{$deal.url}" title="{$deal.name}">{function name="msubstr" value=$deal.name}</a>
+	
+</div>
+{/foreach}
+<div class="blank"></div>
+<div class="pages" id="deal_pages">{$pages}</div>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#deal_pages").find("a").bind("click",function(){
+			load_deal(0,0,$(this).attr("href"));
+			return false;
+		});
+	});
+</script>

@@ -1,0 +1,181 @@
+{include file="inc/header.html"} 
+<div class="blank"></div>
+
+<div class="long f_l">
+{if $hide_filter}
+{else}
+{*商品筛选*}
+<div class="inc filter_box">
+
+	<div class="inc_main cf">
+		{if count($cate_list) gt 1}
+		<div class="filter_title f_l">{$LANG.CATE_DEAL}：</div>
+		<div class="filter_content  f_l">
+		{foreach from=$cate_list item=cate}
+		<a href="{$cate.url}" title="{$cate.name}" {if $cate.act eq 1}class="act"{/if}>{$cate.name}<span>({$cate.count})</span></a>
+		{/foreach}	
+		</div>	
+		<div class="blank"></div>
+		{/if}
+		{if count($scate_list) gt 1}
+		<div class="filter_title f_l"></div>
+		<div class="filter_content  f_l">
+			{foreach from=$scate_list item=scate}
+			<a href="{$scate.url}" title="{$scate.name}" {if $scate.act eq 1}class="act"{/if}>{$scate.name}<span>({$scate.count})</span></a>
+			{/foreach}	
+		</div>
+		<div class="blank"></div>
+		{/if}
+		
+		{if count($area_list) gt 1}
+		<div class="filter_title f_l">{$LANG.AREA_LIST}：</div>
+		<div class="filter_content  f_l">
+		{foreach from=$area_list item=area}
+		<a href="{$area.url}" title="{$area.name}" {if $area.act eq 1}class="act"{/if}>{$area.name}<span>({$area.count})</span></a>
+		{/foreach}	
+		</div>	
+		<div class="blank"></div>
+		{/if}
+		{if count($quan_list) gt 1}
+		<div class="filter_title f_l">{$LANG.QUAN_LIST}：</div>
+		<div class="filter_content  f_l">
+		{foreach from=$quan_list item=area}
+		<a href="{$area.url}" title="{$area.name}" {if $area.act eq 1}class="act"{/if}>{$area.name}<span>({$area.count})</span></a>
+		{/foreach}	
+		</div>	
+		<div class="blank"></div>
+		{/if}
+		
+		
+	</div>
+</div>
+{*end 商品筛选*}
+<div class="blank"></div>
+{/if}
+<!--begin_list-->
+<div class="nav_box">
+
+<form action="{$APP_ROOT}/youhui.php" method="post">
+		<div class="f_r filter_search_row">
+			<input type="text" class="filter_keyword" style="width:50px;" name="min_price" value="{if $min_price gt 0}{$min_price}{/if}" /> 
+			<div class="f_l" style="margin-left:5px;">元{$LANG.TO}</div>
+			<input type="text" class="filter_keyword" style="width:50px;"  name="max_price" value="{if $max_price gt 0}{$max_price}{/if}" />	
+			<div class="f_l" style="margin-left:5px;">元</div> 
+			<input type="text"  name="keyword" class="filter_keyword" value="{$keyword}">
+			<input type="submit" value="" class="filter_btn" />
+			<input type="hidden" name="is_redirect" value="1" />
+			<input type="hidden" name="ctl" value="ycate" />
+			<input type="hidden" name="act" value="index" />
+			{foreach from=$url_param key=key item=param}
+			{if $key neq 'min_price' and $key neq 'max_price'}
+			<input type="hidden" name="{$key}" value="{$param}" />
+			{/if}
+			{/foreach}
+			
+		</div>
+</form>
+
+{include file="inc/filter_sub_nav.html"}
+</div>
+{if $list}
+<div class="inc">
+	<form action="{$APP_ROOT}/youhui.php" method="post">
+	<div class="inc_top">
+		{if $page_title}{$page_title}{else}{$LANG.YOUHUI_LIST}{/if}
+		<div class="f_r more">
+			{$LANG.SORT_BY}：
+			<a href="javascript:void(0);" onclick="set_sort('buy_count')" class="sort_icon {if $sort_field eq 'buy_count'}sort_{$sort_type}{else}sort_gray{/if}">销量</a> 
+			{if $MODULE_NAME eq 'rec' and $ACTION_NAME eq 'rsale'}{else}
+			<a href="javascript:void(0);" onclick="set_sort('current_price')" class="sort_icon {if $sort_field eq 'current_price'}sort_{$sort_type}{else}sort_gray{/if}">价格</a> 
+			<a href="javascript:void(0);" onclick="set_sort('update_time')" class="sort_icon {if $sort_field eq 'update_time'}sort_{$sort_type}{else}sort_gray{/if}">上架时间</a> 
+			<a href="javascript:void(0);" onclick="set_sort('avg_point')" class="sort_icon {if $sort_field eq 'avg_point'}sort_{$sort_type}{else}sort_gray{/if}">好评度</a>
+			{/if}
+		</div><!--排序-->		
+	</div>
+	</form>
+	<div class="inc_main cf">
+		{foreach from=$list item=youhui_item}
+		
+		<div class="row_list">
+			<div class="row_image f_l">
+			<a href="{$youhui_item.url}" title="{$youhui_item.name}" class="goods_img_box"><img src="{function name="get_spec_image" v=$youhui_item.icon w="160" h="100" gen=1}"  alt="{$youhui_item.name}" width=160 height=100  class="lazy" /></a>
+			</div>
+			<div class="row_info f_l">
+				<div class="row_title"><a href="{$youhui_item.url}" title="{$youhui_item.name}">{function  name="msubstr" v=$youhui_item.name b=0 e=40}</a></div>
+				<div class="blank"></div>
+				<div class="row_info_2">{$youhui_item.brief}</div>
+				<div class="blank"></div>
+				<div class="row_info_4">
+					<div class="starico">
+					<?php
+						for($i=0;$i<$this->_var['youhui_item']['avg_point'];$i++)
+						{
+					?>
+					<img src="{$TMPL}/images/star_on.jpg" />
+					<?php
+						}
+					?>
+					<?php
+						$off_count = 5 - intval($this->_var['youhui_item']['avg_point']);
+						for($i=0;$i<$off_count;$i++)
+						{
+					?>
+					<img src="{$TMPL}/images/star_off.jpg" />
+					<?php
+						}
+					?>
+				</div>
+				</div>
+			</div>
+			<div class="row_data f_l">
+			<span class="s_price">{function name="format_price" v=$youhui_item.current_price}</span>
+			<br />
+			<span class="m_price">{function name="format_price" v=$youhui_item.origin_price}</span>
+			</div>
+			<div class="row_btn f_l">
+				<a href="{$youhui_item.url}" class="row_btn_link">{$LANG.VIEW_DETAIL_INFO}</a>
+				<span class="row_btn_info">{$youhui_item.buy_count}{$LANG.HAS_BUY}</span>
+			</div>
+			<div class="blank1"></div>
+		</div>		
+		
+		
+		{/foreach}
+		
+			
+		
+		<div class="blank"></div>
+	</div>
+	<div class="inc_foot"></div>
+</div>
+{else}
+<div class="pd10">{$LANG.NO_YOUHUI_LIST}</div>
+{/if}
+
+<!--end_list-->
+<div class="blank"></div>
+<div class="pages">{$pages}</div>	
+</div>
+<div class="short f_r">
+<div class="inc">
+	<div class="inc_top">{$LANG.REC_YOUHUI}</div>	
+	<div class="inc_main">
+		<div class="hot_sale_list">
+			{foreach from=$hot_sale_list item=item}
+			<div class="hot_sale_item pd10">
+				<div class="f_l hot_sale_icon">
+					<a href="{$item.url}" title="{$item.name}"><img src="{function name="get_spec_image" v=$item.icon w=50 h=50 g=1}" width=50 height=50 /></a>
+				</div>
+				<div class="f_l hot_sale_cnt">
+						<a href="{$item.url}" title="{$item.name}">{function name="msubstr" v=$item.name b=0 e=25}</a>
+				</div>
+				<div class="blank1"></div>
+			</div>
+			{/foreach}
+		</div>
+	</div>
+	</div>
+</div>
+<div class="blank"></div>
+
+{include file="inc/footer.html"}

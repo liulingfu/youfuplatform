@@ -1,0 +1,24 @@
+<div id="deal-share">
+	<div class="deal-share-top" style="margin-left:70px;">
+		<div class="deal-share-links">
+			<h4>{$LANG.SHARE_TO}：</h4>
+			<ul class="cf">
+			<input type="hidden" value="{$deal.share_url}" id="share_url_{$deal.id}" />
+			<li>
+				<a id="shart_im" class="im" href="javascript:share_url({$deal.id});" >MSN/QQ</a>
+			</li>
+			{include file="inc/share_to_site.html"}				
+			</ul>
+		</div>
+	</div>
+	<div class="deal-share-fix"></div>
+	<div id="deal-share-im-c-{$deal.id}" style="width: 483px;display: none;	margin-left: 70px;clear: both;">
+						<div class="deal-share-im-b" style="border-left: #d5cc89 1px solid;	padding-bottom: 10px;	background-color: #fff9e5;	padding-left: 20px;	padding-right: 10px;height: 50px;border-right: #d5cc89 1px solid;padding-top: 10px;">
+							<h3>{$LANG.SHARE_LINK}：</h3>
+							<p>
+								<input id="share-copy-text-{$deal.id}" class="f-input" value="" size="30">
+								<input class="formbutton" value="{$LANG.COPY}" type="button" onclick="$.copyText('#share-copy-text-{$deal.id}');">
+							</p>
+						</div>
+	</div>
+</div>

@@ -1,0 +1,2612 @@
+@charset "utf-8";
+h4{ font-size:12px; }
+.cf {
+	zoom: 1
+}
+
+.fl{ float:left;}
+.fr{ float:right;}
+
+.hidd {
+	display: none;
+}
+
+.blank {
+	clear: both;
+	height: 15px;
+	overflow: hidden;
+	display: block;
+}
+
+.blank1 {
+	clear: both;
+	height: 1px;
+	overflow: hidden;
+	display: block;
+}
+
+.blank8 {
+	clear: both;
+	height: 8px;
+	overflow: hidden;
+	display: block;
+}
+
+.red {
+	color: #cc0000;
+	font-size: 20px;
+	font-weight: bold;
+	padding: 0 0 0 5px;
+}
+
+.cf:after {
+	display: block;
+	height: 0px;
+	visibility: hidden;
+	clear: both;
+	overflow: hidden;
+	content: ''
+}
+
+a {
+	color: #666;
+	text-decoration: none
+}
+
+a:hover {
+	text-decoration: underline
+}
+
+span.money {
+	font-family: helvetica, arial, sans-serif
+}
+
+span.required {
+	color: red
+}
+
+
+
+#sysmsg-tip {
+	width: 948px;
+	font-size: 14px;
+	margin:15px auto 0 auto;
+}
+
+#sysmsg-tip .sysmsg-tip-top {
+	background: url(../images/tuan/bg-sysmsg-tip.gif) no-repeat 0px 0px;
+	height: 12px;
+	overflow: hidden
+}
+
+#sysmsg-tip .sysmsg-tip-content {
+	border-left: #89b4d7 1px solid;
+	padding-bottom: 0px;
+	padding-left: 30px;
+	padding-right: 30px;
+	background: #fbfbc5;
+	border-right: #89b4d7 1px solid;
+	padding-top: 0px
+}
+
+#sysmsg-tip .sysmsg-tip-bottom {
+	background: url(../images/tuan/bg-sysmsg-tip.gif) no-repeat 0px -13px;
+	height: 12px;
+	font-size: 12px;
+	overflow: hidden
+}
+
+#sysmsg-tip .sysmsg-tip-close {
+	position: absolute;
+	padding-right: 16px;
+	display: none;
+	background: url(../images/tuan/bg-sysmsg-close.gif) no-repeat 100% 50%;
+	color: #699701;
+	font-size: 12px;
+	top: 12px;
+	cursor: pointer;
+	right: 20px
+}
+
+#sysmsg-tip .deal-close {
+	z-index: 1;
+	position: relative
+}
+
+#sysmsg-tip .deal-close .focus {
+	z-index: 2;
+	position: absolute;
+	padding-bottom: 12px;
+	padding-left: 35px;
+	width: 163px;
+	padding-right: 35px;
+	background: url(../images/tuan/bg-sysmsg-tip-focus.gif) no-repeat 0px 0px;
+	height: 60px;
+	top: -12px;
+	font-weight: bold;
+	padding-top: 12px;
+	left: -31px
+}
+
+#sysmsg-tip .deal-close .body {
+	padding-left: 220px;
+	height: 30px
+}
+
+#sysmsg-tip .deal-close .subscribe-succ {
+	display: block;
+	padding-top: 5px
+}
+
+#sysmsg-tip .deal-close td {
+	line-height: 1.2;
+	vertical-align: middle;
+	padding-top: 1px
+}
+
+#sysmsg-tip .deal-close .f-text {
+	width: 216px;
+	color: #333
+}
+
+#sysmsg-tip .deal-close .commit {
+	border-bottom-style: none;
+	border-right-style: none;
+	text-indent: -999em;
+	width: 51px;
+	border-top-style: none;
+	background: url(../images/tuan/button-subscribe-b.gif) no-repeat 0px 0px;
+	height: 28px;
+	border-left-style: none
+}
+
+.sysmsg-tip-deal-close {
+	margin-bottom: 15px
+}
+
+#sysmsg-guide {
+	z-index: 1;
+	position: relative;
+	margin: 0px 0px 10px 8px;
+	width: 951px;
+	zoom: 1;
+	background: url(../images/tuan/bg-newbie-guide.gif) no-repeat 0px 0px;
+	height: 156px;
+	top: -10px;
+	left: 0px;
+	dpadding-top: 25px
+}
+
+#sysmsg-guide .link {
+	padding-top: 25px
+}
+
+#sysmsg-guide .link a {
+	width: 950px;
+	display: block;
+	height: 110px
+}
+
+#sysmsg-guide .close {
+	position: absolute;
+	line-height: 20px;
+	padding-right: 20px;
+	display: block;
+	background: url(../images/tuan/bg-newbie-close.gif) no-repeat right center;
+	height: 20px;
+	color: #666;
+	font-size: 12px;
+	top: 1px;
+	right: 14px;
+	padding-top: 2px;
+	_top: 2px;
+	_padding-top: 0
+}
+
+
+
+#hdw {
+	background: url(../images/tuan/main_bar_bg.gif) repeat-x 0px 79px #fff;
+	height: 115px
+}
+
+#hdw .head{background: url(../images/tuan/header.gif) no-repeat center 0px; height:79px;}
+
+#bdw {
+	margin-top:10px;
+}
+
+#content {
+	padding-bottom: 0px;
+	padding-left: 0px;
+	width: 882px;
+	padding-right: 0px;
+	float: left;
+	margin-left: 0px;
+	margin-right: 16px;
+	padding-top: 0px;
+	_display: inline
+}
+
+#sidebar {
+	width: 242px;
+	float: left;
+	margin-top:25px;
+	_display: inline
+}
+
+
+
+#sidebar .credit {
+	padding-bottom: 10px;
+	padding-left: 15px;
+	padding-right: 10px;
+	padding-top: 10px
+}
+
+#sidebar .credit .f-input {
+	width: 190px;
+	display: block
+}
+
+#sidebar #credit-link {
+	padding-left: 12px;
+	background: url(../images/tuan/blue_arrow.gif) no-repeat 0px 5px
+}
+
+#sidebar .side-tip {
+	padding-bottom: 10px;
+	padding-left: 15px;
+	padding-right: 10px;
+	padding-top: 10px
+}
+
+#sidebar .side-tip h3 {
+	margin: 15px 0px 5px
+}
+
+#sidebar .side-tip h3.first {
+	margin-top: 0px
+}
+
+#sidebar .side-tip p {
+	margin: 5px 0px 10px
+}
+
+#sidebar .side-invite-tip .tip {
+	padding: 4px 13px;
+}
+
+#sidebar .side-invite-tip h2 {
+	padding-bottom: 5px;
+	padding-top: 0px
+}
+
+#sidebar .side-invite-tip p {
+	line-height: 1.5
+}
+
+#sidebar .side-invite-tip strong {
+	color: #c33
+}
+
+#sidebar .side-invite-tip a {
+	font-size: 12px;
+	font-weight: bold
+}
+
+.box{ border:#ccc solid 1px;}
+.box-top {
+	height: 15px;
+	overflow: hidden
+}
+
+.box-content {
+
+	background: #fff;
+
+}
+
+.box-bottom {
+
+}
+
+.sbox {
+	width: 242px;
+}
+
+
+.sbox-top {
+	background: url(../images/tuan/sbox-top-bg.gif) repeat-x 0px 0px;
+	height: 32px;
+	overflow: hidden
+}
+.sbox-top h2{ height:32px; font-size:14px; text-indent:20px; line-height:32px; color:#333}
+.sbox-content {
+	background: #fff;
+	border:#ccc solid 1px;
+	border-top:none
+}
+
+.sbox-bottom {
+
+}
+
+.sbox-white {
+	width: 230px
+}
+
+.sbox-white .sbox-top {
+	background: url(../images/tuan/bg-sbox-230-white.gif) no-repeat 0px 0px;
+	height: 12px;
+	overflow: hidden
+}
+
+.sbox-white .sbox-content {
+	border-bottom-style: none;
+	border-right-style: none;
+	border-top-style: none;
+	background: #fff;
+	border-left-style: none
+}
+
+.sbox-white .sbox-bottom {
+	background: url(../images/tuan/bg-sbox-230-white.gif) no-repeat 0px -13px;
+	height: 12px
+}
+
+.clear {
+	clear: both
+}
+
+.dashboard {
+	z-index: 2;
+	position: relative;
+	bottom: -1px;
+	zoom: 1;
+	float: left;
+	margin-left: 24px;
+	_display: inline
+}
+
+.dashboard ul {
+	float: left;
+	_display: inline;
+	width:650px;
+}
+
+.dashboard li {
+	float: left;
+	font-size: 14px;
+	margin-right: 4px;
+	_display: inline
+}
+
+.dashboard li a {
+	padding-bottom: 0px;
+	padding-left: 10px;
+	outline-width: 0px;
+	padding-right: 0px;
+	background: url(../images/tuan/bg-dashboard-tab.gif) no-repeat 0px -200px;
+	float: left;
+	height: 26px;
+	padding-top: 8px;
+	*height: 24px;
+	*padding-top: 10px;
+}
+
+.dashboard li span {
+	width: 10px;
+	background: url(../images/tuan/bg-dashboard-tab.gif) no-repeat -161px -300px;
+	float: left;
+	height: 34px
+}
+
+.dashboard li.current a {
+	background-position: 0px 0px
+}
+
+.dashboard li.current span {
+	background-position: -161px -100px
+}
+
+#content .coupons-table .last .f-input {
+	width: 90px;
+	margin-bottom: 4px;
+	float: none
+}
+
+.deals-table {
+	margin: 10px 10px 30px
+}
+
+.deals-table td {
+	border-bottom: #fff 1px solid;
+	border-left: #fff 1px solid;
+	padding-bottom: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	border-top: #fff 1px solid;
+	border-right: #fff 1px solid;
+	padding-top: 10px
+}
+
+.deals-table th {
+	border-bottom: #fff 1px solid;
+	border-left: #fff 1px solid;
+	padding-bottom: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	border-top: #fff 1px solid;
+	border-right: #fff 1px solid;
+	padding-top: 10px
+}
+
+.deals-table th {
+	text-align: right;
+	vertical-align: top
+}
+
+.bizs-table th {
+	text-align: right;
+	vertical-align: top
+}
+
+#content .head {
+	padding-bottom: 15px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top:5px;
+	margin:0 10px;
+	border-bottom: #CCC 1px solid;
+}
+
+#content .head h2 {
+	display: inline;
+	font-size: 16px;
+}
+
+#content div.success {
+	padding-left: 132px;
+	background: url(../images/tuan/bg-pay-return-success.gif) no-repeat 45px 25px;
+	height: 45px;
+	padding-top: 50px
+}
+
+#content div.error {
+	padding-left: 132px;
+	background: url(../images/tuan/bg-pay-return-error.gif) no-repeat 45px 25px;
+	height: 57px;
+	padding-top: 38px
+}
+
+#content div.success h2 {
+	font-family: '黑体', helvetica, arial, sans-serif;
+	font-size: 28px
+}
+
+#content div.error h2 {
+	font-family: '黑体', helvetica, arial, sans-serif;
+	font-size: 28px
+}
+
+#content .title {
+	padding-bottom: 0px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 0px
+}
+
+#content .title h3 {
+	padding-left: 10px;
+	display: inline;
+	font-size: 1.5em
+}
+
+#content .sect {
+	padding-bottom: 50px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 20px
+}
+
+
+.side-inner {
+	
+}
+
+#deal-default .side-invite {
+	
+}
+
+.side-invite .tip {
+	padding-bottom: 4px;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-top: 4px
+}
+
+#deal-default .side-invite h2 {
+	padding-bottom: 5px;
+	padding-top: 0px
+}
+
+#deal-default .side-invite p {
+	line-height: 1.5
+}
+
+.side-invite strong {
+	color: #c33
+}
+
+#deal-default .side-invite a {
+	font-size: 12px;
+	font-weight: bold
+}
+
+#deal-default .side-business {
+	margin-top: 15px
+}
+
+#deal-default .side-business .tip {
+	padding-bottom: 4px;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-top: 4px
+}
+
+#deal-default .side-business h2 {
+	padding-bottom: 5px;
+	padding-top: 0px
+}
+
+#deal-default .side-business p {
+	line-height: 1.5
+}
+
+#deal-share .deal-share-fix {
+	width: 10px;
+	background: url(../images/tuan/bg-share-corner.gif) no-repeat 100% -50px;
+	float: left;
+	height: 30px
+}
+
+#deal-share .deal-share-top {
+	background: url(../images/tuan/bg-share-corner.gif) no-repeat 0px 0px;
+	float: left;
+	margin-left: 24px;
+	_display: inline
+}
+
+#deal-share .deal-share-links {
+	padding-bottom: 0px;
+	padding-left: 20px;
+	width: 453px;
+	padding-right: 0px;
+	float: left;
+	height: 23px;
+	padding-top: 7px
+}
+
+#deal-share .deal-share-links h4 {
+	float: left;
+	font-weight: normal
+}
+
+#deal-share .deal-share-links ul {
+	zoom: 1
+}
+
+#deal-share .deal-share-links li {
+	margin-top: 2px;
+	float: left;
+	margin-left: 3px
+}
+
+#deal-share a {
+	line-height: 18px;
+	padding-left: 20px;
+	outline-width: 0px;
+	font-family: helvetica, arial, sans-serif;
+	background: url(../images/tuan/icons-share.gif) no-repeat 0px 0px;
+	float: left;
+	height: 16px;
+	color: #000;
+	font-size: 12px;
+	margin-right: 10px;
+	dwidth: 30px
+}
+
+#deal-share a:hover {
+	color: #0981be
+}
+
+#deal-share a img {
+	vertical-align: -2px;
+	margin-right: 2px
+}
+
+#deal-share .kaixin {
+	background-position: 0px -40px
+}
+
+#deal-share .renren {
+	background-position: 0px -80px
+}
+
+#deal-share .douban {
+	background-position: 0px -120px
+}
+
+#deal-share .email {
+	background-position: 0px -161px
+}
+
+#deal-share .sina {
+	background-position: 0px -201px
+}
+
+#deal-share-im-c {
+	width: 483px;
+	display: none;
+	margin-left: 24px;
+	clear: both
+}
+
+#deal-share-im-c .deal-share-im-b {
+	border-left: #d5cc89 1px solid;
+	padding-bottom: 10px;
+	background-color: #fff9e5;
+	padding-left: 20px;
+	padding-right: 10px;
+	height: 50px;
+	border-right: #d5cc89 1px solid;
+	padding-top: 10px
+}
+
+#deal-share-im-c .f-input {
+	width: 262px
+}
+
+#deal-share-im-c .formbutton {
+	display: inline
+}
+
+#deal-intro {
+	border: #c9c9c9 1px solid;
+	padding-bottom:0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	background: #fff;
+	clear: both;
+	padding-top: 25px
+}
+
+#deal-intro .main {
+	width: 466px;
+	height:307px;
+	margin-left:1px;
+	font-family: helvetica, arial, sans-serif;
+	float: left;
+	_display: inline;
+	padding-top:22px;
+	background:url(../images/buy_bg.png) repeat-y;
+}
+
+#deal-intro .side {
+	width: 490px;
+	float: left;
+	margin-right: 0px;
+	margin-left:80px;
+}
+
+#deal-intro .side .deal-buy-cover-img img {
+	width: 490px
+}
+
+.item_prices{left:0;padding-top:8px;width:388px;padding-left:15px;overflow:hidden;padding-right:15px;background:url(../images/buy_line.png) bottom center no-repeat #fff4f6;padding:8px 39px 0;
+padding-top:80px; height:60px;
+}
+
+#deal-intro .side .digest {
+	margin-top: 28px;
+	min-height: 70px;
+	padding-left: 70px;
+	padding-right: 35px;
+	background: url(../images/tuan/bg-deal-voice-quote.gif) no-repeat 0px 0px;
+	color: #666;
+	margin-left: 10px;
+	_height: 70px
+}
+
+#deal-intro h1 {
+	padding-bottom: 25px;
+	line-height: 28px;
+	padding-left: 30px;
+	padding-right: 30px;
+	font-family: '微软雅黑', arial, sans-serif;
+	font-size: 18px;
+	padding-top: 0px
+}
+
+#deal-intro h1 span{
+	color: #666;
+}
+
+#deal-intro .deal-buy {
+	position: relative
+}
+
+#deal-intro .deal-today-link {
+	text-decoration: none
+}
+
+#deal-intro .deal-price-tag {
+	z-index: 1;
+	position: absolute;
+	padding-left: 50px;
+	width: 465px;
+	background: url(../images/tuan/buy_bg.png) no-repeat 0px 0px;
+	height: 70px;
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/tuan/buy_bg.png', sizingMethod='scale');
+	_background-image:none; 
+}
+
+#deal-intro .deal-price {
+	z-index: 2;
+	position: absolute;
+	line-height: 70px;
+	width: 237px;
+	height: 97px;
+}
+
+#deal-intro .deal-price span {
+	z-index: 2;
+	position: absolute;
+	color: #fff;
+	top: 0px;
+	left: 296px
+}
+
+#deal-intro .deal-price span.deal-price-expire {
+	width: 140px;
+	background: url(../images/tuan/bg-deal-expired-text.gif) no-repeat 6px 17px;
+	height: 84px
+}
+
+.deal-price  .discount{position:absolute;top:27px;*top:30px;color:#b7223c;font-family:"Arial";font-size:15px;background:rgba(255,255,255,0.7);background-color:white\0;background-color:white\9\0;*background:white;filter:alpha(opacity=60);border-radius:5px;width:45px;height:21px;right:214px;text-align:center;line-height:21px;white-space:nowrap;word-break:normal;word-wrap:normal; font-style:normal; left:180px;}
+
+#deal-intro .deal-price span.deal-price-soldout {
+	width: 140px;
+	background: url(../images/tuan/bg-deal-soldout-text.gif) no-repeat 6px 17px;
+	height: 84px
+}
+
+#deal-intro .deal-price strong {
+	float: left;
+	color: #fff;
+	margin-left: 5px;
+	font-size: 38px;
+	font-weight: bold;
+	font-family:"微软雅黑";
+	white-space:nowrap;
+	text-align:center;
+	width:90px;
+}
+
+#deal-intro .deal-price span a {
+	line-height: 53px;
+	margin-top: 9px;
+	outline-width: 0px;
+	width: 144px;
+	display: block;
+	height: 53px
+}
+
+#deal-intro .progress-pointer {
+	padding-bottom: 3px;
+	padding-left: 0px;
+	padding-right: 0px;
+	zoom: 1;
+	float: left;
+	padding-top: 3px
+}
+
+#deal-intro .progress-pointer span {
+	width: 14px;
+	background: url(../images/tuan/bg-progress-pointer.gif) no-repeat 0px 0px;
+	float: left;
+	height: 13px
+}
+
+#deal-intro .progress-bar {
+	padding-bottom: 0px;
+	padding-left: 2px;
+	width: 194px;
+	padding-right: 2px;
+	background: url(../images/tuan/bg-progress-bottom.gif) no-repeat left top;
+	float: left;
+	height: 17px;
+	padding-top: 0px
+}
+
+#deal-intro .progress-left {
+	margin-top: 3px;
+	background: url(../images/tuan/bg-progress-top-l.gif) no-repeat left top;
+	float: left;
+	height: 9px
+}
+
+#deal-intro .progress-right {
+	margin-top: 3px;
+	background: url(../images/tuan/bg-progress-top-l.gif) no-repeat left top;
+	float: left;
+	height: 9px
+}
+
+#deal-intro .progress-left {
+	margin-left: 2px;
+	_margin-left: 1px
+}
+
+#deal-intro .progress-right {
+	background-image: url(../images/tuan/bg-progress-top-r.gif);
+	width: 6px
+}
+
+#deal-intro .hide {
+	display: none
+}
+
+#deal-intro .min {
+	float: left;
+	clear: both;
+	font-weight: bold
+}
+
+#deal-intro .max {
+	float: right;
+	font-weight: bold
+}
+#goods-breif{font-size:12px; background:url(../images/tuan/goods-breif-bg.gif) no-repeat 0 0 #F4F4F6;padding:15px 10px 10px 10px;}
+#goods-breif h3{font-size:12px; height:22px; line-height:22px}
+#goods-breif .detail{background:url(../images/tuan/disc.gif) no-repeat 0 8px #F4F4F6; padding-left: 15px;font-size: 12px;color: #424242; line-height:190%}
+.deal-consult {
+	position: relative;
+	clear: both;
+	font-size: 12px
+}
+
+#sidebar .deal-consult h2 {
+
+}
+
+.deal-consult .sbox-bubble {
+	position: absolute;
+	width: 19px;
+	background: url(../images/tuan/bg-sbox-bubble.gif) no-repeat 0px 0px;
+	height: 30px;
+	top: 37px;
+	left: -17px
+}
+
+.deal-consult .nav {
+	padding-bottom: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	color: #666;
+	padding-top: 0px
+}
+
+.deal-consult-tip {
+	padding-bottom: 8px;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-top: 3px
+}
+
+.deal-consult-tip .noconsult {
+	margin: 12px 0px;
+	color: #60605e
+}
+
+.deal-consult-tip .list {
+	zoom: 1;
+	word-wrap: break-word;
+	color: #626061;
+	word-break: break-all
+}
+
+.deal-consult-tip .list a {
+	color: #626061
+}
+
+.deal-consult-tip .list li {
+	border-bottom: #cdccca 1px dashed;
+	padding-bottom: 5px;
+	padding-left: 0px;
+	padding-right: 0px;
+	padding-top: 5px
+}
+
+.deal-consult-tip .list .last {
+	border-bottom-style: none;
+	border-right-style: none;
+	border-top-style: none;
+	border-left-style: none
+}
+
+.deal-consult-tip .custom-service {
+	text-align: center;
+	padding-bottom: 12px;
+	margin-top: 12px;
+	padding-left: 12px;
+	padding-right: 12px;
+	zoom: 1;
+	background: #fff;
+	padding-top: 15px
+}
+
+.deal-consult-tip .custom-service .time {
+	font-size: 12px
+}
+
+.deal-subscribe {
+	width: 230px
+}
+
+.deal-subscribe .top {
+	background: url(../images/tuan/bg-deal-subscribe-t.gif) no-repeat 0px 0px;
+	height: 76px
+}
+
+.deal-subscribe .body {
+	padding-bottom: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	background: #eff8ff;
+	padding-top: 10px
+}
+
+.deal-subscribe .bottom {
+	background: url(../images/tuan/bg-deal-subscribe-b.gif) no-repeat 0px 0px;
+	height: 12px
+}
+
+.deal-subscribe .text {
+	margin-top: 10px;
+	padding-right: 50px;
+	background: url(../images/tuan/bg-deal-subscribe-m.gif) no-repeat right
+		center;
+	color: #999;
+	font-size: 12px
+}
+
+.deal-subscribe .address {
+	width: 100%
+}
+
+.deal-subscribe .address td {
+	vertical-align: top
+}
+
+.deal-subscribe .f-text {
+	width: 147px;
+	font-size: 12px
+}
+
+.deal-discount {
+	width: 100%;	
+	font-weight: bold;
+	font-size:12px;
+}
+
+.deal-discount th {
+	text-align: center;
+	padding-bottom: 0px;
+	padding-top: 0px
+}
+
+.deal-discount td {
+	text-align: center;
+	padding-bottom: 0px;
+	padding-top: 0px
+}
+
+.deal-discount th {
+	font-size: 12px;
+	font-weight: normal;
+}
+
+.dotted_line{ background:url(../images/buy_line.png) center center no-repeat ; height:1px; line-height:1px; font-size:0px; }
+.deal-box {
+	border: #fe7000 1px solid;
+	background: #fff1d9;
+	padding-bottom: 8px;
+	margin-top: 12px;
+	padding-left: 8px;
+	padding-right: 8px;
+	padding-top: 8px
+}
+
+.deal-timeleft {
+	text-align:center;
+	background-repeat: no-repeat;
+	background-position: 90% 50%;
+	color: #333
+}
+
+
+
+.deal-timeleft li {
+	font-weight: bold
+}
+
+.deal-timeleft li span {
+	text-align: right;
+	margin-top: -1px;
+	width: 16px;
+	padding-right: 0px;
+	float: left;
+	font-weight: bold;
+	margin-right: 4px
+}
+
+.deal-off {
+	background-image: url(../images/tuan/bg-deal-end.gif)
+}
+
+.deal-status {
+	text-align: center;
+	overflow: hidden;
+	padding: 7px;
+}
+
+.deal-buy-tip-top {
+	font-size: 14px;
+	font-weight: bold
+}
+
+.deal-buy-tip-top strong {
+	color: #c33
+}
+
+.deal-buy-tip-total {
+	line-height: 1.2;
+	margin-top: 10px;
+	font-size: 18px;
+	font-weight: bold
+}
+
+.deal-buy-tip-notice {
+	color: #666;
+	font-size: 12px
+}
+
+.deal-buy-ended {
+	margin: 5px 0px 12px;
+	color: #333;
+	font-size: 12px
+}
+
+.deal-buy-on {
+	text-align: center;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+dd.deal-buy-on {
+	padding-left: 25px;
+	margin-bottom: 5px;
+	background: url(../images/tuan/deal-buy-succ.gif) no-repeat 8px 10px
+}
+
+.deal-buy-tip-btm {
+	color: #666;
+	font-size: 12px
+}
+
+.deal-buy-soldout {
+	background: url(../images/tuan/bg-sold-out.gif?v=1) no-repeat 50% 0px;
+	height: 89px
+}
+
+.deal-buy-expired-succ {
+	background: url(../images/tuan/bg-deal-expired-success.gif) no-repeat 50% 0px
+		;
+	height: 89px
+}
+
+.deal-buy-expired-fail {
+	background: url(../images/tuan/bg-deal-expired-fail.gif) no-repeat 50% 0px;
+	height: 89px
+}
+
+.deal-available-tip {
+	color: #333;
+	clear: both;
+	font-size: 12px
+}
+
+#deal-stuff .deal-price strong {
+	float: left;
+	color: #fff;
+	font-size: 250%
+}
+
+#deal-stuff {
+	position: relative;
+	margin-top: 22px
+}
+
+#deal-stuff .main {
+	padding-bottom: 6px;
+	padding-left: 23px;
+	padding-right: 23px;
+	float: left;
+	padding-top: 6px
+}
+
+#deal-stuff .side {
+	padding-bottom: 6px;
+	padding-left: 23px;
+	padding-right: 23px;
+	float: left;
+	padding-top: 6px
+}
+
+#deal-stuff .main {
+	width: 650px;
+	overflow: hidden;
+}
+
+#deal-stuff .side {
+	width: 195px;
+	overflow: hidden;
+}
+
+#side-business ul {
+	margin-top: 7px
+}
+
+#side-business li {
+	margin: 0px 0px 3px;
+	overflow: hidden;
+	width: 196px;
+	word-break: break-all;
+}
+
+#side-business li.address {
+	margin-bottom: 10px
+}
+
+#deal-stuff h2 {
+	font-size: 16px
+}
+
+#deal-stuff .main .blk {
+	margin: 7px 0px 30px
+}
+
+#deal-stuff .main .blk p {
+	margin: 10px 0px 15px
+}
+
+#deal-stuff .main .detail p {
+	margin: 5px 0px
+}
+
+#deal-stuff .deal-detail-intro {
+	margin-bottom: 30px
+}
+
+#deal-stuff .deal-detail-intro h2 {
+	margin: 0px;
+	font-size: 16px
+}
+
+#deal-stuff .deal-detail-intro ul {
+	margin-top: 5px
+}
+
+#deal-stuff .deal-detail-intro li {
+	list-style-position: inside;
+	line-height: 1.6;
+	list-style-type: disc
+}
+
+#deal-stuff .main ul.list {
+	margin: 10px 0px 15px;
+	padding-left: 15px
+}
+
+#deal-stuff .main ul.list li {
+	list-style-position: outside;
+	list-style-type: disc;
+	margin-bottom: 5px
+}
+
+#deal-stuff .main ol.list {
+	margin: 10px 0px 15px;
+	padding-left: 23px
+}
+
+#deal-stuff .main ol.list li {
+	list-style-position: outside;
+	list-style-type: decimal;
+	margin-bottom: 5px
+}
+
+#deal-stuff .main dt {
+	margin: 10px 0px 2px;
+	font-weight: bold
+}
+
+#deal-stuff ul.review li {
+	padding-bottom: 0px;
+	padding-left: 20px;
+	padding-right: 0px;
+	margin-bottom: 10px;
+	background: url(../images/tuan/quote.gif) no-repeat 0px 2px;
+	padding-top: 0px
+}
+
+#deal-stuff ul.review span {
+	text-align: right;
+	display: block
+}
+
+.go-top {
+	z-index: 1;
+	margin:0px auto;
+	width: 1140px;
+	bottom: 0px;
+	zoom: 1;
+	font-size: 12px;
+	text-align:right;
+}
+
+#deal-stuff .go-top a {
+	color: #32989a
+}
+
+#deal-stuff .go-top a:hover {
+	text-decoration: none
+}
+
+#deal-stuff .go-top .top-arrow {
+	padding-right: 3px
+}
+
+#deal-business {
+	border-bottom: #76a045 2px solid;
+	border-left: #76a045 2px solid;
+	padding-bottom: 8px;
+	padding-left: 8px;
+	padding-right: 8px;
+	background: #ddedcc;
+	border-top: #76a045 2px solid;
+	border-right: #76a045 2px solid;
+	padding-top: 8px
+}
+
+#sidebar .cardcode {
+	padding-bottom: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 10px
+}
+
+#sidebar .cardcode .f-input {
+	width: 195px;
+	display: block
+}
+
+#sidebar .cardcode .formbutton {
+	margin-top: 5px;
+	display: block
+}
+
+#sidebar .cardcode .act {
+	display: none
+}
+
+#sidebar #cardcode-link {
+	padding-left: 12px;
+	background: url(../images/tuan/blue_arrow.gif) no-repeat 0px 5px
+}
+
+
+#content #deal-buy-login-form .act {
+	padding-bottom: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	margin-left: 55px;
+	padding-top: 0px
+}
+.act {
+	padding-bottom: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	margin-left: 120px;
+	padding-top: 0px
+}
+
+#referrals h3.succlist {
+	margin: 0 10px 10px;
+	padding-bottom: 5px;
+	border-bottom: 1px solid #daeaca;
+	font-size: 1.2em;
+}
+
+#referrals p.notice-total {
+	background: #fffbcc;
+	border: 1px solid #ffec19;
+	margin: 0 10px 10px;
+	padding: 10px;
+}
+
+#referrals p.notice-total strong {
+	color: #c33;
+}
+
+#referrals .coupons-table {
+	margin-top: 0;
+}
+
+#referrals .intro {
+	margin: 0 10px;
+}
+
+#referrals .intro strong {
+	color: #c33;
+}
+
+#referrals .login {
+	margin: 10px;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+#referrals .referrals-side .invalid {
+	margin: 5px 0 10px;
+	padding-left: 15px;
+	color: #666;
+	font-size: 12px;
+}
+
+#referrals .referrals-side .invalid li {
+	list-style-position: outside;
+	list-style-type: disc;
+}
+
+#referrals .coupons-table th,#referrals .coupons-table td {
+	text-align: center;
+}
+
+#referrals .finder-form p {
+	margin: 5px 0;
+}
+
+#referrals .finder-form p.commit {
+	margin-top: 15px;
+}
+
+#referrals .finder-form label {
+	display: block;
+	padding-bottom: 2px;
+}
+
+#referrals .finder-form .f-text {
+	width: 205px;
+}
+
+#referrals .finder-form .tip {
+	color: #999;
+	font-size: 12px;
+}
+
+#referrals .finder .invite-success {
+	margin: 15px 0 15px 135px;
+}
+
+#referrals .finder .invite-success h3 {
+	font-size: 18px;
+}
+
+#referrals .finder .invite-success p {
+	margin: 5px 0 0;
+	color: #666;
+}
+
+#referrals .finder .contacts {
+	width: auto;
+	padding: 20px 70px 50px;
+}
+
+#referrals .contacts-box {
+	margin: 10px 10px 0;
+}
+
+#referrals .contacts-box h3 {
+	margin-bottom: .4em;
+	color: #333;
+	line-height: 200%;
+}
+
+#referrals .contacts-box .hd {
+	border: 1px solid #ccc;
+	background: #eee;
+	color: #333;
+	line-height: 200%;
+	font-size: 12px;
+}
+
+#referrals .contacts-box .hd input {
+	margin: 0 .5em;
+}
+
+#referrals .contacts-box .bd {
+	height: 300px;
+	border: 1px solid #ccc;
+	border-top: 0;
+	overflow: auto;
+}
+
+#referrals .contacts-box table {
+	width: 100%; *
+	width: 95%;
+	border-collapse: collapse;
+}
+
+#referrals .contacts-box td {
+	padding: 5px 0;
+	border-bottom: 1px solid #eee;
+	font-size: 12px;
+	vertical-align: middle;
+	cursor: pointer;
+}
+
+#referrals .contacts-box tr.alt {
+	background: #f3f3f3;
+}
+
+#referrals .contacts-box td.checkbox {
+	width: 20px;
+}
+
+#referrals .contacts-box td.checkbox input {
+	margin: 0 .5em;
+}
+
+#referrals .contacts-box .enter-name {
+	margin-top: 15px;
+	line-height: 2;
+}
+
+#referrals .contacts-box .enter-name span {
+	color: #666;
+}
+
+#referrals .contacts-box .commit {
+	margin-top: 10px;
+}
+
+#referrals .refers .share-list {
+	margin: 40px 38px 20px;
+}
+
+#referrals .refers .share-list .f-text {
+	width: 235px;
+}
+
+#referrals .refers .blk {
+	float: left;
+	margin-bottom: 40px;
+}
+
+#referrals .refers .blk h4 {
+	color: #349835;
+}
+
+#referrals .refers .last {
+	margin-bottom: 0;
+}
+
+#referrals .refers .logo {
+	float: left;
+	_display: inline;
+	margin-right: 15px;
+	width: 48px;
+	height: 48px;
+	border: 1px solid #ccc;
+	background-color: #fff;
+}
+
+#referrals .refers .info {
+	float: left;
+	width: 535px;
+}
+
+#referrals .refers .deal-info {
+	float: left;
+	margin-top: 12px;
+}
+
+#referrals .refers .pic {
+	float: left;
+	width: 150px;
+}
+
+#referrals .refers .pic img {
+	display: block;
+}
+
+#referrals .refers .deal-title {
+	float: left;
+	width: 237px;
+	padding-left: 13px;
+}
+
+
+#maillist .sect {
+	padding-bottom: 22px;
+	padding-left: 23px;
+	width: auto;
+	padding-right: 23px;
+	height: 277px;
+	padding-top: 10px
+}
+
+#maillist .enter-address {
+	border-bottom: #f3d3c4 1px solid;
+	border-left: #f3d3c4 1px solid;
+	padding-bottom: 30px;
+	margin-top: 20px;
+	padding-left: 20px;
+	padding-right: 20px;
+	background: #fdfeee;
+	border-top: #f3d3c4 1px solid;
+	border-right: #f3d3c4 1px solid;
+	padding-top: 15px
+}
+
+#maillist .intro {
+	margin-top: 30px
+}
+
+#maillist .enter-address-c {
+	margin-top: 22px;
+	float: left;
+	font-size: 12px
+}
+
+#maillist .enter-address-c label {
+	padding-bottom: 5px;
+	display: block
+}
+
+#maillist .enter-address-c .mail {
+	width: 310px;
+	float: left
+}
+
+#maillist .enter-address-c .f-mail {
+	width: 250px
+}
+
+#maillist .enter-address-c .city {
+	width: 300px;
+	float: left
+}
+
+#maillist .enter-address-c .f-city {
+	width: 175px
+}
+
+#maillist .enter-address-c .f-cityname {
+	width: 175px
+}
+
+#maillist .enter-address-c span.tip {
+	display: block;
+	color: #7c7a7d;
+	padding-top: 5px
+}
+
+#maillist .side-pic p {
+	padding-bottom: 10px;
+	line-height: 1
+}
+
+#maillist .succ {
+	padding-bottom: 10px;
+	padding-left: 0px;
+	padding-right: 0px;
+	padding-top: 10px
+}
+
+#maillist .unsubscribe {
+	margin-top: 20px
+}
+
+#maillist .unsubscribe label {
+	display: block
+}
+
+#maillist .welcome-notice {
+	padding-bottom: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	padding-top: 0px
+}
+
+#maillist .welcome-title {
+	color: #c33;
+	font-size: 16px;
+	font-weight: bold
+}
+
+#maillist .recent-title {
+	margin-top: 25px
+}
+
+#maillist .recent-title h2 {
+	font-size: 2em
+}
+
+#maillist .welcome .sect {
+	height: auto
+}
+
+#maillist .welcome .deals-list {
+	margin-top: 15px
+}
+
+#maillist .welcome .deals-list li {
+	float: left;
+}
+
+#maillist .welcome .deals-list li.last {
+	zoom: 1;
+	padding-top: 30px
+}
+
+#maillist .welcome .price strong {
+	font-size: 14px
+}
+
+#maillist .welcome .price strong.count {
+	font-size: 16px
+}
+
+#maillist .welcome .price strong.count .number {
+	color: #c33;
+	font-size: 20px
+}
+
+#maillist .welcome .detail {
+	padding-bottom: 0px;
+	margin-top: 8px;
+	padding-left: 15px;
+	padding-right: 15px;
+	color: #666;
+	font-size: 12px;
+	padding-top: 0px
+}
+
+#maillist .side-business {
+	margin-top: 15px
+}
+
+#maillist .side-business .tip {
+	padding-bottom: 4px;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-top: 4px
+}
+
+#maillist .side-business h2 {
+	padding-bottom: 5px;
+	padding-top: 0px
+}
+
+#maillist .side-business p {
+	line-height: 1.5
+}
+
+#uc .head {
+	position: relative
+}
+#uc .filter {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	_right:10px;
+}
+
+#uc .filter li {
+	display:inline-block; height:25px; text-align:center; line-height:22px; padding:0px 3px; float:left; 
+}
+
+#uc .filter a {
+color:#136AAD;
+}
+#uc .filter a:hover {
+color:#f30;
+}
+
+#uc .filter li.current{
+	display:inline-block; width:80px; padding:0px; height:25px; background:url(../images/sub_nav_act.gif) no-repeat; line-height:22px; color:#fff;
+}
+
+#uc .filter .current a, #uc .filter .current a:hover{ color:#fff; text-decoration:none;}
+
+#bd {
+	z-index: 1;
+	position: relative;
+	margin: 10px auto 20px;
+	width: 1140px
+}
+
+
+.consult-list {
+	padding-bottom: 18px;
+	padding-left: 23px;
+	width: auto;
+	padding-right: 23px;
+	padding-top: 10px
+}
+
+.consult-list .item {
+	padding:8px;
+	margin-bottom:5px;
+}
+
+.consult-list .alt .item {
+	background: #f6f6f6
+}
+
+.consult-list .item a {
+	color: #666
+}
+
+.consult-list .item a:hover {
+	color: #666
+}
+
+.consult-list .user {
+	color: #999;
+	font-size: 12px
+}
+
+.consult-list .user strong {
+	width: 300px;
+	float: left
+}
+
+.consult-list .user span {
+	text-align: right;
+	width: 200px;
+	float: right
+}
+
+.consult-list .text {
+	margin-top: 8px;
+	clear: both
+}
+
+.consult-list .reply {
+	margin-top: 8px;
+	color: #cb3234
+}
+
+
+.comment_row {
+	padding: 10px;
+	border-bottom: dotted 1px #ccc;
+}
+
+.comment_author {
+	font-size: 12px;
+	color: #f30;
+	padding: 0 8px 0 0;
+}
+
+.comment_info {
+	font-size: 12px;
+	color: #999;
+}
+
+.comment_goods_name {
+	padding-left: 220px;
+	font-size: 26px;
+	line-height:26px;
+	display: block;
+	width: 450px;
+	font-family: Microsoft YaHei, simhei, STHeiti, Georgia, Times New Roman,
+		Times, serif;
+	height:80px;
+	overflow:hidden
+}
+
+
+#goods_imgs {
+	margin-bottom: 0px;
+	overflow: hidden;
+	padding:1px;
+}
+
+#goods_imgs ul {
+	list-style: none;
+}
+
+#goods_imgs a {
+	outline: none;
+	cursor: pointer;
+}
+
+#goods_imgs .mid {
+	width: 490px;
+	padding: 0;
+	position: relative;
+}
+
+#goods_imgs .mid ul {
+	width: 490px;
+	height: 327px;
+	position: relative;
+	overflow: hidden;
+}
+
+#goods_imgs .mid ul li {
+	width: 490px;
+	height: 327px;
+	position: absolute;
+	left: 440px;
+	top: 0;
+}
+
+#goods_imgs .mid ul .first {
+	left: 0;
+}
+
+#goods_imgs #img_list {
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
+}
+
+#goods_imgs #img_list a {
+	display: block;
+	float: left;
+	margin: 2px 0 0 4px;
+	border: solid 1px #333;
+	line-height: 20px;
+	padding: 0 5px;
+	background: #fff;
+	color: #000;
+}
+
+#goods_imgs #img_list a.active {
+	line-height: 24px;
+	padding: 0 7px;
+	border-color: #ccc;
+	font-weight: bold;
+	margin-top: 0;
+	color: #ccc;
+}
+
+#sidebar .side-vote-tip .tip {
+	padding: 4px 13px;
+}
+
+#sidebar .side-vote-tip h2 {
+	padding-top: 0;
+	padding-bottom: 10px;
+}
+
+#sidebar .side-vote-tip .text {
+	padding-left: 55px;
+	line-height: 18px;
+	background: url(../images/tuan/bg-deal-default-icons.gif) no-repeat 0 -94px;
+	color: #333;
+}
+
+#sidebar .side-vote-tip .text .mark {
+	margin-bottom: 2px;
+}
+
+#sidebar .side-vote-tip .link {
+	margin-top: 12px;
+	text-align: center;
+}
+
+#sidebar .side-vote-tip .link a {
+	font-weight: bold;
+	font-size: 12px;
+}
+
+#sidebar .side-invite .text {
+	padding-left: 50px;
+	padding-top: 5px;
+	line-height: 18px;
+	background: url(../images/tuan/bg-deal-default-icons.gif) no-repeat 0 0;
+	color: #333;
+}
+
+#sidebar .side-invite .link {
+	margin-top: 8px;
+}
+
+.gomailcheck,.gomailcheck:hover {
+	background: url(../images/tuan/signup-email-link.gif);
+	width: 193px;
+	height: 38px;
+	line-height: 38px;
+	text-align: center;
+	display: block;
+	margin: 10px auto 10px auto;
+	color: #004474;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+#sidebar .side-text-tip .tip {
+	padding: 4px 13px;
+	line-height: 1.5em;
+}
+
+
+#sidebar .side-goods-tip dt {
+	padding-bottom: 8px;
+	font-size: 1.2em;
+	padding: 4px 13px 0 13px;
+	width:180px;
+	font-weight:bold;
+	font-family:"宋体"
+}
+
+#sidebar .side-goods-tip ul {
+	padding: 9px 9px;
+	padding-bottom:0px;
+}
+
+#sidebar .side-goods-tip li {
+	border-bottom: dashed 1px #ccc;
+	width: 222px;
+	margin-bottom:9px;
+	padding-bottom:6px;
+}
+
+#sidebar .side-goods-tip li .img {
+	width: 220px;
+	overflow: hidden;
+	display: block;
+	clear:both;
+	margin:0 auto;
+	border: solid 1px #ccc;
+	margin-bottom:5px;
+}
+#sidebar .side-goods-tip li .img img {
+	width: 220px;
+}
+#sidebar .side-goods-tip li .title {
+	font-size: 14px;
+	padding: 0 0 0 0px;
+	line-height:20px;
+	font-weight:bold;
+	clear:both;
+	white-space:8px;
+	
+}
+
+
+.group_message {
+	width: 100%;
+}
+
+.group_message td {
+	padding: 5px 0px;
+}
+
+
+.saler_map{ display:block; border:#ccc solid 1px; }
+.saler_map a{ display:block; background:#fff; text-align:center;}
+#saler_id{ display:none;}
+.saler_map_window{ display:none;background:#fff; width:730px; height:500px; position:absolute;}
+.op_bar{ padding:5px 10px;}
+.address_map{ padding:10px;}
+
+
+/* 商户点评的相关样式  */
+.pinspan{ display:inline-block; background:#f7f7f7;  width:210px; _margin-left:5px; *margin-left:5px; }
+.pinspan span{ border-bottom:1px #f3f3f3 solid; display:block; text-align:center;}
+.pinspan div{ height:10px; font-size:0px; line-height:0px; }
+.h_pin div{ background:#f30; }
+.z_pin div{ background:orange; }
+.c_pin div{ background:#ccc; }
+
+
+#content .field label.lb_title {
+	text-align: left;
+	line-height: 30px;
+	width:auto;	
+	float:none;
+	height: 30px;
+	color: #333;
+	font-size: 14px
+}
+#business {
+	padding: 0 8px;
+}
+#business h3 {
+	border-bottom: solid 1px #ffbfa6;
+	padding: 3px 15px 8px;
+}
+#business p {
+	padding: 10px;
+	font-size: 14px;
+}
+#business p a {
+	color: #ff6600;
+}
+
+.sbox-about-us h2{ padding-left:15px}
+.sbox-about-us .list{ width:92%; margin:0 auto}
+.sbox-about-us .list ul{ margin:0; padding:0; list-style-type:none}
+.sbox-about-us li{ background:url(../images/tuan/sbg.gif) no-repeat; height:28px; line-height:28px; font-size:12px; color:#666; margin:5px auto}
+.sbox-about-us li span{ float:left;padding-left:35px; background:url(../images/tuan/icons.gif) no-repeat; }
+.sbox-about-us li span a{ margin-left:15px;}
+.sbox-about-us li span.s1{ background-position:13px -27px}
+.sbox-about-us li span.s2{ background-position:13px -58px}
+.sbox-about-us li span.s3{ background-position:10px -156px}
+.sbox-about-us li span.s4{ background-position:13px 6px}
+.sbox-about-us li span.s5{ background-position:13px -27px}
+
+.non_editable { border:0px;  font-size:14px; padding:3px; background:#fff;}
+.editable { border:1px solid #ccc; font-size:14px; padding:3px; }
+
+.groupbond_sms_box,.groupbond_down_box,.groupbond_print_box{ display:none;background:#fff; width:400px; height:50px; position:absolute; padding:10px; border:2px solid #ccc;}
+.groupbond_sms_box select,.groupbond_down_box  select,.groupbond_print_box  select{ width:100px;}
+
+
+
+
+#order_info{width:100%;background:#ccc;border-spacing:1px; border-collapse:separate;table-layout:fixed;}
+#order_info td{padding:6px;text-align:left;background:#f1f1f1;}
+#order_info .ltd{width:100px;}
+#order_info .rtd{background:#fff;}
+
+.jf_btn{ background:url(../images/tuan/jf_anniu.jpg); width:94px; height:50px; display:block; cursor:pointer;})
+.sbox .side-notice{ padding:0px 10px;}
+
+.flink a{ display:inline-block; float:left; padding:5px 10px 5px 0px;}
+.flink img{  width:88px; height:31px; }
+
+.no {
+  background: url("../images/tuan/g_bgdealno.png") no-repeat scroll 0 0 transparent;
+  font-family: arial,黑体,宋体;
+  font-size: 28px;
+  font-weight: bold;
+  height: 87px;
+  left: 0px;
+  line-height: 40px;
+  padding-left: 5px;
+  position: absolute;
+  text-align: left;
+  top: 0px;
+  width: 72px;
+  z-index: 900;
+  color:#fff;
+}
+
+.cart_warn{ background:#FFF2F2; color:#f60; }
+
+.list_type span{ background:url("../images/tuan/list_type.gif"); display:block; width:18px; height:15px; float:left; margin:0px 3px; cursor:pointer; }
+.list_type .grid_enable{ background:url("../images/tuan/list_type.gif") no-repeat 0px 0px;}
+.list_type .grid_disable{ background:url("../images/tuan/list_type.gif") no-repeat -18px 0px;}
+.list_type .line_enable{ background:url("../images/tuan/list_type.gif") no-repeat 0px -15px;}
+.list_type .line_disable{ background:url("../images/tuan/list_type.gif") no-repeat -18px -15px;}
+.list_type{ width:70px; float:right;}
+
+.supplier_left{ float:left; width:470px;}
+.supplier_right{ float:right; width:470px;}
+
+.half_box .half_box_top{ background:url(../images/tuan/bg-box-470.gif) no-repeat; width:470px; height:20px;}
+.half_box .half_box_mid{ background:#fff; border-left:2px #89b4d5 solid; border-right:2px #89b4d5 solid; padding:10px; width:446px; overflow:hidden;}
+.half_box .half_box_foot{ background:url(../images/tuan/bg-box-470.gif) 0px bottom no-repeat; width:470px; height:20px;}
+
+.supplier_comment li{ border-bottom: 1px dotted #f2f2f2; display:block; padding:5px;}
+.supplier_title{font-size:2em; line-height:35px;}
+.supplier_sect{ border-top:1px solid #FFEC93;}
+
+.comment_1{ background:url(../images/tuan/comment.gif) no-repeat 0px -34px; font-size:12px; padding-left:20px; display:inline-block; width:40px;}
+.comment_3{ background:url(../images/tuan/comment.gif) no-repeat 0px -17px; font-size:12px;  padding-left:20px; display:inline-block; width:40px;}
+.comment_5{ background:url(../images/tuan/comment.gif) no-repeat 0px 0px; font-size:12px;  padding-left:20px; display:inline-block; width:40px;}
+
+.comment_current{ background-color:#f60; color:#fff;}
+
+
+.city_group table{ width:100%; font-size:14px; }
+.city_group table td span{ display:inline-block; width:50px;}
+.city_group table td.zm{  font-family:"Arial"; width:30px; vertical-align:top; color:#fff;}
+.city_group table td a{ color:#ccc;}
+.city_group table td a:hover,.city_group table td a.opencity:hover{ color:#fff;}
+.city_group table td a.opencity{ color:#f90;}
+.city_group table td span.current a{color:#fff; background:#666; display:inline-block; padding:0px 5px; font-weight:bolder;}
+
+.city-list-title{ font-size:14px; font-weight:bolder; line-height:30px; height:30px; border-bottom:dotted 1px #ccc; margin-bottom:10px;}
+
+.list_type_row{ background:url(../images/tuan/graybg.gif) repeat-x 0px bottom; height:28px; border:#ccc solid 1px; margin:0px 0px 10px 0px;  padding-top:5px;}
+
+.sort_title,.sort_icon{ float:left; display:inline; font-size:12px; line-height:22px; height:22px; margin:0px 5px; }
+.sort_title a,.sort_icon a{ border:#ccc solid 1px; display:block;padding:0px 5px;  } 
+.sort_title a:hover,.sort_icon a:hover{ border:#0a98ec solid 1px; display:block;padding:0px 5px; color:#0a98ec; text-decoration:none;  } 
+.sort_gray a,.sort_gray a:hover{ background:url(../images/tuan/arrow.gif) 59px -34px no-repeat; padding-right:20px;}
+.sort_desc a,.sort_desc a:hover{ background:url(../images/tuan/arrow.gif) 59px 6px no-repeat; padding-right:20px;}
+.sort_asc a,.sort_asc a:hover{ background:url(../images/tuan/arrow.gif) 59px -15px no-repeat; padding-right:20px;}
+
+.reopen_row{ font-size:12px; text-align:right; padding-right:20px;}
+.reopen{ background:url(../images/tuan/reopen.gif); width:102px; height:26px; display:inline-block; font-size:12px; text-decoration:none; color:#fff; text-align:center; line-height:26px; }
+
+
+.list_type_row .sort_gray a, .list_type_row .sort_gray a:hover { background-position:59px -41px}
+.list_type_row .sort_asc a, .list_type_row  .sort_asc a:hover{ background-position:59px -18px}
+
+.filter_contain{ width:1138px; margin:0px auto; border:#DDD solid 1px; font-size:12px; background:#fff; }
+.filter_contain a{ display:inline-block; text-decoration:none; padding:0px; padding-right:14px; color:#06c }
+.filter_contain a:hover{color:#FB4E0B}
+.filter_contain a var,.filter_contain a:hover var{ font-family:Arial; font-size:12px; color:#AAA}
+.filter_contain a.current{color:#000; font-weight:700;}
+.filter_contain a.current:hover{color:#FB4E0B}
+
+.filter_contain a.current var,.filter_contain a.current:hover var{ color:#fff}
+.cate_row{ padding:5px 15px; line-height:24px ;}
+.cate_row .row{ width:880px}
+
+.quan_row{ padding:5px 15px; line-height:24px ;border-top:1px solid #DDD}
+.quan_row .row{ width:880px}
+
+.cate_row b.fl,.quan_row b.fl,.sort_row b{ font-weight:normal; margin-right:8px; color:#666}
+
+.sort_row{border-top:#DDD solid 1px; height:32px; padding:0 15px; line-height:32px ;}
+.sub_cate_row{ padding:5px 8px; border:1px solid #f1f1f1;  background:#f5f5f5; margin:0px 10px 10px 60px;  }
+
+.sort_row a{color:#06c;  height:32px; line-height:32px }
+.sort_row a:hover{color:#FB4E0B}
+.filter_contain a.desc_gray,.filter_contain a.asc_gray{color:#06c; width:40px; }
+.filter_contain a.desc_gray:hover,.filter_contain a.asc_gray:hover{color:#FB4E0B}
+.sort_row a.current{ color:#000}
+.sort_row a.current:hover{color:#FB4E0B}
+.filter_contain a.desc_gray{background:url(../images/tuan/arrow.gif) no-repeat 25px -36px #fff;  padding-right:7px;}
+.filter_contain a.asc_gray{background:url(../images/tuan/arrow.gif) no-repeat 25px -60px #fff;  padding-right:7px; }
+.filter_contain a.idx_asc{background:url(../images/tuan/arrow.gif) no-repeat 25px -12px #fff; padding-right:7px;}
+.filter_contain a.idx_desc{background:url(../images/tuan/arrow.gif) no-repeat 25px 11px #fff; padding-right:7px; }
+.filter_contain a.idx_desc:hover,.filter_contain a.idx_asc:hover{ color:#FB4E0B}
+
+.form_ico{ cursor:pointer; display:inline-block; height:15px; padding-left:20px;margin-right:5px;}
+.form_album{ background:url(../images/tuan/album.gif) no-repeat;}
+.form_face{ background:url(../images/tuan/face.gif) no-repeat; }
+.image_item{ position:relative; width:100px; height:100px; float:left; display:inline-block; margin-right:5px;}
+.image_item a{ border:#ccc solid 1px; display:inline-block;width:100px; height:100px; }
+.image_item a:hover { border:#000 solid 1px;}
+.image_item .del_image{ text-decoration:none; font-size:14px; position:absolute; left:2px; top:2px; cursor:pointer; display:block; width:15px; height:15px; background:#f30; border:#fff 1px solid; color:#fff; font-weight:bolder; text-align:center; line-height:15px;}
+.image_item img{ width:100px; height:100px; }
+.fileupload{ width:66px; height:24px; position:relative; overflow:hidden; display:inline-block; background:url(../images/tuan/upbtn.gif); text-align:center; line-height:24px; color:#fff; }
+.fileuploading{ width:66px; height:24px; position:relative; overflow:hidden; display:inline-block; background:url(../images/tuan/upbtn.gif) 0px -24px; text-align:center; line-height:24px; color:#fff; }
+.hide{ display:none;}
+.show{ display:inline-block;}
+.fileupload .filebox{ position:absolute; right:0px; top:0px; filter: alpha(opacity = 0);
+	-moz-opacity: 0;
+	opacity: 0;}
+.msg_row{ width:100%;}
+.msg_row td{ vertical-align:top;}
+.msg_row .text{ word-break:break-all; width:510px;  overflow:hidden;}
+
+.goods_item{ float:left; width:363px; border-bottom:none; margin-right:25px; margin-bottom:10px; margin-top:15px; display:inline;}
+
+.goods_item .link-box{width:361px;overflow:hidden; display:block;overflow:hidden;background:#fff;text-decoration:none;padding-top:5px;color:#666;top:0;border:1px solid #d3d3d3;border-color:rgba(0,0,0,0.18);border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;position:relative;cursor:pointer;-webkit-transition:top 500ms ease;-moz-transition:top 500ms ease;-ms-transition:top 500ms ease;-o-transition:top 500ms ease;transition:top 500ms ease;color:#333;}
+.goods_item .link-box:hover{background:#d51938;text-decoration:none;border-color:#d3d3d3;-webkit-box-shadow:0 1px 8px rgba(0,0,0,0.3);box-shadow:0 1px 8px rgba(0,0,0,0.3); color:#fff;}
+
+
+.gr_no{ margin-right:0}
+.goods_item .img{ width:347px; height:216px;margin: 0 0 4px 7px;}
+.goods_item h1{ padding: 2px 6px 4px;height: 42px;font: 14px/1.5 "Microsoft Yahei",tahoma,arial!important; }
+.goods_item h1 a{color:#333;color:#333; font-family:"\5FAE\8F6F\96C5\9ED1","\5B8B\4F53"; font-size:14px; font-weight:bold; line-height:170%;  }
+.goods_item h1 span{ color:#fe7000}
+.goods_item .price strong{ font-size:35px; color:#fe7000; line-height:36px; font-weight:bolder; font-family:Arial;}
+.goods_item .disc{ width:100%; border:none; border-spacing:0;}
+.goods_item .disc td{ width:33.3%;font-family:Arial; font-size:12px; color:#666}
+.goods_item .disc td strong{ color:#FF3300; font-size:14px}
+.goods_item .orig-price {
+left: 12px;
+top: 19px;
+color: #633d00;
+position: absolute;
+}
+.goods_item .item_price {
+height: 40px;
+width: 336px;
+padding: 10px 17px 0 8px;
+background: #ffedd1;
+position: relative;
+overflow:hidden;
+
+}
+.goods_item .buy{ padding-top:15px; color:#666;}
+.goods_item .buy strong{ font-size:20px; color:#390}
+.goods_item .dock{position:relative;float:left; width:80px;}
+.goods_item .item_price .discount{background:url(../images/zhe_bg.png) no-repeat 0 0;height:23px;width:62px;padding-left:6px;display:inline-block;color:#d51938;font:bold 14px/23px "Microsoft Yahei",Arial;text-align:center;position:relative;top:-3px;margin-left:5px;left:0;}
+
+
+.pages{ text-align:center;color:#666; height:24px; line-height:24px;}
+.pages a{ display:inline-block; padding:0px 3px; height:22px; line-height:22px; color:#666; border:1px solid #DBE3E6; text-decoration:none;}
+.pages a:hover{ display:inline-block;padding:0px 3px; height:22px; line-height:22px;  color:#fff; background:#FF3413;border:1px solid #FF3413;  text-decoration:none;}
+.pages .current{  display:inline-block; padding:0px 5px; height:22px; line-height:22px;  color:#fff; background:#FF3413;border:1px solid #FF3413}
+
+#hd .ref {
+position: absolute;
+top: 37px;
+right: 0px;
+font-size: 12px;
+color: #999;
+}
+
+#hd .ref .f-text{ border:1px solid #c3c3c3;width:200px;color:#AFAEAE; font-size:12px; height:16px; line-height:18px; padding-top: 4px; border-right:none}
+
+#hd .ref #submit-mail-image{ display:block; border:none; background:url(../images/tuan/g_btn_rss.gif) no-repeat 0 0; height:25px; width:59px; overflow:hidden; cursor:pointer;}
+
+
+#hd .follow{ position:absolute; right:0; top:37px; border-left:1px solid #DDE8EE; background:url(../images/tuan/follow.gif) no-repeat 15px 0; height:26px; padding-left:50px; }
+#hd .follow a{ display:block; height:26px; width:26px; float:left; text-indent:-50em;  margin-right:4px; overflow:hidden;}
+#hd .follow a.sina{ margin-right:1px}
+
+.cart_ico {
+  background: url("../images/tuan/cart_icon.gif") no-repeat scroll 0 7px transparent;
+  display: inline-block;
+  height: 25px;
+  padding-left: 20px;
+}
+.remain_clock{ background:url(../images/tuan/remain_clock.gif) no-repeat 190px 0px; padding-left:30px; line-height:25px; font-size:12px; font-weight:normal; }
+#counter{ font-size:12px; }
+.deal-timeleft span{ font-size:12px; font-weight:bolder;}
+.not-begin{ background:url(../images/tuan/not-begin.gif) no-repeat; width:128px; height:44px; margin:0px auto; }
+.tuan_end_tip {
+  background: url("../images/tuan/tuan_end_clock.gif") no-repeat scroll 60px 0px transparent;
+  height: 49px;
+  padding: 12px 55px 0 150px;
+}
+
+
+
+.art_msg_1 { background:url(../images/tuan/mg1.jpg) no-repeat 0 0; height:0; padding-top:246px; overflow:hidden}
+.art_msg_2 { background:url(../images/tuan/mg2.jpg) no-repeat 0 0; height:0; padding-top:182px; overflow:hidden}
+.art_msg_3 { background:url(../images/tuan/mg3.jpg) no-repeat 0 0; height:0; padding-top:182px; overflow:hidden}
+.art_msg_4 { background:url(../images/tuan/mg4.jpg) no-repeat 0 0; height:0; padding-top:42px; overflow:hidden}
+.art_msg_5 { background:url(../images/tuan/mg5.jpg) no-repeat 0 0; height:0; padding-top:36px; height:75px; font-size:12px; overflow:hidden}
+.art_msg_5  span{ color:#f60}
+.art_msg_6{ padding:12px;}
+
+.detail_nav{ display:block; height:33px; background:url(../images/tuan/detail_nav_bg.gif) repeat-x 0px bottom; padding-left:15px; }
+.detail_nav li{ display:inline-block; float:left; width:100px; height:33px; border-right:#ccc solid 1px;  text-align:center; line-height:33px; font-size:12px; cursor:pointer;}
+.detail_nav li.current_nav{ background:#fff;}
+.box_main{ padding:20px;}
+.consult-list{ font-size:12px;}
+
+
+.youhui_sp_ul{ padding:5px; display:block;}
+.youhui_sp_ul li{ display:block; padding:5px 0px;}
+.youhui_sp_title{ background:#f2f2f2; padding:5px; height:25px; line-height:25px; cursor:pointer; margin-top:1px;}
+
+
+
+#recent-deals .deals-list li {
+	border-bottom: #ccc 1px dashed;
+	width: 315px !important;
+	float: left;
+	height: 228px;
+	overflow: hidden;
+}
+
+#recent-deals .deals-list li.first {
+	height: 213px
+}
+
+#recent-deals .deals-list li.alt {
+	border-left: #ccc 1px dashed;
+	padding-left: 20px
+}
+
+#recent-deals .deals-list .time {
+	margin-top: 15px;
+	color: #000;
+	font-size: 12px;
+	font-weight: bold
+}
+
+#recent-deals .deals-list .first .time {
+	margin-top: 0px
+}
+
+#recent-deals .deals-list h4 {
+	margin-top: 5px;
+	padding-right: 10px;
+	height: 42px;
+	font-weight: normal;
+	overflow:hidden
+}
+
+#recent-deals .deals-list h4 a {
+	color: #666
+}
+
+#recent-deals .pic {
+	margin: 8px 0px 20px;
+	width: 200px;
+	float: left;
+	_display: inline
+}
+
+#recent-deals .pic img {
+	display: block
+}
+
+#recent-deals .info {
+	padding-left: 15px;
+	width: 100px;
+	float: left;
+	color: #666;
+	font-size: 12px;
+	padding-top: 5px
+}
+
+#recent-deals .total strong {
+	color: #c33;
+	font-size: 20px
+}
+
+#recent-deals .price {
+	line-height: 1.5;
+	margin-top: 6px;
+	font-size: 12px
+}
+
+#recent-deals .price strong {
+	color: #000;
+	font-size: 14px;
+	font-weight: bold
+}
+
+#recent-deals .price strong.discount {
+	color: #c33;
+	font-size: 14px;
+	font-weight: bold
+}
+
+#recent-deals .price strong.old {
+	text-decoration: line-through
+}
+
+#recent-deals .detail {
+	margin-top: 8px;
+	color: #666;
+	font-size: 12px
+}
+
+#recent-deals .deal-subscribe {
+	margin-top: 0px
+}
+
+
+
+
+#g_recent {
+	width: 702px;
+	overflow: hidden;
+}
+
+#g_recent ul {
+	padding: 0;
+}
+
+#g_recent li {
+	clear: both;
+	border-bottom: #ccc 1px dashed;
+	padding: 10px;
+	margin: 0;
+	padding: 16px 4px 0 8px;
+	text-align: left;
+}
+
+#g_recent .date {
+	background: url(../images/tuan/bg_date.jpg);
+	height: 83px;
+	width: 83px;
+	text-align: center;
+	float: left;
+}
+
+#g_recent .date .d_y {
+	color: #fff;
+	font-size: 14px;
+	line-height: 26px;
+}
+
+#g_recent .date .d_d {
+	font-size: 28px;
+	color: #999;
+	font-weight: bold;
+	line-height: 28px;
+	margin-top: 2px;
+}
+
+#g_recent .date .d_r {
+	margin-top: 5px;
+	font-size: 14px;
+	color: #999;
+}
+
+#g_recent .picture {
+	width: 220px;
+	margin: 0px 0 0 14px;
+	_margin: 0px 0 0 7px;
+	float: left;
+}
+
+#g_recent .picture .p-box {
+	width: 220px;
+	height: 127px;
+	float: left;
+	border: solid 1px #ccc;
+	text-align: center;
+	overflow: hidden;
+	position:relative
+}
+
+#g_recent .picture .p-box .soldout{
+	z-index: 1;
+	position: absolute;
+	width: 122px;
+	bottom: 0px;
+	background: url(../images/tuan/bg-deals-default-soldout.png) no-repeat 0px
+		0px;
+	height: 69px;
+	right: 0px;
+	_bottom: -1px
+}
+
+
+
+
+.insale{
+	z-index: 1;
+	position: absolute;
+	width: 75px;
+	bottom: 0px;
+	background: url(../images/tuan/bg-deals-default-isopen.png) no-repeat 0px
+		0px;
+	height: 75px;
+	right: 0px;
+	_bottom: -1px
+}
+	
+.soldoutlink {
+	z-index: 2;
+	position: absolute;
+	text-indent: -999em;
+	outline-width: 0px;
+	width: 122px;
+	bottom: 0px;
+	display: block;
+	height: 69px;
+	right: 0px
+}
+
+#g_recent .picture .p-box img {
+	width: 220px;
+	height: 135px;
+}
+
+#g_recent .picture .p-boximg {
+	height: 200px;
+}
+
+#g_recent .picture .p-button {
+	padding: 10px 0;
+	float: left;
+	text-align: center;
+}
+
+#g_recent .picture .p-comment {
+	line-height: 28px;
+	float: right;
+	padding: 10px 0;
+}
+
+#g_recent .picture .p-comment a {
+	background: url(../images/tuan/lay03.jpg) no-repeat right 0;
+	padding: 5px 40px 0 0;
+	display: block;
+	float: left;
+}
+
+#g_recent .info {
+	width: 310px;
+	float: left;
+	margin: 0 0 0 15px;
+}
+
+#g_recent .info .tit {
+	font-size: 14px;
+	font-weight: bold;
+	line-height: 22px;
+	margin-bottom: 5px;
+	padding: 0 8px;
+	line-height: 24px;
+	
+}
+
+#g_recent .info .tit a {
+	color: #3366CC;
+}
+
+#g_recent .info .gmsll {
+	background: #FFF4DD;
+	padding: 2px 6px;
+	line-height: 20px;
+	color: #000;
+}
+
+#g_recent .info .gmsll .bod {
+	font-weight: bold;
+	font-size: 14px;
+}
+
+#g_recent .info .gmsll p {
+	float: left;
+}
+
+#g_recent .info .miaoshu {
+	line-height: 18px;
+	padding: 5px 15px;
+	color: #000;
+}
+
+#g_recent .info .jiesheng {
+	text-align: right;
+	color: #000;
+	padding: 5px;
+}
+
+#g_recent .notice {
+	padding: 30px;
+	color: #666;	
+	line-height: 28px;
+}
+
+
+
+
+
+
+#recent-deals .pic {
+	position: relative;
+	margin: 8px 0px 20px;
+	width: 200px;
+	float: left;
+	height: 121px;
+	_display: inline
+}
+
+#recent-deals .pic .soldout {
+	z-index: 1;
+	position: absolute;
+	width: 122px;
+	bottom: 0px;
+	background: url(../images/tuan/bg-deals-default-soldout.png) no-repeat 0px
+		0px;
+	height: 69px;
+	right: 0px;
+	_bottom: -1px
+}

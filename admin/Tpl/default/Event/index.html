@@ -1,0 +1,46 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<php>
+	function get_submit_count($count,$data)
+	{
+		return "目前共".$data['submit_count']."人报名&nbsp;&nbsp; <a href='".u("EventSubmit/index",array("event_id"=>$data['id']))."'>查看报名记录</a>";
+	}	
+</php>
+<script type="text/javascript">
+	function preview(id)
+	{
+		window.open("__ROOT__/youhui.php?ctl=edetail&id="+id+"&preview=1");
+	}
+</script>
+<div class="main">
+<div class="main_title">{$main_title}</div>
+<div class="blank5"></div>
+<div class="button_row">
+	<input type="button" class="button" value="{%ADD}" onclick="add();" />
+	<input type="button" class="button" value="{%FOREVERDEL}" onclick="foreverdel();" />
+</div>
+<div class="blank5"></div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">	
+		名称：<input type="text" class="textbox" name="name" value="{:trim($_REQUEST['name'])}" />		
+		<input type="hidden" value="Event" name="m" />
+		<input type="hidden" value="index" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+	</form>
+</div>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="item" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|50px,name:{%EVENT_NAME},user_id|get_submit_user:{%EVENT_PUB_USER},cate_id|get_event_cate_name:{%EVENT_CATE},city_id|get_city_name:{%EVENT_CITY},submit_count|get_submit_count=$item:{%SUBMIT_COUNT},reply_count:{%REPLY_COUNT},click_count:{%CLICK_COUNT},sort|get_sort=$item['id']:{%SORT},is_effect|get_toogle_status=$item['id']#is_effect:{%IS_EFFECT},is_recommend|get_toogle_status=$item['id']#is_recommend:{%IS_RECOMMEND}" 
+	actionlist="edit:{%EDIT}, foreverdel:{%FOREVERDEL},preview:预览" /> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

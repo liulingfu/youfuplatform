@@ -1,0 +1,6 @@
+<select name="pid">
+	<option value="0">{%TOP_AREA}</option>
+	<foreach name="area_list" item="area">
+		<option value="{$area.id}" <if condition="$vo['pid'] eq $area['id']">selected="selected"</if>>{$area.name}</option>
+	</foreach>
+</select>

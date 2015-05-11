@@ -1,0 +1,66 @@
+{include file="biz/biz_header.html"} 
+
+{include file="biz/biz_nav.html"}
+<div class="blank"></div>
+<div class="wrap">
+{include file="biz/biz_info_header.html"}
+<div class="biz_index_box clearfix">
+	<div class="short f_l">
+		{include file="biz/biz_left.html"}
+	</div>
+	<div class="long f_r">
+		
+			<div class="blank"></div>
+			
+			<div class="tr pd10">
+				<a href="{url a="biz" r="balance"}">结算报表</a>
+				&nbsp;&nbsp;<a href="{url a="biz" r="balance#log"}" style="font-weight:bold;">财务明细</a>
+				{if $account_data.allow_charge}
+				&nbsp;&nbsp;<a href="{url a="biz" r="balance#charge"}">商家提现</a>
+				{/if}
+			</div>
+			
+			<div class="blank"></div>
+			<div  style="padding:0 10px;">
+					<!--table-->
+					<table cellspacing="0" cellpadding="0" border="0" class="data-table">
+						<tr>
+
+							<th >备注</th>
+							<th  width=150>日期</th>						
+							<th  width=150>金额</th>
+						</tr>
+						{foreach from=$dataList item=row key=key}
+						<tr {if $key mod 2 eq  1}class="gray"{/if}>
+							<td style="text-align:left;">
+								{$row.log_info}							
+							</td>
+							<td>
+								{function name="to_date" v=$row['create_time']}
+							</td>
+							<td>
+								{function name="format_price" v=$row['money']}
+							</td>
+
+							
+						</tr>
+						{/foreach}
+				</table>
+			
+			<div class="blank"></div>
+			
+			<div class="tr pd10">
+			当前商家余额：{function name="format_price" v=$account_data['money']}
+			</div>
+			<div class="pages">
+				{$pages}
+			</div>
+					<!--end table-->
+			</div>				
+	</div>
+	<div class="blank"></div>
+</div><!--end biz_index_box-->
+
+</div>
+<div class="blank"></div>
+{include file="biz/biz_footer.html"} 

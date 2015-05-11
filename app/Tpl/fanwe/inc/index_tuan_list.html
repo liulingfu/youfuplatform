@@ -1,0 +1,41 @@
+<div class="index_tuan_list">
+	<div class="top clearfix">
+		<h3 class="f_l">{$LANG.TUAN_PROMOTION}</h3>
+		<span class="f_r">
+			{foreach from="$recommend_cate" item="tcate_item" name="tcate_item"}
+			 {if $smarty.foreach.tcate_item.index < 6}
+			 <a href="{url x="tuan" r="index" p="id=$tcate_item.id"}">{$tcate_item.name}</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+			 {/if}
+			{/foreach}
+			<a href="{url x="tuan" r="index"}">{$LANG.MORE}>></a>
+		</span>
+	</div>
+	<div class="blank12"></div>
+	{foreach from=$tuan_list key=key item=tuan}
+	{if $key <= 3}
+	<div class="tuan_item" {if $key mod 4 eq 3}style="margin-right:0px;"{/if}>
+		{if $tuan.supplier_info}
+		[<a href="{$tuan.supplier_info.url}" title="{$tuan.supplier_info.name}">{function name="msubstr" v=$tuan.supplier_info.name b=0 e=8}</a>]
+		{/if}
+		<a href="{$tuan.url}" title="{$tuan.name}">{function name="msubstr" v=$tuan.name b=0 e=25}</a>
+		<div class="blank"></div>
+		<a href="{$tuan.url}" title="{$tuan.name}">
+		<img src="{function name="get_spec_image" v=$tuan.img w=206 h=131 g=1}"  class="lazy" width=206 height=131 alt="{$tuan.name}" />
+		</a>
+		<div class="blank5"></div>
+		<div class="view_row">
+		<div class="index_tuan_price f_l">
+			{$tuan.current_price_format}
+		</div>
+		<div class="index_tuan_view f_r">
+			<a href="{$tuan.url}">{$LANG.GO_TO_VIEW}</a>
+		</div>
+		<div class="blank"></div>
+		</div>
+		<div class="blank"></div>
+		<div class="f_l">{$tuan.discount}{$LANG.DISCOUNT_OFF}</div>
+		<div class="f_r">{$tuan.deal_success_num}</div>
+	</div>
+	{/if}
+	{/foreach}
+</div>

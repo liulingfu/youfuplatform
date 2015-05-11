@@ -1,0 +1,30 @@
+{if $event_list}
+<div class="blank"></div>
+<div class="index_left_box">
+		<div class="box_top">
+			<div class="index_title_tag_box">
+				<div class="index_title_tag tag_index_left_event"></div>				
+			</div>
+			<div class="f_r top_right_nav">
+				{foreach from=$bcate_list item=event_cate_item}
+				<a href="{url x="youhui" r="event" p="cid=$event_cate_item.id"}" title="{$event_cate_item.name}">{$event_cate_item.name}</a>&nbsp;&nbsp;
+				{/foreach}
+				<a href="{url x="youhui" r="event"}" title="更多">更多</a>&nbsp;&nbsp;
+			</div>
+		</div>
+		<div class="box_main clearfix">
+			{foreach from=$event_list item=event_item key=key}
+			<div class="index_event_item sector_3" style="{if $key mod 3 eq 2}border-right:none; width:295px;{/if} {if $key gt (count($event_list) - 1 - (count($event_list) mod 3))}border-bottom:none;{/if}">
+				<a href="{url x="youhui" r="edetail" p="id=$event_item.id"}" title="{$event_item.name}" target="_blank"><img src="{function name="get_spec_image" v=$event_item.icon w=215 h=145 g=1}" width=275 height=200 class="lazy" alt="{$event_item.name}" /></a>
+				<div class="blank"></div>
+				<a href="{url x="youhui" r="edetail" p="id=$event_item.id"}" title="{$event_item.name}" target="_blank" class="title_link">{function name="msubstr" v=$event_item.name b=0 e=24}</a>
+				<div class="blank5"></div>
+				<div class="event_info">时间：{function name="to_date" v=$event_item.event_begin_time f="Y-m-d"} - {function name="to_date" v=$event_item.event_end_time f="Y-m-d"}</div>
+				<div class="blank1"></div>
+				<div class="event_info">地址：{$event_item.address}</div>
+			</div>
+			{/foreach}
+		</div><!--end box_main-->
+	</div>
+{/if}
+<adv adv_id="首页左侧活动模块广告" />

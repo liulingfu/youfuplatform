@@ -1,0 +1,75 @@
+<div>			
+			
+			<!--begin time box-->
+			{if ($goods.begin_time ne 0 and $youhui.time_status eq 0) or ($goods.end_time ne 0 and $goods.time_status eq 1)} {* 时间 *}
+						<div id="deal-timeleft-box">
+							<div id="deal-timeleft" class="deal-box deal-timeleft deal-on">
+						
+								<div class="limitdate">
+									{$LANG.TIME_LEFT}<ul id="counter"></ul>
+								</div>
+							</div>						
+						</div>
+			{/if}
+			<script type="text/javascript">
+			{if $goods.time_status eq 1} {*/结束倒计时/*}
+			var endTime = {$goods.end_time}000;
+			var nowTime = {function name=get_gmtime}000;
+			var sysSecond = (endTime - nowTime) / 1000;
+			{/if}
+			{if $goods.time_status eq 0} {*/开始倒计时/*}
+			var beginTime = {$goods.begin_time}000;
+			var nowTime = {function name=get_gmtime}000;
+			var sysSecond = (beginTime - nowTime) / 1000;
+			{/if}
+			var interValObj;
+			setRemainTime();
+			function setRemainTime()
+			{	
+				if (sysSecond > 0)
+				{
+					var second = Math.floor(sysSecond % 60);              // 计算秒     
+					var minite = Math.floor((sysSecond / 60) % 60);       //计算分
+					var hour = Math.floor((sysSecond / 3600) % 24);       //计算小时
+					var day = Math.floor((sysSecond / 3600) / 24);        //计算天
+					var timeHtml = "<span>"+hour+"</span>"+LANG['HOUR']+"<span>"+minite+"</span>"+LANG['MIN']+"";
+					if(day > 0)
+						timeHtml ="<span>"+day+"</span>"+LANG['DAY']+"" + timeHtml;
+					
+					timeHtml+="<span>"+second+"</span>"+LANG['SEC']+"";
+					
+					try
+					{
+						$("#counter").html(timeHtml);
+						sysSecond--;
+					}
+					catch(e){}}
+				else
+				{window.clearTimeout(interValObj);}
+				interValObj = window.setTimeout("setRemainTime()", 1000); 	
+			}
+			</script>
+			<!--end time box-->
+			</div>
+			<div class="blank"></div>
+			<div>
+			<!--begin button status-->
+								{if $goods.time_status eq 0} {*/未开始/*}
+								<span>		
+									未开始								
+								</span>
+								<a href="javascript:void(0);" id="collect"></a>
+								{/if}
+								{if $goods.time_status eq 1}{*/已开始/*}									
+									<div name="buy_btn" style="display:inline-block; line-height:39px; float:left;" class="input_shopcart" >{$LANG.BUY_NOW}</div>
+									<a href="javascript:void(0);" id="collect" class="f_l"></a>	
+									<div class="blank1"></div>								
+								{/if}
+								{if $goods.time_status eq 2} {*/已过期/*}									
+									<span>		
+										已过期								
+									</span>
+									<a href="javascript:void(0);" id="collect"></a>							
+								{/if}
+			<!--end button status-->
+			</div>

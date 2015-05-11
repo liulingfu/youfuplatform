@@ -1,0 +1,172 @@
+<div  class="message-list">
+		{* 留言列表 *}
+							<ul>
+								{foreach from=$topic_list item=message_item key=key}
+									<li class="message-row">
+										<table class="msg_row">
+											<tr>
+												<td style="width:60px; text-align:left;">
+													<div class="avatar_small">
+													{function name="show_avatar" uid=$message_item.user_id  type="small" }
+													</div>													
+												</td>
+												<td>
+													<div class="item">	
+														<p class="f_l">															
+																{if $message_item.fav_id gt 0}
+																	<strong>
+																	{function name="get_user_name" value=$message_item.user_id} 
+																	</strong>&nbsp;&nbsp;
+																	<span style="font-size:12px; color:#999;">
+																	<?php echo sprintf($GLOBALS['lang']['USER_FAV_THIS'],pass_date($this->_var['message_item']['create_time']));?>
+																	</span>
+																{elseif $message_item.relay_id gt 0}	
+																	<strong>
+																	{function name="get_user_name" value=$message_item.user_id} 
+																	</strong>&nbsp;&nbsp;
+																	<span style="font-size:12px; color:#999;">
+																	<?php echo sprintf($GLOBALS['lang']['USER_RELAY_THIS'],pass_date($this->_var['message_item']['create_time']));?>
+																	</span>
+																{else}							
+																	<strong>
+																	{function name="get_user_name" value=$message_item.user_id} 
+																	</strong>&nbsp;&nbsp;
+																	<span style="font-size:12px; color:#999;">
+																	<?php echo sprintf($GLOBALS['lang']['SUPPLIER_COMMENT_SAY'],pass_date($this->_var['message_item']['create_time']));?>
+																	</span>
+																{/if}
+																
+															</p>
+															
+															<!--<p class="f_r">
+																{$LANG.REPLY}：{$message_item.reply_count} &nbsp;&nbsp;												
+																<a href='javascript:;' onclick="vote_topic({$message_item.id},'good',this);"><span class="comment_word comment_5">{$LANG.TOPIC_GOOD}{$message_item.good_count}</span></a> &nbsp;&nbsp;
+																<a href='javascript:;' onclick="vote_topic({$message_item.id},'bad',this);"><span class="comment_word comment_1">{$LANG.TOPIC_BAD}{$message_item.bad_count}</span></a>
+															</p>-->
+															
+															<div class="blank5"></div>
+															{if $message_item.rel_url neq ""}
+															<a href="{$message_item.rel_url}" class="topic_title_link">{$message_item.title}</a>
+															{else}
+															<span class="topic_title_row">{$message_item.title}</span>
+															{/if}
+															<div class="blank"></div>
+															{if $message_item.short_content}
+															<div class="text">							
+																<span class="quote_begin"></span>{$message_item.short_content}<span class="quote_end"></span>
+															</div>
+															<div class="blank"></div>
+															{/if}
+															{foreach from=$message_item.images item=img key=key}
+															<span class='toogle_topic_image_box'><img onclick='zoom(this);' src='{$img.path}' o='{$img.o_path}' b='{function name="get_spec_image" v=$img.o_path w=525 h=0 g=0 p=0 }' s = '{$img.path}' w='{$img.width}' h='{$img.height}' tag='s' class="lazy" width=100 /></span>
+															{/foreach}	
+															
+										
+															
+															{if $message_item.id neq $message_item.origin_id}
+																{if $message_item.origin}
+																	<div class="topic_origin">
+																		
+																		<span class="avatar_small">
+																		{function name="show_avatar" uid=$message_item.origin.user_id  type="small" }
+																		</span>
+																		
+																		{if $message_item.origin.fav_id gt 0}
+																			<strong>
+																			{function name="get_user_name" value=$message_item.origin.user_id} 
+																			</strong>&nbsp;&nbsp;
+																			<span style="font-size:12px; color:#999;">
+																			<?php echo sprintf($GLOBALS['lang']['USER_FAV_THIS'],pass_date($this->_var['message_item']['origin']['create_time']));?>
+																			</span>
+																		{elseif $message_item.origin.relay_id gt 0}	
+																			<strong>
+																			{function name="get_user_name" value=$message_item.origin.user_id} 
+																			</strong>&nbsp;&nbsp;
+																			<span style="font-size:12px; color:#999;">
+																			<?php echo sprintf($GLOBALS['lang']['USER_RELAY_THIS'],pass_date($this->_var['message_item']['origin']['create_time']));?>
+																			</span>
+																		{else}							
+																			<strong>
+																			{function name="get_user_name" value=$message_item.origin.user_id} 
+																			</strong>&nbsp;&nbsp;
+																			<span style="font-size:12px; color:#999;">
+																			<?php echo sprintf($GLOBALS['lang']['SUPPLIER_COMMENT_SAY'],pass_date($this->_var['message_item']['origin']['create_time']));?>
+																			</span>
+																		{/if}
+																		
+																		<a href="{url x="shop" r="topic" p="id=$message_item.origin.id"}"  class="origin_topic_title">{$LANG.ORIGIN_TOPIC}</a>
+																		<div class="blank5"></div>
+																		{$message_item.origin.short_content}
+																		<div class="blank5"></div>
+																		{foreach from=$message_item.origin.images item=img key=key}
+																		<span class='toogle_topic_image_box'><img onclick='zoom(this);' src='{$img.path}' o='{$img.o_path}' b='{function name="get_spec_image" v=$img.o_path w=525 h=0 g=0 p=0 }' s = '{$img.path}' w='{$img.width}' h='{$img.height}' tag='s' /></span>
+																		{/foreach}	
+																		
+																	</div>
+																
+																{else}
+																<div class="origin_delete">
+																	{$LANG.ORIGIN_DELETE}
+																</div>
+																{/if}
+															{/if}
+																		
+													</div>
+													
+												</td>
+											</tr>
+										</table>
+											
+										
+											
+										<div class="blank"></div>
+										{if $message_item.tags}	
+										<div class="f_l">
+											<span class="msg_row_ico_tag">
+											{foreach from=$message_item.tags_array item=tag}
+											<a href="{url x="shop" r="topic#search" p="keyword=$tag"}" title="{$tag}">
+											<?php 
+												if(is_array($this->_var['kws_div'])&&in_array($this->_var['tag'],$this->_var['kws_div']))
+												{
+													echo "<span class='result_match'>".$this->_var['tag']."</span>";
+												}
+												else
+												{
+													echo $this->_var['tag'];
+												}
+											?>
+											</a>
+											{/foreach}
+											</span>
+										</div>
+										{/if}										
+										<div class="f_r">											
+											{if $message_item.user_id eq $user_info.id}		
+											<span class="msg_row_ico_del">								
+											<a href="javascript:void(0);" onclick="delete_topic({$message_item.id},$(this).parent().parent().parent());">{$LANG.DELETE}</a>
+											</span>
+											{elseif $user_auth['topic']['del']}
+											<span class="msg_row_ico_del">								
+											<a href="javascript:void(0);" onclick="op_topic_del({$message_item.id});">{$LANG.DELETE}</a>
+											</span>	
+											{elseif $user_auth['group']['del'][$message_item['group_id']]}
+											<span class="msg_row_ico_del">								
+											<a href="javascript:void(0);" onclick="op_group_del({$message_item.id});">{$LANG.DELETE}</a>
+											</span>	
+											{/if}	
+		
+											
+											<span class="msg_row_ico_reply"><a href="{url x="shop" r="topic" p="id=$message_item.id"}#reply">{$LANG.TOPIC_COMMENT} ({$message_item.reply_count})</a></span>
+											<span class="msg_row_ico_fav"><a href="javascript:void(0);" onclick="fav_topic({$message_item.id});">{$LANG.FAV_TOPIC} ({$message_item.fav_count}) </a></span>
+											<span class="msg_row_ico_relay"><a href="javascript:void(0);" onclick="relay_topic({$message_item.id});">{$LANG.RELAY_TOPIC} ({$message_item.relay_count})</a></span>
+											<span class="msg_row_ico_view"><a href="{url x="shop" r="topic" p="id=$message_item.id"}">{$LANG.VIEW_DETAIL}</a></span>
+										</div>
+										<div class="blank1"></div>	
+									</li>
+								{/foreach}							
+							</ul>
+							{* 留言列表 *}
+							
+							<div class="blank"></div>							
+							<div class="pages">{$pages}</div>	
+		</div><!--end message-list-->	

@@ -1,0 +1,10 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<foreach name="filter_group" item="filter_item">
+	<div>
+		<span id="title_{$filter_item.id}">{$filter_item.name}</span>：
+		<input type="text" class="textbox" name="filter[{$filter_item.id}]" value="{$filter_item.value}" />
+		<div class="blank5"></div>
+	</div>
+	
+</foreach>

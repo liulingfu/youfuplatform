@@ -1,0 +1,14 @@
+<div class="cart_item_row">
+<div class="cart_img f_l"><img src="{function name="get_spec_image" v=$cart_item.img w=50 h=50 g=1}" /></div>
+<div class="cart_title f_l">
+	{$LANG.YOU_HAVE_ADD} <span class="cart_item_name">{$cart_item.name}</span> {$LANG.ADDCART_SUCCESS}
+	<div class="blank"></div>
+	{$LANG.BUY_NUMBER}：{$cart_item.add_number} 
+	{if $cart_item.add_total_price gt 0}{$LANG.PRICE}：{function name="format_price" v=$cart_item.add_total_price}{/if}
+	{if $cart_item.add_total_score lt 0}{$LANG.SCORE}：<?PHP echo format_score(abs($this->_var['cart_item']['add_total_score']));?>{/if}
+	<div class="blank"></div>
+	<input type="button" class="input_keep" value="{$LANG.KEEP_BUYING}" onclick="close_pop();" />
+	<input type="button" class="input_shopcart" value="{$LANG.TO_CART}" onclick="location.href=CART_URL;" />
+</div>
+</div>
+<div class="blank"></div>

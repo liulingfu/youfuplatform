@@ -1,0 +1,48 @@
+<div id="cart_total_box">
+	<div class="order-check-form ">
+		<p style="text-align: right; line-height: 24px;">
+		{$LANG.DEAL_TOTAL_PRICE}：{function name="format_price" value=$result.total_price} 
+		{if $result.delivery_fee gt 0}
+		+ {$LANG.DELIVERY_FEE}：{function name="format_price" value=$result.delivery_fee}
+		{/if}		
+		{if $result.user_discount gt 0}
+		- {$LANG.USER_DISCOUNT}：{function name="format_price" value=$result.user_discount}
+		{/if}
+		{if $result.payment_fee gt 0}
+		+ {$LANG.PAYMENT_FEE}：{function name="format_price" value=$result.payment_fee} 
+		{/if}
+		{if $result.paid_account_money gt 0}
+		- {$LANG.ACCOUNT_PAY_AMOUNT}：{function name="format_price" value=$result.paid_account_money}
+		{/if}
+		{if $result.paid_ecv_money gt 0}
+		- {$LANG.ECV_PAY_AMOUNT}：{function name="format_price" value=$result.paid_ecv_money}
+		{/if}
+		=
+		<span class="red">{function name="format_price" value=$result.pay_total_price}</span>
+		</p>
+		<p style="text-align: right; line-height: 24px;">
+		
+		{if $result.account_money gt 0}
+		- {$LANG.ACCOUNT_PAY}：{function name="format_price" value=$result.account_money} <br>
+		{/if}
+		
+		{if $result.ecv_money gt 0}
+		- {$LANG.ECV_PAY}：{function name="format_price" value=$result.ecv_money} <br>
+		{/if}
+		
+		= {$LANG.PAY_TOTAL_PRICE_ORDER}：{if $result.payment_info} {function name="sprintf" value=$LANG.PAYMENT_BY p=$result.payment_info.name}{/if}
+		<span class="red">{function name="format_price" value=$result.pay_price}</span>&nbsp;
+		<br>
+		</p>
+		<div class="blank"></div>
+		<p style="text-align: right; line-height: 24px;">
+		{if $result.return_total_money ne 0}
+		{$LANG.RETURN_TOTAL_MONEY}： {function name="format_price" value=$result.return_total_money} <br>
+		{/if}
+		{if $result.return_total_score ne 0}
+		{$LANG.RETURN_TOTAL_SCORE}：  {function name="format_score" value=$result.return_total_score}
+		{/if}
+		</p>
+		<div class="blank"></div>
+		</div>
+</div>

@@ -1,0 +1,65 @@
+{include file="inc/header.html"} 
+<?php
+$this->_var['darencss'][] = $this->_var['TMPL_REAL']."/css/daren.css";
+$this->_var['darenjs'][] = $this->_var['TMPL_REAL']."/js/darenshow.js";
+$this->_var['cpdarenjs'][] = $this->_var['TMPL_REAL']."/js/darenshow.js";
+?>
+<link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$darencss"}" />
+<script type="text/javascript" src="{function name="parse_script" v="$darenjs" c="$cpdarenjs"}"></script>
+<div class="blank"></div>
+<div class="daren_recommend_box">
+	<div class="darenshow_tag"></div>
+	<div class="t"></div>
+	<div class="m">
+		<div class="daren_list">
+		{if count($rnd_daren_list) < 42}
+		<img src="{$TMPL}/images/demo_daren.jpg" />
+		{else}
+		{foreach from=$rnd_daren_list item=daren}
+		{function name="show_avatar" uid="$daren.id"  type="small"}
+		{/foreach}
+		{/if}
+		</div>
+		<div class="daren_submit">
+			<a href="{url x="shop" r="daren#submit"}"><img src="{$TMPL}/images/darensubmit.png" /></a>
+		</div>
+		<div class="blank1"></div>
+	</div>
+	<div class="b"></div>
+</div>
+
+<div class="blank"></div>
+
+					<div class="show-nav" id="rel_nav">
+					<!--{start: 达人导航 -->
+						<ul>
+							<li class="first on" data-category="0"><a href="javascript:;">热门推荐</a></li>
+							{foreach from=$cate_list item=cate_item name=cateloop}							
+							<li data-category="{$cate_item.id}" {if $smarty.foreach.cateloop.last}class="last"{/if}><a href="javascript:;">{$cate_item.name}</a></li>
+							{/foreach}
+						</ul>
+					<!--}end: 达人导航 -->
+					</div>
+<div class="blank"></div>
+<div class="blank"></div>
+					
+<!--list-->
+{$daren_html}
+<!--end list-->
+
+<div style="display:none;" class="fix-nav">
+	<!--{start: 浮动导航 -->
+		<div class="show-nav">
+					<!--{start: 达人导航 -->
+						<ul>
+							<li class="first on" data-category="0"><a href="javascript:;">热门推荐</a></li>
+							{foreach from=$cate_list item=cate_item name=cateloop}							
+							<li data-category="{$cate_item.id}" {if $smarty.foreach.cateloop.last}class="last"{/if}><a href="javascript:;">{$cate_item.name}</a></li>
+							{/foreach}
+						</ul>
+					<!--}end: 达人导航 -->
+	</div>
+	<!--}end: 达人导航 -->
+</div>
+<div class="blank"></div>
+{include file="inc/footer.html"}

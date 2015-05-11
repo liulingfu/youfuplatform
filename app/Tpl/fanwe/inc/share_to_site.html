@@ -1,0 +1,15 @@
+<li>
+			<a class="kaixin" href="http://www.kaixin001.com/repaste/share.php?rurl={$deal.share_url}&rcontent={function name="urlencode" value=$deal.brief}&rtitle={function name="urlencode" value=$deal.name}" target=_blank>开心</a>
+</li>
+<li>
+			<a class="renren" href="http://share.renren.com/share/buttonshare.do?link={$deal.share_url}&title={function name="urlencode" value=$deal.name}" target=_blank>人人</a>
+</li>
+<li>
+			<a class="douban" href="http://www.douban.com/recommend/?url={$deal.share_url}&title={function name="urlencode" value=$deal.name}&comment={function name="urlencode" value=$deal.brief}" target=_blank>豆瓣</a>
+</li>
+<li>
+			<a class="sina" href="http://v.t.sina.com.cn/share/share.php?url={$deal.share_url}&title={function name="urlencode" value=$deal.name}" target=_blank>新浪微博</a>
+</li>
+<li>
+			<a id="deal-buy-mailto" class="email" href="mailto:?subject=<?php echo urlencode(iconv("utf-8","gbk",$this->_var['deal']['name']));?>&body=<?php echo urlencode(iconv("utf-8","gbk","你好，发现一个新的团购网站：".$this->_var['deal']['share_url']));?>">邮件</a>
+</li>

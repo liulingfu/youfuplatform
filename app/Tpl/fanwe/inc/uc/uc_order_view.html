@@ -1,0 +1,210 @@
+<div class="inc">
+	<div class="inc_top">{$page_title}</div>
+	<div class="inc_main">
+		<div class="uc-order">
+			<table cellspacing="0" cellpadding="0" border="0">
+								<tbody><tr>
+									<td class="ltd">{$LANG.ORDER_SN}：</td>
+									<td class="rtd" colspan="3">{$order_info.order_sn}</td>
+								</tr>
+
+								<tr>
+									<td class="ltd">{$LANG.PAY_STATUS}：</td>
+									<td class="rtd" colspan="3">
+										<?PHP echo $this->_var['LANG']['ORDER_PAY_STATUS_'.$this->_var['order_info']['pay_status']];?>
+										{if $order_info.pay_status neq 2 and $order_info.order_status neq 1}
+										<a href="{url x="shop" r="uc_order#modify" p="id=$order_info.id"}">{$LANG.CONTINUE_PAY}</a>
+										{/if}
+									</td>
+								</tr>
+								<tr>
+									<td class="ltd">{$LANG.DELIVERY_STATUS}：</td>
+									<td class="rtd" colspan="3">
+									<?PHP echo $this->_var['LANG']['ORDER_DELIVERY_STATUS_'.$this->_var['order_info']['delivery_status']];?>
+									{if $order_info.delivery_fee gt 0}
+									&nbsp;&nbsp;{$LANG.DELIVERY_FEE}：{function name="format_price" value=$order_info.delivery_fee}
+									{/if}
+									</td>
+								</tr>
+								<tr>
+									<td class="ltd">{$LANG.ORDER_CREATE_TIME}：</td>
+									<td class="rtd">
+									{function name="to_date" value=$order_info.create_time}
+									</td>
+									<td class="ltd">{$LANG.ADMIN_LAST_OP_TIME}：</td>
+									<td class="rtd">{function name="to_date" value=$order_info.update_time}</td>
+								</tr>
+								{if $order_info.delivery_id neq 0}
+								<tr>
+									<td class="ltd">{$LANG.CONSIGNEE}：</td>
+									<td class="rtd">{$order_info.consignee}</td>
+									<td>{$LANG.MOBILE}：</td>
+									<td class="rtd">{$order_info.mobile}</td>
+								</tr>								
+								
+								<tr>
+									<td class="ltd">{$LANG.REGION_INFO}：</td>
+									<td class="rtd" colspan="3">
+									{$LANG.REGION_LV1}：{$order_info.region_lv1.name}&nbsp;&nbsp;		
+									{$LANG.REGION_LV2}：{$order_info.region_lv2.name}&nbsp;&nbsp;	
+									{$LANG.REGION_LV3}：{$order_info.region_lv3.name}&nbsp;&nbsp;	
+									{$LANG.REGION_LV4}：{$order_info.region_lv4.name}&nbsp;&nbsp;	
+									</td>
+								</tr>
+								<tr>
+									<td class="ltd">{$LANG.ADDRESS}：</td>
+									<td class="rtd" colspan="3">
+									{$order_info.address}								
+									</td>
+								</tr>
+								<tr>
+									<td class="ltd">{$LANG.ZIP}：</td>
+									<td class="rtd" colspan="3">{$order_info.zip}</td>
+								</tr>
+								{/if}
+																
+								<tr>
+									<td style="" class="ltd">
+									{$LANG.ORDER_MEMO}：									
+									</td>									
+									<td style="text-align: left;" class="rtd" colspan="3">
+									{$order_info.memo}
+									</td>
+								</tr>
+								<tr>
+									<td style="" class="ltd">
+									{$LANG.AFTER_SALE}：									
+									</td>									
+									<td style="text-align: left;" class="rtd" colspan="3">
+									<?PHP echo $this->_var['LANG']['AFTER_SALE_'.$this->_var['order_info']['after_sale']];?>
+									</td>
+								</tr>
+								{if $order_info.admin_memo}
+								<tr>
+									<td style="" class="ltd">
+									{$LANG.ADMIN_MEMO}：									
+									</td>									
+									<td style="text-align: left;" class="rtd" colspan="3">
+									{$order_info.admin_memo}
+									</td>
+								</tr>
+								{/if}
+
+								<tr>
+									<td class="rtd" colspan="4">
+										<table cellspacing="0" cellpadding="0" border="0" class="uc-order-item">
+											<tr>
+												<th style="width: 200px;">{$LANG.DEAL_ITEM}</th>
+												<th width="50">{$LANG.UNIT_PRICE}</th>
+												<th width="50">{$LANG.SCORE}</th>
+												<th width="30">{$LANG.NUMBER}</th>
+												<th width="50">{$LANG.TOTAL_PRICE}</th>
+												<th width="50">{$LANG.TOTAL_SCORE}</th>
+												<th width="170">{$LANG.DELIVERY_NOTICE}</th>
+											</tr>
+											{foreach from=$order_info.deal_list item=deal key=key}
+											<tr>
+												<td style="text-align: left;">
+												{if $deal.is_shop eq 1}
+													<a href="{url x="shop" r="goods" p="id=$deal.deal_id"}">
+													{$deal.name}
+													</a>
+												{else}
+													<a href="{url x="tuan" r="deal" p="id=$deal.deal_id"}">
+													{$deal.name}
+													</a>
+												{/if}
+												</td>
+												<td>{function name="format_price" value=$deal.unit_price}</td>
+												<td>{function name="format_score" value=$deal.return_score}</td>
+												<td>{$deal.number}</td>
+												<td>{function name="format_price" value=$deal.total_price}</td>
+												<td>{function name="format_score" value=$deal.return_total_score}</td>
+												<td>{function name="get_delivery_sn" value=$deal.id}</td>
+											</tr>
+											{/foreach}
+											<?php unset($this->_var['deal']);?>
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<td class="rtd" colspan="4">
+									{*订单统计*}
+									<div id="cart_total_box">
+									<div class="order-check-form ">
+										<p style="text-align: right; line-height: 24px;">
+										{$LANG.DEAL_TOTAL_PRICE}：{function name="format_price" value=$order_info.deal_total_price} 
+										{if $order_info.delivery_fee gt 0}
+										+ {$LANG.DELIVERY_FEE}：{function name="format_price" value=$order_info.delivery_fee}
+										{/if}
+										{if $order_info.payment_fee gt 0}
+										+ {$LANG.PAYMENT_FEE}：{function name="format_price" value=$order_info.payment_fee} 
+										{/if}
+										{if $order_info.discount_price gt 0}
+										- {$LANG.USER_DISCOUNT}：{function name="format_price" value=$order_info.discount_price}
+										{/if}
+										=
+										<span class="red">{function name="format_price" value=$order_info.total_price}</span>
+										</p>
+										<p style="text-align: right; line-height: 24px;">
+										
+										{if $order_info.account_money gt 0}
+										- {$LANG.ACCOUNT_PAY}：{function name="format_price" value=$order_info.account_money} <br>
+										{/if}
+										
+										{if $order_info.ecv_money gt 0}
+										- {$LANG.ECV_PAY}：{function name="format_price" value=$order_info.ecv_money} <br>
+										{/if}
+										
+										= {$LANG.PAY_TOTAL_PRICE_ORDER}：{if $order_info.payment_id gt 0}{function name="sprintf" value=$LANG.PAYMENT_BY p=$order_info.payment.name}{/if}
+										<span class="red">
+											<?PHP echo format_price($this->_var['order_info']['total_price']-$this->_var['order_info']['account_money']-$this->_var['order_info']['ecv_money']);?>
+										</span>&nbsp;
+										<br>
+										</p>
+										<div class="blank"></div>
+										<p style="text-align: right; line-height: 24px;">
+										{if $order_info.return_total_money ne 0}
+										{$LANG.RETURN_TOTAL_MONEY}： {function name="format_price" value=$order_info.return_total_money} <br>
+										{/if}
+										{if $order_info.return_total_score ne 0}
+										{$LANG.RETURN_TOTAL_SCORE}：  {function name="format_score" value=$order_info.return_total_score}
+										{/if}
+										</p>
+										<div class="blank"></div>
+										</div>
+								</div>
+									{*订单统计*}
+									</td>
+								</tr>
+							</tbody></table>
+							{if $log_list}
+							<div class="blank"></div>
+							
+							<table cellspacing="1" cellpadding="0" border="0">
+							<tr>
+								<th colspan=2 style="text-align:center; ">{$LANG.ORDER_TRACT}</th>
+							</tr>
+							{foreach from=$log_list item=log_item}
+							{if $log_item.log_info neq ''}
+								<tr>
+								<td style="background:#fff;">
+								{$log_item.log_info}
+								</td>
+								<td  style="background:#fff;">
+								{function name="to_date" value=$log_item.log_time}
+								</td>
+								</tr>
+							{/if}
+							{/foreach}
+							
+							</table>
+							
+						{/if}
+		</div>				
+		
+	</div>
+	<div class="inc_foot"></div>
+</div>
+<div class="blank"></div>
+{include file="inc/message_form.html"}	

@@ -1,0 +1,123 @@
+{include file="inc/header.html"} 
+{include file="inc/group_title.html"}
+<div class="long f_l">
+	<div class="group_memo_box">
+		{function name="nl2br" v=$group_info.memo}
+		{if $user_auth['group']['setmemo'][0] or $user_auth['group']['setmemo'][$group_info['id']]}
+		<div class="blank"></div>
+		<div class="f_r">
+			<a href="javascript:void(0);" onclick="op_group_setmemo({$group_info.id});">编辑</a>
+		</div>
+		{/if}
+		<div class="blank"></div>
+		
+		{if $is_join eq 0}
+		<a href="javascript:void(0);" onclick="join_group({$group_info.id});" class="join_group f_l" ></a> <span class="group_count f_l" style="margin-left:10px;">已有 <span>{$group_info.user_count}</span> 位成员</span>
+		{else}
+		<span class="group_count f_l" style="margin-left:10px;">已有 <span>{$group_info.user_count}</span> 位成员</span> ，我是小组成员  &nbsp;&nbsp;<a href="javascript:void(0);" onclick="exit_group({$group_info.id});" class="exit_group">退出小组</a>
+		{/if}
+		
+		<div class="blank1"></div>
+	</div>
+	
+	<div class="blank"></div>
+	
+	
+	<div id="filter_row">
+		<div class="f_l">
+		<a href="{$urls.all}#filter_row">全部</a> / <a href="{$urls.is_best}#filter_row">推荐</a> / <a href="{$urls.create_time}#filter_row">创建时间</a> / <a href="{$urls.last_time}#filter_row">最后回复</a>
+		</div>
+		
+		<div class="f_r">
+			{if $is_join eq 1}
+			<a href="{url x="shop" r="group#addtopic" p="id=$group_info.id"}" class="add_topic">&nbsp;</a>
+			{/if}
+		</div>
+	</div>
+	<div class="topic_list">
+	{foreach from=$list item=topic}
+
+	<li class="tl_f">
+		<div class="tl_c">			
+			{if $topic.is_best eq 1}			
+            <div class="img_tj"></div>
+			{/if}
+			<div class="pic">
+			{function name="show_avatar" uid=$topic.user_id t="small"}
+			</div>
+			<div class="ct">               
+				<p class="title clearfix">
+					{if $topic.is_top eq 1}
+					<span class="top fl">[置顶]</span>	
+					{/if}				
+					<a class="tit fl " target="_blank" href="{url x="shop" r="topic" p="id=$topic.id"}" title="{$topic.forum_title}">{function name="msubstr" v=$topic.forum_title b=0 e=35}</a>				
+				</p>
+				<p class="author">
+					<span class="n">
+						{function name="get_user_name" v=$topic.user_id}
+					</span>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					{if $topic.last_user_id gt 0}
+					<span class="n reply">
+						{function name="get_user_name" v=$topic.last_user_id} 在 {function name="pass_date" v=$topic.last_time} 回应了该主题
+					</span>
+					{/if}
+				</p>
+			</div>
+		</div>
+		<div class="count">{$topic.reply_count}</div>
+		<span class="p_time">
+			{function name="pass_date" v=$topic.create_time}		
+		</span>
+	</li>	
+
+
+	{/foreach}
+	</div>
+	<div class="blank"></div>
+	<div class="pages">{$pages}</div>
+</div><!--end long-->
+<div class="short f_r">
+	<div class="inc">
+	<div class="inc_top">本组成员
+	<span class="f_r more"><a title="{$LANG.MORE}" href="{url x="shop" r="group#user_list" p="id=$group_info.id"}">{$LANG.MORE}</a></span>
+	</div>
+	<div class="inc_main user_list">
+		<div class="blank"></div>
+		{if $group_info.user_id gt 0}
+		<span>
+			<div class="f_l">
+			{function name="show_avatar" uid=$group_info.user_id  type="small"}
+			</div>
+			<div class="f_l" style="padding-left: 10px; width:70px; overflow:hidden;">
+			{function name="get_user_name" value=$group_info.user_id} 
+			<br />
+			组长			
+			</div>
+		</span>	
+		<div class="blank"></div>
+		{/if}
+		{foreach from=$user_list item=user_item}
+		
+		<span>
+			<div class="f_l">
+			{function name="show_avatar" uid=$user_item.id  type="small"}
+			</div>
+			<div class="f_l" style="padding-left: 10px; width:70px; overflow:hidden;">
+			{function name="get_user_name" value=$user_item.id} 
+			<br />
+			{if $user_item.type eq 1}管理员{else}组员{/if}
+			
+			</div>
+		</span>	
+		<div class="blank"></div>									
+		{/foreach}
+		
+	</div>
+	
+	
+</div>
+</div>
+
+<div class="blank"></div>
+{include file="inc/footer.html"}

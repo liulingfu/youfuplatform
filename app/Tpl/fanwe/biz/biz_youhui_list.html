@@ -1,0 +1,61 @@
+{include file="biz/biz_header.html"} 
+
+{include file="biz/biz_nav.html"}
+<div class="blank"></div>
+<div class="wrap">
+{include file="biz/biz_info_header.html"}
+<div class="biz_index_box clearfix">
+	<div class="short f_l">
+		{include file="biz/biz_left.html"}
+	</div>
+	<div class="long f_r">
+		<div class="blank10"></div>
+		<h3 class="modify-title">
+			优惠券短信下载日志
+			<a href="{url x="biz" r="youhui"}">返回上一页</a>
+		</h3>
+		<table cellspacing="0" cellpadding="0" border="0" class="data-table">
+			<tr>
+				<th>会员</th>
+				<th>下载时间</th>
+				<th>手机号</th>	
+				<th>是否消费</th>						
+				<th>额外信息</th>
+			</tr>
+			{foreach from=$log_list item=log key=key}
+			<tr {if $key mod 2 eq  1}class="gray"{/if}>
+				<td style="text-align:left;">
+					{function name="get_user_name" v=$log.user_id}											
+				</td>
+				<td>
+					{function name="to_date" v=$log.create_time}
+				</td>
+				<td>
+					{$log.mobile}
+				</td>
+				<td>
+					{if $log.confirm_id eq 0}
+					未使用
+					{else}
+					已于{function name="to_date" v=$log.confirm_time}消费
+					{/if}
+				</td>
+				<td>			
+				{if $youhui_info.send_type eq 2}							
+					预订人数：{$log.order_count}
+					是否包间: {if $log.is_private_room eq 1}是{else}否{/if}
+					预订时间: {function name="to_date" v=$log.date_time}
+				{/if}
+				</td>
+			</tr>
+			{/foreach}
+		</table>
+		<div class="blank"></div>
+		<div class="pages">{$pages}</div>
+	</div>
+	<div class="blank"></div>
+</div><!--end biz_index_box-->
+
+</div>
+<div class="blank"></div>
+{include file="biz/biz_footer.html"} 

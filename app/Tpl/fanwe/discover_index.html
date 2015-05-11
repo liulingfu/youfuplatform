@@ -1,0 +1,55 @@
+{include file="inc/header.html"} 
+<?php
+$this->_var['discovercss'][] = $this->_var['TMPL_REAL']."/css/discover.css";
+$this->_var['discoverjs'][] = $this->_var['TMPL_REAL']."/js/discover.js";
+$this->_var['cpdiscoverjs'][] = $this->_var['TMPL_REAL']."/js/discover.js";
+?>
+<link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$discovercss"}" />
+<script type="text/javascript" src="{function name="parse_script" v="$discoverjs" c="$cpdiscoverjs"}"></script>
+<div class="blank"></div>
+<div class="show-nav" id="rel_nav">
+<ul>
+	<li class="first {if $cid eq 0}on{/if}" data-category="0"><a href="{url x="shop" r="discover"}">全部</a></li>
+	{foreach from=$cate_list item=cate_item name=cateloop}							
+	<li class="{if $smarty.foreach.cateloop.last}last{/if} {if $cid eq $cate_item['id']}on{/if}"><a href="{url x="shop" r="discover" p="cid=$cate_item.id"}">{$cate_item.name}</a></li>
+	{/foreach}
+</ul>
+</div>
+<div class="blank"></div>
+<div class="discover_col" id="discover_col1">
+	<!--标签列表-->
+	<div class="discover_tags">
+		<div class="discover_tags_top"></div>
+		<div class="discover_tags_center">
+			<ul>
+			{foreach from=$tag_list item=tag_item}
+			<li><a {if $tag_item.color neq '' and  $tag neq $tag_item.name}style="color:{$tag_item.color};"{/if} href="{url x="shop" r="discover" p="cid=$cid&tag=$tag_item.name"}" {if $tag eq $tag_item.name}class="act"{/if}>
+				{$tag_item.name}
+				</a></li>
+			{/foreach}
+			</ul>
+			<div class="blank"></div>
+		</div>
+		<div class="discover_tags_bottom"></div>
+	</div>
+	<div class="blank"></div>
+	<!--end 标签-->
+</div>
+<div class="discover_col" id="discover_col2">
+	
+	
+	
+</div>
+<div class="discover_col" id="discover_col3"></div>
+<div class="discover_col" id="discover_col4"></div>
+<div class="blank"></div>
+<input type="hidden" name="cid" id="hd_cid" value="{$cid}" />
+<input type="hidden" name="tag" id="hd_tag" value="{$tag}" />
+<input type="hidden" name="page" id="hd_page" value="{$page}" />
+<input type="hidden" name="step_size" id="hd_step_size" value="{$step_size}" />
+<input type="hidden" name="step" id="hd_step" /> 
+<input type="hidden" name="ajax_wait" id="ajax_wait" /> 
+<div id="loading"> <span class="loading_span"></span><span>正在加载中......</span></div>
+<div class="pages">{$pages}</div>
+<div class="blank"></div>
+{include file="inc/footer.html"}

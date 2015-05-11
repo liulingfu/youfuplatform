@@ -1,0 +1,80 @@
+<?php
+$this->_var['pmjs'][] = $this->_var['TMPL_REAL']."/js/pm.js";
+$this->_var['cpmjs'][] = $this->_var['TMPL_REAL']."/js/pm.js";
+?>
+<script type="text/javascript" src="{function name="parse_script" v="$pmjs" c="$cpmjs"}"></script>
+<div class="inc">
+	<div class="inc_top">{$page_title}</div>
+	<div class="inc_main">
+		
+		<div class="uc-table">
+		<div class="f_l">
+		{$LANG.SELECT_ALL}<input type="checkbox" name="checkall" /> <input type="button" value="{$LANG.DELETE}" name="del_pm" class="remove_msg_btn" />
+		</div>
+		<div class="f_r">
+			<input type="button" value="{$LANG.WRITE_PM}"  class="remove_msg_btn" onclick="location.href='{url x="shop" r="uc_msg#deal"}';" />
+		</div>
+		<div class="blank"></div>
+		<table cellspacing="0" cellpadding="0" border="0" class="uc-msg-table" >
+		<form name="pm_list">
+			{foreach from=$msg_list item=pm key=key}
+			<tr class="pm_row">
+				<td width=15>					
+					<input type="checkbox" value="{$pm.group_key}" name="pm_key[]" />					
+				</td>
+				<td width=15>
+					{if $pm.system_msg_id neq 0 or $pm.is_notice}<span class="pm_pic"></span>{/if}
+					{if $pm.system_msg_id eq 0 and $pm.is_notice eq 0}
+						{if $pm.to_user_id eq $user_info.id}
+						{function name="show_avatar" v=$pm.from_user_id t="small"}
+						{/if}
+						{if $pm.from_user_id eq $user_info.id}
+						{function name="show_avatar" v=$pm.to_user_id t="small"}
+						{/if}
+					{/if}{*头像*}
+				</td>
+				
+				<td style="text-align:left;">
+					
+					{if $pm.type eq 0 and $pm.is_read eq 0}<span class="new_pm"></span>{/if}
+					
+					{if $pm.system_msg_id neq 0 or $pm.is_notice}{if $pm.is_notice}系统通知{else}{$LANG.SYSTEM_PM}{/if}：<span style="color:#b40001; font-weight:bolder;">{$pm.title}</span>
+					{/if}
+					{if $pm.system_msg_id eq 0 and $pm.is_notice eq 0}
+		
+						{if $pm.from_user_id eq $user_info.id}{$LANG.I}{else}{function name="get_user_name" v=$pm.from_user_id s="0"}{/if}
+						{$LANG.SAYTO}
+						{if $pm.to_user_id eq $user_info.id}{$LANG.I}{else}{function name="get_user_name" v=$pm.to_user_id s="0"}{/if}
+						{$LANG.SAY}：
+				
+					{/if}
+					<br />
+					<a href="{url x="shop" r="uc_msg#deal" p="id=$pm.group_key"}">
+					{function name="msubstr" v=$pm.content b=0 e=100}
+					</a>&nbsp;&nbsp;
+					<a href="{url x="shop" r="uc_msg#deal" p="id=$pm.group_key"}" class="view_pm">
+						{if $pm.system_msg_id eq 0 and $pm.type eq 0 and $pm.is_notice eq 0}
+						[{$LANG.VIEW_AND_REPLY}]
+						{else}
+						[{$LANG.VIEW}]			
+						{/if}			
+					</a>
+					
+				</td>
+				<td width=100 style="text-align:right;">
+					{function name="sprintf" f=$LANG.TOTAL_PM v=$pm.total}
+					<br />
+					{function name="pass_date" v=$pm.create_time}
+				</td>
+			</tr>				
+			{/foreach}
+		</form>
+		</table>
+						
+		<div class="blank"></div>
+		<div class="pages" style="padding:0px; margin:0px;">{$pages}</div>
+		</div><!--end uc-table-->
+	</div>
+	<div class="inc_foot"></div>
+</div>
+

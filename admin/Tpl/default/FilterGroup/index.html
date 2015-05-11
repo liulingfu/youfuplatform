@@ -1,0 +1,37 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<php>
+	function get_cate_name($cate_id)
+	{
+		return M("ShopCate")->where("id=".$cate_id)->getField("name");
+	}
+</php>
+<script type="text/javascript">
+	function filter_list(id)
+	{
+		location.href = "__APP__?m=Filter&a=index&filter_group_id="+id;
+	}
+</script>
+<div class="main">
+<div class="main_title">{$main_title}</div>
+<div class="blank5"></div>
+<div class="button_row">
+	<input type="button" class="button" value="{%ADD}" onclick="add();" />
+	<input type="button" class="button" value="{%FOREVERDEL}" onclick="foreverdel();" />
+</div>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="filtergroup" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|50px,name:{%NAME}:edit,cate_id|get_cate_name:{%GOODS_CATE}" 
+	actionlist="edit:{%EDIT}, foreverdel:{%FOREVERDEL},filter_list:{%FILTER_LIST}" /> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

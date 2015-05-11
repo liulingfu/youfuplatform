@@ -1,0 +1,40 @@
+<div class="deal-consult sbox">
+	<div class=sbox-top><H2>{$LANG.DEAL_MESSAGE}</H2></div>
+	<div class=sbox-content>		
+		<div class=deal-consult-tip>
+			
+			<p class=nav>
+				<a href="{url x="tuan" r="message#faq"}" target=_blank>{$LANG.ALL_MESSAGE}(<span id="new-message-count">{$side_message.count}</span>)</a> 
+				|
+				<a href="{url x="tuan" r="message#faq" }#consult-form-head" target=_blank>{$LANG.ASK}</a>
+			</p>
+			<ul class="list" id="new-message-ul">
+				{foreach from=$side_message.list item=message}
+				<li>{if $message.point gt 0}<span class='comment_{$message.point}'><?php echo $GLOBALS['lang']['COMMENT'.$this->_var['message']['point']];?></span>{/if}<a href='{$message.url}' title="{$message.content}">{function name="msubstr" value=$message.content b="0" e="30"}</a></li>
+				{/foreach}
+			</ul>
+
+			<div class=custom-service>
+				<p class=im >
+				{foreach from=$online_msn item=msn}
+				{if $msn neq ''}
+				<a id=service-msn-help href="msnim:chat?contact={$msn}" target=_blank>
+					<img src="{$TMPL}/images/button-custom-msn.gif">
+				</a> 
+				{/if}
+				{/foreach}
+				{foreach from=$online_qq item=qq}
+				{if $qq neq ''}
+				<a href="http://wpa.qq.com/msgrd?v=3&uin={$qq}&site=qq&menu=yes" target=_blank>
+					<img alt="" src="{$TMPL}/images/button-custom-qq.gif">
+				</a>
+				{/if}
+				{/foreach}
+				</p>
+				<p class=time>{function name="app_conf" value="ONLINE_TIME"}</p>
+			</div>
+		</div>
+	</div>
+
+	<div class=sbox-bottom></div>
+</div>

@@ -1,0 +1,91 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title">{%EDIT} <a href="{:u("DealCity/index")}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%NAME}:</td>
+		<td class="item_input">
+			<if condition="$vo['pid'] neq 0">
+				<input type="text" class="textbox require" name="name" value="{$vo.name}" />
+			<else />
+				<input type="hidden" class="textbox" name="name" value="{$vo.name}" />
+				{$vo.name} 
+			</if>
+		</td>
+	</tr>
+	<if condition="$vo['pid'] neq 0">
+	<tr>
+		<td class="item_title">{%U_NAME}:</td>
+		<td class="item_input"><input type="text" class="textbox require" name="uname" value="{$vo.uname}" /> [{%CITY_UNAME_UNIQUE}]</td>
+	</tr>		
+	<tr>
+		<td class="item_title">{%SORT}:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="sort" value="{$vo.sort}" />
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%IS_EFFECT}:</td>
+		<td class="item_input">
+			<lable>{%IS_EFFECT_1}<input type="radio" name="is_effect" value="1" <if condition="$vo['is_effect'] eq 1">checked="checked"</if> /></lable>
+			<lable>{%IS_EFFECT_0}<input type="radio" name="is_effect" value="0" <if condition="$vo['is_effect'] eq 0">checked="checked"</if> /></lable>
+		</td>
+	</tr>
+	<tr style="display:none;">
+		<td class="item_title">{%IS_OPEN}:</td>
+		<td class="item_input">
+			<lable>{%IS_OPEN_1}<input type="radio" name="is_open" value="1" <if condition="$vo['is_open'] eq 1">checked="checked"</if> /></lable>
+			<lable>{%IS_OPEN_0}<input type="radio" name="is_open" value="0" <if condition="$vo['is_open'] eq 0">checked="checked"</if> /></lable>
+		</td>
+	</tr>
+	</if>
+	<tr style="display:none;">
+		<td class="item_title">{%CITY_DESCRIPTION}:</td>
+		<td class="item_input">
+			 <html:editor id="editor" name="description" type="KINDEDITOR" content="{$vo.description}" />
+		</td>
+	</tr>
+	<tr style="display:none;">
+		<td class="item_title">{%CITY_NOTICE}:</td>
+		<td class="item_input">
+			 <html:editor id="notice" name="notice" type="KINDEDITOR" content="{$vo.notice}" />
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%CITY_SEO_TITLE}:</td>
+		<td class="item_input"><textarea class="textarea" name="seo_title" >{$vo.seo_title}</textarea></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%CITY_SEO_KEYWORD}:</td>
+		<td class="item_input"><textarea class="textarea" name="seo_keyword" >{$vo.seo_keyword}</textarea></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%CITY_SEO_DESCRIPTION}:</td>
+		<td class="item_input"><textarea class="textarea" name="seo_description" >{$vo.seo_description}</textarea></td>
+	</tr>
+	<tr>
+		<td class="item_title"></td>
+		<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="id" value="{$vo.id}" />
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="DealCity" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="update" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%EDIT}" />
+			<input type="reset" class="button" value="{%RESET}" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>	 
+</form>
+</div>
+<include file="Public:footer" />

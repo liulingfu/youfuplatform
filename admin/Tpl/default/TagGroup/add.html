@@ -1,0 +1,96 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title">{%ADD_TAGGROUP} <a href="{:u("TagGroup/index")}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+	<form name="edit" id="form" action="__APP__" method="post" enctype="multipart/form-data">
+	<table cellpadding="4" cellspacing="0" border="0" class="form">
+		<tr>
+			<td colspan=2 class="topTd"></td>
+		</tr>
+		<tr>
+			<td class="item_title">{%NAME}</td>
+			<td class="item_input"><input type="text" class="textbox require" name="name" id="name" /></td>
+		</tr>
+		
+		<tr>
+			<td class="item_title">备注</td>
+			<td class="item_input"><input type="text" class="textbox" name="memo" id="memo" /></td>
+		</tr>
+		
+		<tr>
+			<td class="item_title">允许用户点评</td>
+			<td class="item_input">
+				<select name="allow_dp">
+					<option value="1">是</option>
+					<option value="0">否</option>
+				</select>
+			</td>
+		</tr>
+		
+		<tr>
+			<td class="item_title">允许检索</td>
+			<td class="item_input">
+				<select name="allow_search">
+					<option value="1">是</option>
+					<option value="0">否</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td class="item_title">允许对标签投票</td>
+			<td class="item_input">
+				<select name="allow_vote">
+					<option value="1">是</option>
+					<option value="0">否</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td class="item_title">{%SORT}</td>
+			<td><input type="text" class="textbox" name="sort" value="100" size=5 /></td>
+		</tr>
+			<tr>
+			<td class="item_title">默认预选值</td>
+			<td class="item_input">
+				<input type="text" class="textbox" name="preset" id="preset" style="width:500px;" />
+				<span class="tip_span">(空格分隔)</span>
+			</td>
+		</tr>
+		
+		</tr>
+			<tr>
+			<td class="item_title">检索标签</td>
+			<td class="item_input">
+				<input type="text" class="textbox" name="tags" id="tags" style="width:500px;" />
+				<span class="tip_span">(空格分隔)</span>
+			</td>
+		</tr>
+		
+		</tr>
+			<tr>
+			<td class="item_title">所属分类</td>
+			<td class="item_input">
+				<foreach name="deal_cates" item="deal_cate">
+					<label><input type="checkbox" name="cate_id[]" value="{$deal_cate.id}" />{$deal_cate.name}</label>
+				</foreach>
+			</td>
+		</tr>
+		
+		<tr>
+			<td class="item_title"></td>
+			<td class="item_input">
+				<input type="hidden" name="{:conf("VAR_MODULE")}" value="TagGroup" />
+				<input type="hidden" name="{:conf("VAR_ACTION")}" value="insert" />
+				<input type="submit" class="button" value="{%ADD}" />
+				<input type="reset" class="button" value="{%RESET}" />
+			</td>
+		</tr>
+		<tr>
+			<td colspan=2 class="bottomTd"></td>
+		</tr>
+	</table>
+	</form>
+</div>
+<include file="Public:footer" />

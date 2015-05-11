@@ -1,0 +1,126 @@
+{include file="biz/biz_header.html"} 
+
+{include file="biz/biz_nav.html"}
+<div class="blank"></div>
+<div class="wrap">
+{include file="biz/biz_info_header.html"}
+<div class="biz_index_box clearfix">
+	<div class="short f_l">
+		{include file="biz/biz_left.html"}
+	</div>
+	<div class="long f_r">
+		
+								<div class="uc-order">
+								<table cellspacing="1" cellpadding="0" border="0" id="order_info">
+								<tbody><tr>
+									<td class="ltd">{$LANG.ORDER_SN}：</td>
+									<td class="rtd" colspan="3"><a href="{url x="biz" r="order#view" p="id=$order_info.id"}">{$order_info.order_sn}</a></td>
+								</tr>
+
+								<tr>
+									<td>{$LANG.PAY_STATUS}：</td>
+									<td class="rtd" colspan="3">
+										<?PHP echo $this->_var['LANG']['ORDER_PAY_STATUS_'.$this->_var['order_info']['pay_status']];?>
+									</td>
+								</tr>
+								
+								<tr>
+									<td>{$LANG.ORDER_CREATE_TIME}：</td>
+									<td class="rtd">
+									{function name="to_date" value=$order_info.create_time}
+									</td>
+									<td class="ltd">{$LANG.ORDER_USER}：</td>
+									<td class="rtd">{function name="get_user_name" value=$order_info.user_id}</td>
+								</tr>
+								{if $order_info.delivery_id neq 0}
+								<tr>
+									<td>{$LANG.CONSIGNEE}：</td>
+									<td class="rtd">{$order_info.consignee}</td>
+									<td>{$LANG.CONSIGNEE_MOBILE}：</td>
+									<td class="rtd">{$order_info.mobile}</td>
+								</tr>								
+								
+								<tr>
+									<td>{$LANG.REGION_INFO}：</td>
+									<td class="rtd" colspan="3">
+									{$LANG.REGION_LV1}：{function name="get_region_name" value=$order_info.region_lv1}&nbsp;&nbsp;		
+									{$LANG.REGION_LV2}：{function name="get_region_name" value=$order_info.region_lv2}&nbsp;&nbsp;	
+									{$LANG.REGION_LV3}：{function name="get_region_name" value=$order_info.region_lv3}&nbsp;&nbsp;	
+									{$LANG.REGION_LV4}：{function name="get_region_name" value=$order_info.region_lv4}&nbsp;&nbsp;	
+									</td>
+								</tr>
+								<tr>
+									<td>{$LANG.ADDRESS}：</td>
+									<td class="rtd" colspan="3">
+									{$order_info.address}								
+									</td>
+								</tr>
+								<tr>
+									<td>{$LANG.ZIP}：</td>
+									<td class="rtd" colspan="3">{$order_info.zip}</td>
+								</tr>
+								{/if}
+																
+								<tr>
+									<td style="" class="ltd">
+									{$LANG.ORDER_MEMO}：									
+									</td>									
+									<td style="text-align: left;" class="rtd" colspan="3">
+									{$order_info.memo}
+									</td>
+								</tr>
+								
+
+								<tr>
+									<td class="rtd" colspan="4">
+										<table cellspacing="0" cellpadding="0" border="0" class="coupons-table" id="order-list">
+											<form name="delivery" action="{url x="biz" r="order#do_delivery_form"}" method="post" />
+											<tr>
+												<th width="30">{$LANG.OPERATION}</th>
+												<th style="width: 400px;">{$LANG.DEAL_ITEM}</th>
+												<th>{$LANG.NUMBER}</th>
+												
+											</tr>
+											{foreach from=$order_goods item=deal key=key}
+											<tr {if $key mod 2 eq 0}class="alt"{/if}>
+												<td>
+													<input type="checkbox" value="{$deal.doiid}" name="order_deals[]" />
+												</td>
+												<td style="text-align: left;">													
+													{$deal.sub_name}	
+													{if $deal.delivery_status eq 1}
+													{$LANG.ITEM_HAS_DELIVERYED}
+													{else}
+													{$LANG.ITEM_NOT_DELIVERYED}
+													{/if}																								
+												</td>
+												<td>{$deal.number}</td>
+												
+											</tr>
+											{/foreach}
+											<?php unset($this->_var['deal']);?>
+											<tr>
+												<th colspan=3 style="text-align:right;">
+													<input type="hidden" class="f-input" name="order_id" value="{$order_info.id}" />
+												
+													{$LANG.DELIVERY_SN}：<input type="text" class="f-input" name="delivery_sn" style="width:100px;" />
+													{$LANG.DELIVERY_MEMO}：<input type="text" class="f-input" name="memo" style="width:100px;" />
+													<input type="submit" value="{$LANG.DODELIVERY}" class="formbutton" /> 
+												</th>
+												
+												
+											</tr>
+											</form>
+										</table>
+									</td>
+								</tr>
+								
+							</tbody></table>
+							</div>
+	</div>
+	<div class="blank"></div>
+</div><!--end biz_index_box-->
+
+</div>
+<div class="blank"></div>
+{include file="biz/biz_footer.html"} 

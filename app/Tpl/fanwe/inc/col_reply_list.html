@@ -1,0 +1,48 @@
+{if $reply_list}
+<ul>
+								{foreach from=$reply_list item=reply_item key=key}
+									<li class="message-row"  style="position:relative;">
+										<table class="col_row">
+											<tr>
+												<td style="width:35px; text-align:left; vertical-align:top;" >
+													<div class="avatar_tiny">
+													{function name="show_avatar" uid=$reply_item.user_id  type="small" }
+													</div>													
+												</td>
+												<td>
+													<div class="item">
+																							
+													<p class="f_l">		
+																						
+														<strong>
+														{function name="get_user_name" value=$reply_item.user_id} 
+														</strong>
+														<span style="font-size:12px; color:#999;">
+														<?php echo sprintf($GLOBALS['lang']['SUPPLIER_COMMENT_SAY'],pass_date($this->_var['reply_item']['create_time']));?>
+														</span>
+														
+													</p>			
+													<div class="blank5"></div>	
+													{if $reply_item.reply_user_id neq 0}
+													{$LANG.REPLY} {$reply_item.reply_user_name}
+													{/if}					
+													<div class="blank"></div>
+													<p>							
+														{function name="nl2br" v=$reply_item.content}
+													</p>
+																	
+												</div>
+												</td>
+												</tr>
+												</table>
+										<div class="blank"></div>
+									</li>
+									
+								{/foreach}							
+</ul>
+{/if}
+<div class="blank"></div>
+<form name="reply_from" action="{url x="shop" r="topic#reply"}">
+{function name="show_reply_form" text_name="content" width="170px" height="50px" id="reply_topic_form" show_btn="1"}
+<input type="hidden" name="topic_id" value="{$topic_id}" />		
+</form>

@@ -1,0 +1,10 @@
+<div class="biz_info">
+	<div class="f_l">
+		{$account_data.name}
+	</div>
+	<div class="f_r" style="font-size:12px; font-weight:normal; font-family:"宋体";>
+		开户时间：{function name="to_date" v=$account_data.create_time f="Y-m-d"}
+		最后登录：{function name="to_date" v=$account_data.login_time}
+		最后登录IP：{$account_data.login_ip}
+	</div>
+</div>

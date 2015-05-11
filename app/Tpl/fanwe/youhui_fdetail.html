@@ -1,0 +1,163 @@
+{include file="inc/header.html"} 
+<link rel="stylesheet" type="text/css" href="{$TMPL}/css/youhui.css" />
+
+<div class="blank"></div>
+
+<div class="long f_l">
+		<div class="fdetail_box clearfix">
+			<div class="fdetail_box_top">{$youhui_info.name}</div>
+			<div class="clearfix">
+				<div class="blank"></div>
+				<div class="youhui_stitle" style="text-align:center">{$youhui_info.name}</div>
+				<div class="blank"></div>
+				<div class="youhui_time_box">	
+					有效期：{if $youhui_info.end_time gt 0}{if $youhui_info.begin_time gt 0}{function name="to_date" v=$youhui_info.begin_time f="Y-m-d"}{/if}
+					至 {function name="to_date" v=$youhui_info.end_time f="Y-m-d"}{else}{$LANG.NO_END_TIME}{/if}	
+					 | 剩余数量：
+					 <span style="color:#de2b2c;font-weight:bolder; font-family:verdana;"><?php echo $balance=intval($this->_var['youhui_info']['total_num']-$this->_var['youhui_info']['sms_count'] - $this->_var['youhui_info']['print_count']); ?></span>
+					 | 已领取：
+					<span style="color:#de2b2c;font-weight:bolder; font-family:verdana;"><?php echo intval($this->_var['youhui_info']['sms_count'] + $this->_var['youhui_info']['print_count']); ?></span> 人
+				</div>
+				<div class="cut_line"></div>
+				<div class="youhui_sfun">
+
+               <?php if($balance==0){?>
+               <div name="buy_btn" style="display:inline-block; line-height:39px;" class="input_shopcart  youhui_num_over">{$LANG.YOUHUI_NUMS_OVER}</div>	
+<?php }else{?>
+{if $youhui_info.is_print eq 1}
+<a href="{url x="youhui" r="fdetail#fprint" p="id=$youhui_info.id"}" target="_blank" class="free_youhui_p_btn">{$LANG.YOUHUI_PRINT}</a>
+	{/if}
+		{if $youhui_info.is_sms eq 1}
+		<a href="javascript:void(0);" onclick="sms_download({$youhui_info.id});" class="free_youhui_s_btn">{$LANG.SMS_DOWNLOAD}</a>
+			{/if}
+<?php }?>
+					
+				
+				</div>
+				<div class="blank"></div>
+				<div class="lazy tc">
+					{$youhui_info.description}
+				</div>
+				<div class="blank"></div>
+				<div class="youhui_count">
+					<div class="count_box f_l">
+						<b>{$youhui_info.view_count}</b>
+						<span>浏览次数</span>
+					</div>
+					<div class="count_box f_r">
+						<b><?php echo intval($this->_var['youhui_info']['sms_count'] + $this->_var['youhui_info']['print_count']); ?></b>
+						<span>下载次数</span>
+					</div>
+				</div>
+			</div>
+			<div class="cut_line"></div>
+			<div style="padding:15px;">
+				<b>注意事项</b><br>
+				{function name="nl2br" v=$youhui_info.brief}
+			</div>
+			<div class="pd10">
+				<div class="blank"></div>
+			<div class="youhui_time_box1">
+				该优惠有效期：{if $youhui_info.end_time gt 0}{if $youhui_info.begin_time gt 0}{function name="to_date" v=$youhui_info.begin_time f="Y-m-d"}{/if}
+				至 {function name="to_date" v=$youhui_info.end_time f="Y-m-d"}{else}{$LANG.NO_END_TIME}{/if}
+			</div>
+			{if $youhui_info.is_sms eq 1}
+			<div class="sms_box_tip">
+				<span>短信优惠券：（短信下载完全免费，我们会严格保密您的手机号码）</span>
+				<div>{$youhui_info.sms_content}</div>
+			</div>
+			<div class="blank"></div>
+			{/if}
+			<div class="youhui_sfun">
+				&nbsp;&nbsp;
+				
+				   <?php if($balance==0){?>
+               <div name="buy_btn" style="display:inline-block; line-height:39px;" class="input_shopcart  youhui_num_over">{$LANG.YOUHUI_NUMS_OVER}</div>	
+<?php }else{?>
+{if $youhui_info.is_print eq 1}
+<a href="{url x="youhui" r="fdetail#fprint" p="id=$youhui_info.id"}" target="_blank" class="free_youhui_p_btn">{$LANG.YOUHUI_PRINT}</a>
+	{/if}
+		{if $youhui_info.is_sms eq 1}
+		<a href="javascript:void(0);" onclick="sms_download({$youhui_info.id});" class="free_youhui_s_btn">{$LANG.SMS_DOWNLOAD}</a>
+			{/if}
+<?php }?>
+
+			</div>
+			<div class="blank"></div>
+			<div class="youhui-bottom clearfix">
+				<div class="f_l">最终解释权归商家所有。除特殊注明外，本优惠不能与其他优惠同时享受。</div>
+				<div class="f_r">
+					<!-- JiaThis Button BEGIN -->
+					<div id="ckepop">
+						<span class="jiathis_txt">分享到：</span>
+						<a class="jiathis_button_icons_1"></a>
+						<a class="jiathis_button_icons_2"></a>
+						<a class="jiathis_button_icons_3"></a>
+						<a class="jiathis_button_icons_4"></a>
+					</div>
+					<script type="text/javascript" src="http://v2.jiathis.com/code/jia.js" charset="utf-8"></script>
+					<!-- JiaThis Button END -->
+				</div>
+			</div>
+			<div class="blank"></div>
+			</div>
+		</div>
+		
+		
+		
+	<div class="blank"></div>
+	{if $youhui_info.is_effect eq 1}
+	{insert name='load_comment' rel_table="youhui" is_effect = "1" is_image = "1" width="725px" height="80px"} {* 动态点评 *}
+	{/if}
+</div>
+
+<div class="short f_r">
+	{include file="inc/side_supplier_info.html"}
+	{if $near_youhui_list}
+	<div class="inc">
+		<div class="inc_top">{$LANG.NEAR_YOUHUI}</div>
+		<div class="inc_main">
+			{foreach from=$near_youhui_list item=youhui_item}
+			<div class="hot_youhui_item">
+			<a href="{url x="youhui" r="fdetail" p="id=$youhui_item.id"}" title="{$youhui_item.name}">{$youhui_item.name}</a>
+			</div>
+			{/foreach}
+		</div>
+		<div class="inc_foot"></div>
+	</div>
+	<div class="blank"></div>
+	{/if}	
+	{if $rec_youhui_list}
+	<div class="inc">
+		<div class="inc_top">猜您还喜欢</div>
+		<div class="inc_main">
+			{foreach from=$rec_youhui_list item=youhui_item}
+			<div class="hot_youhui_item">
+			<a href="{url x="youhui" r="fdetail" p="id=$youhui_item.id"}" title="{$youhui_item.name}">{$youhui_item.name}</a>
+			</div>
+			{/foreach}
+		</div>
+		<div class="inc_foot"></div>
+	</div>
+	{/if}	
+</div>
+<script>
+	$(".youhui-tabs em").click(function(){
+		$("#youhui-c-box-0").hide();
+		$("#youhui-c-box-1").hide();
+		$(".youhui-tabs em").removeClass("cur");
+		$(this).addClass("cur");
+		if($(this).attr("rel")=="0")
+		{
+			$("#youhui-c-box-0").show();
+		}
+		else{
+			$("#youhui-c-box-1").show();
+		}
+		
+	});
+</script>
+
+<div class="blank"></div>
+
+{include file="inc/footer.html"}

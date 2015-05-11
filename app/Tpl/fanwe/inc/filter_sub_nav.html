@@ -1,0 +1,5 @@
+<ul class="filter_sub_nav">
+{foreach from=$sub_nav item=nav}
+<li {if $nav.current eq 1}class="current"{/if}><a href="{$nav.url}" title="{$nav.name}">{$nav.name}</a></li>
+{/foreach}
+</ul>

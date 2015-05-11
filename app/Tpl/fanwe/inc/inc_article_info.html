@@ -1,0 +1,12 @@
+<div class="inc">
+	<div class="inc_top">{$page_title}</div>
+	<div class="inc_main pd10">
+		<div class="article_title">{$article.title}</div>
+		<div class="article_time">{function name="to_date" v=$article.update_time} </div>
+		<div class="article_click">{$LANG.CLICK_COUNT}：{insert name="load_article_click" article_id=$article.id} </div>
+		<div class="article_info">
+		{$article.content}
+		</div>
+	</div>
+	<div class="inc_foot"></div>
+</div>

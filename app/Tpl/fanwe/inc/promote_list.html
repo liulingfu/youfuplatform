@@ -1,0 +1,9 @@
+{if $promote}
+<div class="blank"></div>
+<div class="promote_list">
+<div class="inc_top" style="font-size:14px; font-weight:bold; color:#f30;"><b>促销活动</b></div>
+{foreach from=$promote item=promote_item}
+<div class="item" style="padding:5px 0px 0px 0px;">{$promote_item.description}</div>
+{/foreach}
+</div>
+{/if}

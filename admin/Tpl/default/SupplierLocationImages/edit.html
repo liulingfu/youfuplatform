@@ -1,0 +1,86 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href="__TMPL__Common/Js/dp.js" />
+<div class="main">
+<div class="main_title">
+	{%EDIT}<a href="{:u("SupplierLocationImages/index",array("supplier_location_id"=>$vo['supplier_location_id']))}" class="back_list">{%BACK_LIST}</a></div>
+</div>
+<form method='post' id="form" name="form" action="{:U(MODULE_NAME.'/update')}" enctype="multipart/form-data">
+<table cellpadding="4" cellspacing="0" border="0" class="form">
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">简介</td>
+		<td class="item_input"><input type="text" class="textbox require" name="brief" id="brief" value="{$vo.brief}"/></td>
+	</tr>
+	<tr>
+		<td class="item_title">图片</td>
+		<td class="item_input">
+			<html:imgUpload name = 'image' id='image' value='$vo.image'  />
+		</td>
+	</tr>
+
+	<tr>
+		<td class="item_title">排序</td>
+		<td class="item_input"><input type="text" class="textbox" name="sort" id="sort" value="{$vo.sort}" /></td>
+	</tr>
+		
+	<tr>
+        <td class="item_title">所属商户</td>
+        <td class="item_input">
+                <select id="supplier_location_id" name="supplier_location_id" class="require">
+                    {$vo.supplier_location_id|getMerchantOption}						
+                </select>
+                <input id='supplier_location_name' type='text' class="textbox"/>
+                <input class="button" type="button" value="{%SEARCH}" onclick="getMerchantByName('#supplier_location_id','#supplier_location_name')">
+        </td>
+    </tr>
+	
+	<tr id="images_group_id_area">
+		<td class="item_title">类型</td>
+		<td class="item_input">
+			<select name="images_group_id">
+				<foreach name="images_group" item="group">
+					<option value="{$group.id}" <if condition="$vo['images_group_id'] eq $group['id']">selected="selected"</if> >{$group.name}</option>
+				</foreach>
+			</select>
+		</td>
+	</tr>
+	
+	<tr>
+        <td class="item_title">好评数</td>
+        <td class="item_input">
+               <input id='good_count' name="good_count" type='text' class="textbox" value='{$vo.good_count}' style="width:50px"/>
+        </td>
+    </tr>
+	
+	<tr>
+        <td class="item_title">差评数</td>
+        <td class="item_input">
+               <input id='bad_count' name="bad_count" type='text' class="textbox" value='{$vo.bad_count}' style="width:50px"/>
+        </td>
+    </tr>
+	
+	<tr>
+       <td class="item_title">审核</td>
+        <td class="item_input">
+                <input id='status' name="status" type='checkbox' value='1' <if condition="$vo['status'] eq '1'">checked="checked"</if>/>
+        </td>
+    </tr>
+	
+	<tr>
+		<td class="item_title">&nbsp;</td>
+		<td class="item_input">
+			<input type="hidden" name="id" value="{$vo.id}" />
+			<input type="hidden" name="old_supplier_location_id" value="{$vo.supplier_location_id}" />
+			<input type="hidden" name="user_id" value="{$vo.user_id}" />
+			<input type="submit" class="button" value="{%EDIT}" />
+			<input type="reset" class="button" value="{%RESET}" />
+		</td>
+	</tr>
+</table>
+</form>
+</div>
+<include file="Public:footer" />

@@ -1,0 +1,153 @@
+<div class="inc">
+	<div class="inc_top">{$page_title}</div>
+	<div class="inc_main">
+		<form method="post" action="{url x="shop" r="uc_consignee#save"}" name="modify">
+						<div class="consignee-box order-pay-credit">
+								<div class="field consignee">
+									<label for="settings-consignee">{$LANG.CONSIGNEE}：</label>
+									<input type="text" value="{$consignee_info.consignee}" class="f-input" name="consignee" size="30"><span class="red">*</span>
+								</div>
+								<div class="blank"></div>
+								<div class="field region">
+									<label>{$LANG.REGION_INFO}：</label>
+									{$LANG.REGION_LV1}：<select name="region_lv1">
+										    <option value="0">={$LANG.SELECT_PLEASE}=</option>
+											{foreach from=$region_lv1 item=lv1}
+											<option {if $lv1.selected eq 1}selected="selected"{/if} value="{$lv1.id}">{$lv1.name}</option>
+											{/foreach}
+										  </select>
+															
+									{$LANG.REGION_LV2}：<select name="region_lv2">
+											<option value="0">={$LANG.SELECT_PLEASE}=</option>
+											{foreach from=$region_lv2 item=lv2}
+											<option {if $lv2.selected eq 1}selected="selected"{/if} value="{$lv2.id}">{$lv2.name}</option>
+											{/foreach}
+										  </select>
+															
+									{$LANG.REGION_LV3}：<select name="region_lv3">
+											<option value="0">={$LANG.SELECT_PLEASE}=</option>		
+											{foreach from=$region_lv3 item=lv3}
+											<option {if $lv3.selected eq 1}selected="selected"{/if} value="{$lv3.id}">{$lv3.name}</option>
+											{/foreach}
+										 </select>
+															
+									{$LANG.REGION_LV4}：<select name="region_lv4">
+											<option value="0">={$LANG.SELECT_PLEASE}=</option>
+											{foreach from=$region_lv4 item=lv4}
+											<option {if $lv4.selected eq 1}selected="selected"{/if} value="{$lv4.id}">{$lv4.name}</option>
+											{/foreach}
+										  </select>
+									<span class="red">*</span>
+								</div>
+								<div class="blank"></div>
+								<div class="field address">
+										<label for="delivery-address">{$LANG.ADDRESS}：</label>
+										<input type="text" value="{$consignee_info.address}" class="f-input" name="address" size="30"><span class="red">*</span>
+								</div>
+								<div class="blank"></div>
+								<div class="field zip">
+										<label for="delivery-zip">{$LANG.ZIP}：</label>
+										<input type="text" value="{$consignee_info.zip}" class="f-input" name="zip" size="30"><span class="red">*</span>
+								</div>
+								<div class="blank"></div>
+								<div class="field mobile-phone">
+										<label for="delivery-mobile-phone">{$LANG.MOBILE}：</label>
+										<input type="text" value="{$consignee_info.mobile}" class="f-input" name="mobile" size="30"><span class="red">*</span>
+								</div>
+								<div class="clear"></div>
+								<div class="field">		
+										<label for="act"></label>	
+										<input type="hidden" value="{$consignee_info.id}" name="id" />							
+										<input type="submit" class="formbutton" id="settings-submit" name="commit" value="{$LANG.MODIFY}">
+								</div>
+						</div>
+						</form>
+						<div class="blank"></div>
+	</div>
+	<div class="inc_foot"></div>
+</div>
+<script type="text/javascript" src="{$APP_ROOT}/public/runtime/app/region.js"></script>	
+<script type="text/javascript">
+					$(document).ready(function(){	
+						$("select[name='region_lv1']").bind("change",function(){
+							load_select("1");
+						});
+						$("select[name='region_lv2']").bind("change",function(){
+							load_select("2");
+						});
+						$("select[name='region_lv3']").bind("change",function(){
+							load_select("3");
+						});	
+						$("select[name='region_lv4']").bind("change",function(){
+							load_select("4");
+						});	
+						$("#settings-submit").click(function(){
+							if($.trim($("input[name='consignee']").val())=='')
+							{
+								$.showErr(LANG['FILL_CORRECT_CONSIGNEE']);
+								return false;
+							}
+							if($.trim($("input[name='address']").val())=='')
+							{
+								$.showErr(LANG['FILL_CORRECT_ADDRESS']);
+								return false;
+							}
+							if($.trim($("input[name='zip']").val())=='')
+							{
+								$.showErr(LANG['FILL_CORRECT_ZIP']);
+								return false;
+							}
+							if($.trim($("input[name='mobile']").val())=='')
+							{
+								$.showErr(LANG['FILL_MOBILE_PHONE']);
+								return false;
+							}
+							if(!$.checkMobilePhone($("input[name='mobile']").val()))
+							{
+								$.showErr(LANG['FILL_CORRECT_MOBILE_PHONE']);
+								return false;
+							}
+						});
+					});
+					
+					function load_select(lv)
+					{
+						var name = "region_lv"+lv;
+						var next_name = "region_lv"+(parseInt(lv)+1);
+						var id = $("select[name='"+name+"']").val();
+						
+						if(lv==1)
+						var evalStr="regionConf.r"+id+".c";
+						if(lv==2)
+						var evalStr="regionConf.r"+$("select[name='region_lv1']").val()+".c.r"+id+".c";
+						if(lv==3)
+						var evalStr="regionConf.r"+$("select[name='region_lv1']").val()+".c.r"+$("select[name='region_lv2']").val()+".c.r"+id+".c";
+						
+						if(id==0)
+						{
+							var html = "<option value='0'>="+LANG['SELECT_PLEASE']+"=</option>";
+						}
+						else
+						{
+							var regionConfs=eval(evalStr);
+							evalStr+=".";
+							var html = "<option value='0'>="+LANG['SELECT_PLEASE']+"=</option>";
+							for(var key in regionConfs)
+							{
+								html+="<option value='"+eval(evalStr+key+".i")+"'>"+eval(evalStr+key+".n")+"</option>";
+							}
+						}
+						$("select[name='"+next_name+"']").html(html);
+						
+						if(lv == 4)
+						{
+
+						}
+						else
+						{
+							load_select(parseInt(lv)+1);
+						}
+						
+						
+					}
+				</script>

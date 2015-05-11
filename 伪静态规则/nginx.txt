@@ -1,0 +1,6 @@
+rewrite ^(.*)/biz/((event|index|join|login|order|profile|tuan|verify|youhui|publish)[^\.&]*)$  $1/biz.php?rewrite_param=$2;
+rewrite ^(.*)/youhui/((index|fcate|fdetail|store|tuan|ycate|ydetail|review)[^\.&]*)$  $1/youhui.php?rewrite_param=$2;
+rewrite ^(.*)/tuan/((ajax|coupon|deal|deals|dhapi|index|message|order|referral|rss|search|second|subscribe)[^\.&]*)$  $1/tuan.php?rewrite_param=$2;
+rewrite ^(.*)/shop/((mobile|group|uc_medal|discover|op|acate|ajax|article|avatar|brand|cart|cate|city|discount|exchange|goods|help|link|mall|msg|notice|payment|rec|score|space|ss|sys|topic|uc_account|uc_center|uc_collect|uc_consignee|uc_coupon|uc_invite|uc_message|uc_money|uc_order|uc_topic|uc_voucher|url|user|vote|uc_msg|daren)[^\.&]*)$  $1/shop.php?rewrite_param=$2;
+rewrite ^(.*)/((mobile|group|uc_medal|discover|op|acate|ajax|article|avatar|brand|cart|cate|city|discount|exchange|goods|help|link|mall|msg|notice|payment|rec|score|space|ss|sys|topic|uc_account|uc_center|uc_collect|uc_consignee|uc_coupon|uc_invite|uc_message|uc_money|uc_order|uc_topic|uc_voucher|url|user|vote|uc_msg|daren)[^\.&]*)$  $1/shop.php?rewrite_param=$2;
+rewrite ^(.*)/(tuan|shop|youhui|biz|daijin)([^\.&]*)$  $1/$2.php?rewrite_param=$3;

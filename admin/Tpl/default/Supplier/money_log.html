@@ -1,0 +1,22 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title"><a href="{:u("Supplier/index")}">{$supplier_info.name}</a>  财务明细</div>
+<div class="blank5"></div>
+
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="log" 
+	checkbox="true" 
+
+	datasource="list" 
+	show="id:{%ID}|50px,money|format_price:金额,create_time|to_date:日期,log_info:备注" 
+	/> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

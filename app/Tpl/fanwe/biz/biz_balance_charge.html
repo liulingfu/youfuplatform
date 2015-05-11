@@ -1,0 +1,88 @@
+{include file="biz/biz_header.html"} 
+
+{include file="biz/biz_nav.html"}
+<div class="blank"></div>
+<div class="wrap">
+{include file="biz/biz_info_header.html"}
+<div class="biz_index_box clearfix">
+	<div class="short f_l">
+		{include file="biz/biz_left.html"}
+	</div>
+	<div class="long f_r">
+		
+			<div class="blank"></div>
+			
+			<div class="tr pd10">
+				<a href="{url a="biz" r="balance"}">结算报表</a>
+				&nbsp;&nbsp;<a href="{url a="biz" r="balance#log"}">财务明细</a>
+				{if $account_data.allow_charge}
+				&nbsp;&nbsp;<a href="{url a="biz" r="balance#charge"}" style="font-weight:bold;">商家提现</a>
+				{/if}
+			</div>
+			
+			<div class="blank"></div>
+			<div  style="padding:0 10px;">
+					<!--table-->
+					<table cellspacing="0" cellpadding="0" border="0" class="data-table">
+						<tr>
+
+							<th width=100>提现金额</th>
+							<th  width=200>日期</th>						
+							<th >状态</th>
+						</tr>
+						{foreach from=$dataList item=row key=key}
+						<tr {if $key mod 2 eq  1}class="gray"{/if}>
+							<td style="text-align:left;">
+								{function name="format_price" v=$row['money']}					
+							</td>
+							<td>
+								{function name="to_date" v=$row['create_time']}
+							</td>
+							<td>
+								{if $row.status eq 0}待审核 {elseif $row.status eq 1}已确认{/if}
+							</td>
+
+							
+						</tr>
+						{/foreach}
+				</table>
+			
+			<div class="blank"></div>
+			
+			<div class="tr pd10">
+			当前商家余额：{function name="format_price" v=$account_data['money']}
+			<div class="blank"></div>
+			开户行：{$account_data.bank_name} &nbsp;&nbsp; 帐号:{$account_data.bank_info}  &nbsp;&nbsp;户名:{$account_data.bank_user}
+			<div class="blank"></div>
+			<form name="searchform" action="{url x="biz" r="balance#docharge"}" method="post" id="submit_form">
+			提现金额：<input type="text" name="money" class="f-input" id="submit_money" value="{$max_money}" style="width:50px;" /> 元
+			<input type="hidden" id="max_money" value="{$max_money}" />
+			<input type="submit" name="submit" value="提交申请" class="formbutton" />
+			</form>
+			</div>
+			<div class="pages">
+				{$pages}
+			</div>
+					<!--end table-->
+			</div>				
+	</div>
+	<div class="blank"></div>
+</div><!--end biz_index_box-->
+
+</div>
+<div class="blank"></div>
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	$("#submit_money").bind("blur",function(){
+		var max = $("#max_money").val();
+		var money = $("#submit_money").val();
+		if(isNaN(money))money = 0;
+		if(money<=0)money =0;
+		if(money>=max)money = max;
+		$("#submit_money").val(money);
+		
+	});
+});
+</script>
+{include file="biz/biz_footer.html"} 

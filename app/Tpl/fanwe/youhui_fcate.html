@@ -1,0 +1,149 @@
+{include file="inc/header.html"} 
+<div class="blank"></div>
+
+<div class="long f_l">
+{if $hide_filter}
+{else}
+{*商品筛选*}
+<div class="inc filter_box">
+	<div class="inc_main cf">
+		{if count($cate_list) gt 1}
+		<div class="filter_title f_l">{$LANG.CATE_DEAL}：</div>
+		<div class="filter_content  f_l">
+		{foreach from=$cate_list item=cate}
+		<a href="{$cate.url}" title="{$cate.name}" {if $cate.act eq 1}class="act"{/if}>{$cate.name}<span>({$cate.count})</span></a>
+		{/foreach}	
+		</div>	
+		<div class="blank"></div>
+		{/if}
+		{if $scate_list}
+		<div class="filter_title f_l"></div>
+		<div class="filter_content  f_l">
+			{foreach from=$scate_list item=scate}
+			<a href="{$scate.url}" title="{$scate.name}" {if $scate.act eq 1}class="act"{/if}>{$scate.name}<span>({$scate.count})</span></a>
+			{/foreach}	
+		</div>
+		<div class="blank"></div>
+		{/if}
+		
+		{if count($area_list) gt 1}
+		<div class="filter_title f_l">{$LANG.AREA_LIST}：</div>
+		<div class="filter_content  f_l">
+		{foreach from=$area_list item=area}
+		<a href="{$area.url}" title="{$area.name}" {if $area.act eq 1}class="act"{/if}>{$area.name}<span>({$area.count})</span></a>
+		{/foreach}	
+		</div>	
+		<div class="blank"></div>
+		{/if}
+		
+		{if count($quan_list) gt 1}
+		<div class="filter_title f_l">{$LANG.QUAN_LIST}：</div>
+		<div class="filter_content  f_l">
+		{foreach from=$quan_list item=area}
+		<a href="{$area.url}" title="{$area.name}" {if $area.act eq 1}class="act"{/if}>{$area.name}<span>({$area.count})</span></a>
+		{/foreach}	
+		</div>	
+		<div class="blank"></div>
+		{/if}
+
+	</div>
+
+</div>
+{*end 商品筛选*}
+<div class="blank"></div>
+{/if}
+<!--begin list-->
+<div class="nav_box">
+
+<form action="{$APP_ROOT}/youhui.php" method="post">
+		<div class="f_r filter_search_row">
+			
+			<input type="text"  name="keyword" class="filter_keyword" value="{$keyword}">
+			<input type="submit" value="" class="filter_btn" />
+			<input type="hidden" name="is_redirect" value="1" />
+			<input type="hidden" name="ctl" value="fcate" />
+			<input type="hidden" name="act" value="index" />
+			{foreach from=$url_param key=key item=param}
+			<input type="hidden" name="{$key}" value="{$param}" />
+			{/foreach}
+			
+		</div>
+</form>
+	
+{include file="inc/filter_sub_nav.html"}
+</div>
+{if $list}
+<div class="inc">
+	<div class="inc_top">
+		{if $page_title}{$page_title}{else}{$LANG.YOUHUI_LIST}{/if}		
+	</div>
+	<div class="inc_main cf">
+		{foreach from=$list item=youhui_item}
+		<div class="row_list">
+			<div class="row_image f_l youhui_row">
+			<div class="youhui_tag_{$youhui_item.youhui_type}"></div>
+			<a href="{$youhui_item.url}" title="{$youhui_item.name}" class="goods_img_box"><img  class="lazy" width=160 height=100 src="{function name="get_spec_image" v=$youhui_item.icon w="160" h="100" gen=1}"  alt="{$youhui_item.name}"/></a>
+			</div>
+			<div class="row_info f_l">
+				<div class="row_title"><a href="{$youhui_item.url}" title="{$youhui_item.name}">{$youhui_item.name}</a></div>
+				<div class="blank"></div>
+				<div class="row_info_2">{function name="msubstr" v=$youhui_item.list_brief b=0 e=50}</div>
+				<div class="blank"></div>
+				<div class="row_info_4">
+					{if $youhui_item.end_time eq 0}
+					{$LANG.NO_END_TIME}
+					{else}
+					{$LANG.END_TIME}：{function name="to_date" v=$youhui_item.end_time f="Y-m-d"}
+					{/if}
+				</div>
+			</div>
+			<div class="row_data f_l">&nbsp;</div>
+			<div class="row_btn f_l">
+				<a href="{$youhui_item.url}" class="row_btn_link">{$LANG.VIEW_DETAIL_INFO}</a>
+				<span class="row_btn_info">{$youhui_item.view_count}{$LANG.HAS_VIEW}</span>
+			</div>
+			<div class="blank1"></div>
+		</div>		
+		{/foreach}
+		
+		<div class="blank"></div>
+	</div>
+	<div class="inc_foot"></div>
+</div>
+{else}
+<div class="pd10">{$LANG.NO_YOUHUI_LIST}</div>
+{/if}
+
+<!--end list-->
+<div class="blank"></div>
+<div class="pages">{$pages}</div>	
+</div>
+<div class="short f_r">
+	
+	<div class="inc">
+	<div class="inc_top">{$LANG.HOT_YOUHUI_LIST}</div>
+	<div class="inc_main">
+		{foreach from=$free_youhui_list item=youhui_item}
+	
+		
+		<div class="hot_sale_item pd10">
+				<div class="f_l hot_sale_icon">
+					<a href="{$youhui_item.url}" title="{$youhui_item.name}"><img src="{function name="get_spec_image" v=$youhui_item.icon w=50 h=50 g=1}" width=50 height=50 /></a>
+				</div>
+				<div class="f_l hot_sale_cnt">
+						<a href="{$youhui_item.url}" title="{$youhui_item.name}">{function name="msubstr" v=$youhui_item.name b=0 e=25}</a>
+				</div>
+				<div class="blank1"></div>
+		</div>
+			
+		{/foreach}
+	</div>
+	<div class="inc_foot"></div>
+	</div>
+
+
+	
+</div>
+<div class="blank"></div>
+
+{include file="inc/footer.html"}

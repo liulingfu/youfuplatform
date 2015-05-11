@@ -1,0 +1,57 @@
+{include file="biz/biz_header.html"} 
+
+{include file="biz/biz_nav.html"}
+<div class="blank"></div>
+<div class="wrap">
+{include file="biz/biz_info_header.html"}
+<div class="biz_index_box clearfix">
+	<div class="short f_l">
+		{include file="biz/biz_left.html"}
+	</div>
+	<div class="long f_r">
+			<div class="blank10"></div>
+			<h3 class="modify-title">
+				消费券列表
+				<a href="{url x="biz" r="tuan"}">返回上一页</a>
+			</h3>
+			<table cellspacing="0" cellpadding="0" border="0" class="data-table">
+				<tr>
+					<th>序列号</th>
+					<th>{$LANG.COUPON_BEGIN_TIME}</th>
+					<th>{$LANG.COUPON_END_TIME}</th>						
+					<th>{$LANG.ORDER_USER}</th>
+					<th>{$LANG.COUPON_ORDER_GOODS}</th>
+					<th>{$LANG.COUPON_USE_TIME}</th>
+				</tr>
+				{foreach from=$coupon_list item=coupon key=key}
+				<tr {if $key mod 2 eq  1}class="gray"{/if}>
+					<td style="text-align:left;">
+						{$coupon.sn}											
+					</td>
+					<td>
+						{if $coupon.begin_time eq 0}{$LANG.NOT_LIMIT_TIME}{else}{function name="to_date" v=$coupon.begin_time}{/if}
+					</td>
+					<td>
+						{if $coupon.end_time eq 0}{$LANG.NOT_LIMIT_TIME}{else}{function name="to_date" v=$coupon.end_time}{/if}
+					</td>
+					<td>										
+						{function name="get_user_name" v=$coupon.user_id}
+					</td>
+					<td>
+						{function name="get_order_item_link" v=$coupon.order_deal_id}
+					</td>
+					<td>
+						{function name="get_coupon_confirm_time" v=$coupon.confirm_time}
+					</td>
+				</tr>
+				{/foreach}
+		</table>
+		<div class="blank"></div>
+		<div class="pages">{$pages}</div>
+	</div>
+	<div class="blank"></div>
+</div><!--end biz_index_box-->
+
+</div>
+<div class="blank"></div>
+{include file="biz/biz_footer.html"} 

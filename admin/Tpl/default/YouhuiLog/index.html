@@ -1,0 +1,51 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript">
+	function send_log_sms(id)
+	{
+		location.href= ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=send_sms&id="+id;
+	}
+</script>
+<php>
+	function get_youhui_name($id)
+	{
+		return msubstr(M("Youhui")->where("id=".$id)->getField("name"));
+	}
+	function get_confirm_supplier_account($confirm_id)
+	{
+		return M("SupplierAccount")->where("id=".$confirm_id)->getField("account_name");
+	}
+</php>
+<div class="main">
+<div class="main_title">{$main_title}</div>
+<div class="blank5"></div>
+<div class="button_row">
+	<input type="button" class="button" value="{%DEL}" onclick="foreverdel();" />
+</div>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="youhui" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|50px
+		 ,youhui_id|get_youhui_name:{%YOUHUI_NAME}
+		 ,youhui_sn:{%YOUHUI_SN}
+		 ,user_id|get_user_name:{%USER_NAME}
+		 ,order_count:{%LOG_ORDER_COUNT}
+		 ,is_private_room|get_status:{%LOG_IS_PRIVATE_ROOM}
+		 ,mobile:{%LOG_MOBILE}
+		 ,date_time|to_date:{%LOG_DATE_TIME}
+		 ,confirm_id|get_confirm_supplier_account:{%LOG_CONFIRM_ID}
+		 ,confirm_time|to_date:{%YOUHUI_CONFIRM_TIME}
+		  ,total_fee:{%USE_YOUHUI_FEE}
+		 ,create_time|to_date:{%CREATE_TIME}" 
+	actionlist="send_log_sms:{%SEND_LOG_SMS}, foreverdel:{%DEL}" /> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

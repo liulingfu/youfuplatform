@@ -1,0 +1,94 @@
+	.stepnav {
+  text-align: center;
+}
+.stepnav ul {
+  height: 26px;
+  width:930px;
+  margin:0px auto;
+}
+.stepnav ul li {
+  border: medium none;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: bold;
+  height: 26px;
+  line-height: 26px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  float:left;
+}
+.stepnav ul .stepnav_n {
+  width: 205px;
+}
+
+.stepnav ul .stepnav_f {
+  width: 20px;
+}
+.stepnav ul .stepnav_n {
+  width: 205px;
+}
+.stepnav ul .stepnav_t {
+  width: 24px;
+}
+.stepnav ul .stepnav_b {
+  width: 17px;
+}
+
+.stepnav ul .f_p {
+  background: url("../images/biz/join_step.png") no-repeat scroll 0 -152px transparent;
+}
+.stepnav ul .n_p {
+  background: url("../images/biz/join_step_bg.png") repeat-x scroll 0 -137px transparent;
+}
+.stepnav ul .t_p-r {
+  background: url("../images/biz/join_step.png") no-repeat scroll 0 -380px transparent;
+}
+.stepnav ul .n_r {
+  background-color: #DD2211;
+  color: white;
+}
+.stepnav ul .t_r-p {
+  background: url("../images/biz/join_step.png") no-repeat scroll 0 -456px transparent;
+}
+
+.stepnav ul .t_p-p {
+  background: url("../images/biz/join_step.png") no-repeat scroll 0 -304px transparent;
+}
+.stepnav ul .b_p {
+  background: url("../images/biz/join_step.png") no-repeat scroll 0 0 transparent;
+}
+.stepnav ul .t_p-p {
+  background: url("../images/biz/join_step.png") no-repeat scroll 0 -304px transparent;
+}
+
+.stepnav ul .f_r {
+  background: url("../images/biz/join_step.png") no-repeat scroll 0 -228px transparent;
+}
+.stepnav ul .b_r {
+    background: url("../images/biz/join_step.png") no-repeat scroll 0 -76px transparent;
+}
+
+.agree_title {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 28px 0 15px;
+  text-align: center;
+}
+.bd {
+  text-align: center;
+}
+.agree_content {
+  border: 1px solid #7F9DB9;
+  margin: 0 auto;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: 0;
+  width: 870px;
+}
+
+.agree_content ul, .agree_content ol, .agree_content ol li {
+  margin: auto;
+  padding: 2px 12px;
+  text-align: left;
+}

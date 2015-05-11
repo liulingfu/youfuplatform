@@ -1,0 +1,38 @@
+{if $inc_var.list}
+<div class="inc">
+	<div class="inc_top">{$inc_var.title}
+		<span class="f_r more">
+			<span class="recommend_cate_brand">
+			{foreach from=$inc_var.brand_list item=brand}
+			<a href="{$brand.url}" title="{$brand.name}">{$brand.name}</a>&nbsp;&nbsp;
+			{/foreach}
+			</span>
+			<a href="{$inc_var.url}" title="{$LANG.MORE}">{$LANG.MORE}</a>
+		</span>
+	</div>
+	<div class="inc_main cf">
+		<div class="rec_adv_span f_l">
+			<adv adv_id="首页商品分类的广告位" rel_table="shop_cate" rel_id="{$inc_var.id}" />
+		</div>
+		<div class="rec_goods_span f_l">
+		{foreach from=$inc_var.list item=item}
+		<div class="goods_item">
+			<a href="{$item.url}" title="{$item.name}"  class="goods_img_box"><img src="{function name="get_spec_image" v=$item.icon w="160" h="160"}" width=160 height=160  class="lazy"  alt="{$item.name}"/></a>
+			<div class="blank5"></div>
+			<div class="tc">
+			<span class="s_price">{function name="format_price" v=$item.current_price}</span>
+			&nbsp;&nbsp;
+			<span class="m_price">{function name="format_price" v=$item.origin_price}</span>
+			</div>
+			<div class="blank5"></div>
+			<a href="{$item.url}" class="goods_item_title" title="{$item.name}">{function name="msubstr" v=$item.name b=0 e=12}</a>
+			<div class="blank5"></div>
+		</div>
+		{/foreach}
+		</div>
+		<div class="blank1"></div>
+	</div>
+	<div class="inc_foot"></div>
+</div>
+<div class="blank"></div>
+{/if}

@@ -1,0 +1,327 @@
+{include file="inc/header.html"} 
+<div class="blank"></div>
+
+	<div class="inc">
+		<div class="user_inc_top">{$page_title}</div>
+		<div class="inc_main pd10 clearfix">
+			<div class="user-lr-box-left f_l" style="width:600px">
+								<!--注册表单-->
+								<form action="{url x="shop" r="user#doregister"}" method="post" id="signup-user-form">
+								<div class="field email">
+									<label for="signup-email-address">{$LANG.USER_TITLE_EMAIL}</label>
+									<input type="text" value="" class="f-input ipttxt" id="signup-email-address" name="email" size="30">
+									<span class="f-input-tip"></span> 
+									<span class="hint">{$LANG.USER_TITLE_EMAIL_TIP}</span> 
+								</div>
+								<div class="blank1"></div>
+								<div class="field username">
+									<label for="signup-username">{$LANG.USER_TITLE_USER_NAME}</label>
+									<input type="text" value="{$reg_name}" class="f-input ipttxt" id="signup-username" name="user_name" size="30">
+									<span class="f-input-tip"></span> 
+									<span class="hint">{$LANG.USER_TITLE_USER_NAME_TIP}</span> 
+								</div>
+								<div class="blank1"></div>
+								<div class="field password">
+									<label for="signup-password">{$LANG.USER_TITLE_USER_PWD}</label>
+									<input type="password" class="f-input ipttxt" id="signup-password" name="user_pwd" size="30">
+									<span class="f-input-tip"></span> 
+									<span class="hint">{$LANG.USER_TITLE_USER_PWD_TIP}</span> 
+								</div>
+								<div class="blank1"></div>
+								<div class="field password">
+									<label for="signup-password-confirm">{$LANG.USER_TITLE_USER_CONFIRM_PWD}</label>
+									<input type="password" class="f-input ipttxt" id="signup-password-confirm" name="user_pwd_confirm" size="30">
+									<span class="f-input-tip"></span> 
+								</div>
+								<div class="blank1"></div>
+								<div class="field mobile">
+									<label for="signup-mobile">{$LANG.USER_TITLE_MOBILE}</label>
+									<input type="text" value="" class="f-input ipttxt" id="settings-mobile" name="mobile" size="30">
+									<span class="f-input-tip"></span> 
+									<span class="hint"> {$LANG.USER_TITLE_MOBILE_TIP}</span>
+								</div>			
+								<div class="blank1"></div>
+								
+								
+								{foreach from=$field_list item=field_item}
+								<div class="field">
+									<label id="{$field_item.field_name}_label">{$field_item.field_show_name}</label>
+									{if $field_item.input_type eq 0}
+									<input type="text" value="" class="f-input ipttxt" id="settings-{$field_item.field_name}" name="{$field_item.field_name}" size="30">
+									{/if}
+									
+									{if $field_item.input_type eq 1}
+									<select id="settings-{$field_item.field_name}" name="{$field_item.field_name}">
+										{foreach from=$field_item.value_scope item=value_item}
+										<option value="{$value_item}">{$value_item}</option>
+										{/foreach}
+									</select>
+									{/if}
+									<span class="f-input-tip"></span> 
+								</div>
+								<div class="blank1"></div>
+								{/foreach}
+								{if app_conf("VERIFY_IMAGE") eq 1}
+								<div class="field autologin">
+									<div class="verify_row">								
+									<input type="text" value="" class="f-input" name="verify" />	
+									<img src="{$APP_ROOT}/verify.php?rand={function name="rand"}" onclick="this.src='{$APP_ROOT}/verify.php?rand='+ Math.random();" title="看不清楚？换一张" />			
+									</div>
+								</div>
+								{/if}
+								
+								<div class="blank"></div>
+								
+								<div class="act">
+									<input type="submit" class="reg-submit-btn" id="signup-submit" name="commit" value="{$LANG.REGISTER}">				
+								</div>
+							</form>
+				</div>
+				<div class="user-lr-box-right f_r">
+					<div class="app_login_box">
+					<div class="blank10"></div>
+					{insert name="get_app_login"}
+					</div>
+				</div>
+			</div>		
+			<div class="inc_foot"></div>
+		</div>
+
+
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+	$("#signup-submit").click(function(){
+		if($.trim($("#signup-email-address").val()).length == 0)
+		{
+			$("#signup-email-address").focus();
+			$.showErr("{function name="sprintf" format=$LANG.EMPTY_ERROR_TIP value=$LANG.USER_TITLE_EMAIL}");
+			
+			return false;
+		}
+		
+		if(!$.checkEmail($("#signup-email-address").val()))
+		{
+			$("#signup-email-address").focus();			
+			$.showErr("{function name="sprintf" format=$LANG.FORMAT_ERROR_TIP value=$LANG.USER_TITLE_EMAIL}");
+			return false;
+		}
+		
+		if(!$.minLength($("#signup-username").val(),3,true))
+		{
+			$("#signup-username").focus();
+			$.showErr("{function name="sprintf" format=$LANG.FORMAT_ERROR_TIP value=$LANG.USER_TITLE_USER_NAME}");		
+			return false;
+		}
+		
+		if(!$.maxLength($("#signup-username").val(),16,true))
+		{
+			$("#signup-username").focus();
+			$.showErr("{function name="sprintf" format=$LANG.FORMAT_ERROR_TIP value=$LANG.USER_TITLE_USER_NAME}");			
+			return false;
+		}
+		
+		if(!$.minLength($("#signup-password").val(),4,false))
+		{
+			$("#signup-password").focus();
+			$.showErr("{function name="sprintf" format=$LANG.FORMAT_ERROR_TIP value=$LANG.USER_TITLE_USER_PWD}");	
+			return false;
+		}
+		
+		if($("#signup-password-confirm").val() != $("#signup-password").val())
+		{
+			$("#signup-password-confirm").focus();
+			$.showErr("{$LANG.USER_PWD_CONFIRM_ERROR}");			
+			return false;
+		}
+
+		if(!$.checkMobilePhone($("#settings-mobile").val()))
+		{
+			$("#settings-mobile").focus();			
+			$.showErr("{function name="sprintf" format=$LANG.FORMAT_ERROR_TIP value=$LANG.USER_TITLE_MOBILE}");	
+			return false;
+		}	
+
+		{if app_conf("MOBILE_MUST") eq 1}
+			if($.trim($("#settings-mobile").val()).length == 0)
+			{
+				$("#settings-mobile").focus();
+				$.showErr("{function name="sprintf" format=$LANG.EMPTY_ERROR_TIP value=$LANG.USER_TITLE_MOBILE}");
+				
+				return false;
+			}
+		{/if}
+		
+
+		{foreach from=$field_list item=field_item}
+			{if $field_item.is_must eq 1}
+			if($("#settings-{$field_item.field_name}").val()=='')
+			{
+				$.showErr("{function name="sprintf" format=$LANG.EMPTY_ERROR_TIP value=$field_item.field_show_name}");	
+				$("#settings-{$field_item.field_name}").focus();
+				return false;
+			}
+			{/if}
+		{/foreach}
+
+		
+	});
+	
+	
+	//开始绑定 
+	$("#signup-email-address").bind("blur",function(){
+		if($.trim($("#signup-email-address").val()).length == 0)
+		{
+			formError($("#signup-email-address"),"{function name="sprintf" format=$LANG.EMPTY_ERROR_TIP value=$LANG.USER_TITLE_EMAIL}");			
+			return false;
+		}
+		
+		if(!$.checkEmail($("#signup-email-address").val()))
+		{
+			formError($("#signup-email-address"),"{function name="sprintf" format=$LANG.FORMAT_ERROR_TIP value=$LANG.USER_TITLE_EMAIL}");
+			return false;
+		}	
+		
+		var ajaxurl = APP_ROOT+"/shop.php?ctl=ajax&act=check_field";
+		var query = new Object();
+		query.field_name = "email";
+		query.field_data = $.trim($(this).val());
+		$.ajax({ 
+			url: ajaxurl,
+			data:query,
+			type: "POST",
+			dataType: "json",
+			success: function(data){
+				if(data.status==1)
+				{
+					formSuccess($("#signup-email-address"),"{$LANG.CAN_USED}");
+					return false;
+				}
+				else
+				{
+					formError($("#signup-email-address"),data.info);
+					return false;
+				}
+			}
+		});	
+	}); //邮箱验证
+	
+	
+	
+	$("#signup-username").bind("blur",function(){
+		if(!$.minLength($("#signup-username").val(),3,true))
+		{
+			formError($("#signup-username"),"{function name="sprintf" format=$LANG.FORMAT_ERROR_TIP value=$LANG.USER_TITLE_USER_NAME}");		
+			return false;
+		}
+		
+		if(!$.maxLength($("#signup-username").val(),16,true))
+		{
+			formError($("#signup-username"),"{function name="sprintf" format=$LANG.FORMAT_ERROR_TIP value=$LANG.USER_TITLE_USER_NAME}");			
+			return false;
+		}	
+		
+		var ajaxurl = APP_ROOT+"/shop.php?ctl=ajax&act=check_field";
+		var query = new Object();
+		query.field_name = "user_name";
+		query.field_data = $.trim($(this).val());
+		$.ajax({ 
+			url: ajaxurl,
+			data:query,
+			type: "POST",
+			dataType: "json",
+			success: function(data){
+				if(data.status==1)
+				{
+					formSuccess($("#signup-username"),"{$LANG.CAN_USED}");
+					return false;
+				}
+				else
+				{
+					formError($("#signup-username"),data.info);
+					return false;
+				}
+			}
+		});	
+	}); //用户名验证
+	
+	
+	$("#signup-password").bind("blur",function(){
+		if(!$.minLength($("#signup-password").val(),4,false))
+		{
+			formError($("#signup-password"),"{function name="sprintf" format=$LANG.FORMAT_ERROR_TIP value=$LANG.USER_TITLE_USER_PWD}");	
+			return false;
+		}
+		formSuccess($("#signup-password"),"{$LANG.CAN_USED}");
+	}); //密码验证
+	
+	$("#signup-password-confirm").bind("blur",function(){
+		if($("#signup-password-confirm").val() != $("#signup-password").val())
+		{
+			formError($("#signup-password-confirm"),"{$LANG.USER_PWD_CONFIRM_ERROR}");			
+			return false;
+		}
+		formSuccess($("#signup-password-confirm"),"{$LANG.VERIFY_SUCCESS}");
+	}); //确认密码验证
+	
+	$("#settings-mobile").bind("blur",function(){
+		if(!$.checkMobilePhone($("#settings-mobile").val()))
+		{
+			formError($("#settings-mobile"),"{function name="sprintf" format=$LANG.FORMAT_ERROR_TIP value=$LANG.USER_TITLE_MOBILE}");	
+			return false;
+		}	
+
+		{if app_conf("MOBILE_MUST") eq 1}
+			if($.trim($("#settings-mobile").val()).length == 0)
+			{				
+				formError($("#settings-mobile"),"{function name="sprintf" format=$LANG.EMPTY_ERROR_TIP value=$LANG.USER_TITLE_MOBILE}");
+				return false;
+			}
+		{/if}
+		
+		var ajaxurl = APP_ROOT+"/shop.php?ctl=ajax&act=check_field";
+		var query = new Object();
+		query.field_name = "mobile";
+		query.field_data = $.trim($(this).val());
+		$.ajax({ 
+			url: ajaxurl,
+			data:query,
+			type: "POST",
+			dataType: "json",
+			success: function(data){
+				if(data.status==1)
+				{
+					if(query.field_data!='')
+					formSuccess($("#settings-mobile"),"{$LANG.CAN_USED}");
+					else
+					formSuccess($("#settings-mobile"),"");
+					return false;
+				}
+				else
+				{					
+					formError($("#settings-mobile"),data.info);
+					return false;
+				}
+			}
+		});	
+	}); //手机验证
+	
+	
+	
+	{foreach from=$field_list item=field_item}
+			{if $field_item.is_must eq 1}			
+			$("#settings-{$field_item.field_name}").bind("blur",function(){
+				if($("#settings-{$field_item.field_name}").val()=='')
+				{
+					formError($("#settings-{$field_item.field_name}"),"{function name="sprintf" format=$LANG.EMPTY_ERROR_TIP value=$field_item.field_show_name}");	
+					return false;
+				}
+				formSuccess($("#settings-{$field_item.field_name}"),"");
+			}); //扩展字段		
+			{/if}
+	{/foreach}
+});
+</script>
+{include file="inc/footer.html"}

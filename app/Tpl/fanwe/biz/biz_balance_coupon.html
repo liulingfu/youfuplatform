@@ -1,0 +1,46 @@
+
+<table cellspacing="0" cellpadding="0" border="0" class="data-table">
+			<tr>
+				<th>名称</th>
+				<th  width=80>序列号</th>
+				<th  width=50>验证时间</th>						
+				<th  width=50>结算状态</th>
+				<th  width=40>结算价</th>
+				<th  width=50>结算时间</th>
+				<th>结算备注</th>
+			</tr>
+			{foreach from=$dataList item=row key=key}
+			<tr {if $key mod 2 eq  1}class="gray"{/if}>
+				<td style="text-align:left;">
+					<span title="{$row.name}">{function name="msubstr" v=$row['name']}	</span>								
+				</td>
+				<td>
+					{$row.sn}
+				</td>
+				<td>
+					{function name="to_date" v=$row['confirm_time']}
+				</td>
+				<td>										
+					<?php echo $GLOBALS['lang']['BALANCE_'.$this->_var['row']['is_balance']];?>
+				</td>
+				<td>
+					{function name="format_price" v=$row['balance_price']}
+				</td>
+				<td>
+					{function name="to_date" v=$row['balance_time']}
+				</td>
+				<td>
+					<span title="{$row.balance_memo}">{function name="msubstr" v=$row['balance_memo']}	</span>	
+				</td>
+			</tr>
+			{/foreach}
+	</table>
+
+<div class="blank"></div>
+
+<div class="tr pd10">
+	未结算{function name="format_price" v=$totalBalance0}，其中{function name="format_price" v=$totalBalance1}待结算。 已结算{function name="format_price" v=$totalBalance2}
+</div>
+<div class="pages">
+	{$pages}
+</div>

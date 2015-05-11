@@ -1,0 +1,59 @@
+<div class="inc">
+	<div class="inc_top">{$page_title}</div>
+	<div class="inc_main">
+		<div class="sub_nav">
+			<span {if $status eq 0}class="act"{/if}><a href="{url x="shop" r="uc_coupon#index" p="status=0"}">所有</a></span>
+			<span {if $status eq 1}class="act"{/if}><a href="{url x="shop" r="uc_coupon#index" p="status=1"}">未使用</a></span>
+			<span {if $status eq 2}class="act"{/if}><a href="{url x="shop" r="uc_coupon#index" p="status=2"}">已使用</a></span>
+							
+		</div>
+		<div class="blank1"></div>
+		<div  class="uc-table">
+			<table cellspacing="0" cellpadding="0" border="0" class="coupons-table" >
+								<tr>
+									<th>{$LANG.DEAL_ITEM}</th>
+									<th width=100>{$LANG.COUPON_SN}</th>
+									<th width=100>{$LANG.COUPON_PWD}</th>									
+									<th width=70>{$LANG.COUPON_END_TIME}</th>
+									<th width=70>{$LANG.COUPON_USE_TIME}</th>
+									<th width=100>{$LANG.OPERATION}</th>
+								</tr>
+								{foreach from=$list item=coupon key=key}
+								<tr {if $key mod 2 eq  0}class="alt"{/if}>
+									<td style="text-align:left;">{$coupon.deal_item.name}</td>
+									<td>{$coupon.sn}</td>
+									<td>{$coupon.password}</td>
+									<td>
+										{if $coupon.end_time eq 0}
+										{$LANG.NEVER_EXPIRED}
+										{else}
+										{function name="to_date" value=$coupon.end_time}
+										{/if}
+									</td>
+									<td>
+										{if $coupon.confirm_time eq 0}
+										{$LANG.NOT_USED}
+										{else}
+										{function name="to_date" value=$coupon.confirm_time}
+										{/if}
+									</td>
+									<td>
+										{if $coupon.sms_count lt app_conf("SMS_COUPON_LIMIT")}
+										<a href="{url x="shop" r="uc_coupon#send_sms" p="id=$coupon.id"}">{$LANG.SEND_COUPON_SMS}</a><br/>
+										{/if}
+										{if $coupon.mail_count lt app_conf("MAIL_COUPON_LIMIT")}
+										<a href="{url x="shop" r="uc_coupon#send_mail" p="id=$coupon.id"}">{$LANG.SEND_COUPON_MAIL}</a><br/>
+										{/if}
+										<a href="{url x="shop" r="uc_coupon#view" p="id=$coupon.id"}" target="_blank">{$LANG.VIEW}</a>
+									</td>
+								</tr>
+								{/foreach}
+						</table>
+						
+						<div class="blank"></div>
+						<div class="pages">{$pages}</div>
+		</div>				
+		
+	</div>
+	<div class="inc_foot"></div>
+</div>

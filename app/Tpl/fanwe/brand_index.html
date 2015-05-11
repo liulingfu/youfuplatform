@@ -1,0 +1,23 @@
+{include file="inc/header.html"} 
+<div class="blank"></div>
+
+	<div class="inc">
+		<div class="inc_top">{$page_title}</div>
+		<div class="inc_main">
+		<ul class="brand_list">
+					{foreach from=$brand_list item=brand}
+					<li>
+						<a href="{$brand.url}" title="{$brand.name}" class="brand_logo"><img src="{$brand.logo}" alt="{$brand.name}"/></a>
+						<br />
+						<a href="{$brand.url}" title="{$brand.name}">{$brand.name}</a>
+					</li>					
+					{/foreach}
+		</ul>
+		<div class="blank"></div>		
+		</div><!--end inc_main-->		
+		<div class="inc_foot"></div>
+	</div>
+
+	<div class="blank"></div>
+	<div class="pages">{$pages}</div>
+{include file="inc/footer.html"}

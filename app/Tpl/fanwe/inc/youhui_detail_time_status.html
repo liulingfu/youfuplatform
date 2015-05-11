@@ -1,0 +1,87 @@
+<div class="youhui_time_status">			
+			
+			<!--begin time box-->
+			{if ($youhui.begin_time ne 0 and $youhui.time_status eq 0) or ($youhui.end_time ne 0 and $youhui.time_status eq 1)} {* 时间 *}
+						<div id="deal-timeleft-box">
+							<div id="deal-timeleft" class="deal-box deal-timeleft deal-on">
+						
+								<div class="limitdate">
+									{$LANG.TIME_LEFT}<ul id="counter"></ul>
+								</div>
+							</div>						
+						</div>
+			{/if}
+			<script type="text/javascript">
+			{if $youhui.time_status eq 1} {*/结束倒计时/*}
+			var endTime = {$youhui.end_time}000;
+			var nowTime = {function name=get_gmtime}000;
+			var sysSecond = (endTime - nowTime) / 1000;
+			{/if}
+			{if $youhui.time_status eq 0} {*/开始倒计时/*}
+			var beginTime = {$youhui.begin_time}000;
+			var nowTime = {function name=get_gmtime}000;
+			var sysSecond = (beginTime - nowTime) / 1000;
+			{/if}
+			var interValObj;
+			setRemainTime();
+			function setRemainTime()
+			{	
+				if (sysSecond > 0)
+				{
+					var second = Math.floor(sysSecond % 60);              // 计算秒     
+					var minite = Math.floor((sysSecond / 60) % 60);       //计算分
+					var hour = Math.floor((sysSecond / 3600) % 24);       //计算小时
+					var day = Math.floor((sysSecond / 3600) / 24);        //计算天
+					var timeHtml = "<span>"+hour+"</span>"+LANG['HOUR']+"<span>"+minite+"</span>"+LANG['MIN']+"";
+					if(day > 0)
+						timeHtml ="<span>"+day+"</span>"+LANG['DAY']+"" + timeHtml;
+					
+					timeHtml+="<span>"+second+"</span>"+LANG['SEC']+"";
+					
+					try
+					{
+						$("#counter").html(timeHtml);
+						sysSecond--;
+					}
+					catch(e){}}
+				else
+				{window.clearTimeout(interValObj);}
+				interValObj = window.setTimeout("setRemainTime()", 1000); 	
+			}
+			</script>
+			<!--end time box-->
+			</div>
+			<div class="blank"></div>
+			<div class="youhui_buy_count">
+			已有{$youhui.buy_count}人购买
+			</div>
+			<div class="blank"></div>
+			<div style="padding-left:30px;">
+			<!--begin button status-->
+								{if $youhui.time_status eq 0} {*/未开始/*}
+								<span>		
+									未开始								
+								</span>
+								{/if}
+								{if $youhui.time_status eq 1}{*/已开始/*}
+									{if $youhui.buy_status eq 2} {*/卖光/*}
+									<span>
+										卖光了
+									</span>
+									{else}
+									<input type="button" onclick="add_cart({$youhui.id});" class="input_youhuicart" name="buy_btn" value="">
+									{/if}
+								{/if}
+								{if $youhui.time_status eq 2} {*/已过期/*}
+									{if $youhui.buy_status eq 2} {*/卖光/*}
+									<span>
+										卖光了
+									</span>
+									{else}
+									<span>		
+										已过期								
+									</span>
+									{/if}
+								{/if}
+			<!--end button status-->
+			</div>

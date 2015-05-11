@@ -1,0 +1,69 @@
+<style type="text/css">
+.cart_attr_select .cart_select_deal_title{ font-size:14px; font-weight:bolder; font-family:"微软雅黑"; }
+.cart_attr_select .cart_select_attr_row{ margin:10px 0px;}
+.cart_attr_select .cart_select_attr_row .cart_attr_title{ color:#b40001; font-family:"微软雅黑"; font-weight:bold; }
+.cart_attr_select .cart_select_attr_row .cart_attr_item{ display:inline-block; padding:0px 3px; *margin:0px 3px; _margin:0px 3px; font-size:12px; border:solid 3px #ccc; cursor:pointer;}
+.cart_attr_select .cart_select_attr_row .cart_attr_item_current{ border:solid 3px #b40001;}
+.cart_select_price_row{ text-align:right;}
+</style>
+<div class="cart_attr_select">
+	<div class="cart_select_deal_title">								   	
+		<input type="hidden" name="deal_price" value="{$deal_info.current_price}" />
+		<input type="hidden" name="deal_id" value="{$deal_info.id}" />
+	</div>						
+{foreach from=$deal_info.deal_attr_list item=deal_attr}
+	<div class="cart_select_attr_row">
+	<span class="cart_attr_title">{$deal_attr.name}：</span>						
+		{foreach from=$deal_attr.attrs item=attr}
+			<span class="cart_attr_item" id="attr_{$attr.id}" rel="{$attr.price}">{$attr.name} {if $attr.price gt 0}+ {function name="format_price" value=$attr.price}{/if}</span>
+		{/foreach}
+		<input type="hidden" name="attr[]" value="{$deal_attr.attrs.0.id}" />	
+	</div>						
+{/foreach}
+<div class="cart_select_price_row">
+	{$LANG.TOTAL_PRICE}：{function name="app_conf" value="CURRENCY_UNIT"}<span></span> <input type="button" name="add_to_cart" value="{$LANG.SELECT_AND_ADDCART}" class="formbutton" />
+</div>
+</div>
+							
+<script type="text/javascript">
+								function count_buy_price()
+								{
+									var total_price = $(".cart_attr_select").find("input[name='deal_price']").val();
+									var attr_doms = $(".cart_attr_select").find("input[name='attr[]']");
+									for(var i=0;i<attr_doms.length;i++)
+									{
+										$(attr_doms[i]).parent().find(".cart_attr_item").removeClass("cart_attr_item_current");
+										$(attr_doms[i]).parent().find("#attr_"+$(attr_doms[i]).val()).addClass("cart_attr_item_current");
+										
+										total_price = parseFloat(total_price)+parseFloat($(attr_doms[i]).parent().find("#attr_"+$(attr_doms[i]).val()).attr("rel"));
+										total_price = total_price.toFixed(2);
+									}									
+									$(".cart_select_price_row").find("span").html(total_price);
+								}
+								
+								function add_attr_to_cart()
+								{							
+									var deal_id = $(".cart_attr_select").find("input[name='deal_id']").val();									
+									var attrs = $(".cart_attr_select").find("input[name='attr[]']");									
+									var attr = '';
+									for(var i=0;i<attrs.length;i++)
+									{
+										attr += "&attr[]="+$(attrs[i]).val();
+									} 
+									
+									add_cart(deal_id,attr);
+								}								
+								$(document).ready(function(){
+									$(".cart_attr_select").find(".cart_attr_item").bind("click",function(){
+										var attr_id = $(this).attr("id");
+										attr_id = attr_id.replace("attr_",'');
+										$(this).parent().find("input[name='attr[]']").val(attr_id);
+										count_buy_price();
+									});
+									
+									$(".cart_attr_select").find("input[name='add_to_cart']").bind("click",function(){
+										add_attr_to_cart();
+									});									
+									count_buy_price();
+								});								
+</script>

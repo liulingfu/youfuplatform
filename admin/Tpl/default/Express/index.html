@@ -1,0 +1,60 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<php>
+	function get_express_effect($effect)
+	{
+		return l("IS_EFFECT_".intval($effect));
+	}
+	function get_express_install($install)
+	{
+		return l("IS_INSTALL_".$install);
+	}
+
+</php>
+<script type="text/javascript">
+	function uninstall(id)
+	{
+		if(confirm("{%CONFIRM_DELETE_EXPRESS}"))
+		{
+			location.href = ROOT + "?m=Express&a=uninstall&id="+id;
+		}
+	}
+</script>
+<div class="main">
+<div class="main_title">{$main_title}</div>
+<div class="blank5"></div>
+
+<table cellspacing="0" cellpadding="0" class="dataTable" id="dataTable">
+	<tbody>
+		<tr>
+			<td class="topTd" colspan="7">&nbsp; </td>
+			</tr>
+			<tr class="row">
+				<th>{%EXPRESS_NAME}</th>
+				<th>{%IS_EFFECT}</th>
+				<th>{%IS_INSTALL}</th>
+				<th>{%TAG_LANG_OPERATE}</th>
+				</tr>
+				<foreach name="express_list" item="express_item">
+				<tr class="row">
+					<td>{$express_item.name}</td>
+					<td>{$express_item.is_effect|get_express_effect}</td>
+					<td>{$express_item.installed|get_express_install}</td>					
+					<td>
+						<if condition="$express_item['installed'] eq 0">
+						<a href="{:u("Express/install",array("class_name"=>$express_item['class_name']))}">{%INSTALL}</a>
+						<else />
+						<a href="{:u("Express/edit",array("id"=>$express_item['id']))}">{%EDIT}</a>
+						<a href="javascript:uninstall({$express_item.id});" >{%UNINSTALL}</a>
+						</if>
+					</td>
+				</tr>
+				</foreach>
+				<tr><td class="bottomTd" colspan="7"> &nbsp;</td></tr>
+			</tbody>
+		</table>
+
+
+</div>
+<include file="Public:footer" />

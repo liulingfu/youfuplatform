@@ -1,0 +1,349 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<style type="text/css">
+    td span label{float:left; padding:3px; margin:2px; background:#E6E6E6; cursor:pointer; display:inline-block; }
+    td span label.active{background:#F60; color:#fff;}
+    #container{height:200px; width: 200px; float:left;}  
+    #container_front{width: 600px; height:500px; border: 1px solid #000; position: absolute; top: 10px; background-color: #fff; overflow: hidden;}
+    #container_m{ width: 550px; height: 450px; margin: 0 auto;}
+    #cancel_btn{display: block; width: 600px; height: 18px; line-height: 18px; text-align: right;}
+</style>
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.2"></script> 
+<load href='__TMPL__Common/js/map.js' />
+<load href='__TMPL__Common/js/youhui.js' />
+<script type="text/javascript">
+	var blue_point = "__ROOT__/system/blue_point.png";
+	var red_point = "__ROOT__/system/red_point.png";
+	function search_youhui_supplier()
+	{
+		var key = $("input[name='supplier_key']").val();
+		if($.trim(key)=='')
+		{
+			alert(INPUT_KEY_PLEASE);
+		}
+		else
+		{
+			$.ajax({ 
+				url: ROOT+"?"+VAR_MODULE+"=SupplierLocation&"+VAR_ACTION+"=search_supplier", 
+				data: "ajax=1&key="+key,
+				type: "POST",
+				success: function(obj){
+					$("#supplier_list").html(obj);
+					$("select[name='supplier_id']").bind("change",function(){
+						init_supplier_location();
+					});
+				}
+			});
+		}
+	}
+	
+	function init_send_type()
+	{
+		var send_type = $("select[name='send_type']").val();
+		if(send_type>0)
+		{
+			$(".send_type_0").show();
+			$(".send_type").hide();
+			$("select[name='is_sms']").val(1);
+			$("select[name='is_print']").val(0);
+		}
+		else
+		{
+			$(".send_type_0").hide();
+			$(".send_type").show();
+		}
+	}
+	$(document).ready(function(){
+		init_send_type();
+		$("select[name='send_type']").bind("change",function(){
+			init_send_type();
+		});
+		$("input[name='supplier_key_btn']").bind("click",function(){
+			search_youhui_supplier();
+		});		
+		 $("input[name='search_api']").bind("click",function(){  
+		 	var api_address = $("input[name='search_api_address']").val();
+			var city=$("select[name='city_id']").find("option:selected").attr("rel");
+			if ($.trim(api_address) == '') {
+				alert("{%INPUT_KEY_PLEASE}");
+			}
+			else 
+			{
+				search_api(api_address, city);
+			}
+        });
+		draw_map('{$vo.xpoint}','{$vo.ypoint}');
+		$("#container_front").hide();
+        $("#cancel_btn").bind("click",function(){ $("#container_front").hide(); });
+        $("input[name='chang_api']").bind("click",function(){ 
+            editMap($("input[name='xpoint']").attr('value'),$("input[name='ypoint']").attr('value'));
+        });
+	});
+</script>
+<div class="main">
+<div class="main_title">{%EDIT} <a href="{:u("Youhui/index")}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%YOUHUI_NAME}:</td>
+		<td class="item_input"><input type="text" class="textbox require" name="name" value="{$vo.name}" /></td>
+	</tr>
+
+	<!--<tr>
+		<td class="item_title">{%YOUHUI_INDEX_IMAGE}:</td>
+		<td class="item_input">
+			<html:imgUpload name = 'index_img' id='index_img' value='$vo.index_img' />
+		</td>
+	</tr>-->
+	<tr>
+		<td class="item_title">{%YOUHUI_ICON}:</td>
+		<td class="item_input">
+			<html:imgUpload name = 'icon' id='icon' value='$vo.icon' />
+		</td>
+	</tr>
+	<tr class="send_type">
+		<td class="item_title">{%YOUHUI_IMAGE}:</td>
+		<td class="item_input">
+			<html:imgUpload name = 'image' id='image' value='$vo.image' />
+		</td>
+	</tr>
+		
+	<tr>
+		<td class="item_title">{%YOUHUI_MOBILE_IMAGE}:</td>
+		<td class="item_input">
+			<html:imgUpload name = 'image_3' id='image_3' value='$vo.image_3'  />
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%BEGIN_TIME}:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="begin_time" id="begin_time" value="{$vo.begin_time|to_date}" onfocus="this.blur(); return showCalendar('begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_begin_time');" />
+			<input type="button" class="button" id="btn_begin_time" value="{%SELECT_TIME}" onclick="return showCalendar('begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_begin_time');" />	
+			<input type="button" class="button" value="{%CLEAR_TIME}" onclick="$('#begin_time').val('');" />	
+			<span class='tip_span'>[{%NO_TIME_SET_TIP}]</span>
+
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%END_TIME}:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="end_time" id="end_time" value="{$vo.end_time|to_date}" onfocus="this.blur(); return showCalendar('end_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_end_time');" />
+			<input type="button" class="button" id="btn_end_time" value="{%SELECT_TIME}" onclick="return showCalendar('end_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_end_time');" />	
+			<input type="button" class="button" value="{%CLEAR_TIME}" onclick="$('#end_time').val('');" />
+			<span class='tip_span'>[{%NO_TIME_SET_TIP}]</span>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%YOUHUI_TOTAL_NUM}:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="total_num" value="{$vo.total_num}" /><span style="color:#f60;margin-left:10px;">设置优惠券条数<span>
+		</td>
+	</tr>
+	<tr class="send_type_0">
+		<td class="item_title">验证返现金:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="return_money" value="{$vo.return_money}" />
+		</td>
+	</tr>
+	<tr class="send_type_0">
+		<td class="item_title">验证返积分:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="return_score" value="{$vo.return_score}" />
+		</td>
+	</tr>
+	<tr class="send_type_0">
+		<td class="item_title">验证返经验:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="return_point" value="{$vo.return_point}" />
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%PARENT_CITY}:</td>
+		<td class="item_input">
+		<select name="city_id">
+			<foreach name="city_list" item="city_item">
+				<option value="{$city_item.id}" rel="{$city_item.name}" <if condition="$vo['city_id'] eq $city_item['id']">selected="selected"</if>>{$city_item.title_show}</option>
+			</foreach>
+		</select>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%CATE_TREE}:</td>
+		<td class="item_input">
+		<select name="deal_cate_id">
+			<option value="0">=={%NO_SELECT_CATE}==</option>
+			<foreach name="cate_tree" item="cate_item">
+				<option value="{$cate_item.id}" <if condition="$vo['deal_cate_id'] eq $cate_item['id']">selected="selected"</if>>{$cate_item.title_show}</option>
+			</foreach>
+		</select>		
+		</td>
+	</tr>
+	<tr id="sub_cate_box">
+		<td class="item_title">{%DEALCATETYPE_INDEX}:</td>
+		<td class="item_input">
+			
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%BRAND_NAME}:</td>
+		<td class="item_input">
+		<select name="brand_id">
+			<option value="0">=={%EMPTY_SELECT}==</option>
+			<foreach name="brand_list" item="brand_item">
+				<option value="{$brand_item.id}" <if condition="$vo['brand_id'] eq $brand_item['id']">selected="selected"</if> >{$brand_item.name}</option>
+			</foreach>
+		</select>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%SUPPLIER_NAME}:</td>
+		<td class="item_input">
+			<span id="supplier_list">
+			<select name="supplier_id">
+				<option value="0">{%EMPTY_SELECT_SUPPLIER}</option>
+				<if condition="$supplier_info">
+					<option value="{$supplier_info.id}" selected="selected">{$supplier_info.name}</option>
+				</if>
+			</select>
+			</span>
+			<input type="text" class="textbox" name="supplier_key" /> 
+			<input type="button" name="supplier_key_btn" class="button" value="{%SEARCH}" />
+			<input type="hidden" name="address" value="{$vo.address}" />
+		</td>
+	</tr>
+	<tr id="supplier_location">
+		<td class="item_title">{%SUPPLIER_LOCATION}:</td>
+		<td class="item_input">
+			
+		</td>
+	</tr>
+	<tr>
+            <td class="item_title">地图定位</td>
+            <td class="item_input">            	
+            	关键词：<input type="text" class="textbox" name="search_api_address" value="" /> 
+				<input type="button" value="查找" class="button" name="search_api" id="search_api" >
+				<div style="height:10px; clear:both;"></div>
+                <div id="container"></div>
+				<div style="height:10px; clear:both;"></div>
+                <script type="text/javascript"></script> 
+                <input type="button" value="手动修改" name="chang_api" id="chang_api">
+                <div style="position:relative; top:-400px;">
+                    <div  id="container_front">
+                        <a href="#" id="cancel_btn">取消</a>
+                        <div id="container_m"></div>
+                    </div>
+                </div>
+				<input type="hidden" name="xpoint" value="{$vo.xpoint}" />
+				<input type="hidden" name="ypoint" value="{$vo.ypoint}" />
+            </td>
+    </tr>
+	<tr>
+		<td class="item_title">{%YOUHUI_SEND_TYPE}:</td>
+		<td class="item_input">
+		<select name="send_type">
+				<option value="0" <if condition="$vo['send_type'] eq 0">selected="selected"</if>>{%YOUHUI_SEND_TYPE_0}</option>
+				<option value="1" <if condition="$vo['send_type'] eq 1">selected="selected"</if>>{%YOUHUI_SEND_TYPE_1}</option>
+				<option value="2" <if condition="$vo['send_type'] eq 2">selected="selected"</if>>{%YOUHUI_SEND_TYPE_2}</option>
+		</select>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">{%YOUHUI_TYPE}:</td>
+		<td class="item_input">
+		<select name="youhui_type">
+				<option value="0"  <if condition="$vo['youhui_type'] eq 0">selected="selected"</if>>{%YOUHUI_TYPE_0}</option>
+				<option value="1"  <if condition="$vo['youhui_type'] eq 1">selected="selected"</if>>{%YOUHUI_TYPE_1}</option>
+
+		</select>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%IS_EFFECT}:</td>
+		<td class="item_input">
+			<lable>{%IS_EFFECT_1}<input type="radio" name="is_effect" value="1" <if condition="$vo['is_effect'] eq 1">checked="checked"</if> /></lable>
+			<lable>{%IS_EFFECT_0}<input type="radio" name="is_effect" value="0" <if condition="$vo['is_effect'] eq 0">checked="checked"</if> /></lable>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%SORT}:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="sort" value="{$vo.sort}" />
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">{%SMS_CONTENT}:</td>
+		<td class="item_input">
+			<textarea class="textarea" name="sms_content" >{$vo.sms_content}</textarea>
+		</td>
+	</tr>
+	
+	<tr class="send_type">
+		<td class="item_title">{%IS_SMS}:</td>
+		<td class="item_input">
+		<select name="is_sms">
+				<option value="0" <if condition="$vo['is_sms'] eq 0">selected="selected"</if>>{%NO}</option>
+				<option value="1" <if condition="$vo['is_sms'] eq 1">selected="selected"</if>>{%YES}</option>
+
+		</select>
+		</td>
+	</tr>
+	<tr class="send_type">
+		<td class="item_title">{%IS_PRINT}:</td>
+		<td class="item_input">
+		<select name="is_print">
+				<option value="0" <if condition="$vo['is_print'] eq 0">selected="selected"</if>>{%NO}</option>
+				<option value="1" <if condition="$vo['is_print'] eq 1">selected="selected"</if>>{%YES}</option>
+
+		</select>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">{%YOUHUI_BRIEF}:</td>
+		<td class="item_input">
+			<textarea class="textarea" name="brief" >{$vo.brief}</textarea>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%YOUHUI_LIST_BRIEF}:</td>
+		<td class="item_input">
+			<textarea class="textarea" name="list_brief" >{$vo.list_brief}</textarea>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">{%YOUHUI_DESCRIPTION}:</td>
+		<td class="item_input">
+			 <html:editor id="description" name="description" type="KINDEDITOR" content="{$vo.description}" />
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title"></td>
+		<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="id" value="{$vo.id}" />
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="Youhui" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="update" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%EDIT}" />
+			<input type="reset" class="button" value="{%RESET}" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>	 
+</form>
+</div>
+<include file="Public:footer" />

@@ -1,0 +1,84 @@
+{include file="biz/biz_header.html"} 
+<link rel="stylesheet" type="text/css" href="{$TMPL}/css/biz_join.css" />
+<div class="blank"></div>
+<div class="wrap">
+{include file="biz/biz_step_nav.html"}
+<div class="blank"></div>
+<form method="post" action="{url x="biz" r="join#step4"}" name="biz_publish" enctype="multipart/form-data" >
+				<table cellspacing="0" cellpadding="0" border="0" class="data-table" style="margin:0px auto;">
+					<tr>
+						<td class="dleft">企业名称：</td>
+						<td>
+							<input type="text" value="" class="f-input" id="h_name" name="h_name" size="80" tabindex="1">
+							<span class="red">&nbsp;&nbsp; 必需填写 </span>
+						</td>
+					</tr>
+					
+					<tr>
+						<td class="dleft">法人姓名：</td>
+						<td>
+							<input type="text" value="" class="f-input" id="h_faren" name="h_faren" size="80" tabindex="1">
+							<span class="red">&nbsp;&nbsp; 必需填写 </span>
+						</td>
+					</tr>
+					
+					<tr>
+						<td class="dleft">营业执照：</td>
+						<td>
+							<input type="file" name="h_license" />
+							<span class="red">&nbsp;&nbsp; 请上传彩色的扫描件 </span>
+						</td>
+					</tr>
+					
+					<tr>
+						<td class="dleft">其他资质：</td>
+						<td>
+							<input type="file" name="h_other_license" />
+							<span class="red">&nbsp;&nbsp; 请上传彩色的扫描件，多张资质可以放在同一张图片上 </span>
+						</td>
+					</tr>
+					{if $location_id eq 0}
+					<tr>
+						<td class="dleft">商户商标：</td>
+						<td>
+							<input type="file" name="h_supplier_logo" />
+							
+						</td>
+					</tr>
+					
+					<tr>
+						<td class="dleft">门店图片：</td>
+						<td>
+							<input type="file" name="h_supplier_image" />
+						
+						</td>
+					</tr>
+					{/if}
+					
+					<tr>
+						<td class="dleft">申请会员：</td>
+						<td>
+							<input type="hidden" name="h_user_name" value="{$user_info.user_name}" />
+							{$user_info.user_name}
+						</td>
+					</tr>
+					
+					<tr>
+						<td class="dleft">联系电话：</td>
+						<td>
+							<input type="text" value="" class="f-input" id="h_tel" name="h_tel" size="40" tabindex="1">
+							<span class="red">&nbsp;&nbsp; 请留下真实的联系电话，该号码不会在网站上公开 </span>
+						</td>
+					</tr>
+					
+					<tr>
+						<td>&nbsp;
+						<input type="hidden" name="base_data" value="{$base_data}" />
+						</td>
+						<td><input type="submit" value="提交" class="biz_pub_btn" /></td>
+					</tr>
+				</table>
+			</form>
+</div>
+<div class="blank"></div>
+{include file="biz/biz_footer.html"} 

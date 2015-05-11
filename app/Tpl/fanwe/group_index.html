@@ -1,0 +1,131 @@
+{include file="inc/header.html"} 
+<?php
+$this->_var['groupcss'][] = $this->_var['TMPL_REAL']."/css/group.css";
+$this->_var['groupjs'][] = $this->_var['TMPL_REAL']."/js/group.js";
+$this->_var['cpgroupjs'][] = $this->_var['TMPL_REAL']."/js/group.js";
+?>
+<script type="text/javascript" src="{function name="parse_script" v="$groupjs" c="$cpgroupjs"}"></script>
+<link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$groupcss"}" />
+<div class="blank"></div>
+{if $rec_topic_list}
+{include file="inc/rec_forum_topic.html"} 
+{/if}
+<div class="long f_l">
+	<div class="goods_detail_box" style="padding:0px; margin:0px;">
+	<ul class="detail_nav">
+		<li class="act">活跃小组</li>		
+	</ul>
+	</div>
+	<div class="blank"></div>
+	<div class="hot_group">
+		{foreach from=$hot_group item=group}
+		<div class="group_item">
+			<div class="group_icon f_l">
+			<a href="{url x="shop" r="group#forum" p="id=$group.id"}" title="{$group.name}">
+			<img src="{function name="get_spec_image" v=$group.icon w=100 h=100 g=1  }" alt="{$group.name}" />
+			</a>
+			</div>
+			<div class="group_info f_l">
+				<div class="group_title"><a href="{url x="shop" r="group#forum" p="id=$group.id"}" title="{$group.name}">{$group.name}</a></div>
+				<div class="group_count">
+					<span>{$group.user_count}</span> 成员&nbsp;&nbsp;
+					<span>{$group.topic_count}</span> 分享 				
+				</div>
+				<div class="group_memo">
+					{function name="msubstr" v=$group.memo b=0 e=35}
+				</div>
+			</div>
+			
+		</div>
+		{/foreach}
+	</div>
+	<div class="blank"></div>
+	<div class="goods_detail_box" style="padding:0px; margin:0px;">
+	<ul class="detail_nav">
+		<li {if $cate_id eq 0}class="act"{/if}><a href="{url x="shop" r="group"}">全部</a></li>
+		{foreach from=$cate_list item=cate_item}
+		<li {if $cate_id eq $cate_item.id}class="act"{/if}><a href="{url x="shop" r="group" p="id=$cate_item.id"}">{$cate_item.name}</a></li>
+		{/foreach}	
+	</ul>
+	</div>
+	<div class="blank"></div>
+	
+	<div class="hot_group">
+		{foreach from=$list item=group}
+		<div class="group_item">
+			<div class="group_icon f_l">
+			<a href="{url x="shop" r="group#forum" p="id=$group.id"}" title="{$group.name}">
+			<img src="{function name="get_spec_image" v=$group.icon w=100 h=100 g=1  }" alt="{$group.name}" />
+			</a>
+			</div>
+			<div class="group_info f_l">
+				<div class="group_title"><a href="{url x="shop" r="group#forum" p="id=$group.id"}" title="{$group.name}">{$group.name}</a></div>
+				<div class="group_count">
+					<span>{$group.user_count}</span> 成员&nbsp;&nbsp;
+					<span>{$group.topic_count}</span> 分享 				
+				</div>
+				<div class="group_memo">
+					{function name="msubstr" v=$group.memo b=0 e=35}
+				</div>
+			</div>
+			
+		</div>
+		{/foreach}
+	</div>
+	<div class="blank"></div>
+	<div class="pages">{$pages}</div>
+</div><!--end long-->
+<div class="short f_r">
+
+	<div class="create_group"><a href="{url x="shop" r="group#create"}" title="申请创建小组"></a></div>
+	<div class="blank"></div>
+
+	
+	<div class="inc">
+	<div class="inc_top">优秀小组长</div>
+	<div class="inc_main">
+		
+		{foreach from=$group_adm_list item=group}
+		<div class="group_adm">
+			<div class="avatar">
+				{function name="show_avatar" v=$group.user_id }
+			</div>
+			<div class="info">
+				<a href="{url x="shop" r="group#forum" p="id=$group.id"}" title="{$group.name}" class="group_name">{function name="msubstr" v=$group.name b=0 e=5}</a>
+				<div class="blank1"></div>
+				<span class="user_count">{$group.user_count}个成员</span>
+				<div class="blank1"></div>
+				{function name="get_user_name" v=$group.user_id}
+				
+			</div>
+		</div>
+		{/foreach}
+	
+	<div class="inc_foot"></div>
+	</div>
+	
+	</div>
+	<div class="blank"></div>
+
+	
+	<div class="inc">
+	<div class="inc_top">最新主题</div>
+	<div class="inc_main">
+		
+		{foreach from=$new_topic_list item=topic}
+		<div class="new_topic_row">
+		<a class="topic_title" title="{$topic.forum_title}" href="{url x="shop" r="topic" p="id=$topic.id"}"> {function name="msubstr" v=$topic.forum_title b=0 e=12}</a>
+		<div class="blank5"></div>
+		<a title="{$topic.group_name}" href="{url x="shop" r="group#forum" p="id=$topic.group_id"}" class="topic_group_title">{function name="msubstr" v=$topic.group_name b=0 e=12}</a>
+		</div>
+		{/foreach}
+	
+	<div class="inc_foot"></div>
+	</div>
+	
+	</div>
+	
+	
+
+<div class="blank"></div>
+{include file="inc/footer.html"}

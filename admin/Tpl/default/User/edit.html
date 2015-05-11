@@ -1,0 +1,192 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/user_edit.js' />
+<load href='__TMPL__Common/js/conf.js' />
+<div class="main">
+<div class="main_title">{%EDIT} <a href="{:u("User/index")}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<div class="button_row">
+	<input type="button" class="button conf_btn" rel="1" value="基本信息" />&nbsp;
+	<input type="button" class="button conf_btn" rel="2" value="权限分配" />&nbsp;
+</div>
+<div class="blank5"></div>
+<table class="form conf_tab" cellpadding=0 cellspacing=0 rel="1">
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%USER_NAME}:</td>
+		<td class="item_input"><input type="hidden" class="textbox require" name="user_name" value="{$vo.user_name}" />{$vo.user_name}</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%USER_EMAIL}:</td>
+		<td class="item_input">
+			<input type="<if condition="$vo['email'] eq ''">text<else />hidden</if>" class="textbox require" name="email" value="{$vo.email}" />
+			{$vo.email}
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%USER_MOBILE}:</td>
+		<td class="item_input"><input type="text" class="textbox <PHP>if(intval(app_conf("MOBILE_MUST"))==1) echo 'require';</PHP>" name="mobile" value="{$vo.mobile}" /></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%USER_PASSWORD}:</td>
+		<td class="item_input"><input type="password" class="textbox" name="user_pwd" /></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%USER_CONFIRM_PASSWORD}:</td>
+		<td class="item_input"><input type="password" class="textbox" name="user_confirm_pwd" /></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%USER_GROUP}:</td>
+		<td class="item_input">
+			<select name="group_id">
+				<foreach name="group_list" item="group_item">
+					<option value="{$group_item.id}" <if condition="$vo['group_id'] eq $group_item['id']">selected="selected"</if>>{$group_item.name}</option>
+				</foreach>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%USER_IS_MERCHANT}:</td>
+		<td class="item_input">
+			<select name="is_merchant">
+				<option value="0" <if condition="$vo['is_merchant'] eq 0">selected="selected"</if>>{%USER_IS_MERCHANT_0}</option>
+				<option value="1" <if condition="$vo['is_merchant'] eq 1">selected="selected"</if>>{%USER_IS_MERCHANT_1}</option>
+			</select>
+			<span id="merchant_name">
+				{%BIND_MERCHANT_NAME}：<input type="text" name="merchant_name" class="textbox" value="{$vo.merchant_name}" />
+			</span>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">{%USER_IS_DAREN}:</td>
+		<td class="item_input">
+			<select name="is_daren">
+				<option value="0" <if condition="$vo['is_daren'] eq 0">selected="selected"</if>>{%USER_IS_DAREN_0}</option>
+				<option value="1" <if condition="$vo['is_daren'] eq 1">selected="selected"</if>>{%USER_IS_DAREN_1}</option>
+			</select>
+			<span id="daren_title">
+				{%DAREN_TITLE}：<input type="text" class="textbox" name="daren_title" value="{$vo.daren_title}" />
+			</span>
+		</td>
+	</tr>
+	<tr id="daren_cate">
+		<td class="item_title">达人分类:</td>
+		<td class="item_input">
+			<foreach name="cate_list" item="cate_item">
+				<label>{$cate_item.name}<input type="checkbox" name="cate_id[]" value="{$cate_item.id}" <if condition="$cate_item['checked'] gt 0">checked="checked"</if> /></label>
+			</foreach>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%USER_BIRTHDAY}:</td>
+		<td class="item_input">
+			<input type="text" name="byear" class="textbox" value="{$vo.byear}"  style="width:40px" maxlength="4" />{%USER_BYEAR}
+			<input type="text" name="bmonth" class="textbox" value="{$vo.bmonth}" style="width:20px" maxlength="2"/>{%USER_BMONTH}
+			<input type="text" name="bday" class="textbox" value="{$vo.bday}"  style="width:20px" maxlength="2" />{%USER_BDAY}
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">{%IS_EFFECT}:</td>
+		<td class="item_input">
+			<lable>{%IS_EFFECT_1}<input type="radio" name="is_effect" value="1" <if condition="$vo['is_effect'] eq 1">checked="checked"</if> /></lable>
+			<lable>{%IS_EFFECT_0}<input type="radio" name="is_effect" value="0" <if condition="$vo['is_effect'] eq 0">checked="checked"</if> /></lable>
+		</td>
+	</tr>
+	<foreach name="field_list" item="field_item">
+	<tr>
+		<td class="item_title">{$field_item.field_show_name}:</td>
+		<td class="item_input">
+			 <if condition="$field_item['input_type'] eq 0">
+			 	<input type="text" class="textbox <if condition="$field_item['is_must'] eq 1">require</if>" name="{$field_item.field_name}" value="{$field_item.value}" />
+			 </if>
+			 
+			 <if condition="$field_item['input_type'] eq 1">
+			 	<select name="{$field_item.field_name}">
+			 		<foreach name="field_item.value_scope" item="value_item">
+			 			<option value="{$value_item}" <if condition="$field_item['value'] eq $value_item">selected="selected"</if>>{$value_item}</option>
+			 		</foreach>
+			 	</select>
+			 </if>
+		</td>
+	</tr>
+	</foreach>
+	
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>
+
+<table class="form conf_tab" cellpadding=0 cellspacing=0 rel="2">
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">分享管理:</td>
+		<td class="item_input">
+			<label>删除分享<input type="checkbox" value="del" name="auth[topic][]" <if condition="$auth_list[topic]['del'] eq 1">checked="checked"</if> /></label>
+			<label>删除回复<input type="checkbox" value="replydel" name="auth[topic][]" <if condition="$auth_list[topic]['replydel'] eq 1">checked="checked"</if> /></label>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">小组管理:</td>
+		<td class="item_input">
+			<label>删除<input type="checkbox" value="del" name="auth[group][]"  <if condition="$auth_list[group]['del'] eq 1">checked="checked"</if>/></label>
+			<label>删除回复<input type="checkbox" value="replydel" name="auth[group][]" <if condition="$auth_list[group]['replydel'] eq 1">checked="checked"</if> /></label>
+			<label>置顶<input type="checkbox" value="settop" name="auth[group][]"  <if condition="$auth_list[group]['settop'] eq 1">checked="checked"</if>/></label>
+			<label>推荐<input type="checkbox" value="setbest" name="auth[group][]"  <if condition="$auth_list[group]['setbest'] eq 1">checked="checked"</if> /></label>
+			<label>编辑小组说明<input type="checkbox" value="setmemo" name="auth[group][]"  <if condition="$auth_list[group]['setmemo'] eq 1">checked="checked"</if> /></label>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">商户点评管理:</td>
+		<td class="item_input">
+			<label>删除<input type="checkbox" value="del" name="auth[dp][]"  <if condition="$auth_list[dp]['del'] eq 1">checked="checked"</if>/></label>
+			<label>删除回复<input type="checkbox" value="replydel" name="auth[dp][]"  <if condition="$auth_list[dp]['replydel'] eq 1">checked="checked"</if>/></label>
+			<label>推荐<input type="checkbox" value="setbest" name="auth[dp][]"  <if condition="$auth_list[dp]['setbest'] eq 1">checked="checked"</if>/></label>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">其他留言管理:</td>
+		<td class="item_input">
+			<label>删除<input type="checkbox" value="del" name="auth[msg][]"  <if condition="$auth_list[msg]['del'] eq 1">checked="checked"</if>/></label>
+		</td>
+	</tr>	
+	
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>	
+
+<div class="blank5"></div>
+	<table class="form" cellpadding=0 cellspacing=0>
+		<tr>
+			<td colspan=2 class="topTd"></td>
+		</tr>
+		<tr>
+			<td class="item_title"></td>
+			<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="id" value="{$vo.id}" />
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="User" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="update" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%EDIT}" />
+			<input type="reset" class="button" value="{%RESET}" />
+			</td>
+		</tr>
+		<tr>
+			<td colspan=2 class="bottomTd"></td>
+		</tr>
+	</table> 	 
+</form>
+</div>
+<include file="Public:footer" />

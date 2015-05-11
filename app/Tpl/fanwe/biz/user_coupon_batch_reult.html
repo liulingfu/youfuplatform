@@ -1,0 +1,18 @@
+{foreach from=$result item=res}
+<tr>
+	<td>
+		{$res.deal_id}
+	</td>
+	<td>
+		<a href="javascript:void(0);" onclick="del(this);">删除</a>
+	</td>
+	<td>
+		{$res.sub_name}
+	</td>
+	<td {if $res.status==0}style="color:red;"{else}style="color:blue;" {/if}>
+		{$res.msg}
+	</td>
+	<input type="hidden" name="password" value="{$res.password}" />
+	<input type="hidden" name="code[{$res.id}]" rel="code" value="{$res.id}-{$res.sn}-{$res.password}" />
+</tr>
+{/foreach}

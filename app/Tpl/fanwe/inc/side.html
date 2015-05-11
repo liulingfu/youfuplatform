@@ -1,0 +1,27 @@
+<div id="sidebar">
+{include file="inc/tuan_side_supplier_info.html"}
+	
+	
+{if $module eq 'index' and app_conf('STYLE_OPEN') eq 1}
+<div style="text-align:center;"><a href="{$style_url}" title="{$switch_style_tip}" style="display:block; background:#fff; border:#b40001 1px dotted; font-size:12px; padding:3px; ">{$switch_style_tip}</a></div>
+<div class="blank"></div>
+{/if}
+{if $side_deal_list}
+{*其他团购*}
+{include file="inc/side_deal.html"}
+<div class="blank"></div>
+{/if}
+<adv adv_id="right_adv" />
+{if !$deal or $deal.is_referral eq 1}
+{* 返利 *}
+{include file="inc/side_referrals.html"}
+<div class="blank"></div>
+{/if}
+
+{* 留言 *}
+{include file="inc/side_message.html"}
+<div class="blank"></div>
+
+{*提供团购信息*}
+{include file="inc/side_supplier.html"}
+</div>

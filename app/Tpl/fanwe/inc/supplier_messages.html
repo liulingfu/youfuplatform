@@ -1,0 +1,33 @@
+<div>
+	<div style="float:left;">
+	<h2>{$LANG.SUPPLIER_COMMENT}</h2>
+	</div>
+	<div style="float:right;">
+	<span class="comment_3 {if $point eq 3}comment_current{/if}" style="cursor:pointer;" onclick="load_messages(0,{$supplier_id},null,3);">{$LANG.COMMENT3}</span>
+	<span class="comment_2 {if $point eq 2}comment_current{/if}" style="cursor:pointer;" onclick="load_messages(0,{$supplier_id},null,2);">{$LANG.COMMENT2}</span>
+	<span class="comment_1 {if $point eq 1}comment_current{/if}" style="cursor:pointer;" onclick="load_messages(0,{$supplier_id},null,1);">{$LANG.COMMENT1}</span>
+	</div>
+</div>
+<div class="blank"></div>
+<ul class="supplier_comment">
+{foreach from=$message_list item=message}	
+	<li>
+		<span class="comment_{$message.point}">[{$message.comment}]</span> {$message.user_name} <span style="font-size:12px; color:#666;">{$message.post_time}</span>：<br /> {$message.content}
+		{if $message.admin_reply}
+		<br />
+		{$LANG.ADMIN_REPLY}: <span style="color:#b40000;">{$message.admin_reply}</span>
+		{/if}
+	</li>
+{/foreach}
+</ul>
+<div class="blank"></div>
+<div class="blank"></div>
+<div class="pages" id="message_pages">{$pages}</div>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#message_pages").find("a").bind("click",function(){
+			load_messages(0,0,$(this).attr("href"));
+			return false;
+		});
+	});
+</script>

@@ -1,0 +1,3 @@
+{foreach from=$navs key=key item=nav}
+<li data="{$nav.type}" rel="{$nav.location_id}" {if $key eq 0}class="act"{/if} >{$nav.name}({$nav.count})</li>
+{/foreach}

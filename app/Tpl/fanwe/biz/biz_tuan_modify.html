@@ -1,0 +1,243 @@
+{include file="biz/biz_header.html"} 
+<script type='text/javascript'  src='{$APP_ROOT}/admin/public/kindeditor/kindeditor.js'></script>
+<script type="text/javascript">
+	var VAR_MODULE = "m";
+	var VAR_ACTION = "a";
+	var ROOT = '{$APP_ROOT}/biz.php';
+	var ROOT_PATH = '{$APP_ROOT}';
+
+</script>
+<?php
+$this->_var['youhuicss'][] = $this->_var['TMPL_REAL']."/css/datepicker.css";
+$this->_var['youhuijs'][] = $this->_var['TMPL_REAL']."/js/jquery.ui.core.js";
+$this->_var['youhuijs'][] = $this->_var['TMPL_REAL']."/js/jquery.ui.widget.js";
+$this->_var['youhuijs'][] = $this->_var['TMPL_REAL']."/js/jquery.ui.datepicker.js";
+
+?>
+<link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$youhuicss"}" />
+<script type="text/javascript" src="{function name="parse_script" v="$youhuijs"}"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("input[name='begin_time']").datepicker({showAnim:'fadeIn'});
+		$("input[name='end_time']").datepicker({showAnim:'fadeIn'});
+
+	});
+</script>
+{include file="biz/biz_nav.html"}
+<div class="blank"></div>
+<div class="wrap">
+{include file="biz/biz_info_header.html"}
+<div class="biz_index_box clearfix">
+	<div class="short f_l">
+		{include file="biz/biz_left.html"}
+	</div>
+	<div class="long f_r">
+			<script type="text/javascript">
+				function bind_is_shop()
+				{
+					var is_shop = $("select[name='is_shop']").val();
+					if(is_shop==0)
+					{
+						$("#daijin_img").hide();
+						$("#tuan_img").show();
+						$("#deal_cate").show();
+						$("#shop_cate").hide();
+	
+					}
+					if(is_shop==2)
+					{
+						$("#daijin_img").show();
+						$("#tuan_img").hide();
+						$("#deal_cate").show();
+						$("#shop_cate").hide();
+			
+					}
+					if(is_shop==1)
+					{
+						$("#daijin_img").hide();
+						$("#tuan_img").show();
+						$("#deal_cate").hide();
+						$("#shop_cate").show();	
+						$("#deal_cate_type_row").hide();
+						$("#deal_cate_type_row").find("span").html("");
+					}
+				}
+				$(document).ready(function(){
+					load_deal_cate_type();
+					$("#cate_id").bind("change",function(){
+						load_deal_cate_type();
+					});
+					 bind_is_shop();
+					 $("select[name='is_shop']").bind("change",function(){
+					  bind_is_shop();	
+					 });
+					$("form").bind("submit",function(){
+						if($.trim($(this).find("input[name='name']").val())=='')
+						{
+							$.showErr("请填写名称");
+							return false;
+						}
+						if($.trim($(this).find("input[name='sub_name']").val())=='')
+						{
+							$.showErr("请填写简称");
+							return false;
+						}
+						if($.trim($(this).find("input[name='origin_price']").val())=='')
+						{
+							$.showErr("请填写原价");
+							return false;
+						}
+						if($.trim($(this).find("input[name='balance_price']").val())=='')
+						{
+							$.showErr("请填写结算价");
+							return false;
+						}
+						
+					});
+				});
+			</script>
+			<h3 class="modify-title">
+				编辑商品
+				<a href="{url x="biz" r="tuan"}">返回上一页</a>
+			</h3>
+			<form method="post" action="{url x="biz" r="tuan#submit_modify"}" name="biz_publish" >
+				<table cellspacing="0" cellpadding="0" border="0" class="data-table">
+					<tr>
+						<td class="dleft">名称：</td>
+						<td>
+							<input type="text" value="{$deal_info.name}" class="f-input" id="name" name="name" size="30" tabindex="1">
+						</td>
+					</tr>
+					<tr>
+						<td class="dleft">简称：</td>
+						<td>
+							<input type="text" value="{$deal_info.sub_name}" class="f-input" id="sub_name" name="sub_name" size="30" tabindex="1">
+							<span class="red">&nbsp;&nbsp;用于团购券短信，邮件的显示 </span> 
+						</td>
+					</tr>
+					<tr>
+						<td>促销时间：</td>
+						<td>
+							<input type="text" value="{$deal_info.begin_time}" class="f-input" id="begin_time" name="begin_time" size="20" style="width:100px;" tabindex="1">
+							<span>&nbsp;&nbsp;至 &nbsp;&nbsp; </span> 
+							<input type="text" value="{$deal_info.end_time}" class="f-input" id="end_time" name="end_time" size="20" style="width:100px;" tabindex="1">
+							<span class="red">&nbsp;&nbsp;请填写有效的时间格式,如：2012-01-01 </span> 
+						</td>
+					</tr>
+					<tr>
+						<td>参考原价：</td>
+						<td>
+							<input type="text" value="{$deal_info.origin_price}" class="f-input" id="origin_price" name="origin_price" size="30" tabindex="1">
+						</td>
+					</tr>
+					<tr>
+						<td>结算价：</td>
+						<td>
+							<input type="text" value="{$deal_info.balance_price}" class="f-input" id="current_price" name="balance_price" size="30" tabindex="1">
+							<span class="red">&nbsp;&nbsp;商户与网站运营商的结算单价</span> 
+						</td>
+					</tr>
+					<tr>
+						<td>库存：</td>
+						<td>
+							<input type="text" value="{$deal_info.max_bought}" class="f-input" id="max_bought" name="max_bought" size="30" tabindex="1">
+							<span class="red">&nbsp;&nbsp;库存不填写表示不限购买数量 </span> 
+						</td>
+					</tr>
+					<tr>
+						<td>简介：</td>
+						<td>
+							<textarea name="brief" id="brief" class="f-textarea" cols="60" rows="5">{$deal_info.brief}</textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>类型：</td>
+						
+						<td>
+						<select name="is_shop">
+							<option value="0" {if $deal_info.is_shop eq 0}selected="selected"{/if}>团购</option>
+							<option value="2" {if $deal_info.is_shop eq 2}selected="selected"{/if}>代金券</option>
+							<option value="1" {if $deal_info.is_shop eq 1}selected="selected"{/if}>商城</option>
+						</select>
+						</td>
+					</tr>
+
+					<tr id="deal_cate">
+						<td>分类：</td>
+						<td>
+							<select name="cate_id" id="cate_id">
+							{foreach from=$cate_list item=cate}
+							<option value="{$cate.id}" {if $deal_info.cate_id eq $cate.id}selected="selected"{/if}>{$cate.name}</option>
+							{/foreach}
+							</select>
+						</td>
+					</tr>
+					<tr id="deal_cate_type_row" style="display:none;">
+						<td>子分类：</td>
+						<td>
+							<span></span>
+						</td>
+					</tr>
+					
+					<tr id="shop_cate">
+						<td>商城分类：</td>
+						<td>
+							<select name="shop_cate_id" id="shop_cate_id">
+							{foreach from=$shop_cate_list item=shop_cate}
+							<option value="{$shop_cate.id}" {if $deal_info.shop_cate_id eq $shop_cate.id}selected="selected"{/if}>{$shop_cate.title_show}</option>
+							{/foreach}
+							</select>
+						</td>
+					</tr>
+					
+					<tr>
+						<td>城市：</td>
+						<td>
+						<select name="city_id" id="city_id">
+							{foreach from=$deal_city_list item=city}
+							<option value="{$city.id}" {if $deal_info.city_id eq $city.id}selected="selected"{/if}>{$city.name}</option>
+							{/foreach}
+						</select>
+						</td>
+					</tr>
+					<tr>
+						<td>缩略图：</td>
+						<td class="no-border" style="padding-left:0">{function name="show_ke_image" v="icon" cn="$deal_info.icon"}</td>
+					</tr>
+					<tr id="daijin_img">
+						<td>代金券大图：</td>
+						<td class="no-border" style="padding-left:0">{function name="show_ke_image" v="img" cnt="$deal_info.img"}</td>
+					</tr>
+					<tr id="tuan_img">
+						<td>图集：</td>
+						<td class="no-border" style="padding-left:0">
+						{function name="show_ke_image" v="img0" cn="$deal_info.images.0.img"}
+						{function name="show_ke_image" v="img1" cn="$deal_info.images.1.img"}
+						<div class="blank"></div>
+						{function name="show_ke_image" v="img2" cn="$deal_info.images.2.img"}
+						{function name="show_ke_image" v="img3" cn="$deal_info.images.3.img"}
+						<div class="blank"></div>
+						{function name="show_ke_image" v="img4" cn="$deal_info.images.4.img"}
+						{function name="show_ke_image" v="img5" cn="$deal_info.images.5.img"}
+						</td>
+					</tr>
+					<tr>
+						<td>描述：</td>
+						<td style="height:375px; vertical-align:top;">
+						{function name="show_ke_textarea" v="descript" w="620" h="300"  cnt="$deal_info.description"}
+						</td>
+					</tr>
+					<tr>
+						<td>&nbsp;<input type="hidden" name="id" value="{$deal_info.id}" id="deal_id" /></td>
+						<td><input type="submit" value="提交" class="biz_pub_btn" /></td>
+					</tr>
+				</table>
+			</form>
+		
+	</div>
+	<div class="blank"></div>
+</div><!--end biz_index_box-->
+
+</div>
+<div class="blank"></div>
+{include file="biz/biz_footer.html"} 

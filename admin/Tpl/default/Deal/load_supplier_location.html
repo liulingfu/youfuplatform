@@ -1,0 +1,3 @@
+<foreach name="supplier_location_list" item="location">
+<label>{$location.name}<input type="checkbox" name="location_id[]" value="{$location.id}" <if condition="$location['checked']">checked="checked"</if> /> </label>
+</foreach>

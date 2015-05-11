@@ -1,0 +1,130 @@
+<div data-category="0" class="cate_topic">
+	<div class="cate_title">热门推荐</div>
+	<div class="blank"></div>
+	{foreach from=$topic_list item=topic key=key}
+	<div class="rec_topic_item {if $key mod 2 neq 0}r{/if}">
+	<span>
+			<div class="f_l">
+			{function name="show_avatar" uid=$topic.user_id  type="small"}
+			</div>
+			<div class="f_l" style="padding-left: 10px; width:200px; overflow:hidden;">
+			{function name="get_user_name" value=$topic.user_id} 
+			{if $topic.user_info.is_merchant}
+			<font class='is_merchant'></font>
+			{/if}
+			{if $topic.user_info.is_daren}
+			<font class='is_daren'></font>{$topic.user_info.daren_title}
+			{/if}
+			
+			<br />
+			{if $topic.user_info.focused eq 1}
+			<a href="javascript:;" onclick="focus_user({$topic.user_id},this);" class="remove_focus">{$LANG.CANCEL_FOCUS}</a>
+			{else}
+			<a href="javascript:;" onclick="focus_user({$topic.user_id},this);" class="add_focus">{$LANG.FOCUS_THEY}</a>
+			{/if}
+			</div>
+			
+			<div class="fav_row f_r"><span>{$topic.fav_count}</span>人喜欢</div> 
+	</span>	
+	<div class="blank"></div>
+	<div class="tp_content">{$topic.content}</div>
+	<div class="blank"></div>
+	<a href="{url x="shop" r="topic#view" p="id=$topic.id"}" class="topic_view"><img src="{if $topic.daren_page}{$topic.daren_page}{else}{function name="get_spec_image" v=$topic.images.0.o_path w=548 h=170 g=1}{/if}" /></a>
+	</div>	
+	{/foreach}
+	<div class="blank"></div>
+	
+	{foreach from=$daren_list item=daren key=key}
+	{if $key lt 8}
+	<span class="daren_item">
+			<div class="f_l">
+			{function name="show_avatar" uid=$daren.id  type="small"}
+			</div>
+			<div class="f_l" style="padding-left: 10px; width:180px; overflow:hidden;">
+			{function name="get_user_name" value=$daren.id} 
+			{if $daren.is_merchant}
+			<font class='is_merchant'></font>
+			{/if}
+			{if $daren.is_daren}
+			<font class='is_daren'></font>{$daren.daren_title}
+			{/if}
+			
+			<br />
+			{if $daren.focused eq 1}
+			<a href="javascript:;" onclick="focus_user({$daren.id},this);" class="remove_focus">{$LANG.CANCEL_FOCUS}</a>
+			{else}
+			<a href="javascript:;" onclick="focus_user({$daren.id},this);" class="add_focus">{$LANG.FOCUS_THEY}</a>
+			{/if}
+			</div>
+
+	</span>	
+	{/if}
+	{/foreach}
+	<div class="blank"></div>
+</div><!--end cate_topic-->
+
+
+{foreach from=$cate_list item=cate_item name=cateloop}							
+<div data-category="{$cate_item.id}" class="cate_topic">
+	<div class="cate_title">{$cate_item.name}</div>
+	<div class="blank"></div>
+	{foreach from=$cate_item.topic_list item=topic key=key}
+	<div class="rec_topic_item {if $key mod 2 neq 0}r{/if}">
+	<span>
+			<div class="f_l">
+			{function name="show_avatar" uid=$topic.user_id  type="small"}
+			</div>
+			<div class="f_l" style="padding-left: 10px; width:200px; overflow:hidden;">
+			{function name="get_user_name" value=$topic.user_id} 
+			{if $topic.user_info.is_merchant}
+			<font class='is_merchant'></font>
+			{/if}
+			{if $topic.user_info.is_daren}
+			<font class='is_daren'></font>{$topic.user_info.daren_title}
+			{/if}
+			
+			<br />
+			{if $topic.user_info.focused eq 1}
+			<a href="javascript:;" onclick="focus_user({$topic.user_id},this);" class="remove_focus">{$LANG.CANCEL_FOCUS}</a>
+			{else}
+			<a href="javascript:;" onclick="focus_user({$topic.user_id},this);" class="add_focus">{$LANG.FOCUS_THEY}</a>
+			{/if}
+			</div>
+			
+			<div class="fav_row f_r"><span>{$topic.fav_count}</span>人喜欢</div> 
+	</span>	
+	<div class="blank"></div>
+	<div class="tp_content">{$topic.content}</div>
+	<div class="blank"></div>
+	<a href="{url x="shop" r="topic#view" p="id=$topic.id"}" class="topic_view"><img src="{if $topic.daren_page}{$topic.daren_page}{else}{function name="get_spec_image" v=$topic.images.0.o_path w=458 h=160 g=1}{/if}" /></a>
+	</div>	
+	{/foreach}
+	<div class="blank"></div>
+	
+	{foreach from=$cate_item.daren_list item=daren}
+	<span class="daren_item">
+			<div class="f_l">
+			{function name="show_avatar" uid=$daren.id  type="small"}
+			</div>
+			<div class="f_l" style="padding-left: 10px; width:180px; overflow:hidden;">
+			{function name="get_user_name" value=$daren.id} 
+			{if $daren.is_merchant}
+			<font class='is_merchant'></font>
+			{/if}
+			{if $daren.is_daren}
+			<font class='is_daren'></font>{$daren.daren_title}
+			{/if}
+			
+			<br />
+			{if $daren.focused eq 1}
+			<a href="javascript:;" onclick="focus_user({$daren.id},this);" class="remove_focus">{$LANG.CANCEL_FOCUS}</a>
+			{else}
+			<a href="javascript:;" onclick="focus_user({$daren.id},this);" class="add_focus">{$LANG.FOCUS_THEY}</a>
+			{/if}
+			</div>
+
+	</span>	
+	{/foreach}
+	<div class="blank"></div>
+</div>
+{/foreach}

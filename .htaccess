@@ -1,0 +1,12 @@
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+
+RewriteRule ^biz\/((event|index|join|login|order|profile|tuan|verify|youhui|publish)[^\.&]*)$  biz.php\?rewrite_param=$1 [QSA,PT,L]
+RewriteRule ^youhui\/((index|fcate|fdetail|store|tuan|ycate|ydetail|review)[^\.&]*)$  youhui.php\?rewrite_param=$1 [QSA,PT,L]
+RewriteRule ^tuan\/((ajax|coupon|deal|deals|dhapi|index|message|order|referral|rss|search|second|subscribe)[^\.&]*)$  tuan.php\?rewrite_param=$1 [QSA,L]
+RewriteRule ^shop\/((mobile|group|uc_medal|discover|op|acate|ajax|article|avatar|brand|cart|cate|city|discount|exchange|goods|help|link|mall|msg|notice|payment|rec|score|space|ss|sys|topic|uc_account|uc_center|uc_collect|uc_consignee|uc_coupon|uc_invite|uc_message|uc_money|uc_order|uc_topic|uc_voucher|url|user|vote|uc_msg|daren)[^\.&]*)$  shop.php\?rewrite_param=$1 [QSA,L]
+RewriteRule ^((mobile|group|uc_medal|discover|op|acate|ajax|article|avatar|brand|cart|cate|city|discount|exchange|goods|help|link|mall|msg|notice|payment|rec|score|space|ss|sys|topic|uc_account|uc_center|uc_collect|uc_consignee|uc_coupon|uc_invite|uc_message|uc_money|uc_order|uc_topic|uc_voucher|url|user|vote|uc_msg|daren)[^\.&]*)$  shop.php\?rewrite_param=$1 [QSA,L]
+RewriteRule ^(tuan|shop|youhui|biz|daijin)([^\.&]*)$  $1.php\?rewrite_param=$2 [QSA,L]
+</IfModule>

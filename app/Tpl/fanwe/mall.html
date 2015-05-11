@@ -1,0 +1,29 @@
+{include file="inc/header.html"} 
+<div class="blank"></div>
+<div class="short f_r">
+	<div class="short">
+	{include file="inc/index_notice.html"}
+</div>
+	<div class="blank"></div>
+	{insert name='load_today_deal'} {* 动态载入今日团购 *}
+	{insert name='load_sale_list'} {* 动态载入销售排行 *}
+	{include file="inc/mail_submit.html"}
+</div>
+<div class="long f_l">
+
+	{$hot_span_goods_html}
+
+	{$new_span_goods_html}
+
+	{$best_span_goods_html}
+</div>
+<div class="blank"></div>
+<adv adv_id="首页通栏广告位" />
+<div class="blank"></div>
+{if $recommend_cate_html}
+<div><!--通栏-->
+{$recommend_cate_html}
+</div><!--通栏-->
+{/if}
+<div class="blank"></div>
+{include file="inc/footer.html"}

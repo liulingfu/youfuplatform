@@ -1,0 +1,144 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="robots" content="noindex, nofollow">
+<style type="text/css">
+.header{ background:url(deal_mail/mail_hd.gif) repeat-x; height:110px; padding:10px;}
+.btn_table{ background:url(deal_mail/mail-tpl-tag.gif) no-repeat; width:233px; height:60px;}
+.price_table{ border:#ffc600 solid 1px; background:#fffce5; width:213px; margin:10px 20px 0px 20px;}
+.sp_table{ border:#ffc600 solid 1px; background:#fffce5; width:213px; margin:10px 20px 0px 20px;}
+.ref_table{ border:#ffc600 solid 1px; background:#fffce5; width:213px; margin:10px 20px 0px 20px;}
+.deal_intro{  border:#ffc600 solid 1px; margin:10px 20px 10px 20px; width:700px;}
+.contact{  border:#ffc600 solid 1px; margin:10px 20px 10px 20px; width:700px;}
+.deal_intro td,.contact td{ padding:10px;}
+.block{ width:750px; overflow:hidden;}
+</style> 
+</head>
+<body style="padding: 0px; margin: 0px; font-size:12px;" bgcolor="#ffffff">
+<div class="block">
+<div class="header">
+<table width="100%">
+<tr>
+<td width="150"> <a href="{function name="get_domain"}{$APP_ROOT}" 
+ title="{function name="app_conf" value="SHOP_TITLE"}"><img alt="{function name="app_conf" value="SHOP_TITLE"}" 
+src="{function name="app_conf" value="SHOP_LOGO"}" style="border: 0px none;" 
+></a> </td><!--logo box-->
+<td width="100"><span style="background:#ccc; display:block; width:80px; height:23px; line-height:28px; border:#fff solid 1px; text-align:center;">{$deal_rs.0.city_name}</span></td><!--city name box-->
+<td style="text-align:right;"> {$deal.send_date}   </td><!--date-->
+</tr>
+</table>
+</div><!--end header-->
+{foreach from=$deal_rs item=deal}
+<table width="100%" >{*第一行关于图片与价格信息*}
+<tr>
+<td>
+<a 
+href="{$deal.url}"
+style="text-decoration: none; font-size: 30px; font-weight: bold; color:red; " title="{$deal.name}">{$deal.name}</a>
+</td><!--deal title-->
+</tr>
+</table><!--title table-->
+
+<table width="100%">
+<tr>
+<td valign="top">
+	<table class="btn_table">
+    	<tr>
+        	<td style="width:30px;">
+            	<!--用于留空格-->
+            </td>
+        	<td>
+            	<span style="color:#fff; font-weight:bold; font-size:18px;">{function name="format_price" value=$deal.current_price}</span>
+            </td>
+            <td>
+            	<a href="{$deal.url}" title="{$deal.name}"><img alt="{$deal.name}" src="deal_mail/mail-tpl-view.gif" style="border: medium none;" 
+width="106" height="47"></a>
+            </td>
+        </tr>
+    </table><!--btn table-->
+    <table class="price_table" >
+    	<tr>
+        	<td style="width:33%;">
+            	原价
+            </td>
+        	<td style="width:33%;">
+            	折扣
+            </td>
+            <td style="width:33%;">
+            	节省
+            </td>
+        </tr>
+        <tr>
+        	<td style="width:33%;">
+            	{function name="format_price" value=$deal.origin_price}
+            </td>
+        	<td style="width:33%;">
+            	{$deal.discount}折
+            </td>
+            <td style="width:33%;">
+            	{function name="format_price" value=$deal.save_money}
+            </td>
+        </tr>
+    </table><!--btn table-->
+    
+    <table class="sp_table" >
+    	<tr>
+        	<td>
+            	<span style="font-size:16px; font-weight:bold;">{$deal.saler_name}</span><br />
+                {$deal.saler_tel}<br />
+                {$deal.saler_address}
+        	
+            </td>
+        </tr>
+    </table><!--sp_table-->
+    
+    
+    {if $deal.is_referral eq 1}
+     <table class="ref_table" >
+    	<tr>
+        	<td>
+            	每邀请一位好友首次购买，您将获 <span style="color: red;">{$deal.referrals}</span> 返利<br>
+                <a href="{$deal.referrals_url}" style="font-size: 12px; font-weight: bold; ">
+                » 点击获取您的专用邀请链接
+                </a>        	
+            </td>
+        </tr>
+    </table><!--ref_table-->
+    {/if}
+    
+    
+</td><!--deal info-->
+
+<td>
+	  <a href="{$deal.url}" title="{$deal.name}"><img alt="{$deal.name}" src="{$deal.img}" style="border: medium none;" title="{$deal.name}" width="400" height="230"></a>
+</td><!--deal img-->
+
+</tr>
+</table>{*第一行关于图片与价格信息*}
+
+{if count($deal_rs) eq 1}
+<table class="deal_intro" >{*第二行关于团购简介*}
+<tr>
+<td>
+<h3 style="font-size: 16px; color:#000000;">本单详情</h3> <br />
+<span style="font-size:14px; ">{$deal.description}</span> <br />
+<a href="{$deal.url}" alt="查看更多">
+<img style="border: medium none;" src="deal_mail/mail-tpl-more.gif" alt="查看更多" width="168" height="31">
+</a>
+</td>
+</tr>
+</table>{*第二行关于团购简介*}
+{/if}
+{/foreach}
+<table class="contact">
+<tr>
+        <td>
+        电子邮箱:<a href="mailto:{function name="app_conf" value="REPLY_ADDRESS"}">{function name="app_conf" value="REPLY_ADDRESS"}</a> 
+        客服电话:{function name="app_conf" value="SHOP_TEL"}
+  		<span style="font-weight: normal; font-size: 12px;">{function name="app_conf" value="ONLINE_TIME"}</span>
+		</td>
+</tr>
+</table>
+</div> <!--end block-->
+</body>
+</html>

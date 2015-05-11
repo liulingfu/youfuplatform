@@ -1,0 +1,34 @@
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#startbar").sign_rating_main();
+		$("#sign_ok").bind("click",function(){
+			do_sign_location({$store_info.id},$("#sign_dp_point").val());
+		});
+		$("#sign_cancel").bind("click",function(){
+			close_pop();
+		});
+	});
+</script>
+<div class="review_form_box">
+<div class="dp_bar">
+<span style="font-size:14px;">	
+您最近一周是否到过 {$store_info.name} 消费，请签到评分。
+</span>
+<div class="blank"></div>
+<span class="starsBar" id="startbar">
+    <span class="frontBk_red" sector="0" style="width: 0px;">
+		<input type="hidden" id="sign_dp_point" name="dp_point" value="0">
+	</span>
+</span>
+			
+
+<span id="sign_score_tips" class="score_tips"><span>点击星星为商家打分，最高5颗星</span></span>
+
+<div class="blank"></div>
+<div class="tr">
+	<input type="button" class="formbutton" id="sign_ok" value="确定" />
+	<input type="button" class="formbutton" id="sign_cancel" value="取消" />
+</div>
+</div>
+</div>
+

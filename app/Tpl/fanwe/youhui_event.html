@@ -1,0 +1,194 @@
+{include file="inc/header.html"} 
+<div class="blank"></div>
+
+<div class="long f_l">
+{if $hide_filter}
+{else}
+{*商品筛选*}
+<div class="inc filter_box">
+
+	<div class="inc_main cf">
+		{if count($cate_list) gt 1}
+		<div class="filter_title f_l">{$LANG.CATE_DEAL}：</div>
+		<div class="filter_content  f_l">
+		{foreach from=$cate_list item=cate}
+		<a href="{$cate.url}" title="{$cate.name}" {if $cate.act eq 1}class="act"{/if}>{$cate.name}</a>
+		{/foreach}	
+		</div>	
+		<div class="blank"></div>
+		{/if}
+
+		
+		{if count($area_list) gt 1}
+		<div class="filter_title f_l">{$LANG.AREA_LIST}：</div>
+		<div class="filter_content  f_l">
+		{foreach from=$area_list item=area}
+		<a href="{$area.url}" title="{$area.name}" {if $area.act eq 1}class="act"{/if}>{$area.name}</a>
+		{/foreach}	
+		</div>	
+		<div class="blank"></div>
+		{/if}
+		{if count($quan_list) gt 1}
+		<div class="filter_title f_l">{$LANG.QUAN_LIST}：</div>
+		<div class="filter_content  f_l">
+		{foreach from=$quan_list item=area}
+		<a href="{$area.url}" title="{$area.name}" {if $area.act eq 1}class="act"{/if}>{$area.name}</a>
+		{/foreach}	
+		</div>	
+		<div class="blank"></div>
+		{/if}
+		
+		
+	</div>
+</div>
+{*end 商品筛选*}
+<div class="blank"></div>
+{/if}
+<!--begin_list-->
+<div class="nav_box">
+
+<form action="{$APP_ROOT}/youhui.php" method="post">
+		<div class="f_r filter_search_row">			
+			<input type="text"  name="keyword" class="filter_keyword" value="{$keyword}">
+			<input type="submit" value="" class="filter_btn" />
+			<input type="hidden" name="is_redirect" value="1" />
+			<input type="hidden" name="ctl" value="event" />
+			<input type="hidden" name="act" value="index" />
+			{foreach from=$url_param key=key item=param}
+			<input type="hidden" name="{$key}" value="{$param}" />
+			{/foreach}
+			
+		</div>
+</form>
+
+{include file="inc/filter_sub_nav.html"}
+</div>
+{if $list}
+<div class="inc">
+	<form action="{$APP_ROOT}/youhui.php" method="post">
+	<div class="inc_top">
+		{if $page_title}{$page_title}{else}{$LANG.TUAN_LIST}{/if}
+		<div class="f_r more">
+			{$LANG.SORT_BY}：
+			<a href="javascript:void(0);" onclick="set_event_sort('sort')" class="sort_icon sort_gray">默认</a> 
+			<a href="javascript:void(0);" onclick="set_event_sort('event_end_time')" class="sort_icon {if $sort_field eq 'event_end_time'}sort_{$sort_type}{else}sort_gray{/if}">活动时间</a> 
+			<a href="javascript:void(0);" onclick="set_event_sort('submit_count')" class="sort_icon {if $sort_field eq 'submit_count'}sort_{$sort_type}{else}sort_gray{/if}">报名量</a> 		
+		</div><!--排序-->		
+	</div>
+	</form>
+	<div class="inc_main cf">
+		{foreach from=$list item=event}
+		
+		<div class="row_list">
+			<div class="row_image f_l">
+			<a href="{url x="youhui" r="edetail" p="id=$event.id"}" title="{$event.name}" class="goods_img_box"><img src="{function name="get_spec_image" v=$event.icon w="160" h="100" gen=1}"   width=160 height=100  class="lazy" alt="{$event.name}"/></a>
+			</div>
+			<div class="row_info f_l">
+				<div class="row_title"><a href="{url x="youhui" r="edetail" p="id=$event.id"}" title="{$event.name}">{function  name="msubstr" v=$event.name b=0 e=40}</a></div>
+				<div class="blank"></div>
+				<div class="row_info_2">{function name="msubstr" v=$event.brief b=0 e=30}</div>
+				<div class="blank"></div>
+				<div class="row_info_3">
+				{$LANG.EVENT_TIME}：
+				{if $event.event_begin_time eq 0}
+				{else}
+				{function name="to_date" v=$event.event_begin_time f="Y-m-d"} 
+				{/if}	
+					
+				{if $event.event_end_time eq 0}
+				{$LANG.NO_END_TIME}
+				{else}
+				{$LANG.TO} {function name="to_date" v=$event.event_end_time f="Y-m-d"}
+				{/if}
+				</div>
+			
+			</div>
+			<div class="row_data f_l">
+			    {$event.submit_count}{$LANG.SUBMIT_COUNTED}
+				<br />
+				<span style="color:#666;">{$event.reply_count}{$LANG.REPLY_COUNTED}</span>
+			</div>
+			<div class="row_btn f_l">
+				<a href="{url x="youhui" r="edetail" p="id=$event.id"}" class="row_btn_link">{$LANG.VIEW_DETAIL_INFO}</a>
+			</div>
+			<div class="blank1"></div>
+		</div>		
+		
+		
+		{/foreach}
+		
+			
+		
+		<div class="blank"></div>
+	</div>
+	<div class="inc_foot"></div>
+</div>
+{else}
+{$LANG.NO_TUAN_LIST}
+{/if}
+
+<!--end_list-->
+<div class="blank"></div>
+<div class="pages">{$pages}</div>	
+</div>
+<div class="short f_r">
+	<!--map api-->
+	<style type="text/css">
+		#container{height:193px; width: 193px; border:#ccc solid 1px; }  
+	</style>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.2"></script> 
+	<script type="text/javascript">
+		var map;
+		function init_map()
+		{
+			map = new BMap.Map("container"); 
+	        var opts = {type:BMAP_NAVIGATION_CONTROL_ZOOM}
+	        map.addControl(new BMap.NavigationControl());
+	        /*map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  */
+			
+			{foreach from=$list key=k item=event}
+	        	create_mark("{$event.name}","{$event.xpoint}","{$event.ypoint}","{url x="youhui" r="edetail" p="id=$event.id"}");
+			{/foreach}
+		}
+		
+		function create_mark(name,xpoint,ypoint,url){
+			/*创建地理编码服务实例  */
+	        var point = new BMap.Point(xpoint,ypoint)
+	        /*将结果显示在地图上，并调整地图视野*/  
+	        map.centerAndZoom(point, 13);  			
+			var marker = new BMap.Marker(new BMap.Point(xpoint,ypoint));
+			var label=create_lable(name);
+			marker.setLabel(label);
+			marker.getLabel().hide();
+			map.addOverlay(marker);
+			marker.addEventListener('mouseover',function(){
+            map.panTo(new BMap.Point(xpoint,ypoint));
+	             marker.getLabel().show();
+	        }); 
+			marker.addEventListener('mouseout',function(){
+		           marker.getLabel().hide();
+		        }); 
+		 	marker.addEventListener('click',function(){            
+		           window.open(url);
+		        }); 
+		}	
+				
+		$(document).ready(function(){
+			init_map();
+		});
+		function create_lable(name){
+			var label = new BMap.Label(name,{"offset":new BMap.Size(-8,-10)});
+			label.setStyle({
+                    borderColor:"#808080",
+                    color:"#333",
+                    cursor:"pointer"
+            });
+            return label;
+		}
+	</script>
+	<div id="container"></div>
+	<!--end map api-->
+</div>
+<div class="blank"></div>
+
+{include file="inc/footer.html"}

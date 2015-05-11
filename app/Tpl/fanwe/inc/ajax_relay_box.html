@@ -1,0 +1,45 @@
+{if $origin_topic_info}
+<span class="origin_topic_info">
+	{function name="get_user_name" v=$origin_topic_info.user_id}:{function name="decode_topic" v=$origin_topic_info.content}
+</span>
+{else}
+<span class="topic_info">
+{function name="get_user_name" v=$topic_info.user_id}:{function name="decode_topic" v=$topic_info.content}
+</span>
+{/if}
+{function name="show_topic_form" text_name="relay_content" width="505px" height="80px" is_img="0" is_topic="0" is_event="0" id="relay_textbox" show_btn="0" show_tag="0"}		
+				
+<div class="blank5"></div>
+<div class="btn_row tc">
+	<input type="button" value="发表" class="topic_form_button" name="send" onclick="do_relay_topic({$topic_info.id})" />
+	<input type="button" value="取消" class="topic_form_button" name="cancel" onclick="close_pop();" />
+</div>
+<script type="text/javascript">
+	
+	String.prototype.replaceAll = function(reallyDo, replaceWith, ignoreCase) 
+	{
+	　 if (!RegExp.prototype.isPrototypeOf(reallyDo)) 
+		{
+			return this.replace(new RegExp(reallyDo, (ignoreCase ? "gi": "g")), replaceWith);
+		} 
+		else 
+		{
+			return this.replace(reallyDo, replaceWith);
+		}
+	}
+
+	$(document).ready(function(){
+		{if $origin_topic_info and $topic_info.content eq ''}
+			var content = "<?php echo str_replace(array("\n","\b"),array("<br />",""),$this->_var['origin_topic_info']['content']);?>";
+			content = content.replaceAll("<br />","\n");
+			content = "@{$origin_topic_info.user_name}:"+content;
+		{else}
+			var content = "<?php echo str_replace(array("\n","\b"),array("<br />",""),$this->_var['topic_info']['content']);?>";
+			content = content.replaceAll("<br />","\n");
+			content = "@{$topic_info.user_name}:"+content;
+		{/if}
+		var utag = "@{$user_info.user_name}:";
+		$("textarea[name='relay_content']").val(content+" "+utag);
+		$("textarea[name='relay_content']").focus();
+	});
+</script>

@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="Generator" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{if $page_title}{$page_title} - {/if}商户管理平台 - {function name='app_conf' value='SHOP_SEO_TITLE'}</title>
+<meta name="keywords" content="{if $page_keyword}{$page_keyword}{/if}{$shop_info.SHOP_KEYWORD}" />
+<meta name="description" content="{if $page_description}{$page_description}{/if}{$shop_info.SHOP_DESCRIPTION}" />
+<?php
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/style.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/biz.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/weebox.css";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/jquery.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/jquery.bgiframe.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/jquery.weebox.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/jquery.pngfix.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/lazyload.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/biz.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/biz.js";
+if(app_conf("APP_MSG_SENDER_OPEN")==1)
+{
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/msg_sender.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/msg_sender.js";
+}
+?>
+<link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$pagecss"}" />
+
+<script type="text/javascript">
+var APP_ROOT = '{$APP_ROOT}';
+var CART_URL = '{url x="shop" r="cart"}';
+var CART_CHECK_URL = '{url x="shop" r="cart#check"}';
+var LOADER_IMG = '{$TMPL}/images/lazy_loading.gif';
+var ERROR_IMG = '{$TMPL}/images/image_err.gif';
+{if app_conf("APP_MSG_SENDER_OPEN") eq 1}
+var send_span = {function name="app_conf" v="SEND_SPAN"}000;
+{/if}
+</script>
+<script type="text/javascript" src="{$APP_ROOT}/public/runtime/app/lang.js"></script>
+<script type="text/javascript" src="{function name="parse_script" v="$pagejs" c="$cpagejs"}"></script>
+
+</head>
+
+<body>
+	<div class="wrap">
+		<div class="logo f_l">
+			<a class="link" href="{$APP_ROOT}/">
+				<?php
+					$this->_var['logo_image'] = app_conf("SHOP_LOGO");
+				?>
+				{function name="load_page_png" v=$logo_image}
+			</a>
+		</div>
+		<div class="biz_title_logo"></div>		
+		<div class="f_r" style="margin-top:10px;text-align:right;">
+			<a href="{$APP_ROOT}/" target="_blank">返回首页</a>
+			<div class="blank5"></div>
+			合作热线：{function name="app_conf" v="SHOP_TEL"}
+		</div>
+		<div class="blank"></div>
+	</div>

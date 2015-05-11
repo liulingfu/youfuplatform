@@ -1,0 +1,40 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<PHP>
+	function get_group_cate_name($id)
+	{
+		return M("TopicGroupCate")->where("id=".$id)->getField("name");
+	}
+	function get_group_creater($id)
+	{
+		$uname = M("User")->where("id=".$id)->getField("user_name");
+		return $uname?$uname:"管理员创建";
+	}
+	function get_user_count_link($count,$vo)
+	{
+		return "<a href='".u("TopicGroup/user_index",array("group_id"=>$vo['id']))."'>(".$count.") 管理组员 </a>";
+	}
+</PHP>
+<div class="main">
+<div class="main_title">{$main_title}</div>
+<div class="blank5"></div>
+<div class="button_row">
+	<input type="button" class="button" value="{%ADD}" onclick="add();" />
+	<input type="button" class="button" value="{%FOREVERDEL}" onclick="foreverdel();" />
+</div>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="group" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|50px,name:{%NAME},cate_id|get_group_cate_name:分类,user_id|get_group_creater:组长,create_time|to_date:{%CREATE_TIME},user_count|get_user_count_link=$group:用户数,topic_count:主题数,is_effect|get_is_effect=$group['id']:{%IS_EFFECT},sort|get_sort=$group['id']:{%SORT}" 
+	actionlist="edit:{%EDIT}, foreverdel:{%DEL}" /> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

@@ -1,0 +1,190 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href="__TMPL__Common/Js/dp.js" />
+<div class="main">
+<div class="main_title">{%ADD} <a href="{:u("SupplierLocationImages/index",array("supplier_location_id"=>$_REQUEST['supplier_location_id']))}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form method='post' id="form" name="form" action="{:U(MODULE_NAME.'/insert')}" enctype="multipart/form-data">
+<table cellpadding="4" cellspacing="0" border="0" class="form">
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">简介</td>
+		<td class="item_input">
+			图1：<input type="text" class="textbox" name="brief[]" id="brief_1" />
+			图2：<input type="text" class="textbox" name="brief[]" id="brief_2" />
+			图3：<input type="text" class="textbox" name="brief[]" id="brief_3" />
+			<div class="blank5"></div>
+			图4：<input type="text" class="textbox" name="brief[]" id="brief_4" />
+			图5：<input type="text" class="textbox" name="brief[]" id="brief_5" />
+			图6：<input type="text" class="textbox" name="brief[]" id="brief_6" />
+			<div class="blank5"></div>
+			图7：<input type="text" class="textbox" name="brief[]" id="brief_7" />
+			图8：<input type="text" class="textbox" name="brief[]" id="brief_8" />
+			图9：<input type="text" class="textbox" name="brief[]" id="brief_9" />
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">图片</td>
+		<td class="item_input">
+			<table style="float:left;">
+				<tr>
+					<td style="border:none; padding:0; padding-left:5px">
+						图1:
+					</td>
+					<td style="border:none;padding:0">
+						<html:imgUpload name = 'image[]' id='image1' />
+					</td>
+				</tr>
+			</table>
+			<table style="float:left;">
+				<tr>
+					<td style="border:none; padding:0; padding-left:5px">
+						图2:
+					</td>
+					<td style="border:none;padding:0">
+						<html:imgUpload name = 'image[]' id='image2' />
+					</td>
+				</tr>
+			</table>
+			<table style="float:left;">
+				<tr>
+					<td style="border:none; padding:0; padding-left:5px">
+						图3:
+					</td>
+					<td style="border:none;padding:0">
+						<html:imgUpload name = 'image[]' id='image3' />
+					</td>
+				</tr>
+			</table>
+			<div class="blank5"></div>
+			<table style="float:left;">
+				<tr>
+					<td style="border:none; padding:0; padding-left:5px">
+						图4:
+					</td>
+					<td style="border:none;padding:0">
+						<html:imgUpload name = 'image[]' id='image4' />
+					</td>
+				</tr>
+			</table>
+			<table style="float:left;">
+				<tr>
+					<td style="border:none; padding:0; padding-left:5px">
+						图5:
+					</td>
+					<td style="border:none;padding:0">
+						<html:imgUpload name = 'image[]' id='image5' />
+					</td>
+				</tr>
+			</table>
+			<table style="float:left;">
+				<tr>
+					<td style="border:none; padding:0; padding-left:5px">
+						图6:
+					</td>
+					<td style="border:none;padding:0;">
+						<html:imgUpload name = 'image[]' id='image6' />
+					</td>
+				</tr>
+			</table>
+			<div class="blank5"></div>
+			<table style="float:left;">
+				<tr>
+					<td style="border:none; padding:0; padding-left:5px">
+						图7:
+					</td>
+					<td style="border:none;padding:0">
+						<html:imgUpload name = 'image[]' id='image7' />
+					</td>
+				</tr>
+			</table>
+			<table style="float:left;">
+				<tr>
+					<td style="border:none; padding:0; padding-left:5px">
+						图8:
+					</td>
+					<td style="border:none;padding:0">
+						<html:imgUpload name = 'image[]' id='image8' />
+					</td>
+				</tr>
+			</table>
+			<table style="float:left;">
+				<tr>
+					<td style="border:none; padding:0; padding-left:5px">
+						图9:
+					</td>
+					<td style="border:none;padding:0">
+						<html:imgUpload name = 'image[]' id='image9' />
+					</td>
+				</tr>
+			</table>
+			</td>
+	</tr>
+
+	<tr>
+		<td class="item_title">排序</td>
+		<td class="item_input"><input type="text" class="textbox" name="sort" id="sort" value="100" /></td>
+	</tr>
+	
+	<tr>
+        <td class="item_title">所属商户</td>
+        <td class="item_input">
+                <select id="supplier_location_id" name="supplier_location_id" class="require">
+                    {$_REQUEST.supplier_location_id|getMerchantOption}						
+                </select>
+                <input id='supplier_location_name' type='text' class="textbox"/>
+                <input class="button" type="button" value="{%SEARCH}" onclick="getMerchantByName('#supplier_location_id','#supplier_location_name')">
+        </td>
+    </tr>
+	
+	<tr id="images_group_id_area">
+		<td class="item_title">类型</td>
+		<td class="item_input">
+			<select name="images_group_id">
+				<foreach name="images_group" item="group">
+					<option value="{$group.id}" <if condition="$vo['images_group_id'] eq $group['id']">selected="selected"</if> >{$group.name}</option>
+				</foreach>
+			</select>
+		</td>
+	</tr>
+	
+	<tr>
+        <td class="item_title">好评数</td>
+        <td class="item_input">
+               <input id='good_count' name="good_count" type='text' class="textbox" value='0' style="width:50px"/>
+        </td>
+    </tr>
+	
+	<tr>
+        <td class="item_title">差评数</td>
+        <td class="item_input">
+               <input id='bad_count' name="bad_count" type='text'  class="textbox"  value='0' style="width:50px" />
+        </td>
+    </tr>
+	
+	<tr>
+        <td class="item_title">审核</td>
+        <td class="item_input">
+               <input id='status' name="status" type='checkbox' checked="checked" value='1"'/>
+        </td>
+    </tr>
+	
+	<tr>
+		<td class="item_title">&nbsp;</td>
+		<td class="item_input">
+			<input type="hidden"  value="1" name="status" />
+			<input type="hidden"  value="{$_REQUEST['supplier_location_id']}" name="supplier_location_id" />
+			<input type="submit" class="button" value="{%ADD}" />
+			<input type="reset" class="button" value="{%RESET}" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>
+</form>
+</div>
+<include file="Public:footer" />

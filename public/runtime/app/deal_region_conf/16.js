@@ -1,0 +1,1 @@
+var deal_region_conf = [];

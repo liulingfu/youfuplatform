@@ -1,0 +1,118 @@
+{if $brand_info.brief}
+<div class="inc">
+		<div class="inc_main b_info pd10">
+			{$brand_info.brief}
+		</div><!--end inc_main-->		
+		<div class="inc_foot"></div>
+</div>
+<div class="blank"></div>
+{/if}
+{*开始品牌商品列表*}
+{if $list}
+<div class="inc">
+	<div class="inc_top">
+		{if $page_title}{$page_title}{else}{$LANG.GOODS_LIST}{/if}
+		<div class="f_r more">
+			{$LANG.SORT_BY}：
+			<a href="javascript:void(0);" onclick="set_sort('buy_count')" class="sort_icon {if $sort_field eq 'buy_count'}sort_{$sort_type}{else}sort_gray{/if}">销量</a> 
+			{if $MODULE_NAME eq 'rec' and $ACTION_NAME eq 'rsale'}{else}
+			<a href="javascript:void(0);" onclick="set_sort('current_price')" class="sort_icon {if $sort_field eq 'current_price'}sort_{$sort_type}{else}sort_gray{/if}">价格</a> 
+			<a href="javascript:void(0);" onclick="set_sort('update_time')" class="sort_icon {if $sort_field eq 'update_time'}sort_{$sort_type}{else}sort_gray{/if}">上架时间</a> 
+			<a href="javascript:void(0);" onclick="set_sort('avg_point')" class="sort_icon {if $sort_field eq 'avg_point'}sort_{$sort_type}{else}sort_gray{/if}">好评度</a>
+			{/if}
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			{$LANG.STYLE_LIST}：
+			<span class="list_type {if $list_type eq 1}grid_enable{else}grid_disable{/if}" onclick="switch_style('grid');"></span>
+			<span class="list_type {if $list_type eq 0}line_enable{else}line_disable{/if}" onclick="switch_style('line');"></span>
+		</div><!--排序-->
+	</div>
+	<div class="inc_main cf brand_info_goods_list">
+		{if $list_type eq 1}
+		{foreach from=$list item=goods_item}
+		<div class="goods_item">
+			<a href="{$goods_item.url}" title="{$goods_item.name}" class="goods_img_box"><img src="{function name="get_spec_image" v=$goods_item.icon w="160" h="160"}"  alt="{$goods_item.name}"/></a>
+			<div class="blank5"></div>
+			<div class="tc">
+			<span class="s_price">{function name="format_price" v=$goods_item.current_price}</span>
+			&nbsp;&nbsp;
+			<span class="m_price">{function name="format_price" v=$goods_item.origin_price}</span>
+			</div>
+			<a href="{$goods_item.url}" class="goods_item_title" title="{$goods_item.name}">{function name="msubstr" v=$goods_item.name b=0 e=12}</a>
+			<div class="blank5"></div>
+			<div class="starico">
+			<?php
+					for($i=0;$i<$this->_var['goods_item']['avg_point'];$i++)
+					{
+				?>
+				<img src="{$TMPL}/images/star_on.jpg" />
+				<?php
+					}
+				?>
+				<?php
+					$off_count = 5 - intval($this->_var['goods_item']['avg_point']);
+					for($i=0;$i<$off_count;$i++)
+					{
+				?>
+				<img src="{$TMPL}/images/star_off.jpg" />
+				<?php
+					}
+				?>
+			</div>
+			<div class="blank5"></div>	
+			<input type="button" value="{$LANG.BUY_NOW}" class="s_buy_btn" onclick="add_cart({$goods_item.id});" /> 
+			<input type="button" value="{$LANG.COLLECT}" class="s_collect_btn" onclick="collect_goods({$goods_item.id});"/>
+		</div>		
+		{/foreach}
+		{else}
+		{foreach from=$list item=goods_item}
+		<div class="goods_row">
+			<div class="goods_img f_l">
+			<a href="{$goods_item.url}" title="{$goods_item.name}"><img src="{$goods_item.icon}"  alt="{$goods_item.name}"/></a>
+			
+			</div>
+			<div class="goods_name f_l">
+				<a href="{$goods_item.url}" title="{$goods_item.name}">{function name="msubstr" v=$goods_item.name b=0 e=2000}</a>
+				<div class="blank5"></div>
+				<div class="starico">
+			<?php
+					for($i=0;$i<$this->_var['goods_item']['avg_point'];$i++)
+					{
+				?>
+				<img src="{$TMPL}/images/star_on.jpg" />
+				<?php
+					}
+				?>
+				<?php
+					$off_count = 5 - intval($this->_var['goods_item']['avg_point']);
+					for($i=0;$i<$off_count;$i++)
+					{
+				?>
+				<img src="{$TMPL}/images/star_off.jpg" />
+				<?php
+					}
+				?>
+			</div>
+			
+			</div>
+			<div class="goods_price f_r tr">
+				<span class="m_price">{$LANG.ORIGIN_PRICE}{function name="format_price" v=$goods_item.origin_price}</span>
+				<span class="s_price">{$LANG.CURRENT_PRICE}{function name="format_price" v=$goods_item.current_price}</span>
+				<div class="blank5"></div>	
+				<input type="button" value="{$LANG.BUY_NOW}" class="s_buy_btn" onclick="add_cart({$goods_item.id});" /> 
+				
+				<input type="button" value="{$LANG.COLLECT}" class="s_collect_btn" onclick="collect_goods({$goods_item.id});"/>
+			</div>
+		</div>	
+		<div class="blank1"></div>	
+		{/foreach}
+		{/if}
+		<div class="blank"></div>
+	</div>
+	<div class="inc_foot"></div>
+</div>
+{else}
+{$page_title}{$LANG.NO_GOODS}
+{/if}
+{*结束品牌商品列表*}
+<div class="blank"></div>
+<div class="pages">{$pages}</div>

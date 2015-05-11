@@ -1,0 +1,23 @@
+{include file="inc/header.html"} 
+{include file="inc/group_title.html"}
+<div>
+<div class="">
+<form method="post" onsubmit="return check_forum_content(this);" action="{url x="shop" r="uc_topic#add"}" name="message">
+	标题： <input type="text" class="f-input" name="forum_title" id="forum_title" style="width:350px;" />
+	<div class="blank"></div>
+	{function name="show_topic_form" text_name="content" width="925px" height="150px" is_img="1" is_topic="1" is_event="1" id="main_topic_form_textarea" show_btn="0" show_tag="1"}		
+	<div class="blank"></div>
+	<input type="hidden" name="group_id" value="{$group_info.id}" />	
+	<div class="verify_row f_r">
+	{if app_conf("VERIFY_IMAGE") eq 1}
+		<input type="text" value="" class="f-input" name="verify"  style="margin-left:10px;"/>	
+		<img src="{$APP_ROOT}/verify.php?rand={function name="rand"}" onclick="this.src='{$APP_ROOT}/verify.php?rand='+ Math.random();" title="看不清楚？换一张" />			
+	{/if}	
+	<input type="submit" value="提交" name="commit" class="formbutton f_l" style="margin-left:10px;">
+	</div>
+</form>
+</div>
+</div>
+
+<div class="blank"></div>
+{include file="inc/footer.html"}

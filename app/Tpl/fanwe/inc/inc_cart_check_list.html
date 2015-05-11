@@ -1,0 +1,53 @@
+
+							<table class="cart-table">
+								<tr>
+									<th class="deal-buy-desc">{$LANG.DEAL_ITEM}</th>
+									<th class="deal-buy-quantity">{$LANG.NUMBER}</th>									
+									<th class="deal-buy-price">{$LANG.PRICE}</th>															
+									<th class="deal-buy-total">{$LANG.TOTAL_PRICE}</th>
+									</tr>
+								{foreach from=$cart_list item=cart_item}
+								<tr>
+									<td class="deal-buy-desc">
+									<div class="cart-icon f_l"><a href="{url x="shop" r="goods" p="id=$cart_item.deal_id"}" target="_blank" title="{$cart_item.name}"><img src="{function name="get_spec_image" v=$cart_item.icon w=50 h=50 g=1}" alt="{$cart_item.name}" /></a></div>
+										<div class="cart-title f_l">
+										<a href="{url x="shop" r="goods" p="id=$cart_item.deal_id"}" target="_blank" title="{$cart_item.name}">{function name="msubstr" v=$cart_item.name b=0 e=50}</a>
+										</div>
+									</td>
+									
+									<td class="deal-buy-quantity">
+									{$cart_item.number}
+									</td>
+									
+									<td class="deal-buy-price">
+										{if $cart_item.buy_type neq 1}
+										{function name="format_price" value=$cart_item.unit_price}
+										{else}
+										<?php echo format_score(abs($this->_var['cart_item']['return_score']));?>
+										{/if}
+									</td>
+									
+									<td class="deal-buy-total">
+										{if $cart_item.buy_type neq 1}
+										{function name="format_price" value=$cart_item.total_price}
+										{else}
+										<?php echo format_score(abs($this->_var['cart_item']['return_total_score']));?>
+										{/if}									
+									</td>
+								</tr>
+								{/foreach}	
+																
+								<table class="cart-table">
+								<tr class="order-total">
+									<td class="tl ">
+									
+									</td>
+									<td class="deal-cart-total tr">									
+										<strong class="total-cart-tip">{$LANG.PAY_TOTAL_PRICE_NO_DELIVERY}</strong> <strong id="deal-buy-total-t">{function name="format_price" value=$total_price}</strong>
+									</td>
+									
+								</tr>
+							</table>
+							
+							</table>
+							

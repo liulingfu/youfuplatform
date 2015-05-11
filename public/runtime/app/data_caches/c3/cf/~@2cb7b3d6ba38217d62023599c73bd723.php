@@ -1,0 +1,3 @@
+<?php
+//000000003600a:4:{i:0;a:4:{s:2:"id";s:2:"44";s:9:"user_name";s:5:"fanwe";s:11:"province_id";s:1:"0";s:7:"city_id";s:1:"0";}i:1;a:4:{s:2:"id";s:2:"45";s:9:"user_name";s:14:"fz云淡风轻";s:11:"province_id";s:1:"0";s:7:"city_id";s:1:"0";}i:2;a:4:{s:2:"id";s:2:"46";s:9:"user_name";s:9:"fzmatthew";s:11:"province_id";s:1:"0";s:7:"city_id";s:1:"0";}i:3;a:4:{s:2:"id";s:2:"47";s:9:"user_name";s:9:"方维o2o";s:11:"province_id";s:1:"0";s:7:"city_id";s:1:"0";}}
+?>

@@ -1,0 +1,20 @@
+<div style="padding:10px 5px;">
+<div class="inc">
+	<div class="inc_top">本周Top10商家</div>
+	<div class="inc_main">
+		{foreach from=$top10 item=topstore key=key}
+		<div style="padding:5px 2px;">
+			<div class="f_l">
+				<?php echo intval($this->_var['key'])+1;?>
+				<a href="{url x="youhui" r="store#view" p="id=$topstore.id"}" target="_blank" title="{$topstore.name}">{function name="msubstr" v=$topstore.name b=0 e=6}</a>
+			</div>
+			<div class="f_r" style="color:#b40000;">
+				好评率：<?php echo round($this->_var['topstore']['good_rate']*100)."%"; ?>
+			</div>
+			<div class="blank1"></div>
+		</div>
+		{/foreach}
+		
+	</div>
+</div>
+</div>

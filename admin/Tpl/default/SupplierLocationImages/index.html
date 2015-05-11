@@ -1,0 +1,32 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<php>
+	function get_image_type($type)
+	{
+		if($type==0)
+			return "店铺";
+		else
+			return "产品/菜品";
+	}
+</php>
+<div class="main">
+<div class="main_title">{$main_title}<a href="{:u("SupplierLocation/index")}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<div class="button_row">
+	<input type="button" class="button" value="{%ADD}" onclick="location.href='__APP__?m=SupplierLocationImages&a=add&supplier_location_id={$_REQUEST['supplier_location_id']}'" />
+	<input type="button" class="button" value="{%FOREVERDEL}" onclick="foreverdel();" />
+</div>
+<html:list 
+	id="checkList" 
+	style="dataTable" 
+	name="cate" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|80,brief:简介,supplier_location_id|getMerchant:商家,user_id|get_submit_user:用户|100,good_count:好评数|60,bad_count:差评数|60,image_type|get_image_type:图片类型|86,create_time|to_date:更新时间,status|get_toogle_status=$cate['id']#status:{%STATUS},sort|get_sort=$cate['id']:{%SORT}" 
+	actionlist="edit:{%EDIT}:id,foreverdel:{%DEL}:id" />
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

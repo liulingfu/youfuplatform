@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{:conf("APP_NAME")}{:l("ADMIN_PLATFORM")}</title>
+<script type="text/javascript" src="__ROOT__/public/runtime/admin/lang.js"></script>
+<script type="text/javascript">
+	var version = '{:app_conf("DB_VERSION")}';
+</script>
+<load href='__TMPL__Common/style/style.css' />
+<load href='__TMPL__Common/style/main.css' />
+<load href='__TMPL__Common/js/jquery.js' />
+</head>
+
+<body>
+	<div class="main">
+	<div class="main_title">{:conf("APP_NAME")}{:l("ADMIN_PLATFORM")} {%HOME}	</div>
+	<div class="blank5"></div>
+	<table class="form" cellpadding=0 cellspacing=0>
+		<tr>
+			<td colspan=2 class="topTd"></td>
+		</tr>
+		<tr>
+			<td class="item_title" style="width:200px;">
+				{%CURRENT_VERSION}
+			</td>
+			<td class="item_input">
+				{%APP_VERSION}:{:conf("DB_VERSION")}<php>if(app_conf("APP_SUB_VER")){</php>.{:app_conf("APP_SUB_VER")}<PHP>}</PHP> <span id="version_tip"></span>
+			</td>
+		</tr>
+		
+		<tr>
+			<td class="item_title" style="width:200px;">
+				{%TIME_INFORMATION}
+			</td>
+			<td class="item_input">
+				{%CURRENT_TIME}：<PHP> echo to_date(get_gmtime());</PHP>
+			</td>
+		</tr>
+		<tr>
+			<td class="item_title" style="width:200px;">
+				{%TOTAL_REG_USER_COUNT}
+			</td>
+			<td class="item_input">				
+				<PHP>echo sprintf(L("TOTAL_USER_COUNT_FORMAT"),$total_user,$total_verify_user);</PHP>
+			</td>
+		</tr>
+		<tr>
+			<td class="item_title" style="width:200px;">
+				{%CURRENT_DEALING}
+			</td>
+			<td class="item_input">				
+				<PHP>echo sprintf(L("CURRENT_DEALING_FORMAT"),$goods_count,$deal_count,$score_count);</PHP>
+			</td>
+		</tr>	
+		
+		<tr>
+			<td class="item_title" style="width:200px;">
+				上线优惠
+			</td>
+			<td class="item_input">
+				代金券{$daijin_count}，
+				优惠券{$youhui_count}，
+				活动{$event_count}
+			</td>
+		</tr>
+		
+		<tr>
+			<td class="item_title" style="width:200px;">
+				会员发表
+			</td>
+			<td class="item_input">
+				分享{$topic_count}<if condition="$reminder['topic_count'] gt 0">(<a href="{:u("Topic/index")}" style="color:#f60;">{$reminder.topic_count}新</a>)</if>，商家点评{$dp_count}<if condition="$reminder['dp_count'] gt 0">(<a href="{:u("SupplierLocation/index")}" style="color:#f60;">{$reminder.dp_count}新</a>)</if>，会员留言{$msg_count}<if condition="$reminder['msg_count'] gt 0">(<a href="{:u("Message/index",array("is_buy"=>0))}" style="color:#f60;">{$reminder.msg_count}新</a>)</if>，购物点评{$buy_msg_count}<if condition="$reminder['buy_msg_count'] gt 0">(<a href="{:u("Message/index",array("is_buy"=>1))}" style="color:#f60;">{$reminder.buy_msg_count}新</a>)</if>
+			</td>
+		</tr>
+		
+		<tr>
+			<td class="item_title" style="width:200px;">
+				订单统计
+			</td>
+			<td class="item_input">
+				订单总数{$order_count}，商品成交{$order_buy_count}，充值成交{$incharge_order_buy_count}
+				<if condition="$reminder['order_count'] gt 0">
+				(<a href="{:u("DealOrder/deal_index")}" style="color:#f60;">{$reminder.order_count}新订单</a>)
+				</if>
+				<if condition="$reminder['incharge_count'] gt 0">
+				(<a href="{:u("DealOrder/incharge_index")}" style="color:#f60;">{$reminder.incharge_count}新充值单</a>)
+				</if>
+				<if condition="$reminder['refund_count'] gt 0">
+				(<a href="{:u("DealOrder/deal_index",array("refund_status"=>1))}" style="color:#f60;">{$reminder.refund_count}新退款申请</a>)
+				</if>
+				<if condition="$reminder['retake_count'] gt 0">
+				(<a href="{:u("DealOrder/deal_index",array("retake_status"=>1))}" style="color:#f60;">{$reminder.retake_count}新退货申请</a>)
+				</if>
+			</td>
+		</tr>
+		
+		<tr>
+			<td class="item_title" style="width:200px;">
+				资金
+			</td>
+			<td class="item_input">
+				总收款{$income_amount|format_price}，退款{$refund_amount|format_price}
+			</td>
+		</tr>
+		
+		<tr>
+			<td class="item_title" style="width:200px;">
+				{%GET_MORE_INFO}
+			</td>
+			<td class="item_input">
+				请访问 <a href="http://www.ynztc.com" target="_blank" title="优辅平台O2O商业系统">http://www.ynztc.com 优辅平台O2O商业系统</a>
+			</td>
+		</tr>
+		<tr>
+			<td colspan=2 class="bottomTd"></td>
+		</tr>
+	</table>	
+	</div>
+	
+</body>
+</html>

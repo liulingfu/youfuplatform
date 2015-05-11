@@ -1,0 +1,116 @@
+{include file="biz/biz_header.html"} 
+
+{include file="biz/biz_nav.html"}
+<div class="blank"></div>
+<div class="wrap">
+{include file="biz/biz_info_header.html"}
+<div class="biz_index_box clearfix">
+	<div class="short f_l">
+		{include file="biz/biz_left.html"}
+	</div>
+	<div class="long f_r">
+		<style type="text/css">
+			ul.commit_list{ padding:0px 10px;}
+			ul.commit_list li{ padding:10px; display:block; }
+			ul.commit_list li.gray{ background:#f2f2f2;}
+		</style>
+		<?PHP
+			function get_order_items_list_supplier($order_id,$supplier_id)
+			{
+				if(intval($GLOBALS['tmpl']->_var['deal_id'])==0)
+				$deal_order_item = $GLOBALS['db']->getAllCached("select doi.* from ".DB_PREFIX."deal_order_item as doi left join ".DB_PREFIX."deal as d on doi.deal_id = d.id where doi.order_id = ".$order_id." and d.supplier_id = ".$supplier_id);
+				else
+				{
+				$deal_order_item = $GLOBALS['db']->getAllCached("select doi.* from ".DB_PREFIX."deal_order_item as doi left join ".DB_PREFIX."deal as d on doi.deal_id = d.id where doi.order_id = ".$order_id." and d.supplier_id = ".$supplier_id." and d.id = ".intval($GLOBALS['tmpl']->_var['deal_id']));
+				}
+				$str = '';
+				foreach($deal_order_item as $k=>$v)
+				{
+					$str .="<span title='".$v['name']."'>".$v['sub_name']."</span>[".$v['number']."]<br />";	
+					
+					$coupon_list = $GLOBALS['db']->getAll("select sn,confirm_account,confirm_time,begin_time,end_time from ".DB_PREFIX."deal_coupon where order_deal_id = ".$v['id']." and is_valid = 1");
+					if($coupon_list)
+					{
+						foreach($coupon_list as $kk=>$vv)
+						{
+							$str.=$vv['sn'];
+							if($vv['confirm_account']!=0)
+							{
+								$account_name = $GLOBALS['db']->getOneCached("select account_name from ".DB_PREFIX."supplier_account where id = ".$vv['confirm_account']);
+								$str.= " <span style='font-size:12px; color:#b40000;'>[".$account_name." ".to_date($vv['confirm_time'])." ".$GLOBALS['lang']['COUPON_USED']."]</span>";						
+							}
+							else
+							{
+								if($vv['begin_time']!=0&&$vv['begin_time']>get_gmtime())
+								{
+									$str.= " <span style='font-size:12px; color:#b40000;'>".$GLOBALS['lang']['COUPON_NOT_BEGIN']."</span>";
+								}
+								
+								if($vv['end_time']!=0&&$vv['end_time']<get_gmtime())
+								{
+									$str.= " <span style='font-size:12px; color:#b40000;'>".$GLOBALS['lang']['COUPON_ENDED']."</span>";
+								}
+							}
+							
+							$str.="<br />";
+						}
+					}
+					else
+					{
+						$str.=$GLOBALS['lang']['NO_COUPON_GEN']."<br />";
+					}
+				}
+				echo $str;
+			}
+		?>	
+		
+		<h3 class="modify-title">
+			订单列表
+			<a href="{url x="biz" r="tuan"}">返回上一页</a>
+		</h3>
+		<div  style="padding:0 10px;">
+			<form name="searchform" action="{url x="biz" r="order"}" method="post">
+			{$LANG.SUPPLIER_ORDER_SN}:<input type="text" class="f-input" name="order_sn" value="{$order_sn}" />
+			消费券序列号:<input type="text" class="f-input" name="coupon_sn" value="{$coupon_sn}" />
+				<input type="hidden" value="1" name="is_redirect" />
+				<input type="submit" value="{$LANG.SEARCH}" class="formbutton" />
+			</form>
+		</div>
+		<div class="blank5"></div>
+		<table cellspacing="0" cellpadding="0" border="0" class="data-table">
+			<tr>
+				<th>{$LANG.SUPPLIER_ORDER_SN}</th>
+				<th width=80>{$LANG.ORDER_CREATE_TIME}</th>
+				<th>{$LANG.SUPPLIER_USER_NAME}</th>						
+				<th>产品名称及消费券</th>
+				<th>{$LANG.BUY_NUMBER}</th>
+				<th>{$LANG.VIEW}</th>
+			</tr>
+			{foreach from=$order_list item=order key=key}
+			<tr {if $key mod 2 eq  1}class="gray"{/if}>
+				<td style="text-align:left;">
+					{$order.order_sn}											
+				</td>
+				<td>{function name="to_date" value=$order.ocreate_time}</td>
+				<td>{function name="get_user_name" value=$order.user_id}</td>
+				<td>										
+					{function name="get_order_items_list_supplier" value=$order.oid supplier_id=$supplier_id }
+				</td>
+				<td>
+					{$order.number}
+				</td>
+				<td>
+					<a href="{url x="biz"  r="order#view" p="id=$order.oid"}">{$LANG.VIEW}</a>
+				</td>
+			</tr>
+			{/foreach}
+	</table>
+	</div>
+	<div class="blank"></div>
+	<div class="pages">{$pages}</div>
+	<div class="blank"></div>
+</div><!--end biz_index_box-->
+
+</div>
+<div class="blank"></div>
+{include file="biz/biz_footer.html"} 

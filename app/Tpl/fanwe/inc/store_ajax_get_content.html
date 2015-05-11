@@ -1,0 +1,34 @@
+{if $list}
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#data_page").find("a").bind("click",function(){
+			var ajax_url = $(this).attr("href");		
+			$.ajax({ 
+				url: ajax_url,
+				type: "POST",
+				cache:false,		
+				success:function(result){
+					$(".detail_cnt").find("#extra_info").html(result);
+				},
+				error:function(o){
+					//alert(o.responseText);
+				}
+			});
+			return false;
+		});
+	});
+</script>
+<div class="data_content">
+	{foreach from=$list key=key item=ditem}
+	<div class="data_item" {if $key%4 eq 3}style="margin-right:0px;"{/if}>
+		<div class="inner">
+		<a href="{$ditem.url}" title="{$ditem.name}"><img src="{function name="get_spec_image" v=$ditem.image w=165 h=120 g=1}"  alt="{$ditem.name}"/></a>
+		<div class="blank"></div>
+		<a href="{$ditem.url}" title="{$ditem.name}">{function name="msubstr" v=$ditem.name b=0 e=25}</a>
+		</div>
+	</div>	
+	{/foreach}
+</div>
+<div class="blank"></div>
+<div class="pages" id="data_page">{$pages}</div>
+{/if}

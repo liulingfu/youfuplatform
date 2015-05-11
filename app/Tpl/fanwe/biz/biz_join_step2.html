@@ -1,0 +1,25 @@
+{include file="biz/biz_header.html"} 
+<link rel="stylesheet" type="text/css" href="{$TMPL}/css/biz_join.css" />
+<div class="blank"></div>
+<div class="wrap">
+{include file="biz/biz_step_nav.html"}
+<div class="blank"></div>
+<form method="post" action="{url x="biz" r="join#step3"}" name="biz_publish" >
+	<div class="agree_title">{function name="app_conf" v="SHOP_TITLE"}服务协议</div>
+
+					    <div class="bd">					
+							<div class="agree_content" style="height: 296px;">
+								{function name="app_conf" v="BIZ_AGREEMENT"}
+							</div>					
+						</div>
+						<div class="tc pd10">
+							<input type="hidden" name="base_data" value="{$base_data}" />
+							<input class="biz_pub_btn" type="submit" value="同意" />
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<input class="biz_pub_btn" type="button" value="上一步" onclick="history.go(-1);" />
+						</div>
+									
+</form>
+</div>
+<div class="blank"></div>
+{include file="biz/biz_footer.html"} 

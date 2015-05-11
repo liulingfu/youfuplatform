@@ -1,0 +1,8 @@
+	<div class="sub_nav">
+		<span {if $is_buy eq 0}class="act"{/if}><a href="{url x="youhui" r="ydetail" p="id=$goods_id&type=comment&is_buy=0"}#detail_box" rel="1">{$LANG.BEFORE_BUY}</a></span>
+		<span {if $is_buy eq 1}class="act"{/if}><a href="{url x="youhui" r="ydetail" p="id=$goods_id&type=comment&is_buy=1"}#detail_box" rel="2">{$LANG.AFTER_BUY}</a></span>
+	</div>															
+	{function name='load_comment_list'}								
+	<div class="goods_comment_box">
+		{include file="inc/inc_goods_comment.html"}
+	</div>

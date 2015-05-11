@@ -1,0 +1,57 @@
+{include file="biz/biz_header.html"} 
+
+{include file="biz/biz_nav.html"}
+<div class="blank"></div>
+<div class="wrap">
+{include file="biz/biz_info_header.html"}
+<div class="biz_index_box clearfix">
+	<div class="short f_l">
+		{include file="biz/biz_left.html"}
+	</div>
+	<div class="long f_r">
+			<style type="text/css">
+				ul.commit_list{ padding:0px 10px; font-size:12px; }
+				ul.commit_list h2{ font-size:12px; color:#999;}
+				ul.commit_list li{ padding:10px; display:block; }
+				ul.commit_list li.gray{ background:#f2f2f2;}
+			</style>			
+			<div class="blank"></div>
+			<a class="biz_pub_btn f_r" href="{url x="biz" r="event#publish"}">发布活动</a>
+			<div class="blank"></div>
+			<table cellspacing="0" cellpadding="0" border="0" class="data-table">
+				{foreach from=$event_list item=event_item key=key}
+				<tr {if $key mod 2 eq 0}class="gray"{/if}>
+					<td>
+						<h2> 
+						{if $event_item.is_effect eq 1 and $event_item.publish_wait eq 0}<a href='{url x="youhui" r="edetail" p="id=$event_item.id"}' target="_blank">{/if}
+						{$event_item.name}
+						[{if $event_item.is_effect eq 0 or $event_item.publish_wait eq 1}未上线{else}已上线{/if}]{if $event_item.is_effect eq 1 and $event_item.publish_wait eq 0}</a>{/if} 
+						</h2>
+						{if $event_item.is_effect eq 0 or $event_item.publish_wait eq 1}
+						<a href="{url x="youhui" r="edetail" p="id=$event_item.id&preview=1"}" target="_blank">预览</a>
+						{/if}
+						{if $event_item.publish_wait eq 1}
+						<a href="{url x="biz" r="event#modify" p="id=$event_item.id"}">编辑</a>
+						{/if}
+						{if $event_item.publish_wait eq 0 and $event_item.is_effect eq 1}
+						<div class="blank"></div>
+						报名数：{$event_item.submit_count}   																			
+						[<a href="{url x="biz" r="event#submit_list" p="id=$event_item.id"}">查看报名名单</a>]
+						{/if}
+					</td>			
+				</tr>
+				{/foreach}
+			</table>
+			<div class="blank"></div>
+			<div class="pages">
+									{$pages}
+			</div>
+		
+		
+	</div>
+	<div class="blank"></div>
+</div><!--end biz_index_box-->
+
+</div>
+<div class="blank"></div>
+{include file="biz/biz_footer.html"} 

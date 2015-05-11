@@ -1,0 +1,78 @@
+<?php
+$this->_var['pmjs'][] = $this->_var['TMPL_REAL']."/js/writepm.js";
+$this->_var['cpmjs'][] = $this->_var['TMPL_REAL']."/js/writepm.js";
+?>
+<script type="text/javascript" src="{function name="parse_script" v="$pmjs" c="$cpmjs"}"></script>
+<div class="inc">
+	<div class="inc_top">我与{$dest_user_name}共有{$count}封交流信件</div>
+	<div class="inc_main">
+		<!--msg_list-->
+		<div class="uc-table">
+		<div class="f_l">
+		{$LANG.SELECT_ALL}<input type="checkbox" name="checkall" /> <input type="button" value="{$LANG.DELETE}" name="del_pm" class="remove_msg_btn" />
+		</div>
+		<div class="blank"></div>
+		<table cellspacing="0" cellpadding="0" border="0" class="uc-msg-table" >
+		<form name="pm_list">
+			{foreach from=$msg_list item=pm key=key}
+			<tr class="pm_row">
+				<td width=15>					
+					<input type="checkbox" value="{$pm.id}" name="id[]" />					
+				</td>
+				<td style="text-align:left;">
+					{if $pm.system_msg_id eq 0}
+						{if $pm.to_user_id eq $user_info.id}
+						{function name="show_avatar" v=$pm.from_user_id t="small"}
+						{/if}
+						{if $pm.from_user_id eq $user_info.id}
+						{function name="show_avatar" v=$pm.to_user_id t="small"}
+						{/if}
+					{/if}{*头像*}
+					{if $pm.type eq 0 and $pm.is_read eq 0}<span class="new_pm"></span>{/if}
+					&nbsp;
+					{if $pm.system_msg_id neq 0}{$LANG.SYSTEM_PM}:
+					{$pm.title}
+					{/if}
+					{if $pm.system_msg_id eq 0}		
+						{if $pm.from_user_id eq $user_info.id}{$LANG.I}{else}{function name="get_user_name" v=$pm.from_user_id s="0"}{/if}
+						{$LANG.SAYTO}
+						{if $pm.to_user_id eq $user_info.id}{$LANG.I}{else}{function name="get_user_name" v=$pm.to_user_id s="0"}{/if}
+						{$LANG.SAY}：				
+					{/if}
+					<br />				
+					{function name="nl2br" v=$pm.content}					
+				</td>
+				<td width=100 style="text-align:right;">					
+					{function name="pass_date" v=$pm.create_time}
+				</td>
+			</tr>				
+			{/foreach}
+		</form>
+		</table>						
+		<div class="blank"></div>
+		<div class="pages" style="padding:0px; margin:0px;">{$pages}</div>
+		</div><!--end uc-table-->
+		<!--end msg_list-->	
+		
+		
+		<div class="blank"></div>
+		
+			<input type="hidden" value="{$dest_user_name}" name="user_name" />
+			<div class="field" style="width:700px;">
+				<label>{$LANG.CONTENT}</label>
+				<textarea style="width:450px; height:100px; border:#ccc solid 1px;" cols="10" name="content"></textarea>
+			</div>
+			<div class="field" style="width:700px;">		
+				<label></label>	
+				<input type="button" value="{$LANG.DO_SEND}" name="commit" id="settings-submit" class="formbutton" onclick="do_reply_pm();" />
+			</div>
+		
+		<div class="blank"></div>	
+				
+	</div>
+	
+	<div class="inc_foot"></div>
+	
+
+</div>
+

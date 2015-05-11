@@ -1,0 +1,54 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<php>
+	function get_is_main_location($is_main,$id)
+	{
+		if($is_main==1)
+		{
+			return l("YES");
+		}
+		else
+		{
+			return l("NO");
+		}
+	}
+
+	function getViewSub($id,$vo)
+	{
+		$str .= "<a href='".u("SupplierLocationDp/index",array("supplier_location_id"=>$vo['id']))."'>查看点评(".$vo['dp_count'].")</a>&nbsp;";
+		$str .= "<a href='".u("SupplierLocationImages/index",array("supplier_location_id"=>$vo['id']))."'>查看图库(".$vo['image_count'].")</a>";
+		return $str;
+	}
+</php>
+<div class="main">
+<div class="main_title">{$main_title}</div>
+<div class="blank5"></div>
+<div class="button_row">
+	<input type="button" class="button" value="{%ADD}" onclick="location.href='__APP__?m=SupplierLocation&a=add'" />
+	<input type="button" class="button" value="{%FOREVERDEL}" onclick="foreverdel();" />
+</div>
+<div class="blank5"></div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">	
+		名称：<input type="text" class="textbox" name="name" value="{:trim($_REQUEST['name'])}" />		
+		<input type="hidden" value="SupplierLocation" name="m" />
+		<input type="hidden" value="index" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+	</form>
+</div>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="location" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|50px,name:{%LOCATION_NAME}:edit,supplier_id|get_supplier_name:{%SUPPLIER_NAME},is_effect|get_toogle_status=$location['id']#is_effect:有效,sort|get_sort=$location['id']:首页排序,is_recommend|get_toogle_status=$location['id']#is_recommend:{%IS_RECOMMEND},is_verify|get_toogle_status=$location['id']#is_verify:{%IS_VERIFY_SHOP},is_main|get_is_main_location=$location['id']:{%IS_MAIN_LOCATION},new_dp_count:新点评" 
+	actionlist="id|getViewSub=$location,edit:{%EDIT}, foreverdel:{%FOREVERDEL}" /> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

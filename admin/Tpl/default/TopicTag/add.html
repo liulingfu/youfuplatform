@@ -1,0 +1,72 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/icolorpicker.js' />
+<div class="main">
+<div class="main_title">{%ADD} <a href="{:u("TopicTag/index")}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%TAG_NAME}:</td>
+		<td class="item_input">
+			<input type="text" class="textbox require" name="name" id="name" />
+			<input type="hidden" id="color" name="color" value="" rel="name" />
+			<img id="icp_color" onclick="iColorShow('color','icp_color');" src="__TMPL__Common/images/color.png" style="margin:5px 0 0 0;cursor:pointer;" />
+			
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%TAG_CATE_NAME}:</td>
+		<td class="item_input">
+			<foreach name="cate_list" item="cate_item">
+				<label><input type="checkbox" value="{$cate_item.id}" name="cate_id[]" />{$cate_item.name}</label>
+			</foreach>
+		</select>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%IS_RECOMMEND}:</td>
+		<td class="item_input">
+			<select name="is_recommend">
+			<option value="0">{%NO}</option>
+			<option value="1">{%YES}</option>
+		</select>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%IS_PRESET}:</td>
+		<td class="item_input">
+			<select name="is_preset">
+			<option value="0">{%NO}</option>
+			<option value="1">{%YES}</option>
+		</select>
+		</td>
+	</tr>	
+	<tr>
+		<td class="item_title">{%SORT}:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="sort" value="{$new_sort}" />
+		</td>
+	</tr>	
+	<tr>
+		<td class="item_title"></td>
+		<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="TopicTag" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="insert" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%ADD}" />
+			<input type="reset" class="button" value="{%RESET}" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>	 
+</form>
+</div>
+<include file="Public:footer" />

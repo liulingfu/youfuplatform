@@ -1,0 +1,31 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<php>
+	function get_color($name,$vo)
+	{
+		return "<span style='color:".$vo['color']."'>".$name."</span>";
+	}
+</php>
+<div class="main">
+<div class="main_title">{$main_title}</div>
+<div class="blank5"></div>
+<div class="button_row">
+	<input type="button" class="button" value="{%ADD}" onclick="add();" />
+	<input type="button" class="button" value="{%FOREVERDEL}" onclick="foreverdel();" />
+</div>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="title" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|50px,name|get_color=$title:{%TITLE_NAME},count:{%TITLE_COUNT},is_recommend|get_toogle_status=$title['id']#is_recommend:{%IS_RECOMMEND},sort|get_sort=$title['id']:{%SORT}" 
+	actionlist="edit:{%EDIT}, foreverdel:{%FOREVERDEL}" /> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

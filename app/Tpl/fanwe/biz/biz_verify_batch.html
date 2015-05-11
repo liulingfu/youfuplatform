@@ -1,0 +1,64 @@
+{include file="biz/biz_header.html"}
+{include file="biz/biz_nav.html"}
+<div class="blank"></div>
+<div class="wrap">
+{include file="biz/biz_info_header.html"}
+<div class="biz_index_box clearfix" style="border:none;">
+	<div class="short f_l" style="width:172px;">
+		<div style="padding:10px 5px 10px 0;">
+			<div class="sidenav">
+				<ul class="verify_type">
+					<li><a href="{url x="biz" r="verify"}"><i></i>验证消费券</a></li>
+					<li><a href="{url x="biz" r="verify#youhui"}"><i></i>验证优惠券</a></li>
+					<li><a href="{url x="biz" r="verify#batch"}" class="cur"><i></i>批量验证消费券</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="long f_r" id="form">
+		<div class="blank"></div>
+		<table cellspacing="0" cellpadding="0" border="0" class="data-table" style="margin:0 auto">
+			<tr>
+				<th colspan="2">
+					<strong>请您输入团购券密码进行批量验证</strong>
+				</th>
+			</tr>
+			
+			<tr>
+				<td>密码：</td>
+				<td>
+					<input type="text" name="coupon_pw"  />
+					<input type="button"  value="添加" id="add_coupon"/>
+					<span style="color:red;display:none;" id="tip1">请输入团购劵密码</span>
+					<span style="color:red;display:none;" id="tip2">团购劵重复</span>
+					<span style="color:red;display:none;" id="tip3">每次最多只能验证10条</span>
+				</td>
+			</tr>
+		</table>
+		<table cellspacing="0" cellpadding="0" border="0" class="data-table" style="margin:0 auto" id="coupon_list">
+			 <tr>
+				<th >
+					<strong>序号</strong>
+				</th>
+				<th >
+					<strong>操作</strong>
+				</th>
+				<th >
+					<strong>购买项目</strong>
+				</th>
+				<th >
+					<strong>验证提示</strong>
+				</th>
+			 </tr>	
+		</table>
+		<div class="btn" style="margin-top:10px;">
+			<input type="button" value="验证使用消费券" class="biz_pub_btn" onclick="use_coupon_batch();" />
+			<input type="button" value="清空" class="biz_pub_btn" onclick="del_all();" />
+		</div>
+	</div>
+	<div class="blank"></div>
+</div>
+
+</div>
+<div class="blank"></div>
+{include file="biz/biz_footer.html"} 

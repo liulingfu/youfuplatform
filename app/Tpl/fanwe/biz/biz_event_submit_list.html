@@ -1,0 +1,48 @@
+{include file="biz/biz_header.html"} 
+
+{include file="biz/biz_nav.html"}
+<div class="blank"></div>
+<div class="wrap">
+{include file="biz/biz_info_header.html"}
+<div class="biz_index_box clearfix">
+	<div class="short f_l">
+		{include file="biz/biz_left.html"}
+	</div>
+	<div class="long f_r">
+		<div class="uc-table">
+			
+			<table cellspacing="0" cellpadding="0" border="0" class="coupons-table" >
+									<tr>
+										<th>会员</th>
+										<th>报名时间</th>
+										<th>报名信息</th>
+							
+									</tr>
+									{foreach from=$submit_list item=log key=key}
+									<tr {if $key mod 2 eq  0}class="alt"{/if}>
+										<td style="text-align:left;">
+											{function name="get_user_name" v=$log.user_id}											
+										</td>
+										<td>
+											{function name="to_date" v=$log.create_time}
+										</td>
+										<td>
+											{$log.content}
+										</td>
+							
+										
+									</tr>
+									{/foreach}
+							</table>
+							<div class="blank"></div>
+							<div class="pages">{$pages}</div>
+		</div>
+		
+		
+	</div>
+	<div class="blank"></div>
+</div><!--end biz_index_box-->
+
+</div>
+<div class="blank"></div>
+{include file="biz/biz_footer.html"} 

@@ -1,0 +1,549 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="Generator" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{if $page_title}{$page_title} - {/if}{if $show_city_title} {$shop_info.SHOP_TITLE}{if $city_title} - {$city_title}{$LANG.SITE}{/if}{/if} - {function name='app_conf' value='SHOP_SEO_TITLE'}</title>
+<meta name="keywords" content="{if $page_keyword}{$page_keyword}{/if}{$shop_info.SHOP_KEYWORD}" />
+<meta name="description" content="{if $page_description}{$page_description}{/if}{$shop_info.SHOP_DESCRIPTION}" />
+<?php
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/style.css";
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/weebox.css";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/jquery.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/jquery.bgiframe.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/jquery.weebox.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/jquery.pngfix.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/lazyload.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/op.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/script.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/op.js";
+if(app_conf("APP_MSG_SENDER_OPEN")==1)
+{
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/msg_sender.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/msg_sender.js";
+}
+if($this->_var['APP_INDEX']=='tuan')
+{
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/tuan.css";
+$this->_var['pagejs'][] = $this->_var['TMPL_REAL']."/js/tuan.js";
+$this->_var['cpagejs'][] = $this->_var['TMPL_REAL']."/js/tuan.js";
+}
+else
+{
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/main.css";
+}
+?>
+<link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$pagecss"}" />
+<script language="JavaScript">
+//屏蔽可忽略的js脚本错误
+function killErr(){
+	return true;
+}
+window.onerror=killErr;
+</script>
+<script type="text/javascript">
+var APP_ROOT = '{$APP_ROOT}';
+var CART_URL = '{url x="shop" r="cart"}';
+var CART_CHECK_URL = '{url x="shop" r="cart#check"}';
+var LOADER_IMG = '{$TMPL}/images/lazy_loading.gif';
+var ERROR_IMG = '{$TMPL}/images/image_err.gif';
+{if app_conf("APP_MSG_SENDER_OPEN") eq 1}
+var send_span = {function name="app_conf" v="SEND_SPAN"}000;
+{/if}
+</script>
+<script type="text/javascript" src="{$APP_ROOT}/public/runtime/app/lang.js"></script>
+<script type="text/javascript" src="{function name="parse_script" v="$pagejs" c="$cpagejs"}"></script>
+
+</head>
+<body>
+{if $vote}
+<a id="vote" href="{url x="shop" r="vote"}" target="_blank"></a>
+{/if}
+<div id="dropdown">	
+	<a href="javascript:void(0);" ctl="fcate" act="index" action="{$APP_ROOT}/youhui.php" id="search_fcate">{$LANG.SEARCH_TYPE_YOUHUI}</a>
+	<a href="javascript:void(0);" ctl="ycate" act="index" action="{$APP_ROOT}/youhui.php" id="search_ycate">搜代金</a>
+	<a href="javascript:void(0);" ctl="tuan" act="index" action="{$APP_ROOT}/youhui.php" id="search_tuan">搜团购</a>
+	<a href="javascript:void(0);" ctl="store" act="index" action="{$APP_ROOT}/youhui.php" id="search_store">搜商家</a>
+	<a href="javascript:void(0);" ctl="event" act="index" action="{$APP_ROOT}/youhui.php" id="search_event">搜活动</a>
+	<a href="javascript:void(0);" ctl="ss" act="pick" action="{$APP_ROOT}/shop.php" id="search_ss" >{$LANG.SEARCH_TYPE_GOODS}</a>
+	<a href="javascript:void(0);" ctl="topic" act="search" action="{$APP_ROOT}/shop.php" id="search_topic">{$LANG.SEARCH_TYPE_TOPIC}</a>
+</div>	
+	<div class="header">
+		<div class="top_nav">
+			<div class="wrap">
+				
+				<div class="f_r">
+                    <div class="f_l">
+                    {$LANG.WELCOME}{function name="app_conf" value="SHOP_TITLE"}&nbsp;				
+                    </div>
+                    <i class="line"></i>
+					<span id="user_head_tip">
+					{insert name="load_user_tip"}
+					</span>
+					{if app_conf("SMS_ON") eq 1}
+					<a href="javascript:void(0)" onclick="submit_sms();">{$LANG.SMS_SUBSCRIBE}</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+					<a href="javascript:void(0)" onclick="unsubmit_sms();">{$LANG.SMS_UNSUBSCRIBE}</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+					{/if}
+					{if app_conf("MAIL_ON") eq 1}
+					<a href="{url x="tuan" r="subscribe#mail"}">邮件订阅</a>&nbsp;&nbsp;|&nbsp;&nbsp;					
+					{/if}
+					<span class="cart_ico"><a href="{url x="shop" r="cart"}">{$LANG.SHOP_CART} <span class="cart_count" id="cart_count">{insert name='load_cart_count'}</span> 件</a></span>
+				</div>
+			</div>
+		</div><!--end top_nav-->
+		<div class="blank1"></div>
+		<div class="wrap logo_row">
+			<div class="logo f_l">
+			<a class="link" href="{$APP_ROOT}/">
+				<?php
+					$this->_var['logo_image'] = app_conf("SHOP_LOGO");
+				?>
+				{function name="load_page_png" v=$logo_image}
+			</a>
+			</div>
+			<div class="f_l" style="padding-top:20px; margin-left:10px;">
+				{if count($deal_city_list) gt 1}         			 
+					 <a href="{url x="shop" r="city"}" class="switch_city">{$deal_city.name}</a>
+					 <br />
+					<div style="color:#999;"> 我要切换城市</div>
+ 				{/if}
+			</div>
+			<script type="text/javascript">
+				$(document).ready(function(){
+					{if $MODULE_NAME eq 'mall' or $MODULE_NAME eq 'cate' or $MODULE_NAME eq 'goods'}
+					$("#search_ss").click();
+					{elseif $MODULE_NAME eq 'topic' or $MODULE_NAME eq 'discover' or $MODULE_NAME eq 'group' or $MODULE_NAME eq 'daren'}
+					$("#search_topic").click();
+					{elseif $APP_INDEX eq 'tuan'}
+					$("#search_tuan").click();
+					{elseif $MODULE_NAME eq 'index' and $ACTION_NAME eq 'daijin_index'}
+					$("#search_ycate").click();
+					{else}
+					$("#search_{$MODULE_NAME}").click();
+					{/if}
+					
+				});
+			</script>
+						
+			<form id="header_search_box" action="{$APP_ROOT}/youhui.php" method="post">
+				<div class="search_box f_r">					
+					<div class="search_input f_l">						
+					<span class="search_type_select" id="select_search_type">
+						{$LANG.SEARCH_TYPE_YOUHUI}
+					</span>									
+					<input type="text" class="search_txt" name="keyword" id="header_kw" value="{insert name="load_keyword"}" />
+					<input type="button" class="search_btn" id="search_btn" value="" />
+					</div>
+					<div class="blank1"></div>
+					<div class="keyword_box f_l">
+					{foreach from=$hot_kw item=kw_item}
+					<a href="{url x="shop" r="discover" p="tag=$kw_item"}">{$kw_item}</a>
+					{/foreach}
+					</div>
+				</div>		
+				<input type="hidden" name="act" id="search_act" value="index" />
+				<input type="hidden" name="ctl" id="search_ctl" value="fcate" />				
+				<input type="hidden" name="is_redirect" value="1" />
+			</form>					
+		</div><!--end wrap-->
+		<div class="main_bar">
+			<div class="wrap">
+            {if $APP_INDEX=='shop'&& $MODULE_NAME=='index' && $ACTION_NAME=='index'}
+             	<div class="nav_all_cate f_l">
+               <h4 class="nav_list f_l">全部商品分类</h4>
+               <div class="cate">
+                
+                   <div class="newindex_fenlei"> 
+                    <?php $idx=0;?>
+                    {foreach from=$cat_list item=tuan_cat_item key=key}
+                      
+                         <?php $idx++; ?>
+                         <dl class="index_fenlei">
+                                <dt class="fenlei_<?php echo $idx; ?>"><a href="youhui.php?ctl=store&cid={$tuan_cat_item.id}" title="{$tuan_cat_item.name}" target="_blank">{$tuan_cat_item.name}</a></dt>
+                                <dd class="index_fl_<?php echo $idx; ?>"> 
+                                    <?php $num=0;?>
+                                    {foreach from=$tuan_cat_item.clist item=tuan_cate_item}
+                                     <?php 
+                                       $num++; 
+                                       if($num>3) break;
+                                     ?>
+                                    <a href="{$tuan_cate_item.url}" title="{$tuan_cate_item.name}">{$tuan_cate_item.name}</a>&nbsp;&nbsp;
+                                    {/foreach}
+                                </dd>
+                                <dd class="sub_fenlei">
+                                    <ul class="sub_fenlei_l1">
+                                    <li><a href="youhui.php?ctl=store&cid={$tuan_cat_item.id}" class="r_xz" target="_blank">全部({$tuan_cat_item.count})</a></li>
+                                   {foreach from=$tuan_cat_item.clist item=tuan_cate_item}
+                                     <li><a href="{$tuan_cate_item.url}" title="{$tuan_cate_item.name}">{$tuan_cate_item.name}</a></li>
+                                    {/foreach}
+                                    
+                                    </ul>
+                                    
+                                    <ul class="sub_fenlei_l2">
+                                    {if $tuan_cat_item.plist}
+                                    {foreach from=$tuan_cat_item.plist item=deal name="deal_item"}
+                                        <li><a target="_blank" href="{if $deal.uname}{url x="tuan" r="deal#index" p="id=$deal.uname"}{else}{url x="tuan" r="deal#index" p="id=$deal.id"}{/if}" title="{$deal.name}">{function name="msubstr" a=$deal.name b=0 c=32}</a></li>
+                                    {/foreach}	
+                                    {else}
+                                    <li>没有{$tuan_cat_item.name}的相关的商品信息 </li>
+                                    {/if}
+                                    </ul>
+                                    </dd>
+                            </dl>
+                         
+                     
+                    {/foreach}
+                  
+                            <dl class="index_fenlei fl6">
+                                <dt class="fenlei_6"><a href="javascript:void(0);"  target="_blank" title="热门商圈">热门商圈</a></dt>
+                                <dd class="index_fl_6">
+                                {if $area_result}
+                                    {foreach from=$area_result item=area key=akey}
+                                        <a href="{url x="youhui" r="index" p="ctl=store&aid=$area.id"}" title="{$area.name}" target="_blank">{$area.name}</a>
+                                    {/foreach}	
+                                {/if}
+                                </dd>
+                                <dd class="sub_fenlei">
+                                <div>	
+                                    {if $area_result}
+                                            {foreach from=$area_result item=area key=akey}
+                                            {if $area.id}
+                                                <ul class="sub_fenlei_l3">
+                                                    <li class="sqtitle">
+                                                        <a href="{$area.url}" title="{$area.name}" target="_blank" class="sqtitle">{$area.name}</a>
+                                                    </li>
+                                                    
+                                                    <li class="sqcont">
+                                                        {foreach from=$area.quan_list item=sarea key=skey}
+                                                            {if $skey<13}
+                                                            <a href="{$sarea.url}" title="{$sarea.name}" target="_blank">{$sarea.name}</a>
+                                                            {/if}
+                                                        {/foreach}	
+                                                        <a href="{$area.url}" title="{$sarea.name}" target="_blank">更多&gt;&gt;</a>
+                                                    </li>
+                                                </ul>
+                                            {/if}
+                                            {/foreach}	
+                                    {/if}
+                    
+                              </div>
+                                    <div class="new_index_more_sq"><a href="{url x="youhui" r="store" p=""}" target="_blank">更多商圈</a></div>
+                                    </dd>
+                            </dl>
+                        </div>
+               
+               </div>
+             </div>
+            {/if}
+             {if $is_index eq 1 and $APP_INDEX eq 'tuan' and $MODULE_NAME eq 'index'}
+             	<div class="nav_all_cate f_l">
+               <h4 class="nav_list f_l">全部商品分类</h4>
+               <div class="cate">
+                
+                   <div class="newindex_fenlei"> 
+                    <?php $idx=0;?>
+                    {foreach from=$cat_list item=tuan_cat_item key=key}
+                      
+                         <?php $idx++; ?>
+                         <dl class="index_fenlei">
+                                <dt class="fenlei_<?php echo $idx; ?>"><a href="tuan.php?id={$tuan_cat_item.id}" title="{$tuan_cat_item.name}" target="_blank">{$tuan_cat_item.name}</a></dt>
+                                <dd class="index_fl_<?php echo $idx; ?>"> 
+                                    <?php $num=0;?>
+                                    {foreach from=$tuan_cat_item.clist item=tuan_cate_item}
+                                     <?php 
+                                       $num++; 
+                                       if($num>3) break;
+                                     ?>
+                                    <a href="{$tuan_cate_item.url}" title="{$tuan_cate_item.name}">{$tuan_cate_item.name}</a>&nbsp;&nbsp;
+                                    {/foreach}
+                                </dd>
+                                <dd class="sub_fenlei">
+                                    <ul class="sub_fenlei_l1">
+                                    <li><a href="tuan.php?id={$tuan_cat_item.id}" class="r_xz" target="_blank">全部({$tuan_cat_item.count})</a></li>
+                                   {foreach from=$tuan_cat_item.clist item=tuan_cate_item}
+                                     <li><a href="{$tuan_cate_item.url}" title="{$tuan_cate_item.name}">{$tuan_cate_item.name}</a></li>
+                                    {/foreach}
+                                    
+                                    </ul>
+                                    
+                                    <ul class="sub_fenlei_l2">
+                                    {if $tuan_cat_item.plist}
+                                    {foreach from=$tuan_cat_item.plist item=deal name="deal_item"}
+                                        <li><a target="_blank" href="{if $deal.uname}{url x="tuan" r="deal#index" p="id=$deal.uname"}{else}{url x="tuan" r="deal#index" p="id=$deal.id"}{/if}" title="{$deal.name}">{function name="msubstr" a=$deal.name b=0 c=32}</a></li>
+                                    {/foreach}	
+                                    {else}
+                                    <li>没有{$tuan_cat_item.name}的相关的商品信息 </li>
+                                    {/if}
+                                    </ul>
+                                    </dd>
+                            </dl>
+                         
+                     
+                    {/foreach}
+                  
+                            <dl class="index_fenlei fl6">
+                                <dt class="fenlei_6"><a href="javascript:void(0);"  target="_blank" title="热门商圈">热门商圈</a></dt>
+                                <dd class="index_fl_6">
+                                {if $area_result}
+                                    {foreach from=$area_result item=area key=akey}
+                                        <a href="{url x="youhui" r="index" p="ctl=store&aid=$area.id"}" title="{$area.name}" target="_blank">{$area.name}</a>
+                                    {/foreach}	
+                                {/if}
+                                </dd>
+                                <dd class="sub_fenlei">
+                                <div>	
+                                    {if $area_result}
+                                            {foreach from=$area_result item=area key=akey}
+                                            {if $area.id}
+                                                <ul class="sub_fenlei_l3">
+                                                    <li class="sqtitle">
+                                                        <a href="{$area.url}" title="{$area.name}" target="_blank" class="sqtitle">{$area.name}</a>
+                                                    </li>
+                                                    
+                                                    <li class="sqcont">
+                                                        {foreach from=$area.quan_list item=sarea key=skey}
+                                                            {if $skey<13}
+                                                            <a href="{$sarea.url}" title="{$sarea.name}" target="_blank">{$sarea.name}</a>
+                                                            {/if}
+                                                        {/foreach}	
+                                                        <a href="{$area.url}" title="{$sarea.name}" target="_blank">更多&gt;&gt;</a>
+                                                    </li>
+                                                </ul>
+                                            {/if}
+                                            {/foreach}	
+                                    {/if}
+                    
+                              </div>
+                                    <div class="new_index_more_sq"><a href="{url x="youhui" r="store" p=""}" target="_blank">更多商圈</a></div>
+                                    </dd>
+                            </dl>
+                        </div>
+               
+               </div>
+             </div>
+             <script type="text/javascript" src="{$TMPL}/js/indexCate.js"></script>
+            {/if}
+             {if $MODULE_NAME=='mall' && $cate_tree} 
+          
+             <div class="nav_all_cate f_l">
+               <h4 class="nav_list f_l">全部商品分类</h4>
+               <div class="cate">
+                
+                    <div class="cate_tree_inc">
+                  <div class="inc_main">
+                      <ul class="cate_tree">
+                      {foreach from=$cate_tree item=cate_item key=key}
+                      
+                      {if $cate_item.level eq 0}
+                              {if $key neq 0}
+                              </div>
+                              {/if}
+                          <div {if $cate_item.is_hide}style="display:none;"{/if}>
+                      {/if}	
+                          
+                      <li style="text-indent:{$cate_item.level}em;" {if $cate_item.level eq 0} class="first" {else} class="subcate"{/if}>
+                          <a href="{$cate_item.url}" title="{$cate_item.name}"><b>{$cate_item.name}</b></a>
+                          {if $cate_item.pid eq 0}
+                          <p>
+                          <?php $num=0;?>
+                          {foreach from=$cate_tree item=cate_item_son}
+                           {if $cate_item_son.pid eq $cate_item.id}
+                           <?php 
+                             $num++; 
+                             if($num>3) break;
+                           ?>
+                          <a href="{$cate_item_son.url}" title="{$cate_item_son.name}">{$cate_item_son.name}</a>&nbsp;&nbsp;
+                           {/if}
+                          
+                          {/foreach}
+                          </p>
+                          {/if}
+                      </li>
+                      
+                      {/foreach}
+                      </div>
+                      </ul>
+                  </div>
+                  <div class="inc_foot"></div>
+              </div>
+               
+               </div>
+             </div>  
+              
+             {/if}
+                  
+               			
+				<ul class="main_nav">
+                    
+					{foreach from=$nav_list item=nav_item}
+						<li {if $nav_item.current eq 1}class="current"{/if}>
+							<span class="nav_left" ></span>
+								<a href="{$nav_item.url}"  target="{if $nav_item.blank eq 1}_blank{/if}">{$nav_item.name}</a>
+							<span class="nav_right" ></span>
+						</li>
+					{/foreach}
+				</ul>	
+				<span class="merchant_join">
+				<a href="{url x="biz" r="join"}" title="我是商家，我要入驻" target="_blank">我是商家，我要入驻</a>	
+				</span>	
+			</div>
+		</div><!--end main_nav-->
+	</div>
+	
+	
+	{if $is_index eq 1 and $APP_INDEX eq 'tuan'}
+	<script type="text/javascript">
+		function set_sort(type)
+		{
+			var ajaxurl = APP_ROOT+"/tuan.php?ctl=ajax&act=set_sort_idx&type="+type;
+			$.ajax({ 
+				url: ajaxurl,
+				success: function(text){
+					location.reload();
+				},
+				error:function(ajaxobj)
+				{
+//					if(ajaxobj.responseText!='')
+//					alert(ajaxobj.responseText);
+				}
+			});
+		}
+	</script>
+{if $is_index == 1 && $APP_INDEX == 'tuan' && $MODULE_NAME != 'index'}<div class="blank"></div>{/if}
+	<div class="filter_contain cf" {if $is_index == 1 && $APP_INDEX == 'tuan' && $MODULE_NAME == 'index'}style="display:none;"{/if}>
+    	
+		<div class="cate_row cf">
+			<b class="fl">{$LANG.CATE_DEAL}：&nbsp;</b>
+			<span class="row fl">
+			{foreach from=$bcate_list item=bcate}
+			<a href="{$bcate.url}" title="{$bcate.name}" {if $bcate.current eq 1}class="current"{/if}>{$bcate.name}({$bcate.count})</a>			
+			{/foreach}
+			</span>
+		</div>
+		<div class="blank1"></div>
+		{if $scate_list}		
+		<div class="sub_cate_row">
+			{foreach from=$scate_list item=scate}		
+			<a href="{$scate.url}" title="{$scate.name}" {if $scate.current eq 1}class="current"{/if}>{$scate.name}({$scate.count})</a>
+			{/foreach}
+		</div>
+		{/if}
+		
+		{if count($bquan_list) gt 1}
+		<div class="quan_row cf">
+			<b class="fl">{$LANG.AREA_LIST}：&nbsp;</b>
+			<span class="row fl">
+				{foreach from=$bquan_list item=bquan}
+				<a href="{$bquan.url}" title="{$bquan.name}" {if $bquan.current eq 1}class="current"{/if}>{$bquan.name}({$bquan.count})</a>
+				{/foreach}
+			</span>
+		</div>
+		{/if}
+		<div class="blank1"></div>
+		{if $squan_list}		
+		<div class="sub_cate_row">
+			{foreach from=$squan_list item=squan}		
+			<a href="{$squan.url}" title="{$squan.name}" {if $squan.current eq 1}class="current"{/if}>{$squan.name}({$squan.count})</a>
+			{/foreach}
+		</div>
+		{/if}
+		{if !$hide_sort}
+		<div class="sort_row">
+			<b>{$LANG.SORT_TYPE}：</b>
+			<a href="javascript:void(0);" onclick="set_sort('begin_time');" class="asc_gray {if $sort_field eq 'begin_time'}current idx_{$sort_type}{/if}">{$LANG.SORT_BEGIN_TIME}</a>
+			<a href="javascript:void(0);" onclick="set_sort('current_price');" class="desc_gray {if $sort_field eq 'current_price'}current idx_{$sort_type}{/if}">{$LANG.SORT_CURRENT_PRICE}</a>
+			<a href="javascript:void(0);" onclick="set_sort('buy_count');" class="asc_gray {if $sort_field eq 'buy_count'}current idx_{$sort_type}{/if}">{$LANG.SORT_BUY_COUNT}</a>
+			<a href="javascript:void(0);" onclick="set_sort('sort');" class="desc_gray {if $sort_field eq 'sort'}current idx_{$sort_type}{/if}">{$LANG.SORT_SORT}</a>
+		</div>
+		{/if}
+	</div>
+	{/if}
+{if $APP_INDEX=='shop'&& $MODULE_NAME=='index' && $ACTION_NAME=='index'}	
+    <div class="focucot">
+     <div class="focus_imglh">
+      <div id="ifocus">
+       <div id="ifocus_pic">
+        <div id="ifocus_piclist">
+         <ul>
+          <div class="tbox " id="widgets_1127">
+           <adv adv_id="首页通栏轮播广告位" />           
+         </div>  
+         </ul>
+          </div>
+           <div id="ifocus_btn">
+            <ul>
+               <li class="current">1</li>
+               <li class="normal">2</li>
+               <li class="normal">3</li>
+               <li class="normal">4</li>
+               <li class="normal">5</li>
+            </ul>
+             </div>
+              <div id="ifocus_opdiv"></div> 
+              <div style=" display:none;" id="ifocus_tx"> 
+              <ul> 
+                <li class="current"></li>
+                <li class="normal"></li>
+                <li class="normal"></li> 
+                <li class="normal"></li> 
+                <li class="normal"></li> 
+                </ul> 
+                </div> 
+                </div> 
+                </div> 
+                </div> 
+               </div>
+    <script type="text/javascript" src="{$TMPL}/js/scroll.js"></script>
+{/if}
+{if $MODULE_NAME=='mall' || ($is_index == 1 && $APP_INDEX == 'tuan' && $MODULE_NAME == 'index' )}	
+    <div class="focucot">
+     <div class="focus_imglh">
+      <div id="ifocus">
+       <div id="ifocus_pic">
+        <div id="ifocus_piclist">
+         <ul>
+          <div class="tbox " id="widgets_1127">
+          {if $MODULE_NAME=='mall'}	
+           <adv adv_id="商城页通栏轮播广告位" />   
+           {else}
+           <adv adv_id="团购页通栏轮播广告位" />  
+           {/if}        
+         </div>  
+         </ul>
+          </div>
+           <div id="ifocus_btn">
+            <ul>
+               <li class="current">1</li>
+               <li class="normal">2</li>
+               <li class="normal">3</li>
+               <li class="normal">4</li>
+               <li class="normal">5</li>
+            </ul>
+             </div>
+              <div id="ifocus_opdiv"></div> 
+              <div style=" display:none;" id="ifocus_tx"> 
+              <ul> 
+                <li class="current"></li>
+                <li class="normal"></li>
+                <li class="normal"></li> 
+                <li class="normal"></li> 
+                <li class="normal"></li> 
+                </ul> 
+                </div> 
+                </div> 
+                </div> 
+                </div> 
+               </div>
+    <script type="text/javascript" src="{$TMPL}/js/scroll.js"></script>           
+{/if}     
+<div class="wrap">
+	{if $site_nav}
+	<div class="blank"></div>
+	<div class="site_nav">
+		{foreach from=$site_nav item=nav key=key}
+		{if $key gt 0} - {/if}<a href="{$nav.url}" title="{$nav.name}">{function name="msubstr" v=$nav.name}</a>
+		{/foreach}
+	</div>	
+	{/if}

@@ -1,0 +1,22 @@
+<!--youhui-->
+	
+	<div class="index_youhui_list">
+		{foreach from=$youhui_list key=key item=youhui}		
+		<div class="youhui_item" {if $key mod 3 eq 2}style="margin-right:0px;"{/if}>
+			<a href="{$youhui.url}" title="{$youhui.name}"><img src="{if $youhui.index_img}{$youhui.index_img}{else}{function name="get_spec_image" s=$youhui.icon w=226 h=95 gen=1}{/if}" width="226" height="95" alt="{$youhui.name}" /></a>
+			<div class="blank"></div>
+			<a href="{$youhui.url}" title="{$youhui.name}" class="index_youhui_title" >{function name="msubstr" v=$youhui.name b=0 e=12}</a>
+			<div class="blank"></div>
+			<div class="end_time_row">
+			{if $youhui.end_time eq 0}
+			{$LANG.NO_END_TIME}
+			{else}
+			{$LANG.END_TIME}：{function name="to_date" v=$youhui.end_time f="Y-m-d"}
+			{/if}
+			</div>
+			<div class="blank"></div>
+		</div>
+		{/foreach}
+		<div class="blank"></div>
+	</div>
+	<!--end youhui-->

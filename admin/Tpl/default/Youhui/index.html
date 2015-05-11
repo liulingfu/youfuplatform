@@ -1,0 +1,73 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<php>
+	function get_youhui_send_type($type)
+	{
+		return l("YOUHUI_SEND_TYPE_".$type);
+	}
+	function get_pub_by($pub_by)
+	{
+		return l("PUB_BY_".$pub_by);
+	}
+	function get_brand_name($bid)
+	{
+		return M("Brand")->where("id=".$bid)->getField("name");
+	}
+
+</php>
+<script type="text/javascript">
+	function preview(id)
+	{
+		window.open("__ROOT__/youhui.php?ctl=fdetail&id="+id+"&preview=1");
+	}
+</script>
+<div class="main">
+<div class="main_title">{$main_title}</div>
+<div class="blank5"></div>
+<div class="button_row">
+	<input type="button" class="button" value="{%ADD}" onclick="add();" />
+	<input type="button" class="button" value="{%DEL}" onclick="foreverdel();" />
+</div>
+<div class="blank5"></div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">	
+		名称：<input type="text" class="textbox" name="name" value="{:trim($_REQUEST['name'])}" />		
+		<input type="hidden" value="Youhui" name="m" />
+		<input type="hidden" value="index" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+	</form>
+</div>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="youhui" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|50px
+		 ,name|msubstr:{%YOUHUI_NAME}
+		 ,city_id|get_city_name:{%CITY_NAME}
+		 ,send_type|get_youhui_send_type:{%SEND_TYPE}
+		  ,total_num:{%YOUHUI_TOTAL_NUM}
+		 ,total_fee:{%USE_YOUHUI_FEE}
+		 ,sms_count:{%SMS_COUNT}
+		 ,print_count:{%PRINT_COUNT}
+		 ,view_count:{%VIEW_COUNT}
+		 ,is_sms|get_status:{%IS_SMS}
+		 ,is_print|get_status:{%IS_PRINT}
+		 ,user_id|get_submit_user:{%EVENT_PUB_USER}
+		 ,supplier_id|get_supplier_name:{%SUPPLIER_NAME}
+		 ,brand_id|get_brand_name:{%BRAND_NAME}
+		 ,create_time|to_date:{%CREATE_TIME}
+		 ,pub_by|get_pub_by:{%PUB_BY}
+		 ,is_effect|get_is_effect=$youhui['id']:{%IS_EFFECT}
+		 ,is_recommend|get_toogle_status=$youhui['id']#is_recommend:{%IS_RECOMMEND}
+		 ,sort|get_sort=$youhui['id']:{%SORT}" 
+	actionlist="edit:{%EDIT}, foreverdel:{%DEL},preview:预览" /> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

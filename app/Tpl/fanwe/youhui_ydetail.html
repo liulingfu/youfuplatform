@@ -1,0 +1,67 @@
+{include file="inc/header.html"} 
+<div class="blank"></div>
+<div class="long f_l">
+	<div class="youhui_info_box clearfix">
+		<div class="youhui_title">{$youhui.name}</div>
+		<div class="blank"></div>
+		<div class="youhui_image f_l">
+			<img src="{function name="get_spec_image" v=$youhui.img w="330" h="198"}" />
+		</div>
+		<div class="youhui_buy_info f_r">
+			<ul class="price_tag">
+				<li>{$LANG.ORIGIN_PRICE} <br /> <span class="o_price"> {$youhui.origin_price_format}</span></li>
+				<li>{$LANG.DISCOUNT} <br /> <span class="d_price">{$youhui.discount}{$LANG.DISCOUNT_OFF}</span></li>
+				<li>{$LANG.CURRENT_PRICE} <br /> <span class="c_price">{$youhui.current_price_format}</span></li>
+			</ul>
+			<div class="blank"></div>
+			<div class="youhui_buy_row">
+			{$LANG.BUY_NUMBER}：&nbsp;&nbsp;我想买&nbsp;&nbsp;<input type="text" id="buy_number" maxlength="4" name="number" value="1" />&nbsp;&nbsp;张
+					
+			</div>
+			<div class="blank"></div>
+			{insert name="load_youhui_time_status"}
+		</div>
+		<div class="blank"></div>		
+	<div class="youhui_detail_row_title">商品详情</div>
+	<div class="blank"></div>
+	<div class="lazy">{$youhui.description}</div>
+	<div class="blank"></div>
+	{if $youhui.is_effect eq 1}
+	<div class="youhui_detail_row_title" id="detail_box">点评</div>
+	{insert name='load_youhui_comment'} {* 动态团购点评 *}
+	{/if}
+	</div><!--end youhui_info_box-->
+	
+</div>
+<div class="short f_r">
+	
+	{include file="inc/side_supplier_info.html"}
+	
+	<div class="inc">
+		<div class="inc_top">周边热卖</div>
+		<div class="inc_main sale_list_main">
+			{foreach from=$near_youhui_list key=key item=youhui_item}
+			
+			<div class="sale_goods_item">
+			<div class="sale_goods_img f_l">
+			<div class="sale_list_tag"><?php echo ($this->_var['key']+1);?></div>
+			<a href="{$youhui_item.url}" title="{$youhui_item.name}"><img src="{function name="get_spec_image" v=$youhui_item.img w="75" h="75" g=1}"  alt="{$youhui_item.name}"/></a>
+			</div>
+			<div class="sale_goods_info f_l">
+			<a href="{$youhui_item.url}" class="goods_item_title" title="{$youhui_item.name}">{function name="msubstr" v=$youhui_item.name b=0 e=12}</a>
+			<div class="m_price">{$LANG.ORIGIN_PRICE}{function name="format_price" v=$youhui_item.origin_price}</div>
+			<div class="s_price">{$LANG.CURRENT_PRICE}{function name="format_price" v=$youhui_item.current_price}</div>
+			</div>
+			<div class="blank1"></div>
+			</div>
+			
+			
+			{/foreach}
+		</div>
+		<div class="inc_foot"></div>
+	</div>
+	
+	
+</div>
+<div class="blank"></div>
+{include file="inc/footer.html"}

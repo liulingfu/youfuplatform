@@ -1,0 +1,26 @@
+<div class="event_submit_form">
+<form name="event_submit_form">
+	{foreach from=$event_fields item=field}
+	<div class="event_submit_row">
+		<span>{$field.field_show_name}</span>：
+		{if $field.field_type eq 0}
+			<input type="text" size="30" name="result[{$field.id}]" class="f-input" value="{$field.result}" />
+		{else}
+			<select name="result[{$field.id}]">
+				{foreach from=$field.value_scope item=val}
+				{if trim($val) neq ''}
+				<option value="{$val}" {if $field.result eq $val}selected="selected"{/if} >{$val}</option>
+				{/if}
+				{/foreach}
+			</select>
+		{/if}
+		<input type="hidden" value="{$field.id}" name="field_id[]" />
+	</div>
+	{/foreach}
+	<div class=" tc">
+		<input type="hidden" value="{$event_id}" name="event_id" />
+		<input type="hidden" value="{$user_submit.id}" name="submit_id" />
+		<input type="button" onclick="do_event_submit();" class="input_baomin" name="submit_btn" value="" />
+	</div>
+</form>
+</div>

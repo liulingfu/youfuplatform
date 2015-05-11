@@ -1,0 +1,20 @@
+<?php
+$this->_var['groupjs'][] = $this->_var['TMPL_REAL']."/js/group.js";
+$this->_var['cpgroupjs'][] = $this->_var['TMPL_REAL']."/js/group.js";
+$this->_var['groupcss'][] = $this->_var['TMPL_REAL']."/css/group.css";
+?>
+<script type="text/javascript" src="{function name="parse_script" v="$groupjs" c="$cpgroupjs"}"></script>
+<link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$groupcss"}" />
+<div class="blank"></div>
+<div class="group_bg" style="background:url({function name="get_spec_image" v=$group_info.image w=960 h=150 g=1});">
+	<div class="group_intro">		
+			<div class="group_icon f_l"><a href="{url x="shop" r="group#forum" p="id=$group_info.id"}"><img src="{function name="get_spec_image" v=$group_info.icon w=50 h=50 g=1  }" alt="{$group_info.name}"  width=50 height=50 /></a></div>
+			<div class="group_title f_l" style="color:#fff; padding-left:10px;">
+			<span style="line-height:24px; font-size:24px; font-weight:bolder; font-family:微软雅黑;">{$group_info.name}</span>
+			<div class="blank1"></div>
+			<span style="font-size:12px; font-weight:normal; line-height:22px;">创建于：{function name="to_date" v=$group_info.create_time f="Y-m-d"}</span>
+			</div>	
+			<div class="blank1"></div>	
+	</div>
+</div>
+<div class="blank"></div>	

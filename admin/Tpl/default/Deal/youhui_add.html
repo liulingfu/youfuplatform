@@ -1,0 +1,407 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/conf.js' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<script type="text/javascript">
+	var attr_cfg_json = '';
+	var attr_stock_json = '';
+</script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<load href='__TMPL__Common/js/deal.js' />
+<script type="text/javascript">
+	
+	window.onload = function()
+	{
+		init_dealform();
+
+	}
+</script>
+
+</script>
+<div class="main">
+<div class="main_title">{%ADD} <a href="{:u("Deal/youhui")}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<div class="button_row">
+	<input type="button" class="button conf_btn" rel="1" value="{%DEAL_CASH_YOUHUI_BASE_INFO}" />&nbsp;
+	<input type="button" class="button conf_btn" rel="2" value="{%DEAL_TIME_NUM}" />&nbsp;
+	<input type="button" class="button conf_btn" rel="3" value="{%DEAL_TYPE_AND_ATTR}" />&nbsp;	
+	<input type="button" class="button conf_btn" rel="4" value="{%SEO_CONFIG}" />&nbsp;	
+</div>
+<div class="blank5"></div>
+<table class="form conf_tab" cellpadding=0 cellspacing=0 rel="1">
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%DEAL_CASH_YOUHUI_NAME}:</td>
+		<td class="item_input"><input type="text" class="textbox require" name="name" style="width:500px;" /></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%DEAL_CASH_YOUHUI_SUBNAME}:</td>
+		<td class="item_input"><input type="text" class="textbox require" name="sub_name" /> <span class='tip_span'>[{%DEAL_CASH_YOUHUI_SUBNAME_TIP}]</span></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%URL_UNAME}:</td>
+		<td class="item_input"><input type="text" class="textbox word-only" name="uname" /> </td>
+	</tr>
+	<tr>
+		<td class="item_title">{%DEAL_CASH_YOUHUI_CODE}:</td>
+		<td class="item_input"><input type="text" class="textbox" name="code" /> <span class='tip_span'>[{%DEAL_CODE_TIP}]</span></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%DEAL_CASH_YOUHUI_BRIEF}:</td>
+		<td class="item_input"><textarea class="textarea" name="brief" ></textarea></td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">{%CATE_TREE}:</td>
+		<td class="item_input">
+		<select name="cate_id" class="require">
+			<option value="0">=={%NO_SELECT_CATE}==</option>
+			<foreach name="cate_tree" item="cate_item">
+				<option value="{$cate_item.id}">{$cate_item.title_show}</option>
+			</foreach>
+		</select>
+		</td>
+	</tr>
+	<tr id="sub_cate_box">
+		<td class="item_title">{%DEALCATETYPE_INDEX}:</td>
+		<td class="item_input">
+			
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%DEAL_CITY}:</td>
+		<td class="item_input">
+		<select name="city_id" class="require">
+			<option value="0">=={%NO_SELECT_CITY}==</option>
+			<foreach name="city_list" item="city_item">
+				<option value="{$city_item.id}">{$city_item.title_show}</option>
+			</foreach>
+		</select>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%SUPPLIER_NAME}:</td>
+		<td class="item_input">
+			<span id="supplier_list">
+			<select name="supplier_id">
+				<option value="0">{%EMPTY_SELECT_SUPPLIER}</option>
+				<if condition="$supplier_info">
+					<option value="{$supplier_info.id}" selected="selected">{$supplier_info.name}</option>
+				</if>
+			</select>
+			</span>
+			<input type="text" class="textbox" name="supplier_key" /> 
+			<input type="button" name="supplier_key_btn" class="button" value="{%SEARCH}" />
+		</td>
+	</tr>
+	<tr id="supplier_location">
+		<td class="item_title">{%SUPPLIER_LOCATION}:</td>
+		<td class="item_input">
+			
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%BRAND_NAME}:</td>
+		<td class="item_input">
+		<select name="brand_id">
+			<option value="0">=={%EMPTY_SELECT}==</option>
+			<foreach name="brand_list" item="brand_item">
+				<option value="{$brand_item.id}">{$brand_item.name}</option>
+			</foreach>
+		</select>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%DEAL_CASH_YOUHUI_ICON}:</td>
+		<td class="item_input">
+			<html:imgUpload name = 'icon' id='icon' />
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%DEAL_CASH_YOUHUI_BIG_IMG}:</td>
+		<td class="item_input">
+			<html:imgUpload name = 'img[]' id='img0' />
+		</td>
+	</tr>
+
+	<tr>
+		<td class="item_title">{%SORT}:</td>
+		<td class="item_input"><input type="text" class="textbox" name="sort" value="{$new_sort}" /></td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">{%IS_EFFECT}:</td>
+		<td class="item_input">
+			<lable>{%IS_EFFECT_1}<input type="radio" name="is_effect" value="1" checked="checked" /></lable>
+			<lable>{%IS_EFFECT_0}<input type="radio" name="is_effect" value="0" /></lable>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%DEAL_CASH_YOUHUI_DESCRIPTION}:</td>
+		<td class="item_input">
+			 <html:editor id="description" name="description" type="KINDEDITOR" content="" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>
+
+
+<table class="form conf_tab" cellpadding=0 cellspacing=0 rel="2">
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr class="buy_type_0">
+		<td class="item_title">{%BEGIN_TIME}:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="begin_time" id="begin_time" value="" onfocus="this.blur(); return showCalendar('begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_begin_time');" />
+			<input type="button" class="button" id="btn_begin_time" value="{%SELECT_TIME}" onclick="return showCalendar('begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_begin_time');" />	
+			<input type="button" class="button" value="{%CLEAR_TIME}" onclick="$('#begin_time').val('');" />	
+			<span class='tip_span'>[{%NO_TIME_SET_TIP}]</span>
+
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%END_TIME}:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="end_time" id="end_time" value="" onfocus="this.blur(); return showCalendar('end_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_end_time');" />
+			<input type="button" class="button" id="btn_end_time" value="{%SELECT_TIME}" onclick="return showCalendar('end_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_end_time');" />	
+			<input type="button" class="button" value="{%CLEAR_TIME}" onclick="$('#end_time').val('');" />
+			<span class='tip_span'>[{%NO_TIME_SET_TIP}]</span>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%DEAL_BUY_COUNT}:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="buy_count" value="" />
+			<span class='tip_span'>[{%DEAL_BUY_COUNT_TIP}]</span>
+		</td>
+	</tr>	
+	
+	<tr class="max_bought_row">
+		<td class="item_title">{%DEAL_CASH_YOUHUI_STOCK}:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="max_bought" value="" />
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%DEAL_USER_MIN_BOUGHT}:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="user_min_bought" value="" />			
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%DEAL_USER_MAX_BOUGHT}:</td>
+		<td class="item_input"><input type="text" class="textbox" name="user_max_bought" value="" /></td>
+	</tr>
+	<tr class="buy_type_0">
+		<td class="item_title">{%DEAL_ORIGIN_PRICE}:</td>
+		<td class="item_input"><input type="text" class="textbox" name="origin_price" value="" /></td>
+	</tr>
+	<tr class="buy_type_0">
+		<td class="item_title">{%DEAL_BALANCE_PRICE}:</td>
+		<td class="item_input"><input type="text" class="textbox" name="balance_price" value="" /></td>
+	</tr>
+	<tr class="buy_type_0">
+		<td class="item_title"><span id="price_title">{%DEAL_CASH_YOUHUI_CURRENT_PRICE}</span>:</td>
+		<td class="item_input"><input type="text" class="textbox" name="current_price" value="" /></td>
+	</tr>
+	<tr class="buy_type_0">
+		<td class="item_title">{%DEAL_RETURN_MONEY}:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="return_money" value="" />
+			<span class='tip_span'>[{%DEAL_RETURN_MONEY_TIP}]</span>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%DEAL_RETURN_SCORE}:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="return_score" value="" />
+			<span class='tip_span'>[{%DEAL_RETURN_SCORE_TIP}]</span>
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>
+
+<table class="form conf_tab" cellpadding=0 cellspacing=0 rel="3">
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">是否免预约:</td>
+		<td class="item_input">
+			<select name="auto_order">
+				<option value="0">否</option>
+				<option value="1">是</option>
+			</select>
+		</td>
+	</tr>
+<tr>
+	
+		<td class="item_title">{%DEAL_IS_REFUND}:</td>
+		<td class="item_input">
+			<select name="is_refund">
+				<option value="1">{%IS_REFUND_1}</option>
+				<option value="0">{%IS_REFUND_0}</option>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">退券支持:</td>
+		<td class="item_input">
+			<span id="coupon_refund">
+			<label>随时退：<input type="checkbox" name="any_refund" value="1"  /></label>  &nbsp;&nbsp;<label>过期退：<input type="checkbox" name="expire_refund" value="1" /></label>
+			</span>
+		</td>
+	</tr>
+	<tr class="coupon_time">
+		<td class="item_title">{%DEAL_COUNT_TYPE}:</td>
+		<td class="item_input">
+			<select name="deal_type">
+				<option value="0">{%COUNT_TYPE_0}</option>
+				<option value="1">{%COUNT_TYPE_1}</option>
+			</select>
+		</td>
+	</tr>
+	<tr class="coupon_time">
+		<td class="item_title">{%DEAL_CASH_YOUHUI_BEGIN_TIME}:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="coupon_begin_time" id="coupon_begin_time" value="" onfocus="this.blur(); return showCalendar('coupon_begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_coupon_begin_time');" />
+			<input type="button" class="button" id="btn_coupon_begin_time" value="{%SELECT_TIME}" onclick="return showCalendar('coupon_begin_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_coupon_begin_time');" />	
+			<input type="button" class="button" value="{%CLEAR_TIME}" onclick="$('#coupon_begin_time').val('');" />
+			<span class='tip_span'>[{%NO_TIME_SET_TIP}]</span>
+		</td>
+	</tr>
+	<tr class="coupon_time">
+		<td class="item_title">{%DEAL_CASH_YOUHUI_END_TIME}:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="coupon_end_time" id="coupon_end_time" value="" onfocus="this.blur(); return showCalendar('coupon_end_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_coupon_end_time');" />
+			<input type="button" class="button" id="btn_coupon_end_time" value="{%SELECT_TIME}" onclick="return showCalendar('coupon_end_time', '%Y-%m-%d %H:%M:%S', false, false, 'btn_coupon_end_time');" />	
+			<input type="button" class="button" value="{%CLEAR_TIME}" onclick="$('#coupon_end_time').val('');" />
+			<span class='tip_span'>[{%NO_TIME_SET_TIP}]</span>
+		</td>
+	</tr>
+	<tr class="coupon_time">
+		<td class="item_title">{%FORBID_SMS}:</td>
+		<td class="item_input">
+			<select name="forbid_sms">
+				<option value="0">{%NO}</option>
+				<option value="1">{%YES}</option>								
+			</select>
+		</td>
+	</tr>
+
+	
+	<tr class="buy_type_0">
+		<td class="item_title">{%DEAL_DEFINE_PAYMENT}:</td>
+		<td class="item_input">
+			<select name="define_payment">
+				<option value="0">{%DEAL_DEFINE_PAYMENT_0}</option>
+				<option value="1">{%DEAL_DEFINE_PAYMENT_1}</option>
+			</select>
+			<span class='tip_span'>[{%DEAL_DEFINE_PAYMENT_TIP}]</span>
+		</td>
+	</tr>
+	
+	<tr class="define_payment buy_type_0">
+		<td class="item_title">{%DEAL_DEFINE_PAYMENT_LIST}:</td>
+		<td class="item_input">
+			<foreach name="payment_list" item="payment_item">
+				<div>
+				<label><input type="checkbox" name="payment_id[]" value="{$payment_item.id}" /> {$payment_item.name}</label>
+				</div>
+			</foreach>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">{%DEAL_ALLOW_PROMOTE}:</td>
+		<td class="item_input">
+			<select name="allow_promote">
+				<option value="0">{%ALLOW_PROMOTE_0}</option>
+				<option value="1">{%ALLOW_PROMOTE_1}</option>
+			</select>
+			<span class='tip_span'>[{%DEAL_ALLOW_PROMOTE_TIP}]</span>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%DEAL_ALLOW_REFERRAL}:</td>
+		<td class="item_input">
+			<select name="is_referral">
+				<option value="0">{%ALLOW_REFERRAL_0}</option>
+				<option value="1">{%ALLOW_REFERRAL_1}</option>
+			</select>
+			<span class='tip_span'>[{%DEAL_ALLOW_REFERRAL_TIP}]</span>
+		</td>
+	</tr>
+	
+	
+	<tr>
+		<td class="item_title">{%DEAL_ALLOW_LOTTERY}:</td>
+		<td class="item_input">
+			<select name="is_lottery">
+				<option value="0">{%LOTTERY_0}</option>
+				<option value="1">{%LOTTERY_1}</option>
+			</select>
+		</td>
+	</tr>
+	
+	
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>
+
+
+<table class="form conf_tab" cellpadding=0 cellspacing=0 rel="4">
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%DEAL_CASH_YOUHUI_SEO_TITLE}:</td>
+		<td class="item_input"><textarea class="textarea" name="seo_title" ></textarea></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%DEAL_CASH_YOUHUI_SEO_KEYWORD}:</td>
+		<td class="item_input"><textarea class="textarea" name="seo_keyword" ></textarea></td>
+	</tr>
+	<tr>
+		<td class="item_title">{%DEAL_CASH_YOUHUI_SEO_DESCRIPTION}:</td>
+		<td class="item_input"><textarea class="textarea" name="seo_description" ></textarea></td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>
+
+<div class="blank5"></div>
+	<table class="form" cellpadding=0 cellspacing=0>
+		<tr>
+			<td colspan=2 class="topTd"></td>
+		</tr>
+		<tr>
+			<td class="item_title"></td>
+			<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="Deal" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="youhui_insert" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%ADD}" />
+			<input type="reset" class="button" value="{%RESET}" />
+			</td>
+		</tr>
+		<tr>
+			<td colspan=2 class="bottomTd"></td>
+		</tr>
+	</table> 	 
+</form>
+</div>
+<include file="Public:footer" />

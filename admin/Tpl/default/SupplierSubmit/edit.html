@@ -1,0 +1,201 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<style type="text/css">
+    td span label{float:left; padding:3px; margin:2px; background:#E6E6E6; cursor:pointer; display:inline-block; }
+    td span label.active{background:#F60; color:#fff;}
+    #container{height:200px; width: 200px; float:left;}  
+    #container_front{width: 600px; height:500px; border: 1px solid #000; position: absolute; top: 10px; background-color: #fff; overflow: hidden;}
+    #container_m{ width: 550px; height: 450px; margin: 0 auto;}
+    #cancel_btn{display: block; width: 600px; height: 18px; line-height: 18px; text-align: right;}
+</style>
+<PHP>
+	function get_location_link($id)
+	{
+		$name = M("SupplierLocation")->where("id=".$id)->getField("name");
+		return "<a href='".u("SupplierLocation/edit",array("id"=>$id))."' target='_blank'>".$name."</a>";
+	}
+</PHP>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.2"></script> 
+<load href='__TMPL__Common/js/map.js' />
+<load href='__TMPL__Common/js/location.js' />
+<script type="text/javascript">
+var blue_point = "__ROOT__/system/blue_point.png";
+var red_point = "__ROOT__/system/red_point.png";
+	$(document).ready(function(){
+		draw_map('{$vo.xpoint}','{$vo.ypoint}');		
+		$("input[name='supplier_key_btn']").bind("click",function(){
+			search_supplier();
+		});
+	});
+
+</script>
+
+<div class="main">
+<div class="main_title"> 查看商家入驻申请 <a href="{:u("SupplierSubmit/index")}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>	
+	<if condition="$vo['location_id'] eq 0">
+	<tr>
+		<td class="item_title">商家名称:</td>
+		<td class="item_input">{$vo.name}</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">所属大类:</td>
+		<td class="item_input">
+		{$vo.deal_cate}
+		</td>
+	</tr>	
+	<tr>
+		<td class="item_title">所属小类:</td>
+		<td class="item_input">
+			<foreach name="vo.deal_cate_type" item="type">
+			{$type.name} &nbsp;&nbsp;
+			</foreach>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">{%DEAL_CITY}:</td>
+		<td class="item_input">
+		{$vo.city}
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%AREA_LIST}:</td>
+		<td class="item_input" id="area_list">
+			<foreach name="vo.area_list" item="area">
+			{$area.name} &nbsp;&nbsp;
+			</foreach>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%LOCATION_ADDRESS}:</td>
+		<td class="item_input">{$vo.address}</td>
+	</tr>	
+
+	<tr>
+		<td class="item_title">{%LOCATION_TEL}:</td>
+		<td class="item_input">{$vo.tel}</td>
+	</tr>
+	<tr>
+		<td class="item_title">{%LOCATION_OPENTIME}:</td>
+		<td class="item_input">{$vo.open_time}</td>
+	</tr>
+	
+	
+	<tr>
+            <td class="item_title">地图定位</td>
+            <td class="item_input">           	
+            	
+                <div id="container"></div>
+				
+            </td>
+    </tr>
+	
+	<tr>
+		<td class="item_title">商家logo:</td>
+		<td class="item_input"><a href="{$vo.h_supplier_logo}" target="_blank">查看</a></td>
+	</tr>
+
+	<tr>
+		<td class="item_title">店面图片:</td>
+		<td class="item_input"><a href="{$vo.h_supplier_image}" target="_blank">查看</a></td>
+	</tr>
+	
+		<tr>
+		<td class="item_title">所属商户:</td>
+		<td class="item_input">
+			<span id="supplier_list">
+			<select name="supplier_id">
+				<option value="0">{%EMPTY_SELECT_SUPPLIER}</option>
+			</select>
+			</span>
+			<input type="text" class="textbox" name="supplier_key" /> 
+			<input type="button" name="supplier_key_btn" class="button" value="{%SEARCH}" />
+			<span class="tip_span">{%AUTO_CREATE}</span>
+		</td>
+	</tr>
+	
+	<else />
+	
+	<tr>
+		<td class="item_title">入驻商铺:</td>
+		<td class="item_input">{$vo.location_id|get_location_link}</td>
+	</tr>
+	</if>
+	<tr>
+		<td class="item_title">企业名称:</td>
+		<td class="item_input">{$vo.h_name}</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">法人:</td>
+		<td class="item_input">{$vo.h_faren}</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">营业执照:</td>
+		<td class="item_input"><a href="{$vo.h_license}" target="_blank">查看</a></td>
+	</tr>
+
+	<tr>
+		<td class="item_title">其他资质:</td>
+		<td class="item_input"><a href="{$vo.h_other_license}" target="_blank">查看</a></td>
+	</tr>
+
+		
+	
+	<tr>
+		<td class="item_title">联系人电话:</td>
+		<td class="item_input">{$vo.h_tel}</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">开户行户名:</td>
+		<td class="item_input">{$vo.h_bank_user}</td>
+	</tr>
+	<tr>
+		<td class="item_title">开户行名称:</td>
+		<td class="item_input">{$vo.h_bank_name}</td>
+	</tr>
+	<tr>
+		<td class="item_title">开户行帐号:</td>
+		<td class="item_input">{$vo.h_bank_info}</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">申请会员:</td>
+		<td class="item_input">{$vo.h_user_name}</td>
+	</tr>	
+	
+
+	<tr>
+		<td class="item_title"></td>
+		<td class="item_input">
+			<if condition="$vo['is_publish'] eq 1">
+				已审核
+			<else />
+			<!--隐藏元素-->
+			<input type="hidden" name="id" value="{$vo.id}" />
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="SupplierSubmit" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="update" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="通过审核" />
+			<input type="button" class="button" value="取消" onclick="location.href='{:u("SupplierSubmit/index")}';" />
+			</if>
+			
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>	 
+</form>
+</div>
+<include file="Public:footer" />
